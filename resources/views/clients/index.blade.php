@@ -55,7 +55,6 @@
                                 frameborder="0"
                             ></iframe>
 
-                            {{-- http://docs.google.com/gview?url=https://acrtfm.com/manuals/2_cb024-036-048-060_Insopmain.pdf&embedded=true --}}
                         </div>
                     </div>
                 </div>

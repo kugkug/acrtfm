@@ -281,17 +281,7 @@ class AirconditionerController extends Controller
             if ($missing_model == "" || $missing_brand == "") {
                 return response()->json(['status' => 'error', 'message' => "toastr.error('Please complete the required fields.')"]);
             }
-            
-            // if (MissingModel::where('sku', strtoupper($missing_model))->get()->first()) {
-            //     return response()->json(['status' => 'error', 'message' => "toastr.error('Model was already reported!')"]);
-            // }
-                
-            // MissingModel::create([
-            //     'sku' => strtoupper($missing_model),
-            //     'brand' => strtoupper($missing_brand),
-            //     'link' => addslashes($link),
-            //     'pdf' => addslashes($pdf_link),
-            // ]);
+
 
             $param = "sku=".strtoupper($missing_model)."&brand=".strtoupper($missing_brand)."&link=".addslashes($link)."&pdf=".addslashes($pdf_link);
             $endpoint = "http://127.0.0.1/sheets-to-php/?type=missing&" . $param;
@@ -307,28 +297,5 @@ class AirconditionerController extends Controller
         } catch(Exception $e) {
             return response()->json([$e->getMessage()]);
         }
-
-        
-        // $search_texts = explode("*", $request->search);
-
-        // if ($request->search == "") 
-        //     return [];
-        
-        // if (sizeof($search_texts) > 1) {
-        //     $data = Airconditioner::where('url', '<>', null)
-        //     ->Where(function($query) use ($search_texts) {
-        //         foreach($search_texts as $search_text) {
-        //             $query->where('sku', 'like', '%'.$search_text.'%');
-        //         }
-        //     })
-        //     ->orderBy('sku', 'asc')
-        //     ->simplePaginate(100);
-
-        // } else {
-
-        //     $data = Airconditioner::where('sku', 'like',  '%'.$search_texts[0].'%')->orderBy('sku', 'asc')->simplePaginate(100); // wild card searching
-        // }
-            
-        // return response()->json($data);
     }
 }

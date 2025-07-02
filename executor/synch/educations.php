@@ -10,7 +10,7 @@
     $client->setAuthConfig(__DIR__ . '/credentials.json');
     $service = new Google_Service_Sheets($client);
 
-    $spreadsheetId = "1_PfpAtyRxvjnWGL3iO4rmbnccAbJWtJjiqIIlCV6lOc";
+    $spreadsheetId = config('google.spreadsheet_id_educations');
 
     $range = "Training videos and more";
     $response = $service->spreadsheets_values->get($spreadsheetId, $range);
@@ -33,5 +33,3 @@
         echo  "Successfully saved";
     else 
         echo  "Failed to save";
-
-
