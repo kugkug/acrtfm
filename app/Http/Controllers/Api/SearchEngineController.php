@@ -12,10 +12,10 @@ class SearchEngineController extends Controller
 {
     public function search(Request $request) {
         try {            
-            $api_key = "AIzaSyAzD7Sl2Wf4JdQp5ucvdQYb2siGzmm1mn8";
-            $cx = "f24a78313d83b40cb";
-            $lr = "lang_en";
-            $file_type = "pdf";
+            $api_key = config('google.api_key');
+            $cx = config('google.cx');
+            $lr = config('google.lr');
+            $file_type = config('google.file_type');
             $q = $request->search_query;
 
             $url = "https://www.googleapis.com/customsearch/v1?key=$api_key&cx=$cx&lr=$lr&fileType=$file_type&q=" . urlencode($q);
