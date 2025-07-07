@@ -200,8 +200,3 @@ h2 {
 .direct-chat-msg:last-child {
     margin-bottom: 0;
 }
-
-.direct-chat-text {
-    max-width: 500px !important;
-}
-/* End Generation Here */
