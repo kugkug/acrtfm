@@ -261,7 +261,7 @@ class AirconditionerController extends Controller
             $api_response = json_decode($api_response->getContent(), true);
             return [
                 'content' => $api_response['choices'][0]['message']['content'],
-                'citations' => $api_response['citations'],
+                'citations' => $api_response['citations'] ?? [],
             ];
         } catch (Exception $e) {
             return ['message' => $e->getMessage()];

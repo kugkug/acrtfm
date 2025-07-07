@@ -179,3 +179,29 @@ h2 {
     max-height: 90vh;
     overflow: auto;
 }
+
+.card-body-ai {
+    min-height: 500px;
+    max-height: 60vh !important;
+    overflow-x: hidden;
+}
+
+.direct-chat-messages {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    overflow: auto;
+}
+
+.direct-chat-msg {
+    margin-bottom: 10px;
+}
+
+.direct-chat-msg:last-child {
+    margin-bottom: 0;
+}
+
+.direct-chat-text {
+    max-width: 500px !important;
+}
+/* End Generation Here */

@@ -1,7 +1,18 @@
 document.addEventListener("DOMContentLoaded", function () {
     $("#btn-inquire").on("click", function () {
         let search = $("[name=table_search]").val();
+        if (search == "") return;
 
+        $("#div-result .direct-chat-messages").append(
+            `<div class="direct-chat-msg">
+                <div class="direct-chat-text m-0 float-right">
+                    ${search}
+                </div>  
+            </div>
+            `
+        );
+
+        $("[name=table_search]").val("");
         $.ajax({
             url: "/airconditioners/ask/ai",
             type: "POST",
@@ -11,35 +22,29 @@ document.addEventListener("DOMContentLoaded", function () {
             },
             data: { search_query: search },
             beforeSend: function () {
-                $("#div-result").html(
-                    '<div class="spinner-border text-info " role="status"> <span class="sr-only">Loading...</span> </div>'
+                $("#div-result").append(
+                    '<div class="spinner-border text-info" role="status"> <span class="sr-only">Loading...</span> </div>'
                 );
             },
             success: function (result) {
-                console.log(result);
                 if (result.status == false) return;
 
                 $("#div-result").parent().find(".spinner-border").remove();
-                let links = `
-                    <h3 class='my-3'>Other References: </h3>
-                    <div class='row'>`;
-
-                for (const item of result.citations) {
-                    links += `
-                            <div class="col-md-6 mb-2">
-                                <a href='${item}' target='_blank'> ${item} </a>
-                            </div>
-                            `;
-                }
-                links += `</div>`;
 
                 result.content = result.content.replace(/[\r\n]/g, "<br />");
-                $("#div-result").html(result.content);
-                $("#div-result").append(links);
+                $("#div-result .direct-chat-messages").append(
+                    `<div class="direct-chat-msg">
+                        <div class="direct-chat-text m-0 bg-primary text-white">
+                            ${result.content}
+                        </div>
+                    </div>  
+                </div>
+                `
+                );
+                // $("#div-result").append(links);
             },
             error: function (e) {
                 console.log(e);
-                $("#div-result").parent().find(".spinner-border").remove();
                 $("#div-result").parent().find(".spinner-border").remove();
             },
         });
