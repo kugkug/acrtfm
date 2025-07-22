@@ -115,7 +115,7 @@
             </div>
         </div>
     </div>
-    <input type="hidden" value="{{ url('/manuals') }}" id="txtManualPath">
+    <input type="hidden" value="{{ config('system.manual_url') }}/manuals" id="txtManualPath">
 </section>
 @include('partials.clients.footers')
 {{-- <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"> --}}

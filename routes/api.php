@@ -40,3 +40,4 @@ Route::post('manuals-upload', [ManualsUploader::class, 'upload']);
 Route::get('search-manuals', [SearchEngineController::class, 'search']);
 Route::get('ask-ai', [SearchEngineController::class, 'ask_ai']);
 Route::post('ask-grok-api', [SearchEngineController::class, 'ask_grok_api']);
+Route::post('search-from-manual-analysis', [SearchEngineController::class, 'search_from_manual_analysis']);

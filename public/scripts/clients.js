@@ -72,6 +72,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 );
             },
             success: function (result) {
+                console.log(result);
                 $("#div-model-data").parent().find(".spinner-border").remove();
 
                 let data = result.data;
@@ -146,6 +147,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 });
             },
             error: function (e) {
+                console.log(e);
                 $("#div-model-data").parent().find(".spinner-border").remove();
             },
         });

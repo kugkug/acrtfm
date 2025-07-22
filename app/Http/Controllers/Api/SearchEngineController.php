@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Http\Controllers\Controller;
+use App\Models\ManualAnalysis;
 use Exception;
 use GeminiAPI\Laravel\Facades\Gemini;
 use Illuminate\Http\Request;
@@ -72,6 +73,60 @@ class SearchEngineController extends Controller
                 ],
             ]);
             return $response;
+        } catch(Exception $e) {
+            return ['status' => false, 'message' => $e->getMessage()];
+        }
+    }
+
+    public function search_from_manual_analysis(Request $request) {
+        try {
+            // Search for the query in the summary, keywords, and full_text fields for more intelligent matching
+            $search_query = $request->search_query;
+
+            // Try to find the most relevant manual analysis using full-text search if available, otherwise fallback to LIKE
+            $manual_analysis = ManualAnalysis::query()
+                ->where(function($q) use ($search_query) {
+                    $q->where('keywords', 'like', '%' . $search_query . '%')
+                      ->orWhere('summary', 'like', '%' . $search_query . '%')
+                      ->orWhere('full_text', 'like', '%' . $search_query . '%');
+                })
+                ->orderByRaw("CASE 
+                    WHEN keywords LIKE ? THEN 1
+                    WHEN summary LIKE ? THEN 2
+                    WHEN full_text LIKE ? THEN 3
+                    ELSE 4 END", 
+                    [
+                        '%' . $search_query . '%',
+                        '%' . $search_query . '%',
+                        '%' . $search_query . '%'
+                    ])
+                ->get();
+
+            if ($manual_analysis->isEmpty()) {
+                return [
+                    'status' => false,
+                    'message' => 'No relevant manual found for your query.'
+                ];
+            }
+
+            // Prepare the best answer and related PDFs
+            $best = $manual_analysis->first();
+            $answer = $best->summary ?? $best->full_text ?? '';
+            $related_pdfs = $manual_analysis->map(function($item) {
+                return [
+                    'filename' => $item->filename,
+                    'file_path' => $item->file_path,
+                    'model_number' => $item->model_number,
+                    'brand' => $item->brand,
+                    'type' => $item->type,
+                ];
+            });
+
+            return [
+                'status' => true,
+                'answer' => $answer,
+                'related_pdfs' => $related_pdfs,
+            ];
         } catch(Exception $e) {
             return ['status' => false, 'message' => $e->getMessage()];
         }
