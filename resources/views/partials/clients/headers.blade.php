@@ -94,13 +94,16 @@
 					</a>
 				</li>
 
+        
 				@foreach ($app_module_list as $module)
+        @if (in_array($module['url'], ['ask-ai', 'airconditioners', 'education']))
 				<li class="nav-item">
-					<a href="/{{ $module['url'] }}" class="nav-link">
-						{!! $module['icon']  !!}
-						<p>{{ $module['label'] }}</p>
-					</a>
+            <a href="/{{ $module['url'] }}" class="nav-link">
+              {!! $module['icon']  !!}
+              <p>{{ $module['label'] }}</p>
+            </a>
 				</li>
+        @endif
 				@endforeach
 
 				

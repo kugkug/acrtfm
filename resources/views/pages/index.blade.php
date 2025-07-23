@@ -24,6 +24,16 @@
                 </a>
             </div>
             <div class="col-md-3 mt-2">
+                <a href="/education">
+                    <div class="small-box bg-default box-button">
+                        <div class="inner text-center">
+                            <i class="fas fa-book-reader"></i>
+                            <p class="mt-3">{{ strtoupper($app_module_list['education']['label'])}}</p>
+                        </div>
+                    </div>
+                </a>
+            </div>
+            {{-- <div class="col-md-3 mt-2">
                 <a href="/manufacturers">
                     <div class="small-box bg-default box-button">
                         <div class="inner text-center">
@@ -34,13 +44,13 @@
                     </div>
                 </a>
             </div>
-            
+             --}}
 
             
             
         </div>
 
-        <div class="row justify-content-around">
+        {{-- <div class="row justify-content-around">
             <div class="col-md-3 mt-2">
                 <a href="/education">
                     <div class="small-box bg-default box-button">
@@ -88,7 +98,7 @@
                 </a>
             </div>
         </div>
-    </section>
+    </section> --}}
 
     {{-- <x-news /> --}}
 @include('partials.clients.footers')
