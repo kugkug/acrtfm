@@ -309,4 +309,12 @@ class ModulesController extends Controller
         ];
         return view('admin.synch', $data)->with("root_url", URL::current());
     }
+
+    public function my_jobs() {
+        $data = [
+            'title' => 'My Jobs', 
+            'header' => 'My Jobs'
+        ];
+        return view('clients.my_jobs', $data)->with("root_url", URL::current());
+    }
 }

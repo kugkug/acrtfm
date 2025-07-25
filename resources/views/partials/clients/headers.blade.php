@@ -40,20 +40,15 @@
                 </a>				
 
                 <ul class="order-1 order-md-3 navbar-nav navbar-no-expand ml-auto">
-                    <!-- Messages Dropdown Menu -->
-                    {{-- <li class="nav-item dropdown">
-                      <a class="nav-link" href="discussions">
-                        <i class="fas fa-comments"></i>
-                      </a>
-                    </li> --}}
-                    <!-- Notifications Dropdown Menu -->
                     <li class="nav-item dropdown">
 						
                       	<a class="nav-link" data-toggle="dropdown" href="#">
                         	<i class="fa fa-user"></i>
                       	</a>
-                      	<div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                        
+                      	<div class="dropdown-menu dropdown-menu-md">
+							<a href="/my-jobs" class="dropdown-item">
+								<i class="fas fa-list"></i> My Jobs
+                        	</a>
                         	<a href="/execute/client/logout" class="dropdown-item">
 								<i class="fas fa-sign-out-alt"></i> Log Out
                         	</a>

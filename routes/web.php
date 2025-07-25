@@ -125,6 +125,8 @@ Route::group(['middleware' => ['auth', 'user_check']], function () {
     Route::get('/interesting-finds', [ModulesController::class, 'coming_soon']);
     Route::get('/be-a-member', [ModulesController::class, 'signup']);
     Route::get('/ask-ai', [ModulesController::class, 'ask_ai']);
+
+    Route::get('/my-jobs', [ModulesController::class, 'my_jobs']);
 });
 
 Route::get('/synch', [ModulesController::class, 'synchronize']);
