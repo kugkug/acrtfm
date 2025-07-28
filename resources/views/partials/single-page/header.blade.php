@@ -1,0 +1,68 @@
+
+<!DOCTYPE html>
+<html class="h-100" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> 
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="_token" content="{!! csrf_token() !!}" />
+    <meta name="_url" content="{!! URL::to('/') !!}" />
+    <meta name="theme" content="{{ $theme }}">
+    <title> {{ config('app.name') }} </title>
+
+    <link rel="shortcut icon" href="{{ asset('assets/system/images/acrtfm_logo.png') }}" type="image/x-icon">
+
+    <link
+      href="{{ asset('assets/system/plugins/tables/css/datatable/dataTables.bootstrap4.min.css') }}"
+      rel="stylesheet"
+    />
+    <link href="{{ asset('assets/system/plugins/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/system/plugins/bootstrap-datepicker/bootstrap-datepicker.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/system/plugins/bootstrap-daterangepicker/daterangepicker.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/system/plugins/toastr/css/toastr.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/system/plugins/jquery-asColorPicker-master/css/asColorPicker.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/system/select2/dist/css/select2.min.css') }}" rel="stylesheet">    
+    <link href="{{ asset('assets/system/datetime-picker/jquery.datetimepicker.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/system/plugins/sweetalert/css/sweetalert.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/system/css/style.css') }}" type="text/css" rel="stylesheet">
+    <link href="{{ asset('assets/system/css/override.css') }}" type="text/css" rel="stylesheet">
+</head>
+
+<body class="h-100">
+    {{-- @include('components.loader.full-loader') --}}
+
+    <div id="main-wrapper" class="show">
+
+        <div class="nav-header">
+            <div class="brand-logo">
+                <a href="{{ route('home') }}">
+                    <b class="logo-abbr"><img src="{{ asset('assets/system/images/acrtfm_logo.png') }}" alt=""> </b>
+                    <span class="logo-compact"><img src="{{ asset('assets/system/images/acrtfm_logo.png') }}" alt=""></span>
+                    <span class="brand-title">
+                        <h1>{{ config('app.name') }}</h1>
+                    </span>
+                </a>
+            </div>
+        </div>
+
+        <div class="header">    
+            <div class="header-content clearfix">
+                
+                
+            </div>
+        </div>
+
+        <div class="content-body content-body-single-page">  
+            <div class="row page-titles mx-0">
+                <div class="col-md-6">
+                    <h1 class="">{{ $title }}</h1>
+                    <p class="module-description">{{ $description }}</p>
+                </div>
+                <div class="col-md-6">
+                    @if(isset($right_panel))
+                        {!! $right_panel !!}
+                    @endif
+                </div>
+            </div>
+        

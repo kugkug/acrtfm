@@ -1,0 +1,27 @@
+<div class="nk-sidebar">           
+    <div class="nk-nav-scroll">
+        <ul class="metismenu" id="menu">
+            <li>
+                <a href="{{ route('home') }}" aria-expanded="false">
+                    <i class="fa-solid fa-home menu-icon fa-action"></i><span class="nav-text">Home</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('model-lookup') }}" aria-expanded="false">
+                    <i class="fa-solid fa-magnifying-glass menu-icon fa-action"></i><span class="nav-text">Model Lookup</span>
+                </a>            
+            </li>
+            <li>
+                <a href="{{ route('education') }}" aria-expanded="false">
+                    <i class="fa-regular fa-video menu-icon fa-action"></i><span class="nav-text">Education</span>
+                </a>
+            </li>
+            <li>
+                <a href="{{ route('ask-ai') }}" aria-expanded="false">
+                    <i class="fa-solid fa-robot menu-icon fa-action"></i><span class="nav-text">Ask A.I.</span>
+                </a>
+            </li>
+            
+        </ul>
+    </div>
+</div>
