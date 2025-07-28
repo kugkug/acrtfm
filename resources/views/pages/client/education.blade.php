@@ -1,14 +1,12 @@
 @include('partials.auth.header')
 
-<!-- Link the education CSS file -->
-<link href="{{ asset('assets/acrtfm/css/education.css') }}" rel="stylesheet">
-
-<section class="container-fluid px-5">
+<section class="container-fluid ">
     <div class="row">
         <div class="col-lg-12">
             <div class="card">
                 <div class="card-body">
                     <h3 class="card-title">
+                        
                         <i class="fa fa-magnifying-glass"></i>
                         Search By
                     </h3>
@@ -61,43 +59,50 @@
                                     <option value="{{$playlist}}">{{strtoupper($playlist)}}</option>
                                 @endforeach
                             </select>
-
-                            @include('components.loader.sub-loader')
                         </div>
                     </div>
-                    
+                    @include('components.loader.sub-loader')
                 </div>
             </div>
         </div>
     </div>
 
     <div class="row div-result"></div>
+    
+    
 </section>
 
-<!-- Video Popup Overlay -->
-<div class="video-popup-overlay" id="videoPopupOverlay">
-    <div class="video-popup-container">
-        <button class="video-close-btn" id="videoCloseBtn">
-            <i class="fa fa-times"></i>
-        </button>
-        
-        <div class="video-player" id="videoPlayer">
-            <div class="video-loading">
-                <i class="fa fa-spinner"></i>
-                <span>Loading video...</span>
+<div class="modal fade" id="educationModal">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content" style="overflow: hidden !important; ">
+            
+            <div class="modal-body p-0">
+                <iframe 
+                    style="height: 600px; width: 100% !important;"
+                    id="educationPlayer" 
+                    src="" 
+                    frameborder="0" 
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+                    referrerpolicy="strict-origin-when-cross-origin" 
+                    allowfullscreen
+                >
+                </iframe>
             </div>
-        </div>
-        
-        <div class="video-controls">
-            <div class="video-title" id="videoTitle"></div>
-            <div class="video-description" id="videoDescription"></div>
-            <button class="share-button" id="shareButton">
-                <i class="fa fa-share"></i>
-                Share Video
-            </button>
+            <div class="modal-footer d-flex justify-content-between">
+                <button type="button" class="btn btn-success">
+                    <i class="fa fa-share"></i> Share Video
+                </button>
+                <button type="button" class="btn btn-danger" data-dismiss="modal">
+                    <i class="fa fa-times"></i> Close
+                </button>
+            </div>
         </div>
     </div>
 </div>
+
+<input type="hidden" id="pageno">
+<input type="hidden" id="page_total">
+<input type="hidden" id="next_page">
 
 @include('partials.auth.footer')
 

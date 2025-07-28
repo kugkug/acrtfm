@@ -24,5 +24,6 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('education')->group(function () {
         Route::post('/search', [EdController::class, 'educationSearch'])->name("api-education-search");
+        Route::post('/paginate', [EdController::class, 'educationPaginate'])->name("api-education-paginate");
     });
 });

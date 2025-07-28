@@ -1,6 +1,3 @@
-/* Education Page Zoom Animation and Video Popup Styles */
-
-/* Zoom Animation for Images */
 .education-image {
     cursor: pointer;
     transition: transform 0.3s ease-in-out;
@@ -24,7 +21,6 @@
     display: block;
 }
 
-/* Video Popup Overlay */
 .video-popup-overlay {
     position: fixed;
     top: 0;

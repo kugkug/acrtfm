@@ -21,8 +21,25 @@ class ResponseHelper {
                     '$(".div-result").html("'.preg_replace('/\s+/', ' ', $this->modelLookup($data)).'"); ';
                 break; 
             case 'education':
-                $script = sizeof($data) == 0 ? '$(".div-result").html("No data found");' : 
-                    '$(".div-result").html("'.preg_replace('/\s+/', ' ', $this->education($data)).'"); _init_actions();';
+                if (sizeof($data) == 0) {
+                    $script = '$(".div-result").html("No data found");';
+                } else {
+                    $script = '
+                    $(".div-result").html("'.preg_replace('/\s+/', ' ', $this->education($data)['html']).'"); 
+                    $("#pageno").val("'.$this->education($data)['pageno'].'");
+                    $("#page_total").val("'.$this->education($data)['page_total'].'");
+                    $("#next_page").val("'.$this->education($data)['next_page'].'");
+                    _init_actions();
+                    ';
+                }
+                break;
+            case 'education-paginate':
+                    $script = '
+                    $(".div-result").append("'.preg_replace('/\s+/', ' ', $this->education($data)['html']).'"); 
+                    $("#pageno").val("'.$this->education($data)['pageno'].'");
+                    $("#next_page").val("'.$this->education($data)['next_page'].'");
+                    _init_actions();
+                    ';
                 break;
         }
 
@@ -58,36 +75,44 @@ class ResponseHelper {
         return $table;
     }
 
-    private function education(array $data): string {
+    private function education(array $data): array {
         $html = '';
-        foreach ($data as $education) {
+        foreach ($data['data'] as $education) {
             $url = explode("](", $education['url']);
             $title = ltrim($url[0], '[');
-            
-            if (isset($url[1])) {
-                $link = rtrim($url[1], ')');
-                $link = str_replace('"', "", $link);
-                $ytlink = explode("embed/", $url[1]);
-                $ytlinkid = explode("?si=", $ytlink[1]);
-                $yt = $ytlink[0]."watch?v=".$ytlinkid[0];
-                $thumbnail = "https://img.youtube.com/vi/".$ytlinkid[0]."/hqdefault.jpg";
-                $watch_link = $ytlink[0] ."embed/". $ytlinkid[0] . "?autoplay=1&mute=0&enablejsapi=1";
-                $html .= "
-                   <div class='col-lg-4 col-md-6 col-sm-12 mb-4'>
-                        <div class='education-image' 
-                            data-video-src='".addslashes($watch_link)."'
-                            data-video-title='".$title."'
-                        >
-                            <img src='".$thumbnail."' class='img-fluid' />
-                            <div class='image-overlay'>
-                                <i class='fa fa-play-circle'></i>
+            try {
+                if (isset($url[1])) {
+                    $link = rtrim($url[1], ')');
+                    $link = str_replace('"', "", $link);
+                    $ytlink = explode("embed/", $url[1]);
+                    $ytlinkid = explode("?si=", $ytlink[1]);
+                    $yt = $ytlink[0]."watch?v=".$ytlinkid[0];
+                    $thumbnail = "https://img.youtube.com/vi/".$ytlinkid[0]."/hqdefault.jpg";
+                    $watch_link = $ytlink[0] ."embed/". $ytlinkid[0] . "?autoplay=1&mute=0&enablejsapi=1";
+                    $html .= "
+                    <div class='col-lg-4 col-md-6 col-sm-12 mb-4'>
+                            <div class='education-image btn-paylist' 
+                                data-src='".addslashes($watch_link)."'
+                                data-title='".$title."'
+                            >
+                                <img src='".$thumbnail."' class='img-fluid ' />
+                                <div class='image-overlay'>
+                                    <i class='fa fa-play-circle'></i>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                ";
+                    ";
+                }
+            } catch (\Exception $e) {
+                logInfo($e->getMessage());
             }
         }
-        return $html;
+        return [
+            'html' => $html,
+            'pageno' => $data['current_page'],
+            'next_page' => $data['current_page'] + 1,
+            'page_total' => ceil($data['total'] / 15)
+        ];
     }
 
     public function formatManualUrls(string $urls) {

@@ -61,6 +61,7 @@ class ModulesController extends Controller
         $this->data['presentors'] = globalHelper()->getPresentors();
         
         return view('pages.client.education', $this->data)->with("root_url", URL::current());
+        // return view('pages.client.education_demo', $this->data)->with("root_url", URL::current());
         
     }
 

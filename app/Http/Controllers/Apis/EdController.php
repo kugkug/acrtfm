@@ -27,4 +27,24 @@ class EdController extends Controller
             return response()->json(['status' => false, 'message' => $e->getMessage()], 500);
         }
     }
+
+    public function educationPaginate(Request $request): JsonResponse {
+        try {
+            $is_playlist = false;
+            $search_type = $request->input('search_type');
+            $search_text = $request->input('search_text');
+
+            if ($search_type == "") {
+                $educations = Education::offset($request->input('page') * 15)->limit(15)->orderBy('category', 'asc')->get()->toArray();
+
+                return response()->json(['status' => true, 'message' => 'Search successful', 'data' => $educations]);
+            }
+
+            return response()->json(['status' => true, 'message' => 'Search successful', 'data' => $request->all()]);
+        } catch (\Exception $e) {
+            logInfo($e->getMessage());
+            logInfo($e->getTraceAsString());
+            return response()->json(['status' => false, 'message' => 'Failed to fetch'], 500);
+        }
+    }
 }

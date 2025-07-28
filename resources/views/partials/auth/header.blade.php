@@ -27,6 +27,8 @@
     <link href="{{ asset('assets/system/plugins/sweetalert/css/sweetalert.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/system/css/style.css') }}" type="text/css" rel="stylesheet">
     <link href="{{ asset('assets/system/css/override.css') }}" type="text/css" rel="stylesheet">
+    <link href="{{ asset('assets/acrtfm/css/styles.css') }}" type="text/css" rel="stylesheet">
+    
 </head>
 
 <body class="h-100">

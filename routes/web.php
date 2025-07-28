@@ -33,6 +33,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
         Route::prefix('education')->group(function () {
             Route::post('/search', [EdController::class, 'educationSearch'])->name("exec-education-search");
+            Route::post('/paginate', [EdController::class, 'educationPaginate'])->name("exec-education-paginate");
         });
     });
 });
