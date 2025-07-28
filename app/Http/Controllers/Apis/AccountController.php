@@ -51,8 +51,9 @@ class AccountController extends Controller
 
     public function logout(Request $request): JsonResponse{
         try {
-            $validated = validatorHelper()->validate('account-logout', $request);
-            return response()->json($validated, 200);
+            $user = auth()->guard()->user();
+            $user->tokens()->delete();
+            return response()->json(['status' => true, 'message' => 'Logout successful'], 200);
         } catch (\Exception $e) {
             logInfo($e->getTraceAsString());
             return response()->json(['status' => false, 'message' => 'Logout failed'], 500);

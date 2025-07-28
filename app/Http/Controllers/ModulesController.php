@@ -81,4 +81,11 @@ class ModulesController extends Controller
         $this->data['action_button'] = "<a href='#' class='btn btn-info btn-md btn-flat d-none' target='_blank' id='full-screen-btn'><i class='fa fa-expand'></i> Full Screen</a>";
         return view('pages.client.explore_manuals', $this->data)->with("root_url", URL::current());
     }
+
+    public function videoPlaylist() {
+        $this->data['title'] = 'Video Playlist'; 
+        $this->data['description'] = "Browse and watch video playlists";
+        $this->data['header'] = "Video Playlist";
+        return view('pages.client.video_playlist', $this->data)->with("root_url", URL::current());
+    }
 }

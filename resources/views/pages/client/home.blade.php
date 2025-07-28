@@ -1,6 +1,6 @@
 @include('partials.auth.header')
 
-<section class="container-fluid px-5">
+<section class="container-fluid">
     <div class="row">
         <div class="col-lg-4">
             <div class="card shadow-sm cursor-pointer" data-trigger="model_lookup" data-url="{{ route('model-lookup') }}"> 

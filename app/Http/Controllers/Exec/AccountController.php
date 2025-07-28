@@ -46,4 +46,24 @@ class AccountController extends Controller
             return globalHelper()->ajaxErrorResponse('Login failed');
         }
     }
+
+    public function logout(Request $request): JsonResponse{
+        try {
+            $api_response = apiHelper()->post($request, route('api-account-logout'));
+            if(! $api_response['status']){
+                return globalHelper()->ajaxErrorResponse($api_response['message']);
+            }
+
+            return globalHelper()->ajaxSuccessResponse(
+                'scripts',
+                'success',
+                'logout',
+                'Logout successful',
+                'Logout successful'
+            );
+        } catch (\Exception $e) {
+            logInfo($e->getTraceAsString());
+            return response()->json(['error' => 'Logout failed'], 500);
+        }
+    }
 }

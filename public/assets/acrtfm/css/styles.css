@@ -171,6 +171,10 @@
 
 /* Responsive Design */
 @media (max-width: 768px) {
+    #iframePlaylist {
+        height: 400px !important;
+    }
+
     .video-popup-container {
         max-width: 95%;
         max-height: 95%;
@@ -230,6 +234,10 @@
 }
 
 .education-image:hover .image-overlay i {
+    transform: scale(1.1);
+}
+
+.playlist-image:hover .image-overlay i {
     transform: scale(1.1);
 }
 

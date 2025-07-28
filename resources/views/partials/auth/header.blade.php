@@ -72,12 +72,12 @@
                         <li class="icons dropdown">
                             <div class="user-img c-pointer position-relative"   data-toggle="dropdown">
                                 <span class="activity"></span>
-                                <img src="{{ asset('assets/system/images/logo.svg') }}" height="40" width="40" alt="UI">
+                                <img src="{{ asset('assets/system/images/acrtfm_logo.png') }}" height="40" width="40" alt="UI">
                             </div>
                             <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
                                 <div class="dropdown-content-body">
                                     <ul>
-                                        <li>
+                                        {{-- <li>
                                             <a href="#">
                                                 <i class="icon-envelope-open"></i> <span>Settings</span>
                                             </a>
@@ -86,7 +86,7 @@
                                             <a href="#">
                                                 <i class="icon-user"></i> <span>Profile</span>
                                             </a>
-                                        </li>                                                                               
+                                        </li>                                                                                --}}
                                         <li><a href="javascript:void(0)" data-action="logout"><i class="icon-key"></i> <span>Logout</span></a></li>
                                     </ul>
                                 </div>

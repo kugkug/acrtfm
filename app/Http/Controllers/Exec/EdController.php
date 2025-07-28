@@ -11,15 +11,17 @@ class EdController extends Controller
     public function educationSearch(Request $request): JsonResponse {
         try {
             $api_response = apiHelper()->post($request, route('api-education-search'));
-            
-            if(! $api_response['status']){
+            // return response()->json($api_response);
+            if(! $api_response['status']) {
                 return globalHelper()->ajaxErrorResponse($api_response['message']);
             }
 
+            $type = $request->search_type == "playlist" ? "education-playlist" : "education";
+            
             return globalHelper()->ajaxSuccessResponse(
                 'scripts',
                 'success',
-                'education',
+                $type,
                 '',
                 '',
                 $api_response['data']

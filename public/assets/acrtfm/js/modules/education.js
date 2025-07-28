@@ -71,8 +71,8 @@ function _fetch(formData) {
 }
 
 function _init_actions() {
-    $(".btn-paylist").off();
-    $(".btn-paylist").on("click", function () {
+    $(".btn-education").off();
+    $(".btn-education").on("click", function () {
         let watch_link = $(this).attr("data-src");
         let title = $(this).attr("data-title");
 
@@ -83,6 +83,13 @@ function _init_actions() {
         $("#educationModal").on("hidden.bs.modal", function () {
             $("#educationPlayer").attr("src", "");
         });
-        // console.log(watch_link);
+    });
+
+    $(".btn-playlist").off();
+    $(".btn-playlist").on("click", function () {
+        let watch_link = $(this).attr("data-src");
+        console.log(watch_link);
+
+        $("#iframePlaylist").attr("src", watch_link);
     });
 }

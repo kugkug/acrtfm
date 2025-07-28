@@ -16,6 +16,9 @@ class ResponseHelper {
             case 'login':
                 $script = "window.location.href = '".route('home')."';";
                 break;
+            case 'logout':
+                $script = "window.location.href = '".route('login')."';";
+                break;
             case 'model-lookup':
                 $script = sizeof($data) == 0 ? '$(".div-result").html("No data found");' : 
                     '$(".div-result").html("'.preg_replace('/\s+/', ' ', $this->modelLookup($data)).'"); ';
@@ -40,6 +43,12 @@ class ResponseHelper {
                     $("#next_page").val("'.$this->education($data)['next_page'].'");
                     _init_actions();
                     ';
+                break;
+            case 'education-playlist':
+                $script = '
+                $(".div-result").html("'.preg_replace('/\s+/', ' ', $this->education_playlist($data)['html']).'"); 
+                _init_actions();
+                ';
                 break;
         }
 
@@ -91,7 +100,7 @@ class ResponseHelper {
                     $watch_link = $ytlink[0] ."embed/". $ytlinkid[0] . "?autoplay=1&mute=0&enablejsapi=1";
                     $html .= "
                     <div class='col-lg-4 col-md-6 col-sm-12 mb-4'>
-                            <div class='education-image btn-paylist' 
+                            <div class='education-image btn-education' 
                                 data-src='".addslashes($watch_link)."'
                                 data-title='".$title."'
                             >
@@ -113,6 +122,61 @@ class ResponseHelper {
             'next_page' => $data['current_page'] + 1,
             'page_total' => ceil($data['total'] / 15)
         ];
+    }
+
+    private function education_playlist(array $data): array {
+        try {
+            $html = "<div class='col-md-9'>
+                        <iframe src='' 
+                            id='iframePlaylist'
+                            frameborder='0' 
+                            allow='accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture' 
+                            style='width: 100%; height: 100%;'
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    <div class='col-md-3' style='max-height: 800px; overflow-y: auto; border: 1px solid #ccc;'>";
+                try {
+                    foreach ($data as $education) {
+                        $url = explode("](", $education['url']);
+                        $title = ltrim($url[0], '[');
+                        
+                        if (isset($url[1])) {
+                            $link = rtrim($url[1], ')');
+                            $link = str_replace('"', "", $link);
+                            $ytlink = explode("embed/", $url[1]);
+                            $ytlinkid = explode("?si=", $ytlink[1]);
+                            $yt = $ytlink[0]."watch?v=".$ytlinkid[0];
+                            $thumbnail = "https://img.youtube.com/vi/".$ytlinkid[0]."/hqdefault.jpg";
+                            $watch_link = $ytlink[0] ."embed/". $ytlinkid[0] . "?autoplay=1&mute=0&enablejsapi=1";
+                            $html .= "
+                                <div class='education-image btn-playlist mt-4'  style='float: right; width: 100%; height: auto;'
+                                    data-src='".addslashes(str_replace('"', "", $watch_link))."'
+                                >
+                                    <img src='".$thumbnail."' class='img-fluid ' />
+                                    <div class='image-overlay'>
+                                        <i class='fa fa-play-circle'></i>
+                                    </div>
+                                    ".str_replace('"', "", $title)."
+                                </div>
+                            ";
+                        }
+                    }
+                } catch (\Exception $e) {
+                    logInfo($e->getMessage());
+                } 
+            $html .= "</div>";
+            return ['html' => $html];
+            
+        } catch (\Exception $e) {
+            logInfo($e->getMessage());
+            return ['html' => ''];
+        }
+        // $html = '';
+        // foreach ($data['data'] as $education) {
+        //     $html .= $education['url'];
+        // }
+        // return ['html' => $html];
     }
 
     public function formatManualUrls(string $urls) {
