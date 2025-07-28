@@ -23,6 +23,11 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/model-lookup', [ModulesController::class, 'modelLookup'])->name("model-lookup");
     Route::get('/education', [ModulesController::class, 'education'])->name("education");
     Route::get('/ask-ai', [ModulesController::class, 'askAi'])->name("ask-ai");
+    
+    Route::prefix('profile')->group(function () {
+        Route::get('/', [ModulesController::class, 'profile'])->name("profile");
+        Route::get('/my-jobs', [ModulesController::class, 'myJobs'])->name("my-jobs");
+    });
 
     Route::get('/explore/{model}/manuals', [ModulesController::class, 'exploreManuals'])->name("explore-manuals");
 

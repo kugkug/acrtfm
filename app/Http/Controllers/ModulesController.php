@@ -88,4 +88,18 @@ class ModulesController extends Controller
         $this->data['header'] = "Video Playlist";
         return view('pages.client.video_playlist', $this->data)->with("root_url", URL::current());
     }
+
+    public function myJobs() {
+        $this->data['title'] = 'My Jobs'; 
+        $this->data['description'] = "My Jobs";
+        $this->data['header'] = "My Jobs";
+        return view('pages.client.my_jobs', $this->data)->with("root_url", URL::current());
+    }
+
+    public function profile() {
+        $this->data['title'] = 'Profile'; 
+        $this->data['description'] = "Profile";
+        $this->data['header'] = "Profile";
+        return view('pages.client.profile', $this->data)->with("root_url", URL::current());
+    }
 }
