@@ -1,4 +1,3 @@
-
 @include('partials.single-page.header')
 
 @php
@@ -20,9 +19,6 @@
                         @if(isset($urls['tels']) && $urls['tels'] != '')
                             - {!! strtoupper($urls['tels']) !!}
                         @endif
-                        <div class="float-right">
-                            {!! $action_button !!}
-                        </div>
                     </h3>
                     
                     <div class="row mt-3">
@@ -56,8 +52,8 @@
             </div>
         </div>
     </div>
-
-    <div class="row">
+    {!! $action_button !!}
+    <div class="row mt-2">
         <div class="col-md-12">
             <iframe id="ifrPdf" src="" style="width:100%;" height="600px" frameborder="0"></iframe>
         </div>

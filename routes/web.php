@@ -18,11 +18,15 @@ Route::prefix('executor')->group(function () {
     });
 });
 
-Route::middleware('auth:sanctum')->group(function () {
+Route::middleware(['auth:sanctum', 'web'])->group(function () {
     Route::get('/home', [ModulesController::class, 'home'])->name("home");
     Route::get('/model-lookup', [ModulesController::class, 'modelLookup'])->name("model-lookup");
     Route::get('/education', [ModulesController::class, 'education'])->name("education");
     Route::get('/ask-ai', [ModulesController::class, 'askAi'])->name("ask-ai");
+    
+    Route::get('/video-playlist', [ModulesController::class, 'videoPlaylist'])->name("video-playlist");
+
+    Route::get('/shared/{id}/education', [ModulesController::class, 'sharedEducation'])->name("shared-education");
     
     Route::prefix('profile')->group(function () {
         Route::get('/', [ModulesController::class, 'profile'])->name("profile");

@@ -99,15 +99,20 @@ class ResponseHelper {
                     $thumbnail = "https://img.youtube.com/vi/".$ytlinkid[0]."/hqdefault.jpg";
                     $watch_link = $ytlink[0] ."embed/". $ytlinkid[0] . "?autoplay=1&mute=0&enablejsapi=1";
                     $html .= "
-                    <div class='col-lg-4 col-md-6 col-sm-12 mb-4'>
+                        <div class='col-lg-3 mb-4' title='".str_replace('"', "", $title)."'>
                             <div class='education-image btn-education' 
                                 data-src='".addslashes($watch_link)."'
-                                data-title='".$title."'
+                                data-title='".str_replace('"', "", $title)."'
+                                data-share='".url("shared/".$education['id']."/education")."'
                             >
                                 <img src='".$thumbnail."' class='img-fluid ' />
                                 <div class='image-overlay'>
                                     <i class='fa fa-play-circle'></i>
                                 </div>
+                                
+                            </div>
+                            <div class='video-title'>
+                            ".str_replace('"', "", $title)."
                             </div>
                         </div>
                     ";
@@ -157,7 +162,9 @@ class ResponseHelper {
                                     <div class='image-overlay'>
                                         <i class='fa fa-play-circle'></i>
                                     </div>
-                                    ".str_replace('"', "", $title)."
+                                    <div class='video-title px-2' title='".str_replace('"', "", $title)."'>
+                                        ".str_replace('"', "", $title)."
+                                    </div>
                                 </div>
                             ";
                         }
@@ -172,11 +179,6 @@ class ResponseHelper {
             logInfo($e->getMessage());
             return ['html' => ''];
         }
-        // $html = '';
-        // foreach ($data['data'] as $education) {
-        //     $html .= $education['url'];
-        // }
-        // return ['html' => $html];
     }
 
     public function formatManualUrls(string $urls) {

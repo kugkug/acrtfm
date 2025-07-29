@@ -89,8 +89,8 @@
                 </iframe>
             </div>
             <div class="modal-footer d-flex justify-content-between">
-                <button type="button" class="btn btn-success">
-                    <i class="fa fa-share"></i> Share Video
+                <button type="button" class="btn btn-success" data-trigger="copy-share-link" data-share="">
+                    <i class="fa fa-share"></i> Copy Share Link
                 </button>
                 <button type="button" class="btn btn-danger" data-dismiss="modal">
                     <i class="fa fa-times"></i> Close

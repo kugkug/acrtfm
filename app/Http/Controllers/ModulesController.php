@@ -78,7 +78,7 @@ class ModulesController extends Controller
         $this->data['description'] = "Explore manuals";
         $this->data['right_panel'] = "<div class='float-right'><a href='".route('model-lookup')."' class='btn btn-success btn-md btn-flat' ><i class='fa fa-search'></i> Search Another</a></div>";
         $this->data['header'] = "Explore Manuals";
-        $this->data['action_button'] = "<a href='#' class='btn btn-info btn-md btn-flat d-none' target='_blank' id='full-screen-btn'><i class='fa fa-expand'></i> Full Screen</a>";
+        $this->data['action_button'] = "<a href='#' class='btn btn-info btn-md btn-flat btn-block d-none' target='_blank' id='full-screen-btn'><i class='fa fa-expand'></i> Full Screen</a>";
         return view('pages.client.explore_manuals', $this->data)->with("root_url", URL::current());
     }
 
@@ -101,5 +101,13 @@ class ModulesController extends Controller
         $this->data['description'] = "Profile";
         $this->data['header'] = "Profile";
         return view('pages.client.profile', $this->data)->with("root_url", URL::current());
+    }
+
+    public function sharedEducation($id) {
+        $this->data['education'] = globalHelper()->getSharedEducation($id);
+        $this->data['title'] = 'Shared Educational Video'; 
+        $this->data['description'] = "Shared Educational Video";
+        $this->data['header'] = "Shared Educational Video";
+        return view('pages.subs.shared_education', $this->data)->with("root_url", URL::current());
     }
 }

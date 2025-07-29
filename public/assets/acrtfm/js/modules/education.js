@@ -77,7 +77,11 @@ function _init_actions() {
         let title = $(this).attr("data-title");
 
         $("#educationPlayer").attr("src", watch_link);
-        // $("#videoTitle").text(title);
+        $("[data-trigger='copy-share-link']").attr(
+            "data-share",
+            $(this).attr("data-share")
+        );
+
         $("#educationModal").modal("show");
 
         $("#educationModal").on("hidden.bs.modal", function () {
@@ -91,5 +95,12 @@ function _init_actions() {
         console.log(watch_link);
 
         $("#iframePlaylist").attr("src", watch_link);
+    });
+
+    $("[data-trigger='copy-share-link']").off();
+    $("[data-trigger='copy-share-link']").on("click", function () {
+        let share_link = $(this).attr("data-share");
+        navigator.clipboard.writeText(share_link);
+        toastr.success("Share link copied to clipboard");
     });
 }

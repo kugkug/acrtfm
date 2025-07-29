@@ -1,7 +1,7 @@
 .education-image {
     cursor: pointer;
     transition: transform 0.3s ease-in-out;
-    border-radius: 8px;
+
     overflow: hidden;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     position: relative;
@@ -244,7 +244,7 @@
 /* Card styling for education items */
 .education-card {
     background: white;
-    border-radius: 12px;
+
     overflow: hidden;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
@@ -271,4 +271,13 @@
     font-size: 14px;
     line-height: 1.4;
     margin-bottom: 0;
+}
+
+.video-title {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    font-weight: normal;
+    font-size: 14px;
+    margin-top: 5px;
 }

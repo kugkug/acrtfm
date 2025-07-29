@@ -7,6 +7,7 @@ use App\Mail\AxoMailer;
 use App\Models\Airconditioner;
 use App\Models\Communication;
 use App\Models\Contact;
+use App\Models\Education;
 use App\Models\Extension;
 use App\Models\Keyword;
 use App\Models\Message;
@@ -251,6 +252,16 @@ class GlobalHelper {
             sort($presentors);
             
             return $presentors;
+        } catch (\Exception $e) {
+            logInfo($e->getMessage());
+            return [];
+        }
+    }
+
+    public function getSharedEducation($id) {
+        try {
+            $education = Education::where('id', $id)->first();
+            return $education->toArray();
         } catch (\Exception $e) {
             logInfo($e->getMessage());
             return [];
