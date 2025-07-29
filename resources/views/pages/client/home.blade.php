@@ -38,7 +38,21 @@
                 </div>
             </div>
         </div>
-
+    </div>
+    <div class="row">
+        <div class="col-lg-4">
+            <div class="card shadow-sm cursor-pointer" data-trigger="my-jobs" data-url="{{ route('my-jobs') }}"> 
+                <div class="card-body">
+                    <h3 class="card-title">Jobs</h3>
+                    <div class="d-inline-block">
+                        <h2 class=""></h2>
+                        <p class=" mb-0">My Jobs</p>
+                    </div>
+                    <span class="float-right display-5 opacity-5"><i class="fa fa-briefcase icon-action"></i></span>
+                </div>
+            </div>
+        </div>
+       
     </div>
 </section>
 @include('partials.auth.footer')

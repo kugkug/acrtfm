@@ -49,5 +49,3 @@
 
 
 @include('partials.auth.footer')
-
-<script src="{{ asset('assets/acrtfm/js/modules/model-lookup.js') }}"></script>

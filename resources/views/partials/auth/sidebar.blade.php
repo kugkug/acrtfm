@@ -21,7 +21,11 @@
                     <i class="fa-solid fa-robot menu-icon fa-action"></i><span class="nav-text">Ask A.I.</span>
                 </a>
             </li>
-            
+            <li>
+                <a href="{{ route('my-jobs') }}" aria-expanded="false">
+                    <i class="fa-solid fa-briefcase menu-icon fa-action"></i><span class="nav-text">My Jobs</span>
+                </a>
+            </li>
         </ul>
     </div>
 </div>

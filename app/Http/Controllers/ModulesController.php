@@ -89,11 +89,34 @@ class ModulesController extends Controller
         return view('pages.client.video_playlist', $this->data)->with("root_url", URL::current());
     }
 
+    public function sharedEducation($id) {
+        $this->data['education'] = globalHelper()->getSharedEducation($id);
+        $this->data['title'] = 'Shared Educational Video'; 
+        $this->data['description'] = "Shared Educational Video";
+        $this->data['header'] = "Shared Educational Video";
+        return view('pages.subs.shared_education', $this->data)->with("root_url", URL::current());
+    }
+
     public function myJobs() {
         $this->data['title'] = 'My Jobs'; 
-        $this->data['description'] = "My Jobs";
+        $this->data['description'] = "List of Job Sites you have worked on";
         $this->data['header'] = "My Jobs";
-        return view('pages.client.my_jobs', $this->data)->with("root_url", URL::current());
+        $this->data['right_panel'] = "<a href='".route('my-jobs-new')."' class='btn btn-success btn-md btn-flat btn-block ' ><i class='fa fa-plus'></i> Add New Job Sites</a>";
+        return view('pages.client.jobs.list', $this->data)->with("root_url", URL::current());
+    }
+
+    public function newJob() {
+        $this->data['title'] = 'New Job Site'; 
+        $this->data['description'] = "Add new job site for your reference";
+        $this->data['header'] = "New Job Site";
+        return view('pages.client.jobs.new', $this->data)->with("root_url", URL::current());
+    }
+
+    public function editJob($id) {
+        $this->data['title'] = 'Edit Job Site'; 
+        $this->data['description'] = "Modify existing job site";
+        $this->data['header'] = "Edit Job Site";
+        return view('pages.client.jobs.edit', $this->data)->with("root_url", URL::current());
     }
 
     public function profile() {
@@ -103,11 +126,5 @@ class ModulesController extends Controller
         return view('pages.client.profile', $this->data)->with("root_url", URL::current());
     }
 
-    public function sharedEducation($id) {
-        $this->data['education'] = globalHelper()->getSharedEducation($id);
-        $this->data['title'] = 'Shared Educational Video'; 
-        $this->data['description'] = "Shared Educational Video";
-        $this->data['header'] = "Shared Educational Video";
-        return view('pages.subs.shared_education', $this->data)->with("root_url", URL::current());
-    }
+   
 }

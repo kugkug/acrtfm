@@ -54,12 +54,12 @@
         </div>
 
         <div class="content-body content-body-single-page">  
-            <div class="row page-titles mx-0">
-                <div class="col-md-6">
+            <div class="row page-titles">
+                <div class="col-md-6 col-sm-12">
                     <h1 class="">{{ $title }}</h1>
                     <p class="module-description">{{ $description }}</p>
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-6 col-sm-12">
                     @if(isset($right_panel))
                         {!! $right_panel !!}
                     @endif

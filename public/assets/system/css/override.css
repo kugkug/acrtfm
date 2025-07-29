@@ -10,8 +10,13 @@
     );
 }
 
+html,
+body {
+    height: 100% !important;
+}
+
 .content-body {
-    min-height: 100vh !important;
+    min-height: 90vh !important;
 }
 
 .brand-title h1 {
@@ -507,4 +512,20 @@ input[type="file"]::file-selector-button {
 .content-body-single-page {
     margin: 0px !important;
     padding: 0px !important;
+}
+
+/* DATA TABLE DESIGN */
+@media screen and (max-width: 767px) {
+    .dataTables_length,
+    .dataTables_filter,
+    .dataTables_info,
+    .dataTables_paginate {
+        width: 100% !important;
+        display: flex !important;
+        justify-content: center !important;
+    }
+
+    .page-titles {
+        padding: 15px 15px 0px 15px !important;
+    }
 }

@@ -89,11 +89,6 @@
                                             </a>
                                         </li> 
                                         <li>
-                                            <a href="{{ route('my-jobs') }}">
-                                                <i class="icon-list"></i> <span>My Jobs</span>
-                                            </a>
-                                        </li>
-                                        <li>
                                             &nbsp;
                                         </li>
                                         <li><a href="javascript:void(0)" data-action="logout"><i class="icon-key"></i> <span>Logout</span></a></li>
@@ -109,19 +104,15 @@
         @include('partials.auth.sidebar')
 
         <div class="content-body">  
-            <div class="row page-titles mx-0">
-                <div class="col-12">
+            <div class="row page-titles">
+                <div class="col-md-6">
                     <h1 class="">{{ $title }}</h1>
                     <p class="module-description">{{ $description }}</p>
                 </div>
-                <div class="col-6">
-                    {{-- @include('components.right-panel') --}}
-                    {{-- <x-right-panel 
-                        xtype='{{ $panel_type }}'
-                        xread='{{ $permissions[$panel_type]['read']  ?? false }}'
-                        xwrite='{{ $permissions[$panel_type]['edit']  ?? false }}'
-                        xdelete='{{ $permissions[$panel_type]['delete']  ?? false }}'
-                    /> --}}
+                <div class="col-md-6">
+                    @if(isset($right_panel))
+                        {!! $right_panel !!}
+                    @endif
                 </div>
             </div>
         
