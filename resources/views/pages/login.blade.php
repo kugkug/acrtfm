@@ -23,9 +23,13 @@
                                 </div>
                                 <button class="btn btn-outline-info btn-block btn-flat" data-trigger="login-submit">Sign In</button>
                             </form>
-                            <div class="d-flex justify-content-between">
-                                <p class="login-form__footer"><a href="{{route('forgot-password')}}" class="text-primary">Forgot Password</a></p>
-                                <p class="login-form__footer">Dont have account? <a href="{{route('register')}}" class="text-primary">Sign Up</a> now</p>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <p class="login-form__footer"><a href="{{route('forgot-password')}}" class="text-primary">Forgot Password</a></p>
+                                </div>
+                                <div class="col-md-6">
+                                    <p class="login-form__footer">Dont have account? <a href="{{route('register')}}" class="text-primary">Sign Up</a> now</p>
+                                </div>
                             </div>
                         </div>
                     </div>
