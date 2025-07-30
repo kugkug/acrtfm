@@ -9,7 +9,7 @@
     <meta name="_token" content="{!! csrf_token() !!}" />
     <meta name="_url" content="{!! URL::to('/') !!}" />
     <meta name="theme" content="{{ $theme }}">
-    <title> {{ config('app.name') }} </title>
+    <title> {{ config('app.name') }}  @if(isset($title)) | {{ $title }} @endif </title>
 
     <link rel="shortcut icon" href="{{ asset('assets/system/images/acrtfm_logo.png') }}" type="image/x-icon">
 

@@ -98,17 +98,17 @@ class ModulesController extends Controller
     }
 
     public function myJobs() {
-        $this->data['title'] = 'My Jobs'; 
-        $this->data['description'] = "List of Job Sites you have worked on";
-        $this->data['header'] = "My Jobs";
-        $this->data['right_panel'] = "<a href='".route('my-jobs-new')."' class='btn btn-success btn-md btn-flat btn-block ' ><i class='fa fa-plus'></i> Add New Job Sites</a>";
+        $this->data['title'] = 'Accomplishments'; 
+        $this->data['description'] = "List of accomplishments you have achieved";
+        $this->data['header'] = "Accomplishments";
+        $this->data['right_panel'] = "<a href='".route('my-jobs-new')."' class='btn btn-success btn-md btn-flat btn-block ' ><i class='fa fa-plus'></i> Add New</a>";
         return view('pages.client.jobs.list', $this->data)->with("root_url", URL::current());
     }
 
     public function newJob() {
-        $this->data['title'] = 'New Job Site'; 
-        $this->data['description'] = "Add new job site for your reference";
-        $this->data['header'] = "New Job Site";
+        $this->data['title'] = 'Add Accomplishment'; 
+        $this->data['description'] = "Add new accomplishment for your reference";
+        $this->data['header'] = "Add Accomplishment";
         return view('pages.client.jobs.new', $this->data)->with("root_url", URL::current());
     }
 

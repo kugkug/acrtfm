@@ -2,7 +2,6 @@
 
 <section class="container-fluid">
 
-
     <div class="row">
         <div class="col-md-12 div-result ">
             <table id="my-jobs" class="table table-bordered table-hover zero-configuration">
