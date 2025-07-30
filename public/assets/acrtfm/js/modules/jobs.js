@@ -63,7 +63,7 @@ function _init_actions() {
                         .append(`<div class="carousel-item ${
                         i === 0 ? "active" : ""
                     }">
-                        <img class="d-block w-100" style='max-height: 60vh !important;' src="${imageUrl}" alt="Image ${
+                        <img class="d-block w-100" style=' max-height: 60vh !important;' src="${imageUrl}" alt="Image ${
                         i + 1
                     }">
                     </div>`);

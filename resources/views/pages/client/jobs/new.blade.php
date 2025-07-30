@@ -74,14 +74,7 @@
             <div class="modal-body p-0">
                 <div class="bootstrap-carousel">
                     <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-                        <ol class="carousel-indicators">
-                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                        </ol>
-                        <div class="carousel-inner">
-                            
-                        </div>
+                        <div class="carousel-inner" style="min-height: 30vh !important; align-items: center; display: flex; justify-content: center;"></div>
                         <a class="carousel-control-prev" href="#carouselExampleIndicators" data-slide="prev">
                             <span class="carousel-control-prev-icon"></span> <span class="sr-only">Previous</span> 
                         </a>
