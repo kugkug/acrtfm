@@ -4,15 +4,15 @@
 
 
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-12 main-container">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Accomplishment Details</h5>
+                    <h5 class="card-title"></h5>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Title" data-key="Title">
+                        <input type="text" class="form-control" placeholder="Enter Accomplishment Title" data-key="Title">
                     </div>
                     <div class="form-group">
-                        <textarea class="form-control" rows="2" placeholder="Description" required></textarea>
+                        <textarea class="form-control" rows="2" placeholder="Enter Accomplishment Description" required></textarea>
                     </div>
                 </div>
             </div>
@@ -20,21 +20,18 @@
             <div class="card card-area area-main-card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-1">
-                        <h5 class="card-title">
-                            <font class="span-title"></font>
-                            <span></span>
-                        </h5>
+                        <h5 class="card-title"></h5>
                     </div>
                 
                     <div class="form-group mb-2">
-                        <input type="text" class="form-control" placeholder="Enter task name" required>
+                        <input type="text" class="form-control" placeholder="Enter Sub Details Name" required data-key="SubDetailsName">
                     </div>
                     <div class="form-group mb-2">
-                        <textarea class="form-control" rows="2" placeholder="Enter task description" required></textarea>
+                        <textarea class="form-control" rows="2" placeholder="Enter Sub Details Description" required></textarea>
                     </div>
                     <div class="form-group mb-2">
                         
-                        <textarea class="form-control" rows="2" placeholder="Enter task accomplishments"></textarea>
+                        <textarea class="form-control" rows="2" placeholder="Enter Sub Details Accomplishments"></textarea>
                     </div>
                     <div class="form-group mb-2 d-flex justify-content-between">
                         <input type="file" class="form-control" multiple accept="image/*" style="display: none;">
@@ -49,20 +46,20 @@
                 </div>
             </div>            
         
-            <div class="row mb-2">
-                <div class="col-md-6 my-1">
-                    <button class="btn btn-info btn-flat btn-block" data-trigger="add-accomplishment">
-                        <i class="fa fa-plus"></i> Add <span></span>
-                    </button>
-                </div>
-                <div class="col-md-6 my-1">
-                    <button class="btn btn-success btn-flat btn-block" data-trigger="save-job-site">
-                        <i class="fa fa-save"></i> Save Job Site
-                    </button>
-                </div>
-                
-            </div>
         </div>
+    </div>
+    <div class="row mb-2">
+        <div class="col-md-6 my-1">
+            <button class="btn btn-info btn-flat btn-block" data-trigger="add-accomplishment">
+                <i class="fa fa-plus"></i> Add <span></span>
+            </button>
+        </div>
+        <div class="col-md-6 my-1">
+            <button class="btn btn-success btn-flat btn-block" data-trigger="save-job-site">
+                <i class="fa fa-save"></i> Save
+            </button>
+        </div>
+        
     </div>
 
 </section>

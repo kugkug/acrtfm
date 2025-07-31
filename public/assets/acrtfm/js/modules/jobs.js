@@ -1,19 +1,28 @@
 $(document).ready(function () {
     $("[data-key=Title]").on("keyup", function () {
         let title = $(this).val();
-        $(".span-title").text(title);
-        $("[data-trigger=add-accomplishment] span").text(title);
+        let parentCardTitle = $(this).closest(".card-body").find(".card-title");
+        $(parentCardTitle).text(title);
     });
+
     _init_actions();
 });
 
 function _init_actions() {
+    $("[data-key=SubDetailsName]").on("keyup", function () {
+        let subDetailsName = $(this).val();
+        let parentCardTitle = $(this).closest(".card-body").find(".card-title");
+        $(parentCardTitle).text(subDetailsName);
+    });
+
     $("[data-trigger]").off();
     $("[data-trigger]").on("click", function () {
         const trigger = $(this).data("trigger");
 
         switch (trigger) {
             case "add-accomplishment":
+                let parentCard =
+                    $(".area-main-card").closest(".main-container");
                 let mainArea = $(".area-main-card");
                 let newArea = mainArea.clone();
                 newArea.removeClass("area-main-card");
@@ -21,13 +30,14 @@ function _init_actions() {
                 newArea.find("input").val("");
                 newArea.find("textarea").val("");
                 newArea.find("input[type='file']").val("");
+                newArea.find(".card-title").text("");
                 newArea.find(".card-body div:first-child()").append(
                     `<button class="btn btn-danger btn-flat" data-trigger="remove-area">
                         <i class="fa fa-trash"></i> Remove
                     </button>`
                 );
-                mainArea.after(newArea);
-                updateAreaCount();
+                parentCard.append(newArea);
+
                 _init_actions();
                 break;
             case "add-file":
@@ -82,21 +92,9 @@ function _init_actions() {
                     true,
                     function () {
                         area.remove();
-                        updateAreaCount();
                     }
                 );
                 break;
         }
     });
-}
-
-function updateAreaCount() {
-    let areaCards = $(".card-area");
-    let areaCount = areaCards.length;
-    for (let i = 0; i < areaCount; i++) {
-        areaCards
-            .eq(i)
-            .find("span")
-            .text(i + 1);
-    }
 }

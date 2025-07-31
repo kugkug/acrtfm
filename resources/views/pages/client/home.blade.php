@@ -57,5 +57,3 @@
 </section>
 @include('partials.auth.footer')
 <script src="{{ asset('assets/acrtfm/js/modules/home.js') }}"></script>
-
-
