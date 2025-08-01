@@ -45,7 +45,7 @@ function ajaxRequest(sUrl = "", sData = "", sLoadParent = "") {
             if (sLoadParent != "" && sLoadParent == "sub-loader") {
                 $("#sub-loader").fadeOut(200);
             } else {
-                $("#system-loader").fadeOut(500);
+                $("#full-loader").fadeOut(500);
             }
             eval(result.js);
         },
@@ -76,16 +76,29 @@ function ajaxSubmit(sUrl = "", sFormData = "", sLoadParent = "") {
         processData: false,
         contentType: false,
         beforeSend: function () {
-            $("#system-loader").show();
+            if (sLoadParent != "" && sLoadParent == "sub-loader") {
+                $("#sub-loader").fadeIn(200);
+            } else {
+                $("#full-loader").fadeIn(200);
+            }
         },
         success: function (result) {
-            $("#system-loader").fadeOut(500);
             console.log(result);
+            if (sLoadParent != "" && sLoadParent == "sub-loader") {
+                $("#sub-loader").fadeOut(200);
+            } else {
+                $("#full-loader").fadeOut(500);
+            }
             eval(result.js);
         },
         error: function (e) {
-            $("#system-loader").fadeOut(500);
+            if (sLoadParent != "" && sLoadParent == "sub-loader") {
+                $("#sub-loader").fadeOut(200);
+            } else {
+                $("#full-loader").fadeOut(500);
+            }
             console.log(e);
+
             _show_toastr(
                 "error",
                 "Please call system administrator!",

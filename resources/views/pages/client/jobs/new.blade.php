@@ -12,12 +12,12 @@
                         <input type="text" class="form-control" placeholder="Enter Accomplishment Title" data-key="Title">
                     </div>
                     <div class="form-group">
-                        <textarea class="form-control" rows="2" placeholder="Enter Accomplishment Description" required></textarea>
+                        <textarea class="form-control" rows="2" placeholder="Enter Accomplishment Description" required data-key="Description"></textarea>
                     </div>
                 </div>
             </div>
 
-            <div class="card card-area area-main-card">
+            <div class="card card-sub-details area-main-card">
                 <div class="card-body">
                     <div class="d-flex justify-content-between align-items-center mb-1">
                         <h5 class="card-title"></h5>
@@ -27,14 +27,14 @@
                         <input type="text" class="form-control" placeholder="Enter Sub Details Name" required data-key="SubDetailsName">
                     </div>
                     <div class="form-group mb-2">
-                        <textarea class="form-control" rows="2" placeholder="Enter Sub Details Description" required></textarea>
+                        <textarea class="form-control" rows="2" placeholder="Enter Sub Details Description" required data-key="SubDetailsDescription"></textarea>
                     </div>
                     <div class="form-group mb-2">
                         
-                        <textarea class="form-control" rows="2" placeholder="Enter Sub Details Accomplishments"></textarea>
+                        <textarea class="form-control" rows="2" placeholder="Enter Sub Details Accomplishments" data-key="SubDetailsAccomplishments"></textarea>
                     </div>
                     <div class="form-group mb-2 d-flex justify-content-between">
-                        <input type="file" class="form-control" multiple accept="image/*" style="display: none;">
+                        <input type="file" class="form-control" multiple accept="image/*" style="display: none;" data-key="SubDetailsImages">
                         <button class="btn btn-info btn-flat" data-trigger="add-file">
                             <i class="fa fa-plus"></i> Add Image Files
                         </button>
@@ -55,7 +55,7 @@
             </button>
         </div>
         <div class="col-md-6 my-1">
-            <button class="btn btn-success btn-flat btn-block" data-trigger="save-job-site">
+            <button class="btn btn-success btn-flat btn-block" data-trigger="save">
                 <i class="fa fa-save"></i> Save
             </button>
         </div>

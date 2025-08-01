@@ -3,6 +3,7 @@
 use App\Http\Controllers\Exec\AcController;
 use App\Http\Controllers\Exec\AccountController;
 use App\Http\Controllers\Exec\EdController;
+use App\Http\Controllers\Exec\JbController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ModulesController;
 
@@ -48,6 +49,11 @@ Route::middleware(['auth:sanctum', 'web'])->group(function () {
         Route::prefix('education')->group(function () {
             Route::post('/search', [EdController::class, 'educationSearch'])->name("exec-education-search");
             Route::post('/paginate', [EdController::class, 'educationPaginate'])->name("exec-education-paginate");
+        });
+
+        Route::prefix('jobs')->group(function () {
+            Route::post('/fetch', [JbController::class, 'fetch'])->name("exec-jobs-fetch");
+            Route::post('/save', [JbController::class, 'save'])->name("exec-jobs-save");
         });
     });
 });

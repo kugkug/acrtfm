@@ -5,8 +5,13 @@ $(document).ready(function () {
         $(parentCardTitle).text(title);
     });
 
+    _fetch_jobs();
     _init_actions();
 });
+
+function _fetch_jobs() {
+    ajax("/executor/jobs/fetch", {}, "jobs-list", "");
+}
 
 function _init_actions() {
     $("[data-key=SubDetailsName]").on("keyup", function () {
@@ -42,25 +47,25 @@ function _init_actions() {
                 break;
             case "add-file":
                 $(this)
-                    .closest(".card-area")
+                    .closest(".card-sub-details")
                     .find("input[type='file']")
                     .click();
                 $(this)
-                    .closest(".card-area")
+                    .closest(".card-sub-details")
                     .find("input[type='file']")
                     .on("change", function () {
                         let fileLength = $(this).get(0).files.length;
                         let files = $(this).get(0).files;
 
                         $(this)
-                            .closest(".card-area")
+                            .closest(".card-sub-details")
                             .find("span")
                             .text(fileLength);
                     });
                 break;
             case "view-images":
                 let images = $(this)
-                    .closest(".card-area")
+                    .closest(".card-sub-details")
                     .find("input[type='file']")
                     .get(0).files;
 
@@ -83,7 +88,7 @@ function _init_actions() {
 
                 break;
             case "remove-area":
-                let area = $(this).closest(".card-area");
+                let area = $(this).closest(".card-sub-details");
                 _confirm(
                     "Remove Area",
                     "Are you sure you want to remove this area?",
@@ -95,6 +100,50 @@ function _init_actions() {
                     }
                 );
                 break;
+            case "save":
+                _save_job();
+                break;
         }
     });
+}
+
+function _save_job() {
+    let formData = new FormData();
+    let subDetailsCard = $(".card-sub-details");
+    let image_cntr = 0;
+
+    formData.append("title", $("[data-key=Title]").val());
+    formData.append("description", $("[data-key=Description]").val());
+
+    subDetailsCard.each(function () {
+        let subDetailsName = $(this).find("[data-key=SubDetailsName]").val();
+        let subDetailsDescription = $(this)
+            .find("[data-key=SubDetailsDescription]")
+            .val();
+        let subDetailsAccomplishments = $(this)
+            .find("[data-key=SubDetailsAccomplishments]")
+            .val();
+        let subDetailsImages = $(this)
+            .find("[data-key=SubDetailsImages]")
+            .get(0).files;
+
+        formData.append("subDetailsName[]", subDetailsName);
+        formData.append("subDetailsDescription[]", subDetailsDescription);
+        formData.append(
+            "subDetailsAccomplishments[]",
+            subDetailsAccomplishments
+        );
+
+        let images = [];
+        for (let i = 0; i < subDetailsImages.length; i++) {
+            formData.append(
+                `subDetailsImages_${image_cntr}[]`,
+                subDetailsImages[i]
+            );
+        }
+
+        image_cntr++;
+    });
+
+    ajaxSubmit("/executor/jobs/save", formData, "");
 }

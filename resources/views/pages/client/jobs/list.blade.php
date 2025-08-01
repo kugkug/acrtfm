@@ -7,12 +7,12 @@
             <table id="my-jobs" class="table table-bordered table-hover zero-configuration">
                 <thead>
                     <tr>
-                        <th>Site</th>
+                        <th>Title</th>
                         <th>Description</th>
                         <th>Action</th>
                     </tr>
                 </thead>
-                <tbody>
+                <tbody id="jobs-list">
                     <tr>
                         <td>Site 1</td>
                         <td>Description 1</td>
@@ -48,3 +48,4 @@
 
 
 @include('partials.auth.footer')
+<script src="{{ asset('assets/acrtfm/js/modules/jobs.js') }}"></script>

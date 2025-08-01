@@ -50,6 +50,9 @@ class ResponseHelper {
                 _init_actions();
                 ';
                 break;
+            case 'accomplishments-saved':
+                $script = "location = '".route('my-jobs')."';";
+                break;
         }
 
         return ['js' => $script];

@@ -3,6 +3,7 @@
 use App\Http\Controllers\Apis\AcController;
 use App\Http\Controllers\Apis\AccountController;
 use App\Http\Controllers\Apis\EdController;
+use App\Http\Controllers\Apis\JbController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -25,5 +26,10 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('education')->group(function () {
         Route::post('/search', [EdController::class, 'educationSearch'])->name("api-education-search");
         Route::post('/paginate', [EdController::class, 'educationPaginate'])->name("api-education-paginate");
+    });
+
+    Route::prefix('jobs')->group(function () {
+        Route::post('/fetch', [JbController::class, 'fetch'])->name("api-jobs-fetch");
+        Route::post('/save', [JbController::class, 'save'])->name("api-jobs-save");
     });
 });

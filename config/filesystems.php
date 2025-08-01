@@ -60,6 +60,15 @@ return [
             'report' => false,
         ],
 
+        'accomplishment_images' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public/accomplishment_images'),
+            'url' => env('APP_URL').'/storage/accomplishment_images',
+            'visibility' => 'public',
+            'throw' => false,
+            'report' => false,
+        ],
+
     ],
 
     /*
