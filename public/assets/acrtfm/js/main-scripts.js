@@ -33,7 +33,6 @@ function ajaxRequest(sUrl = "", sData = "", sLoadParent = "") {
         headers: { "X-CSRF-TOKEN": $('meta[name="_token"]').attr("content") },
         data: sData,
         beforeSend: function () {
-            console.log(sLoadParent);
             if (sLoadParent != "" && sLoadParent == "sub-loader") {
                 $("#sub-loader").fadeIn(200);
             } else {

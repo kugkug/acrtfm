@@ -22,7 +22,7 @@
                 </a>
             </li>
             <li>
-                <a href="{{ route('my-jobs') }}" aria-expanded="false">
+                <a href="{{ route('my-accomplishments') }}" aria-expanded="false">
                     <i class="fa-solid fa-briefcase menu-icon fa-action"></i><span class="nav-text">Accomplishments</span>
                 </a>
             </li>

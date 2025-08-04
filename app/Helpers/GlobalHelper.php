@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace App\Helpers;
 
 use App\Mail\AxoMailer;
+use App\Models\Accomplishment;
+use App\Models\AccomplishmentDetail;
 use App\Models\Airconditioner;
 use App\Models\Communication;
 use App\Models\Contact;
@@ -67,8 +69,6 @@ class GlobalHelper {
     public function logInfo(string $message): void {
         Log::channel('info')->info($message);
     }
-
-
 
     public function getProfile() {
         $profile = User::where('id', auth()->user()->id)->with('profile')->first();
@@ -262,6 +262,39 @@ class GlobalHelper {
         try {
             $education = Education::where('id', $id)->first();
             return $education->toArray();
+        } catch (\Exception $e) {
+            logInfo($e->getMessage());
+            return [];
+        }
+    }
+
+    public function getAccomplishment($id) {
+        try {
+            $accomplishment = Accomplishment::where('id', $id)->first();
+            return $accomplishment->toArray();
+        } catch (\Exception $e) {
+            logInfo($e->getMessage());
+            return [];
+        }
+    }
+
+    public function getAccomplishmentDetails($id) {
+        try {
+            $accomplishment = Accomplishment::where('id', $id)->with('details')->first();
+            return $accomplishment->toArray();
+        } catch (\Exception $e) {
+            logInfo($e->getMessage());
+            return [];
+        }
+    }
+
+    public function getAccomplishmentDetail($id) {
+        try {
+            $accomplishment = AccomplishmentDetail::where('id', $id)
+            ->with('photos')
+            ->with('parent')
+            ->first();
+            return $accomplishment->toArray();
         } catch (\Exception $e) {
             logInfo($e->getMessage());
             return [];

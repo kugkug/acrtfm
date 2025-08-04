@@ -4,6 +4,8 @@ declare(strict_types=1);
 namespace App\Helpers;
 
 class ResponseHelper {
+    const DESCRIPTION_MAX_LENGTH = 95;
+
     public function toastrResponse(string $message, string $type = 'error', string $title = 'System Error'): array {
         return [
             'js' => "_show_toastr('".$type."', '".$message."', '".$title."');"
@@ -50,8 +52,15 @@ class ResponseHelper {
                 _init_actions();
                 ';
                 break;
+            case 'accomplishments-fetched':
+                $script = sizeof($data) == 0 ? '$("#accomplishments-list").html("<div class=\"mx-3 alert alert-danger w-100\" role=\"alert\">No data found</div>");' : 
+                    '$("#accomplishments-list").html("'.preg_replace('/\s+/', ' ', $this->accomplishments_list($data)).'"); _init_actions();';
+                break;
             case 'accomplishments-saved':
-                $script = "location = '".route('my-jobs')."';";
+                $script = "location = '".route('my-accomplishments')."';";
+                break;
+            case 'accomplishments-deleted':
+                $script = "location = '".route('my-accomplishments-sub', $data['parent'])."';";
                 break;
         }
 
@@ -183,6 +192,28 @@ class ResponseHelper {
             return ['html' => ''];
         }
     }
+
+    private function accomplishments_list(array $data): string {
+        $card = "";
+        foreach ($data as $accomplishment) {
+            $description = strlen($accomplishment['description']) > self::DESCRIPTION_MAX_LENGTH ? substr($accomplishment['description'], 0, self::DESCRIPTION_MAX_LENGTH).'...' : $accomplishment['description'];
+            $card .= "
+                <div class='col-md-6'>
+                    <div class='card'>
+                        <div class='card-body'>
+                            <h5 class='card-title'>".addslashes($accomplishment['title'])."</h5>
+                            <p class='card-text'>".addslashes($description)."</p>
+                        </div>
+                        <div class='card-footer'>
+                            <a href='".route('my-accomplishments-sub', $accomplishment['id'])."' class='btn btn-primary btn-sm'>View More </a>                            
+                        </div>
+                    </div>
+                </div>
+            ";
+        }
+        return $card;
+    }
+
 
     public function formatManualUrls(string $urls) {
         

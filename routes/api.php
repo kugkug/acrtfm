@@ -28,8 +28,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/paginate', [EdController::class, 'educationPaginate'])->name("api-education-paginate");
     });
 
-    Route::prefix('jobs')->group(function () {
-        Route::post('/fetch', [JbController::class, 'fetch'])->name("api-jobs-fetch");
-        Route::post('/save', [JbController::class, 'save'])->name("api-jobs-save");
+    Route::prefix('accomplishments')->group(function () {
+        Route::post('/fetch', [JbController::class, 'fetch'])->name("api-accomplishments-fetch");
+        Route::post('/save', [JbController::class, 'save'])->name("api-accomplishments-save");
+        Route::post('/delete', [JbController::class, 'delete'])->name("api-accomplishments-delete");
     });
 });

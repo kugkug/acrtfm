@@ -9,6 +9,6 @@ class Accomplishment extends Model
     protected $guarded = ['id'];
 
     public function details() {
-        return $this->hasMany(AccomplishmentDetail::class);
+        return $this->hasMany(AccomplishmentDetail::class, 'accomplishment_id', 'id')->with('photos');
     }
 }

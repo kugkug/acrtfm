@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Models\Accomplishment;
 use App\Models\AccomplishmentDetail;
 use App\Models\AccomplishmentPhoto;
-
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -16,11 +15,26 @@ use Illuminate\Support\Facades\Validator;
 
 class JbController extends Controller
 {
+    public function fetch(Request $request): JsonResponse {
+        try {
+            $accomplishment = Accomplishment::where('user_id', auth()->user()->id)->get();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Accomplishments fetched successfully',
+                'data' => $accomplishment
+            ]);
+        } catch(Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
+
     public function save(Request $request): JsonResponse {
         DB::beginTransaction();
         try {
-            
-            
             $sub_details_names = $request->subDetailsName;
             $sub_details_descriptions = $request->subDetailsDescription;
             $sub_details_accomplishments = $request->subDetailsAccomplishments;
@@ -53,6 +67,7 @@ class JbController extends Controller
             $accomplishment = Accomplishment::create([
                 'title' => $title,
                 'description' => $description,
+                'user_id' => auth()->user()->id,
             ]);
 
             $accomplishment_id = $accomplishment->id;
@@ -103,6 +118,24 @@ class JbController extends Controller
         } catch (Exception $e) {
             DB::rollBack();
             logInfo($e->getMessage());
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
+
+    public function delete(Request $request): JsonResponse {
+        try {
+            $accomplishment = AccomplishmentDetail::where('id', $request->id)->first(); 
+            $accomplishment->delete();
+            $accomplishment->photos()->delete();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Accomplishment deleted successfully',
+            ]);
+        } catch (Exception $e) {
             return response()->json([
                 'status' => false,
                 'message' => $e->getMessage()

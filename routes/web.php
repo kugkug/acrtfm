@@ -32,10 +32,13 @@ Route::middleware(['auth:sanctum', 'web'])->group(function () {
     Route::prefix('profile')->group(function () {
         Route::get('/', [ModulesController::class, 'profile'])->name("profile");
         
-        Route::prefix('my-jobs')->group(function () {
-            Route::get('/', [ModulesController::class, 'myJobs'])->name("my-jobs");
-            Route::get('/new', [ModulesController::class, 'newJob'])->name("my-jobs-new");
-            Route::get('/edit/{id}', [ModulesController::class, 'editJob'])->name("my-jobs-edit");
+        Route::prefix('my-accomplishments')->group(function () {
+            Route::get('/', [ModulesController::class, 'myAccomplishments'])->name("my-accomplishments");
+            Route::get('/{id}/sub', [ModulesController::class, 'subAccomplishment'])->name("my-accomplishments-sub");
+            
+            Route::get('/new', [ModulesController::class, 'newAccomplishment'])->name("my-accomplishments-new");
+            Route::get('/{id}/edit', [ModulesController::class, 'editAccomplishment'])->name("my-accomplishments-edit");
+            Route::get('/{id}/view', [ModulesController::class, 'viewAccomplishment'])->name("my-accomplishments-view");
         });
     });
 
@@ -51,9 +54,10 @@ Route::middleware(['auth:sanctum', 'web'])->group(function () {
             Route::post('/paginate', [EdController::class, 'educationPaginate'])->name("exec-education-paginate");
         });
 
-        Route::prefix('jobs')->group(function () {
-            Route::post('/fetch', [JbController::class, 'fetch'])->name("exec-jobs-fetch");
-            Route::post('/save', [JbController::class, 'save'])->name("exec-jobs-save");
+        Route::prefix('accomplishments')->group(function () {
+            Route::post('/fetch', [JbController::class, 'fetch'])->name("exec-accomplishments-fetch");
+            Route::post('/save', [JbController::class, 'save'])->name("exec-accomplishments-save");
+            Route::post('/delete', [JbController::class, 'delete'])->name("exec-accomplishments-delete");
         });
     });
 });
