@@ -62,7 +62,7 @@ return [
 
         'accomplishment_images' => [
             'driver' => 'local',
-            'root' => public_path('accomplishment_images'),
+            'root' => storage_path('/app/public/accomplishment_images'),
             'url' => env('APP_URL').'/accomplishment_images',
             'visibility' => 'public',
             'throw' => false,

@@ -271,7 +271,11 @@ class GlobalHelper {
     public function getAccomplishment($id) {
         try {
             $accomplishment = Accomplishment::where('id', $id)->first();
-            return $accomplishment->toArray();
+            if ($accomplishment) {
+                return $accomplishment->toArray();
+            }
+
+            return [];
         } catch (\Exception $e) {
             logInfo($e->getMessage());
             return [];
@@ -281,7 +285,11 @@ class GlobalHelper {
     public function getAccomplishmentDetails($id) {
         try {
             $accomplishment = Accomplishment::where('id', $id)->with('details')->first();
-            return $accomplishment->toArray();
+            if ($accomplishment) {
+                return $accomplishment->toArray();
+            }
+
+            return [];
         } catch (\Exception $e) {
             logInfo($e->getMessage());
             return [];
@@ -294,7 +302,11 @@ class GlobalHelper {
             ->with('photos')
             ->with('parent')
             ->first();
-            return $accomplishment->toArray();
+            if ($accomplishment) {  
+                return $accomplishment->toArray();
+            }
+
+            return [];
         } catch (\Exception $e) {
             logInfo($e->getMessage());
             return [];

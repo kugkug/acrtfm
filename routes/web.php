@@ -36,6 +36,7 @@ Route::middleware(['auth:sanctum', 'web'])->group(function () {
             Route::get('/', [ModulesController::class, 'myAccomplishments'])->name("my-accomplishments");
             Route::get('/{id}/sub', [ModulesController::class, 'subAccomplishment'])->name("my-accomplishments-sub");
             
+            Route::get('/{sub_id}/add', [ModulesController::class, 'addAccomplishment'])->name("my-accomplishments-add");
             Route::get('/new', [ModulesController::class, 'newAccomplishment'])->name("my-accomplishments-new");
             Route::get('/{id}/edit', [ModulesController::class, 'editAccomplishment'])->name("my-accomplishments-edit");
             Route::get('/{id}/view', [ModulesController::class, 'viewAccomplishment'])->name("my-accomplishments-view");

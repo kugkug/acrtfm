@@ -9,12 +9,12 @@
                 <div class="card">
                     <img 
                         class="img-fluid" 
-                        src="{{ asset('accomplishment_images/'.$detail['photos'][0]['filename']) }}" 
+                        src="{{ '/storage/accomplishment_images/'.$detail['photos'][0]['filename'] }}" 
                         alt="" 
                         style="width: 100%; height: 300px; object-fit: cover;">
                     <div class="card-body">
                         <h5 class="card-title">{{ $detail['title'] }}</h5>
-                        <p class="card-text">{{ $detail['description'] }}</p>
+                        <p class="card-text">{{ strlen($detail['description']) > 30 ? substr($detail['description'], 0, 30) . '...' : $detail['description'] }}</p>
                     </div>
 
                     <div class="card-footer">

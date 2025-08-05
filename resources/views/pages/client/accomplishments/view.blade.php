@@ -9,13 +9,24 @@
                 <div class="card-body">
                     <h5 class="card-title">Accomplishment</h5>
                     <p class="card-text">{{ $accomplishment['title'] }}</p>                  
+                    
                 </div>
-                <div class="card-footer d-flex justify-content-between">
-                    <button class="btn btn-primary btn-sm" data-trigger="edit-accomplishment" data-id="{{ $accomplishment['id'] }}">
+                <div class="card-footer d-flex justify-content-end">
+                    <a
+                        href="{{ route('my-accomplishments-add', $accomplishment['id']) }}" 
+                        class="btn btn-primary mr-2">
+                        <i class="fa fa-plus"></i> New
+                    </a>
+
+                    <button 
+                        class="btn btn-info mr-2" 
+                        data-trigger="edit-accomplishment" 
+                        data-id="{{ $accomplishment['id'] }}">
                         <i class="fa fa-edit"></i> Edit
                     </button>
+
                     <button 
-                        class="btn btn-danger btn-sm" 
+                        class="btn btn-danger" 
                         data-trigger="delete-accomplishment" 
                         data-id="{{ $accomplishment['id'] }}" 
                         data-parent="{{ $accomplishment['parent']['id'] }}"
@@ -30,7 +41,7 @@
                     <div class="carousel-inner" style="min-height: 30vh !important; align-items: center; display: flex; justify-content: center;">
                         @foreach($accomplishment['photos'] as $photo)
                             <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                                <img class="d-block w-100" src="{{ asset('accomplishment_images/'.$photo['filename']) }}" alt="First slide">
+                                <img class="d-block w-100" src="{{ '/storage/accomplishment_images/'.$photo['filename'] }}" alt="First slide">
                             </div>
                         @endforeach
                     </div>

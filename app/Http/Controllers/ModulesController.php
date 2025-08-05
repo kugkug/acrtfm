@@ -107,7 +107,12 @@ class ModulesController extends Controller
     }
 
     public function subAccomplishment($id) {
+        
         $accomplishment_w_details = globalHelper()->getAccomplishmentDetails($id);
+        if (empty($accomplishment_w_details)) {
+            return redirect()->route('my-accomplishments');
+        }
+        
         $this->data['title'] = $accomplishment_w_details['title']; 
         $this->data['description'] = $accomplishment_w_details['description'];
         $this->data['header'] = $accomplishment_w_details['title'];
@@ -118,6 +123,10 @@ class ModulesController extends Controller
 
     public function viewAccomplishment($id) {
         $accomplishment = globalHelper()->getAccomplishmentDetail($id);
+        if (empty($accomplishment)) {
+            return redirect()->route('my-accomplishments');
+        }
+        
         $this->data['title'] = $accomplishment['title']; 
         $this->data['description'] = $accomplishment['description'];
         $this->data['header'] = $accomplishment['title'];
@@ -132,6 +141,21 @@ class ModulesController extends Controller
         $this->data['header'] = "Add Accomplishment";
         $this->data['right_panel'] = "<a href='".route('my-accomplishments')."' class='btn btn-primary btn-md btn-flat btn-block ' ><i class='fa fa-undo'></i> Back to List</a>";
         return view('pages.client.accomplishments.new', $this->data);
+    }
+
+    public function addAccomplishment($sub_id) {
+        $accomplishment = globalHelper()->getAccomplishmentDetail($sub_id);
+        if (empty($accomplishment)) {
+            return redirect()->route('my-accomplishments');
+        }
+        
+        $this->data['title'] = 'Add Accomplishment'; 
+        $this->data['description'] = "Add another accomplishment for your reference";
+        $this->data['header'] = "Add Accomplishment";
+        $this->data['right_panel'] = "<a href='".route('my-accomplishments-view', $sub_id)."' class='btn btn-primary btn-md btn-flat btn-block ' ><i class='fa fa-undo'></i> Back to Accomplishment</a>";
+        $this->data['accomplishment'] = $accomplishment;
+        $this->data['sub_id'] = $sub_id;
+        return view('pages.client.accomplishments.add', $this->data);
     }
 
     public function editAccomplishment($id) {
