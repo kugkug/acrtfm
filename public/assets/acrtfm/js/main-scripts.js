@@ -202,3 +202,139 @@ function _confirm(
         }
     );
 }
+
+function _validate_files(type, files) {
+    switch (type) {
+        case "image":
+            let invalid_images = [];
+            let invalid_sizes = [];
+            let valid_size = 1024 * 1024 * 5; // 5MB
+            let valid_ext = [
+                "jpg",
+                "jpeg",
+                "png",
+                "gif",
+                "bmp",
+                "webp",
+                "pdf",
+                "JPG",
+                "JPEG",
+                "PNG",
+                "GIF",
+                "BMP",
+                "WEBP",
+                "PDF",
+            ];
+
+            for (const file of files) {
+                let size = file.size;
+                let type = file.type;
+                let name = file.name;
+                let ext = name.split(".").pop();
+
+                if (!valid_ext.includes(ext)) {
+                    invalid_images.push(name);
+                }
+
+                if (size > valid_size) {
+                    invalid_sizes.push(name);
+                }
+            }
+
+            if (invalid_images.length > 0) {
+                _confirm(
+                    "Invalid Files",
+                    "The following files are invalid: " +
+                        invalid_images.join(", "),
+                    "warning",
+                    "OK",
+                    true,
+                    function () {}
+                );
+
+                return false;
+            }
+
+            if (invalid_sizes.length > 0) {
+                _confirm(
+                    "Invalid Sizes",
+                    "The following files are too large: " +
+                        invalid_sizes.join(", "),
+                    "warning",
+                    "OK",
+                    true,
+                    function () {}
+                );
+
+                return false;
+            }
+
+            break;
+        case "document":
+            let invalid_documents = [];
+            let invalid_document_sizes = [];
+            let valid_document_size = 1024 * 1024 * 10; // 10MB
+            let valid_document_ext = [
+                "pdf",
+                "PDF",
+                "doc",
+                "DOC",
+                "docx",
+                "DOCX",
+                "xls",
+                "XLS",
+                "xlsx",
+                "XLSX",
+                "ppt",
+                "PPT",
+                "pptx",
+                "PPTX",
+            ];
+            for (const file of files) {
+                let size = file.size;
+                let type = file.type;
+                let name = file.name;
+                let ext = name.split(".").pop();
+
+                if (!valid_document_ext.includes(ext)) {
+                    invalid_documents.push(name);
+                }
+
+                if (size > valid_document_size) {
+                    invalid_document_sizes.push(name);
+                }
+            }
+
+            if (invalid_documents.length > 0) {
+                _confirm(
+                    "Invalid Files",
+                    "The following files are invalid: " +
+                        invalid_documents.join(", "),
+                    "warning",
+                    "OK",
+                    true,
+                    function () {}
+                );
+
+                return false;
+            }
+
+            if (invalid_document_sizes.length > 0) {
+                _confirm(
+                    "Invalid Sizes",
+                    "The following files are too large: " +
+                        invalid_document_sizes.join(", "),
+                    "warning",
+                    "OK",
+                    true,
+                    function () {}
+                );
+
+                return false;
+            }
+
+            break;
+    }
+
+    return true;
+}

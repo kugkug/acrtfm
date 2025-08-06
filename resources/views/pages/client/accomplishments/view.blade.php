@@ -11,12 +11,7 @@
                     <p class="card-text">{{ $accomplishment['title'] }}</p>                  
                     
                 </div>
-                <div class="card-footer d-flex justify-content-end">
-                    <a
-                        href="{{ route('my-accomplishments-add', $accomplishment['id']) }}" 
-                        class="btn btn-primary mr-2">
-                        <i class="fa fa-plus"></i> New
-                    </a>
+                <div class="card-footer d-flex justify-content-between">
 
                     <button 
                         class="btn btn-info mr-2" 

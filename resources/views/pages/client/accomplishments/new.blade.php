@@ -7,12 +7,12 @@
         <div class="col-md-12 main-container">
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title"></h5>
+                    <h5 class="card-title">&nbsp;</h5>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Enter Accomplishment Title" data-key="Title">
+                        <input type="text" class="form-control" placeholder="Enter your desired name of the job site." data-key="Title">
                     </div>
                     <div class="form-group">
-                        <textarea class="form-control" rows="2" placeholder="Enter Accomplishment Description" required data-key="Description"></textarea>
+                        <textarea class="form-control" rows="2" placeholder="Enter a brief description of the job site." data-key="Description"></textarea>
                     </div>
                 </div>
             </div>
@@ -24,24 +24,42 @@
                     </div>
                 
                     <div class="form-group mb-2">
-                        <input type="text" class="form-control" placeholder="Enter Sub Details Name" required data-key="SubDetailsName">
+                        <input type="text" class="form-control" placeholder="Enter area/unit name." required data-key="SubDetailsName">
                     </div>
                     <div class="form-group mb-2">
-                        <textarea class="form-control" rows="2" placeholder="Enter Sub Details Description" required data-key="SubDetailsDescription"></textarea>
+                        <textarea class="form-control" rows="2" placeholder="Enter a brief description of the area/unit." required data-key="SubDetailsDescription"></textarea>
                     </div>
                     <div class="form-group mb-2">
                         
-                        <textarea class="form-control" rows="2" placeholder="Enter Sub Details Accomplishments" data-key="SubDetailsAccomplishments"></textarea>
+                        <textarea class="form-control" rows="3" placeholder="Enter a the tasks/services of the area/unit." data-key="SubDetailsAccomplishments"></textarea>
                     </div>
-                    <div class="form-group mb-2 d-flex justify-content-between">
-                        <input type="file" class="form-control" multiple accept="image/*" style="display: none;" data-key="SubDetailsImages">
-                        <button class="btn btn-info btn-flat" data-trigger="add-file">
-                            <i class="fa fa-plus"></i> Add Image Files
-                        </button>
-                        <button class="btn btn-success btn-flat" data-trigger="view-images">
-                            <i class="fa fa-image"></i> 
-                            <span class="">0</span>
-                        </button>
+                    
+                    <div class="row">
+                        <div class="col-md-5">
+                            <div class="form-group mb-2 d-flex justify-content-between">
+                                <input type="file" class="form-control" multiple accept="image/*" style="display: none;" data-key="SubDetailsImages">
+                                <button class="btn btn-info btn-flat" data-trigger="add-images">
+                                    <i class="fa fa-plus"></i> Add Images
+                                </button>
+                                <button class="btn btn-success btn-flat" data-trigger="view-images">
+                                    <i class="fa fa-image"></i> 
+                                    <span class="">0</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="col-md-2"></div>
+                        <div class="col-md-5">
+                            <div class="form-group mb-2 d-flex justify-content-between">
+                                <input type="file" class="form-control" multiple style="display: none;" data-key="SubDetailsDocuments">
+                                <button class="btn btn-info btn-flat" data-trigger="add-documents">
+                                    <i class="fa fa-plus"></i> Add Documents
+                                </button>
+                                <button class="btn btn-success btn-flat" data-trigger="view-documents">
+                                    <i class="fa fa-file"></i> 
+                                    <span class="">0</span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>            

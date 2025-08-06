@@ -45,20 +45,28 @@ function _init_actions() {
 
                 _init_actions();
                 break;
-            case "add-file":
+            case "add-images":
                 $(this)
-                    .closest(".card-sub-details")
+                    .closest(".form-group")
                     .find("input[type='file']")
                     .click();
                 $(this)
-                    .closest(".card-sub-details")
+                    .closest(".form-group")
                     .find("input[type='file']")
                     .on("change", function () {
                         let fileLength = $(this).get(0).files.length;
                         let files = $(this).get(0).files;
 
+                        let validation = _validate_files("image", files);
+
+                        if (!validation) {
+                            $(this).val("");
+                            $(this).closest(".form-group").find("span").text(0);
+                            return;
+                        }
+
                         $(this)
-                            .closest(".card-sub-details")
+                            .closest(".form-group")
                             .find("span")
                             .text(fileLength);
                     });
@@ -68,6 +76,10 @@ function _init_actions() {
                     .closest(".card-sub-details")
                     .find("input[type='file']")
                     .get(0).files;
+
+                if (images.length === 0) {
+                    return;
+                }
 
                 let carousel = $("#carouselExampleIndicators");
                 carousel.find(".carousel-inner").empty();
@@ -86,6 +98,32 @@ function _init_actions() {
 
                 $("#modal-images").modal("show");
 
+                break;
+            case "add-documents":
+                $(this)
+                    .closest(".form-group")
+                    .find("input[type='file']")
+                    .click();
+                $(this)
+                    .closest(".form-group")
+                    .find("input[type='file']")
+                    .on("change", function () {
+                        let fileLength = $(this).get(0).files.length;
+                        let files = $(this).get(0).files;
+
+                        let validation = _validate_files("document", files);
+
+                        if (!validation) {
+                            $(this).val("");
+                            $(this).closest(".form-group").find("span").text(0);
+                            return;
+                        }
+
+                        $(this)
+                            .closest(".form-group")
+                            .find("span")
+                            .text(fileLength);
+                    });
                 break;
             case "remove-area":
                 let area = $(this).closest(".card-sub-details");

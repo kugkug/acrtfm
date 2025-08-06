@@ -99,9 +99,9 @@ class ModulesController extends Controller
     }
 
     public function myAccomplishments() {
-        $this->data['title'] = 'Accomplishments'; 
-        $this->data['description'] = "List of accomplishments you have achieved";
-        $this->data['header'] = "Accomplishments";
+        $this->data['title'] = 'Job Sites'; 
+        $this->data['description'] = "List of job sites you have worked on";
+        $this->data['header'] = "Job Sites";
         $this->data['right_panel'] = "<a href='".route('my-accomplishments-new')."' class='btn btn-success btn-md btn-flat btn-block ' ><i class='fa fa-plus'></i> Add New</a>";
         return view('pages.client.accomplishments.list', $this->data);
     }
@@ -116,7 +116,11 @@ class ModulesController extends Controller
         $this->data['title'] = $accomplishment_w_details['title']; 
         $this->data['description'] = $accomplishment_w_details['description'];
         $this->data['header'] = $accomplishment_w_details['title'];
-        $this->data['right_panel'] = "<a href='".route('my-accomplishments')."' class='btn btn-primary btn-md btn-flat btn-block ' ><i class='fa fa-undo'></i> Back to List</a>";
+        $this->data['right_panel'] = "
+            <div class='d-flex justify-content-end'>
+                <a href='".route('my-accomplishments-add', $id)."' class='btn btn-success btn-md btn-flat mr-2 text-white'><i class='fa fa-plus'></i> Add New </a>
+                <a href='".route('my-accomplishments')."' class='btn btn-primary btn-md btn-flat'><i class='fa fa-undo'></i> Back to List</a>
+            </div>";
         $this->data['accomplishment'] = $accomplishment_w_details;
         return view('pages.client.accomplishments.subs', $this->data);
     }
@@ -136,15 +140,15 @@ class ModulesController extends Controller
     }
 
     public function newAccomplishment() {
-        $this->data['title'] = 'Add Accomplishment'; 
-        $this->data['description'] = "Add new accomplishment for your reference";
-        $this->data['header'] = "Add Accomplishment";
+        $this->data['title'] = 'Add Job Sites'; 
+        $this->data['description'] = "Add new job sites for your reference";
+        $this->data['header'] = "Add Job Sites";
         $this->data['right_panel'] = "<a href='".route('my-accomplishments')."' class='btn btn-primary btn-md btn-flat btn-block ' ><i class='fa fa-undo'></i> Back to List</a>";
         return view('pages.client.accomplishments.new', $this->data);
     }
 
     public function addAccomplishment($sub_id) {
-        $accomplishment = globalHelper()->getAccomplishmentDetail($sub_id);
+        $accomplishment = globalHelper()->getAccomplishmentDetails($sub_id);
         if (empty($accomplishment)) {
             return redirect()->route('my-accomplishments');
         }
@@ -152,7 +156,7 @@ class ModulesController extends Controller
         $this->data['title'] = 'Add Accomplishment'; 
         $this->data['description'] = "Add another accomplishment for your reference";
         $this->data['header'] = "Add Accomplishment";
-        $this->data['right_panel'] = "<a href='".route('my-accomplishments-view', $sub_id)."' class='btn btn-primary btn-md btn-flat btn-block ' ><i class='fa fa-undo'></i> Back to Accomplishment</a>";
+        $this->data['right_panel'] = "<a href='".route('my-accomplishments-sub', $accomplishment['id'])."' class='btn btn-primary btn-md btn-flat btn-block ' ><i class='fa fa-undo'></i> Back to Accomplishment</a>";
         $this->data['accomplishment'] = $accomplishment;
         $this->data['sub_id'] = $sub_id;
         return view('pages.client.accomplishments.add', $this->data);

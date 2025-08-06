@@ -15,6 +15,22 @@ body {
     height: 100% !important;
 }
 
+input,
+select,
+textarea {
+    background-color: #ffffff !important;
+    color: #333333 !important;
+    box-shadow: none !important;
+    border: 1px solid #e0e0e0 !important;
+
+    &:hover {
+        border: 1px solid #e0e0e0 !important;
+    }
+    &:focus {
+        border: 1px solid #000000 !important;
+    }
+}
+
 .content-body {
     min-height: 90vh !important;
 }
