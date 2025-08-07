@@ -28,6 +28,9 @@
     <link href="{{ asset('assets/system/plugins/sweetalert/css/sweetalert.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/system/css/style.css') }}" type="text/css" rel="stylesheet">
     <link href="{{ asset('assets/system/css/override.css') }}" type="text/css" rel="stylesheet">
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9499062034028644"
+     crossorigin="anonymous"></script>
 </head>
 
 <body class="h-100">

@@ -30,6 +30,9 @@
     <link href="{{ asset('assets/system/css/override.css') }}" type="text/css" rel="stylesheet">
     
     <link href="{{ asset('assets/acrtfm/css/styles.css') }}" type="text/css" rel="stylesheet">
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9499062034028644"
+     crossorigin="anonymous"></script>
     
 </head>
 

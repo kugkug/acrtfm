@@ -19,6 +19,9 @@
     <link href="{{ asset('assets/system/css/style.css') }}" rel="stylesheet" type="text/css">
 
     <link href="{{ asset('assets/system/css/override.css') }}" rel="stylesheet" type="text/css">
+
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9499062034028644"
+     crossorigin="anonymous"></script>
 </head>
 
 <body class="h-100">
