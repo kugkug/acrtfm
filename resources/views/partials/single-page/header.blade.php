@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests"> 
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="google-adsense-account" content="ca-pub-9499062034028644">
     <meta name="_token" content="{!! csrf_token() !!}" />
     <meta name="_url" content="{!! URL::to('/') !!}" />
     <meta name="theme" content="{{ $theme }}">
