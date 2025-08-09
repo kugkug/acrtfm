@@ -8,8 +8,8 @@ class AccomplishmentDetail extends Model
 {
     protected $guarded = ['id'];
 
-    public function photos() {
-        return $this->hasMany(AccomplishmentPhoto::class, 'accomplishment_details_id', 'id');
+    public function files() {
+        return $this->hasMany(AccomplishmentFile::class, 'accomplishment_details_id', 'id');
     }
 
     public function parent() {

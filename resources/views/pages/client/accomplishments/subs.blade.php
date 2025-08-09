@@ -9,7 +9,7 @@
                 <div class="card">
                     <img 
                         class="img-fluid" 
-                        src="{{ '/storage/accomplishment_images/'.$detail['photos'][0]['filename'] }}" 
+                        src="{{ '/storage/accomplishment_files/'.$detail['files'][0]['filename'] }}" 
                         alt="" 
                         style="width: 100%; height: 300px; object-fit: cover;">
                     <div class="card-body">

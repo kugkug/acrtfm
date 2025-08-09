@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Apis;
 use App\Http\Controllers\Controller;
 use App\Models\Accomplishment;
 use App\Models\AccomplishmentDetail;
+use App\Models\AccomplishmentFile;
 use App\Models\AccomplishmentPhoto;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -101,15 +102,16 @@ class JbController extends Controller
                     $ext = $sub_details_image->getClientOriginalExtension();
                     $new_filename = $original_name.'.'.$ext;
                     
-                    Storage::disk('accomplishment_images')->put($new_filename, file_get_contents($sub_details_image));
+                    Storage::disk('accomplishment_files')->put($new_filename, file_get_contents($sub_details_image));
                     
                     $accomplishment_images[] = [
                         'accomplishment_details_id' => $accomplishment_detail_id,
-                        'filename' => $new_filename
+                        'filename' => $new_filename,
+                        'filetype' => $ext,
                     ];
                 }
 
-                AccomplishmentPhoto::insert($accomplishment_images);
+                AccomplishmentFile::insert($accomplishment_images);
             }
             
             DB::commit();
@@ -133,7 +135,7 @@ class JbController extends Controller
         try {
             $accomplishment = AccomplishmentDetail::where('id', $request->id)->first(); 
             $accomplishment->delete();
-            $accomplishment->photos()->delete();
+            $accomplishment->files()->delete();
 
             return response()->json([
                 'status' => true,

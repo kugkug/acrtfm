@@ -299,7 +299,7 @@ class GlobalHelper {
     public function getAccomplishmentDetail($id) {
         try {
             $accomplishment = AccomplishmentDetail::where('id', $id)
-            ->with('photos')
+            ->with('files')
             ->with('parent')
             ->first();
             if ($accomplishment) {  

@@ -45,7 +45,7 @@ function _init_actions() {
 
                 _init_actions();
                 break;
-            case "add-images":
+            case "add-files":
                 $(this)
                     .closest(".form-group")
                     .find("input[type='file']")
@@ -57,7 +57,7 @@ function _init_actions() {
                         let fileLength = $(this).get(0).files.length;
                         let files = $(this).get(0).files;
 
-                        let validation = _validate_files("image", files);
+                        let validation = _validate_files(files);
 
                         if (!validation) {
                             $(this).val("");
@@ -71,18 +71,34 @@ function _init_actions() {
                             .text(fileLength);
                     });
                 break;
-            case "view-images":
-                let images = $(this)
+            case "view-files":
+                let files = $(this)
                     .closest(".card-sub-details")
                     .find("input[type='file']")
                     .get(0).files;
+                console.log(files);
+                // if (images.length === 0) {
+                //     return;
+                // }
 
-                if (images.length === 0) {
-                    return;
+                let carousel = $("#image-carousel");
+                let carousel_document = $("#document-carousel");
+                carousel.find(".carousel-inner").empty();
+                carousel_document.find(".carousel-inner").empty();
+
+                let images = [];
+                let documents = [];
+
+                for (let i = 0; i < files.length; i++) {
+                    let image = files[i];
+
+                    if (image.type.includes("image")) {
+                        images.push(image);
+                    } else {
+                        documents.push(image);
+                    }
                 }
 
-                let carousel = $("#carouselExampleIndicators");
-                carousel.find(".carousel-inner").empty();
                 for (let i = 0; i < images.length; i++) {
                     let image = images[i];
                     let imageUrl = URL.createObjectURL(image);
@@ -96,34 +112,18 @@ function _init_actions() {
                     </div>`);
                 }
 
+                for (let i = 0; i < documents.length; i++) {
+                    let document = documents[i];
+                    let documentUrl = URL.createObjectURL(document);
+                    carousel_document.find(".carousel-inner")
+                        .append(`<div class="carousel-item ${
+                        i === 0 ? "active" : ""
+                    }">
+                     <iframe src="${documentUrl}" class="d-block w-100" style='width: 100% !important; height: 50vh !important;'></iframe> 
+                    </div>`);
+                }
                 $("#modal-images").modal("show");
 
-                break;
-            case "add-documents":
-                $(this)
-                    .closest(".form-group")
-                    .find("input[type='file']")
-                    .click();
-                $(this)
-                    .closest(".form-group")
-                    .find("input[type='file']")
-                    .on("change", function () {
-                        let fileLength = $(this).get(0).files.length;
-                        let files = $(this).get(0).files;
-
-                        let validation = _validate_files("document", files);
-
-                        if (!validation) {
-                            $(this).val("");
-                            $(this).closest(".form-group").find("span").text(0);
-                            return;
-                        }
-
-                        $(this)
-                            .closest(".form-group")
-                            .find("span")
-                            .text(fileLength);
-                    });
                 break;
             case "remove-area":
                 let area = $(this).closest(".card-sub-details");
@@ -181,7 +181,7 @@ function _save_job() {
             .find("[data-key=SubDetailsAccomplishments]")
             .val();
         let subDetailsImages = $(this)
-            .find("[data-key=SubDetailsImages]")
+            .find("[data-key=SubDetailsFiles]")
             .get(0).files;
 
         formData.append("subDetailsName[]", subDetailsName);
@@ -203,4 +203,71 @@ function _save_job() {
     });
 
     ajaxSubmit("/executor/accomplishments/save", formData, "");
+}
+
+function _validate_files(files) {
+    let invalid_images = [];
+    let invalid_sizes = [];
+    let valid_size = 1024 * 1024 * 25; // 25MB
+    let valid_ext = [
+        "jpg",
+        "jpeg",
+        "png",
+        "gif",
+        "bmp",
+        "webp",
+        "pdf",
+        "JPG",
+        "JPEG",
+        "PNG",
+        "GIF",
+        "BMP",
+        "WEBP",
+        "PDF",
+    ];
+
+    for (const file of files) {
+        let size = file.size;
+        let type = file.type;
+        let name = file.name;
+        let ext = name.split(".").pop();
+
+        if (!valid_ext.includes(ext)) {
+            invalid_images.push(name);
+        }
+
+        if (size > valid_size) {
+            invalid_sizes.push(name);
+        }
+    }
+
+    if (invalid_images.length > 0) {
+        _confirm(
+            "Invalid Files",
+            "Only accepts image and pdf files.\n\nThe following files are invalid: " +
+                invalid_images.join(", "),
+            "warning",
+            "OK",
+            true,
+            function () {}
+        );
+
+        return false;
+    }
+
+    if (invalid_sizes.length > 0) {
+        _confirm(
+            "Invalid Sizes",
+            "Only accepts up to 25MB.\n\nThe following files are too large: " +
+                invalid_sizes.join(", "),
+            "warning",
+            "OK",
+            true,
+            function () {}
+        );
+
+        return false;
+    }
+
+    return true;
 }

@@ -60,10 +60,10 @@ return [
             'report' => false,
         ],
 
-        'accomplishment_images' => [
+        'accomplishment_files' => [
             'driver' => 'local',
-            'root' => storage_path('/app/public/accomplishment_images'),
-            'url' => env('APP_URL').'/accomplishment_images',
+            'root' => storage_path('/app/public/accomplishment_files'),
+            'url' => env('APP_URL').'/accomplishment_files',
             'visibility' => 'public',
             'throw' => false,
             'report' => false,
