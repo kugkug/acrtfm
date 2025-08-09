@@ -84,7 +84,7 @@ class JbController extends Controller
 
                 $sub_details_description = $sub_details_descriptions[$id];
                 $sub_details_accomplishment = $sub_details_accomplishments[$id];
-                $sub_details_images = $request['subDetailsImages_'.$id];
+                $sub_details_files = $request['subDetailsFiles_'.$id];
 
                 $accomplishment_data = [
                     'accomplishment_id' => $accomplishment_id,
@@ -96,13 +96,13 @@ class JbController extends Controller
                 $accomplishment_detail = AccomplishmentDetail::create($accomplishment_data);
                 $accomplishment_detail_id = $accomplishment_detail->id;
                 
-                foreach($sub_details_images as $sub_details_image) {
+                foreach($sub_details_files as $sub_details_file) {
                     
-                    $original_name = $sub_details_image->getClientOriginalName();
-                    $ext = $sub_details_image->getClientOriginalExtension();
+                    $original_name = $sub_details_file->getClientOriginalName();
+                    $ext = $sub_details_file->getClientOriginalExtension();
                     $new_filename = $original_name.'.'.$ext;
                     
-                    Storage::disk('accomplishment_files')->put($new_filename, file_get_contents($sub_details_image));
+                    Storage::disk('accomplishment_files')->put($new_filename, file_get_contents($sub_details_file));
                     
                     $accomplishment_images[] = [
                         'accomplishment_details_id' => $accomplishment_detail_id,

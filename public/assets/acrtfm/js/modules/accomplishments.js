@@ -76,10 +76,10 @@ function _init_actions() {
                     .closest(".card-sub-details")
                     .find("input[type='file']")
                     .get(0).files;
-                console.log(files);
-                // if (images.length === 0) {
-                //     return;
-                // }
+
+                if (files.length === 0) {
+                    return;
+                }
 
                 let carousel = $("#image-carousel");
                 let carousel_document = $("#document-carousel");
@@ -119,7 +119,7 @@ function _init_actions() {
                         .append(`<div class="carousel-item ${
                         i === 0 ? "active" : ""
                     }">
-                     <iframe src="${documentUrl}" class="d-block w-100" style='width: 100% !important; height: 50vh !important;'></iframe> 
+                     <iframe src="${documentUrl}" type="application/pdf" class="d-block w-100" style='width: 100% !important; height: 50vh !important;'></iframe> 
                     </div>`);
                 }
                 $("#modal-images").modal("show");
@@ -167,7 +167,7 @@ function _delete_accomplishment(id, parent) {
 function _save_job() {
     let formData = new FormData();
     let subDetailsCard = $(".card-sub-details");
-    let image_cntr = 0;
+    let file_cntr = 0;
 
     formData.append("title", $("[data-key=Title]").val());
     formData.append("description", $("[data-key=Description]").val());
@@ -180,7 +180,7 @@ function _save_job() {
         let subDetailsAccomplishments = $(this)
             .find("[data-key=SubDetailsAccomplishments]")
             .val();
-        let subDetailsImages = $(this)
+        let subDetailsFiles = $(this)
             .find("[data-key=SubDetailsFiles]")
             .get(0).files;
 
@@ -192,14 +192,14 @@ function _save_job() {
         );
 
         let images = [];
-        for (let i = 0; i < subDetailsImages.length; i++) {
+        for (let i = 0; i < subDetailsFiles.length; i++) {
             formData.append(
-                `subDetailsImages_${image_cntr}[]`,
-                subDetailsImages[i]
+                `subDetailsFiles_${file_cntr}[]`,
+                subDetailsFiles[i]
             );
         }
 
-        image_cntr++;
+        file_cntr++;
     });
 
     ajaxSubmit("/executor/accomplishments/save", formData, "");
