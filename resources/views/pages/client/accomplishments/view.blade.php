@@ -61,7 +61,7 @@
                             <div class="carousel-inner">
                                 @foreach($images as $image)
                                     <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                                        <img class="d-block w-100" src="{{ '/storage/accomplishment_files/'.$image['filename'] }}" alt="{{ $image['filename'] }}">
+                                        <img class="d-block w-100" src="{{ $image['filename'] }}" alt="{{ $image['filename'] }}">
                                     </div>
                                 @endforeach
                             </div>
@@ -84,7 +84,7 @@
                                 
                                     <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
                                         <iframe 
-                                            src="{{  URL::to('/') . '/storage/accomplishment_files/'.$document['filename'] }}" 
+                                            src="{{  $document['filename'] }}" 
                                             class="d-block w-100" 
                                             style='width: 100%; height: 50vh !important;' 
                                             frameborder="0">

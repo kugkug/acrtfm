@@ -36,6 +36,7 @@ class JbController extends Controller
     public function save(Request $request): JsonResponse{
         try {
             $api_response = apiHelper()->post($request, route('api-accomplishments-save'));
+            return response()->json($api_response);
 
             if(! $api_response['status']) {
                 return globalHelper()->ajaxErrorResponse($api_response['message']);

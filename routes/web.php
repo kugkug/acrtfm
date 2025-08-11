@@ -11,6 +11,10 @@ Route::get('/', [ModulesController::class, 'login'])->name("login");
 Route::get('/forgot-password', [ModulesController::class, 'forgotPassword'])->name("forgot-password");
 Route::get('/register', [ModulesController::class, 'register'])->name("register");
 
+Route::get('/mobile-app', function() {
+    return view('pages.mobile-app');
+})->name("mobile-app");
+
 Route::prefix('executor')->group(function () {
     Route::prefix('account')->group(function () {
         Route::post('/registration', [AccountController::class, 'registration'])->name("exec-account-registration");
