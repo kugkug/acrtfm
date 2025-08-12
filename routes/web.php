@@ -11,6 +11,8 @@ Route::get('/', [ModulesController::class, 'login'])->name("login");
 Route::get('/forgot-password', [ModulesController::class, 'forgotPassword'])->name("forgot-password");
 Route::get('/register', [ModulesController::class, 'register'])->name("register");
 
+
+
 Route::get('/mobile-app', function() {
     return view('pages.mobile-app');
 })->name("mobile-app");
@@ -24,6 +26,10 @@ Route::prefix('executor')->group(function () {
 });
 
 Route::middleware(['auth:sanctum', 'web'])->group(function () {
+    Route::get('/troubleshooter', function() {
+        return view('pages.troubleshooter');
+    })->name("troubleshooter");
+    
     Route::get('/home', [ModulesController::class, 'home'])->name("home");
     Route::get('/model-lookup', [ModulesController::class, 'modelLookup'])->name("model-lookup");
     Route::get('/education', [ModulesController::class, 'education'])->name("education");
