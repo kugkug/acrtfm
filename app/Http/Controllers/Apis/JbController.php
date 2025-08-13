@@ -104,11 +104,12 @@ class JbController extends Controller
                     
                     // Storage::disk('accomplishment_files')->put($new_filename, file_get_contents($sub_details_file));
                     $file = Storage::disk('s3')->putFileAs('jobs', $sub_details_file, $new_filename);
-                    $filename = Storage::disk('s3')->url($file);
+                    $url = Storage::disk('s3')->url($file);
                     
                     $accomplishment_images[] = [
                         'accomplishment_details_id' => $accomplishment_detail_id,
-                        'filename' => $filename,
+                        'filename' => $original_name,
+                        'url' => $url,
                         'filetype' => $ext,
                     ];
                 }

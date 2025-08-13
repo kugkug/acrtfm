@@ -41,7 +41,7 @@
     </div>
     <div class="row">
         <div class="col-lg-4">
-            <div class="card shadow-sm cursor-pointer" data-trigger="my-accomplishments" data-url="{{ route('my-accomplishments') }}"> 
+            <div class="card shadow-sm cursor-pointer" data-trigger="job-sites" data-url="{{ route('job-sites') }}"> 
                 <div class="card-body">
                     <h3 class="card-title">Job Sites</h3>
                     <div class="d-inline-block">

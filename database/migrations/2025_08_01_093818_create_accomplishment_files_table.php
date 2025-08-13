@@ -14,8 +14,9 @@ return new class extends Migration
         Schema::create('accomplishment_files', function (Blueprint $table) {
             $table->id();
             $table->bigInteger('accomplishment_details_id')->constrained('accomplishment_details');
-            $table->string('filename');
-            $table->string('filetype', 50);
+            $table->string('filename')->nullable();
+            $table->string('url');
+            $table->string('filetype', 50)->nullable();
             $table->timestamps();
         });
     }
@@ -25,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('accomplishment_photos');
+        Schema::dropIfExists('accomplishment_files');
     }
 };

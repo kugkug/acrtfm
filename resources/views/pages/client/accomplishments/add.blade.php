@@ -87,4 +87,4 @@
 </div>
 
 @include('partials.auth.footer')
-<script src="{{ asset('assets/acrtfm/js/modules/sub-accomplishment.js') }}"></script>
+<script src="{{ asset('assets/acrtfm/js/modules/sub-job-site.js') }}"></script>

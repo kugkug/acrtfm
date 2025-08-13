@@ -11,14 +11,14 @@
                     <p class="card-text">{{ $accomplishment['accomplishment'] }}</p>                  
                     
                 </div>
-                <div class="card-footer d-flex justify-content-between">
-
+                <div class="card-footer text-right">
+{{-- 
                     <button 
                         class="btn btn-info mr-2" 
                         data-trigger="edit-accomplishment" 
                         data-id="{{ $accomplishment['id'] }}">
                         <i class="fa fa-edit"></i> Edit
-                    </button>
+                    </button> --}}
 
                     <button 
                         class="btn btn-danger" 
@@ -61,7 +61,7 @@
                             <div class="carousel-inner">
                                 @foreach($images as $image)
                                     <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                                        <img class="d-block w-100" src="{{ $image['filename'] }}" alt="{{ $image['filename'] }}">
+                                        <img class="d-block w-100" src="{{ $image['url'] }}" alt="{{ $image['filename'] }}">
                                     </div>
                                 @endforeach
                             </div>
@@ -75,24 +75,29 @@
                     </div>
                 </div>
                 <div id="tab-body-documents" class="tab-pane" style="height: 50vh !important; width: 100% !important;">
-                    <div class="bootstrap-carousel">
+                    <div class="d-md-none d-lg-none d-xl-none">
+                        <div class="basic-list-group">
+                            <div class="list-group" id="document-list">
+                                @foreach($documents as $document)
+                                    <a href="{{ $document['url'] }}" target="_blank" class="text-info list-group-item list-group-item-action">{{ $document['filename'] }}</a>
+                                @endforeach
+                            </div>
+                        </div>
+                    </div>
+                    <div class="bootstrap-carousel d-none d-md-block d-lg-block d-xl-block">
                         <div id="document-carousel" class="carousel slide" data-ride="carousel">
                             <div class="carousel-inner">
-
-                                
                                 @foreach($documents as $document)
                                 
-                                    <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                                        <iframe 
-                                            src="{{  $document['filename'] }}" 
-                                            class="d-block w-100" 
-                                            style='width: 100%; height: 50vh !important;' 
-                                            frameborder="0">
-                                        </iframe> 
-                                    </div>
-                                @endforeach
-                                
-                                
+                                <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
+                                    <iframe 
+                                        src="{{  $document['url'] }}" 
+                                        class="d-block w-100" 
+                                        style='width: 100%; height: 50vh !important;' 
+                                        frameborder="0">
+                                    </iframe> 
+                                </div>
+                            @endforeach
                             </div>
                             <a class="carousel-control-prev" href="#document-carousel" data-slide="prev">
                                 <span class="carousel-control-prev-icon"></span> <span class="sr-only">Previous</span> 
@@ -102,6 +107,7 @@
                             </a>
                         </div>
                     </div>
+
                 </div>
             </div>
 
@@ -113,4 +119,4 @@
 
 @include('partials.auth.footer')
 
-<script src="{{ asset('assets/acrtfm/js/modules/accomplishments.js') }}"></script>
+<script src="{{ asset('assets/acrtfm/js/modules/job-sites.js') }}"></script>

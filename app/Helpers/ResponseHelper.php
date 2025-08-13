@@ -52,15 +52,15 @@ class ResponseHelper {
                 _init_actions();
                 ';
                 break;
-            case 'accomplishments-fetched':
-                $script = sizeof($data) == 0 ? '$("#accomplishments-list").html("<div class=\"mx-3 alert alert-danger w-100\" role=\"alert\">No data found</div>");' : 
-                    '$("#accomplishments-list").html("'.preg_replace('/\s+/', ' ', $this->accomplishments_list($data)).'"); _init_actions();';
+            case 'job-sites-fetched':
+                $script = sizeof($data) == 0 ? '$("#job-sites-list").html("<div class=\"mx-3 alert alert-danger w-100\" role=\"alert\">No data found</div>");' : 
+                    '$("#job-sites-list").html("'.preg_replace('/\s+/', ' ', $this->job_sites_list($data)).'"); _init_actions();';
                 break;
-            case 'accomplishments-saved':
-                $script = "location = '".route('my-accomplishments')."';";
+            case 'job-sites-saved':
+                $script = "location = '".route('job-sites')."';";
                 break;
-            case 'accomplishments-deleted':
-                $script = "location = '".route('my-accomplishments-sub', $data['parent'])."';";
+            case 'job-sites-deleted':
+                $script = "location = '".route('job-sites-sub', $data['parent'])."';";
                 break;
         }
 
@@ -193,7 +193,7 @@ class ResponseHelper {
         }
     }
 
-    private function accomplishments_list(array $data): string {
+    private function job_sites_list(array $data): string {
         $card = "";
         foreach ($data as $accomplishment) {
             $description = strlen($accomplishment['description']) > self::DESCRIPTION_MAX_LENGTH ? substr($accomplishment['description'], 0, self::DESCRIPTION_MAX_LENGTH).'...' : $accomplishment['description'];
@@ -205,7 +205,7 @@ class ResponseHelper {
                             <p class='card-text'>".addslashes($description)."</p>
                         </div>
                         <div class='card-footer'>
-                            <a href='".route('my-accomplishments-sub', $accomplishment['id'])."' class='btn btn-primary btn-sm'>View More </a>                            
+                            <a href='".route('job-sites-sub', $accomplishment['id'])."' class='btn btn-primary btn-sm'>View More </a>                            
                         </div>
                     </div>
                 </div>

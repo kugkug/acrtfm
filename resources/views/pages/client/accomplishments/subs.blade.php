@@ -9,7 +9,7 @@
                 <div class="card">
                     <img 
                         class="img-fluid" 
-                        src=" {{ $detail['files'][0]['filename'] }}" 
+                        src=" {{ $detail['files'][0]['url'] }}" 
                         alt="" 
                         style="width: 100%; height: 300px; object-fit: cover;">
                     <div class="card-body">
@@ -18,7 +18,7 @@
                     </div>
 
                     <div class="card-footer">
-                        <a href="{{ route('my-accomplishments-view', $detail['id']) }}" class="btn btn-primary btn-sm">View More</a>
+                        <a href="{{ route('job-sites-view', $detail['id']) }}" class="btn btn-primary btn-sm">View More</a>
                     </div>
                 </div>
             </div>

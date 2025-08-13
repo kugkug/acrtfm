@@ -101,7 +101,14 @@
                         </div>
                     </div>
                     <div id="tab-body-documents" class="tab-pane" style="height: 50vh !important; width: 100% !important;">
-                        <div class="bootstrap-carousel">
+                        <div class="d-md-none d-lg-none d-xl-none">
+                            <div class="basic-list-group">
+                                <div class="list-group" id="document-list">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bootstrap-carousel d-none d-md-block d-lg-block d-xl-block">
                             <div id="document-carousel" class="carousel slide" data-ride="carousel">
                                 <div class="carousel-inner"></div>
                                 <a class="carousel-control-prev" href="#document-carousel" data-slide="prev">
@@ -123,4 +130,4 @@
 </div>
 
 @include('partials.auth.footer')
-<script src="{{ asset('assets/acrtfm/js/modules/accomplishments.js') }}"></script>
+<script src="{{ asset('assets/acrtfm/js/modules/job-sites.js') }}"></script>

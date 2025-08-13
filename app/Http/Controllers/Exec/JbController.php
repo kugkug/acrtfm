@@ -11,7 +11,7 @@ class JbController extends Controller
 {
     public function fetch(Request $request): JsonResponse{
         try {
-            $api_response = apiHelper()->post($request, route('api-accomplishments-fetch'));
+            $api_response = apiHelper()->post($request, route('api-job-sites-fetch'));
 
             if(! $api_response['status']) {
                 return globalHelper()->ajaxErrorResponse($api_response['message']);
@@ -20,8 +20,8 @@ class JbController extends Controller
             return globalHelper()->ajaxSuccessResponse(
                 'scripts',
                 'success',
-                'accomplishments-fetched',
-                'Accomplishments fetched successfully',
+                'job-sites-fetched',
+                'Job Sites fetched successfully',
                 'System Info',
                 $api_response['data']
             );
@@ -35,8 +35,7 @@ class JbController extends Controller
 
     public function save(Request $request): JsonResponse{
         try {
-            $api_response = apiHelper()->post($request, route('api-accomplishments-save'));
-            return response()->json($api_response);
+            $api_response = apiHelper()->post($request, route('api-job-sites-save'));
 
             if(! $api_response['status']) {
                 return globalHelper()->ajaxErrorResponse($api_response['message']);
@@ -45,8 +44,8 @@ class JbController extends Controller
             return globalHelper()->ajaxSuccessResponse(
                 'scripts',
                 'success',
-                'accomplishments-saved',
-                'Job saved successfully',
+                'job-sites-saved',
+                'Job Site saved successfully',
                 'System Info',
             );
         } catch(Exception $e) {
@@ -59,7 +58,7 @@ class JbController extends Controller
 
     public function delete(Request $request): JsonResponse {
         try {
-            $api_response = apiHelper()->post($request, route('api-accomplishments-delete'));
+            $api_response = apiHelper()->post($request, route('api-job-sites-delete'));
             
             if(! $api_response['status']) {
                 return globalHelper()->ajaxErrorResponse($api_response['message']);
@@ -68,8 +67,8 @@ class JbController extends Controller
             return globalHelper()->ajaxSuccessResponse(
                 'scripts',
                 'success',
-                'accomplishments-deleted',
-                'Accomplishment deleted successfully',
+                'job-sites-deleted',
+                'Job Site deleted successfully',
                 'System Info',
                 [
                     'parent' => $request->parent,
@@ -82,6 +81,4 @@ class JbController extends Controller
             ]);
         }
     }
-
-    
 }

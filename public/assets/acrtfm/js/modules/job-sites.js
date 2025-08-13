@@ -115,6 +115,9 @@ function _init_actions() {
                 for (let i = 0; i < documents.length; i++) {
                     let document = documents[i];
                     let documentUrl = URL.createObjectURL(document);
+                    $("#document-list").append(
+                        `<a href="${documentUrl}" target="_blank" class="text-info list-group-item list-group-item-action">${document.name}</a>`
+                    );
                     carousel_document.find(".carousel-inner")
                         .append(`<div class="carousel-item ${
                         i === 0 ? "active" : ""

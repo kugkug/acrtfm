@@ -42,14 +42,13 @@ Route::middleware(['auth:sanctum', 'web'])->group(function () {
     Route::prefix('profile')->group(function () {
         Route::get('/', [ModulesController::class, 'profile'])->name("profile");
         
-        Route::prefix('my-accomplishments')->group(function () {
-            Route::get('/', [ModulesController::class, 'myAccomplishments'])->name("my-accomplishments");
-            Route::get('/{id}/sub', [ModulesController::class, 'subAccomplishment'])->name("my-accomplishments-sub");
-            
-            Route::get('/{sub_id}/add', [ModulesController::class, 'addAccomplishment'])->name("my-accomplishments-add");
-            Route::get('/new', [ModulesController::class, 'newAccomplishment'])->name("my-accomplishments-new");
-            Route::get('/{id}/edit', [ModulesController::class, 'editAccomplishment'])->name("my-accomplishments-edit");
-            Route::get('/{id}/view', [ModulesController::class, 'viewAccomplishment'])->name("my-accomplishments-view");
+        Route::prefix('job-sites')->group(function () {
+            Route::get('/', [ModulesController::class, 'jobSites'])->name("job-sites");
+            Route::get('/{id}/sub', [ModulesController::class, 'subJobSite'])->name("job-sites-sub");
+            Route::get('/{sub_id}/add', [ModulesController::class, 'addJobSite'])->name("job-sites-add");
+            Route::get('/new', [ModulesController::class, 'newJobSite'])->name("job-sites-new");
+            Route::get('/{id}/edit', [ModulesController::class, 'editJobSite'])->name("job-sites-edit");
+            Route::get('/{id}/view', [ModulesController::class, 'viewJobSite'])->name("job-sites-view");
         });
     });
 

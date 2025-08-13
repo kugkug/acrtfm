@@ -98,19 +98,19 @@ class ModulesController extends Controller
         return view('pages.subs.shared_education', $this->data);
     }
 
-    public function myAccomplishments() {
+    public function jobSites() {
         $this->data['title'] = 'Job Sites'; 
         $this->data['description'] = "List of job sites you have worked on";
         $this->data['header'] = "Job Sites";
-        $this->data['right_panel'] = "<a href='".route('my-accomplishments-new')."' class='btn btn-success btn-md btn-flat btn-block ' ><i class='fa fa-plus'></i> Add New</a>";
+        $this->data['right_panel'] = "<a href='".route('job-sites-new')."' class='btn btn-success btn-md btn-flat btn-block ' ><i class='fa fa-plus'></i> Add New</a>";
         return view('pages.client.accomplishments.list', $this->data);
     }
 
-    public function subAccomplishment($id) {
+    public function subJobSite($id) {
         
         $accomplishment_w_details = globalHelper()->getAccomplishmentDetails($id);
         if (empty($accomplishment_w_details)) {
-            return redirect()->route('my-accomplishments');
+            return redirect()->route('job-sites');
         }
         
         $this->data['title'] = $accomplishment_w_details['title']; 
@@ -118,55 +118,55 @@ class ModulesController extends Controller
         $this->data['header'] = $accomplishment_w_details['title'];
         $this->data['right_panel'] = "
             <div class='d-flex justify-content-end'>
-                <a href='".route('my-accomplishments-add', $id)."' class='btn btn-success btn-md btn-flat mr-2 text-white'><i class='fa fa-plus'></i> Add New </a>
-                <a href='".route('my-accomplishments')."' class='btn btn-primary btn-md btn-flat'><i class='fa fa-undo'></i> Back to List</a>
+                <a href='".route('job-sites-add', $id)."' class='btn btn-success btn-md btn-flat mr-2 text-white'><i class='fa fa-plus'></i> Add New </a>
+                <a href='".route('job-sites')."' class='btn btn-primary btn-md btn-flat'><i class='fa fa-undo'></i> Back to List</a>
             </div>";
         $this->data['accomplishment'] = $accomplishment_w_details;
         return view('pages.client.accomplishments.subs', $this->data);
     }
 
-    public function viewAccomplishment($id) {
+    public function viewJobSite($id) {
         $accomplishment = globalHelper()->getAccomplishmentDetail($id);
         if (empty($accomplishment)) {
-            return redirect()->route('my-accomplishments');
+            return redirect()->route('job-sites');
         }
         
         $this->data['title'] = $accomplishment['title']; 
         $this->data['description'] = $accomplishment['description'];
         $this->data['header'] = $accomplishment['title'];
-        $this->data['right_panel'] = "<a href='".route('my-accomplishments-sub', $accomplishment['parent']['id'])."' class='btn btn-primary btn-md btn-flat btn-block ' ><i class='fa fa-undo'></i> Back to List</a>";
+        $this->data['right_panel'] = "<a href='".route('job-sites-sub', $accomplishment['parent']['id'])."' class='btn btn-primary btn-md btn-flat btn-block ' ><i class='fa fa-undo'></i> Back to List</a>";
         $this->data['accomplishment'] = $accomplishment;
         return view('pages.client.accomplishments.view', $this->data);
     }
 
-    public function newAccomplishment() {
+    public function newJobSite() {
         $this->data['title'] = 'Add Job Sites'; 
         $this->data['description'] = "Add new job sites for your reference";
         $this->data['header'] = "Add Job Sites";
-        $this->data['right_panel'] = "<a href='".route('my-accomplishments')."' class='btn btn-primary btn-md btn-flat btn-block ' ><i class='fa fa-undo'></i> Back to List</a>";
+        $this->data['right_panel'] = "<a href='".route('job-sites')."' class='btn btn-primary btn-md btn-flat btn-block ' ><i class='fa fa-undo'></i> Back to List</a>";
         return view('pages.client.accomplishments.new', $this->data);
     }
 
-    public function addAccomplishment($sub_id) {
+    public function addJobSite($sub_id) {
         $accomplishment = globalHelper()->getAccomplishmentDetails($sub_id);
         if (empty($accomplishment)) {
-            return redirect()->route('my-accomplishments');
+            return redirect()->route('job-sites');
         }
         
-        $this->data['title'] = 'Add Accomplishment'; 
-        $this->data['description'] = "Add another accomplishment for your reference";
-        $this->data['header'] = "Add Accomplishment";
-        $this->data['right_panel'] = "<a href='".route('my-accomplishments-sub', $accomplishment['id'])."' class='btn btn-primary btn-md btn-flat btn-block ' ><i class='fa fa-undo'></i> Back to Accomplishment</a>";
+        $this->data['title'] = 'Add Job Site'; 
+        $this->data['description'] = "Add another job site for your reference";
+        $this->data['header'] = "Add Job Site";
+        $this->data['right_panel'] = "<a href='".route('job-sites-sub', $accomplishment['id'])."' class='btn btn-primary btn-md btn-flat btn-block ' ><i class='fa fa-undo'></i> Back to Accomplishment</a>";
         $this->data['accomplishment'] = $accomplishment;
         $this->data['sub_id'] = $sub_id;
         return view('pages.client.accomplishments.add', $this->data);
     }
 
-    public function editAccomplishment($id) {
-        $this->data['title'] = 'Edit Accomplishment'; 
-        $this->data['description'] = "Modify existing accomplishment";
-        $this->data['header'] = "Edit Accomplishment";
-        $this->data['right_panel'] = "<a href='".route('my-accomplishments')."' class='btn btn-primary btn-md btn-flat btn-block ' ><i class='fa fa-undo'></i> Back to List</a>";
+    public function editJobSite($id) {
+        $this->data['title'] = 'Edit Job Site'; 
+        $this->data['description'] = "Modify existing job site";
+        $this->data['header'] = "Edit Job Site";
+        $this->data['right_panel'] = "<a href='".route('job-sites')."' class='btn btn-primary btn-md btn-flat btn-block ' ><i class='fa fa-undo'></i> Back to List</a>";
         return view('pages.client.accomplishments.edit', $this->data);
     }
    
@@ -175,7 +175,5 @@ class ModulesController extends Controller
         $this->data['description'] = "Profile";
         $this->data['header'] = "Profile";
         return view('pages.client.profile', $this->data);
-    }
-
-   
+    }  
 }
