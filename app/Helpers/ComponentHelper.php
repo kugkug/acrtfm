@@ -43,7 +43,7 @@
                                     <a class='dropdown-item mb-1 text-primary' href='".route('job-sites')."'>
                                         <i class='fa fa-undo'></i> Back to List
                                     </a>
-                                    <a class='dropdown-item mb-1 text-info' href='".route('job-sites-add', $data['id'])."'> 
+                                    <a class='dropdown-item mb-1 text-success' href='".route('job-sites-add', $data['id'])."'> 
                                         <i class='fa fa-plus'></i> Add New 
                                     </a> 
                                     <a class='dropdown-item text-danger' href='javascript:void(0);' data-trigger='delete-job-site' data-id='".$data['id']."'>
@@ -80,8 +80,8 @@
                                         <a class='dropdown-item mb-1 text-primary' href='".route('job-sites-areas', $data['id'])."'>
                                             <i class='fa fa-undo'></i> Back to Areas
                                         </a>
-                                        <a class='dropdown-item mb-1 text-success' href='".route('job-site-area-edit', $data['id'])."'> 
-                                            <i class='fa fa-plus'></i> Add New 
+                                        <a class='dropdown-item mb-1 text-info' href='".route('job-site-area-edit', $data['id'])."'> 
+                                            <i class='fa fa-edit'></i> Edit
                                         </a> 
                                         <a class='dropdown-item text-danger' href='javascript:void(0);' data-trigger='delete-job-area' data-id='".$data['id']."'>
                                             <i class='fa fa-trash'></i> Delete
