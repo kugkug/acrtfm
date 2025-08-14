@@ -203,9 +203,9 @@ class ResponseHelper {
                 <div class='col-md-4'>
                     <div class='card'>
                         <div class='card-body'>
-                        <div class='d-flex justify-content-between'>
-                            <h5 class='card-title'>".addslashes($job_area['title'])."</h5>
-                            <div class='basic-dropdown'>
+                            <div class='d-flex justify-content-between'>
+                                <h5 class='card-title'>".addslashes($job_area['title'])."</h5>
+                                <div class='basic-dropdown'>
                                     <div class='dropleft mb-1'>
                                         <button type='button' class='btn mb-1 btn-rounded btn-outline-info' data-toggle='dropdown'>
                                             <i class='fa fa-ellipsis-v'></i>
@@ -221,15 +221,13 @@ class ResponseHelper {
                                                 <i class='fa fa-trash'></i> Delete Job Site
                                             </a>
                                         </div>
-                                    </div>                                    
+                                    </div>
                                 </div>
+                                <p class='card-text'>".addslashes($description)."</p>
                             </div>
-                            <p class='card-text'>".addslashes($description)."</p>
                         </div>
-                        
                     </div>
-                </div>
-            ";
+                </div>";
         }
         return $card;
     }

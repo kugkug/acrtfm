@@ -117,9 +117,9 @@ class ModulesController extends Controller
         }
         
         $this->data['title'] = $job_site_areas['title']; 
-        $this->data['description'] = $job_site_areas['description'];
+        $this->data['description'] = '';
         $this->data['header'] = $job_site_areas['title'];
-        $this->data['right_panel'] = componentHelper()->rightPanel('sub-job-sites', ['id' => $id]);
+        $this->data['right_panel'] = componentHelper()->rightPanel('job-site-areas', ['id' => $id]);
         $this->data['job_site_areas'] = $job_site_areas;
         return view('pages.client.job-sites.subs', $this->data);
     }
@@ -129,7 +129,6 @@ class ModulesController extends Controller
         if (empty($job_site_area)) {
             return redirect()->route('job-sites');
         }
-        
         
         $this->data['title'] = $job_site_area['title']; 
         $this->data['description'] = '';
