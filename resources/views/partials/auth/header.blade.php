@@ -108,15 +108,26 @@
         @include('partials.auth.sidebar')
 
         <div class="content-body">  
-            <div class="row page-titles">
-                <div class="col-md-6">
-                    <h1 class="">{{ $title }}</h1>
+            <div class="row page-titles mx-0">
+                <div class="col-8">
+                    <h3 class="">{{ $title }}</h3>
                     <p class="module-description">{{ $description }}</p>
                 </div>
-                <div class="col-md-6">
+                <div class="col-4 p-md-0">
                     @if(isset($right_panel))
                         {!! $right_panel !!}
                     @endif
                 </div>
             </div>
+            {{-- <div class="row page-titles">
+                <div class="col-sm-6 col-md-6">
+                    <h1 class="">{{ $title }}</h1>
+                    <p class="module-description">{{ $description }}</p>
+                </div>
+                <div class="col-sm-6 col-md-6">
+                    @if(isset($right_panel))
+                        {!! $right_panel !!}
+                    @endif
+                </div>
+            </div> --}}
         

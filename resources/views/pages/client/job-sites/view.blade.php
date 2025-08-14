@@ -7,35 +7,18 @@
 
             <div class="card">
                 <div class="card-body">
-                    <h5 class="card-title">Accomplishment</h5>
-                    <p class="card-text">{{ $accomplishment['accomplishment'] }}</p>                  
+                    <h5 class="card-title">Accomplishments</h5>
+                    <p class="card-text">{{ $job_site_area['description'] }}</p>                  
                     
                 </div>
-                <div class="card-footer text-right">
-{{-- 
-                    <button 
-                        class="btn btn-info mr-2" 
-                        data-trigger="edit-accomplishment" 
-                        data-id="{{ $accomplishment['id'] }}">
-                        <i class="fa fa-edit"></i> Edit
-                    </button> --}}
-
-                    <button 
-                        class="btn btn-danger" 
-                        data-trigger="delete-accomplishment" 
-                        data-id="{{ $accomplishment['id'] }}" 
-                        data-parent="{{ $accomplishment['parent']['id'] }}"
-                    >
-                        <i class="fa fa-trash"></i> Delete
-                    </button>
-                </div>
+                
             </div>
 
             @php
                 $images = [];
                 $documents = [];
-                foreach($accomplishment['files'] as $file) {
-                    if(in_array($file['filetype'], ['pdf', 'PDF'])) {
+                foreach($job_site_area['files'] as $file) {
+                    if(in_array($file['type'], ['pdf', 'PDF'])) {
                         $documents[] = $file;
                     } else {
                         $images[] = $file;
@@ -61,7 +44,7 @@
                             <div class="carousel-inner">
                                 @foreach($images as $image)
                                     <div class="carousel-item {{ $loop->first ? 'active' : '' }}">
-                                        <img class="d-block w-100" src="{{ $image['url'] }}" alt="{{ $image['filename'] }}">
+                                        <img class="d-block w-100" src="{{ $image['url'] }}" alt="{{ $image['name'] }}">
                                     </div>
                                 @endforeach
                             </div>
@@ -79,7 +62,12 @@
                         <div class="basic-list-group">
                             <div class="list-group" id="document-list">
                                 @foreach($documents as $document)
-                                    <a href="{{ $document['url'] }}" target="_blank" class="text-info list-group-item list-group-item-action">{{ $document['filename'] }}</a>
+                                    <a 
+                                        href="{{ $document['url'] }}" 
+                                        target="_blank" 
+                                        class="text-info list-group-item list-group-item-action">
+                                        {{ $document['name'] }}
+                                    </a>
                                 @endforeach
                             </div>
                         </div>

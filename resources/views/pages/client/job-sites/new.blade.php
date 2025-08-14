@@ -18,7 +18,7 @@
 
             <div class="card card-sub-details area-main-card">
                 <div class="card-body">
-                    <div class="d-flex justify-content-between align-items-center mb-1">
+                    <div class="d-flex justify-content-between align-items-center mb-1 div-header">
                         <h5 class="card-title"></h5>
                     </div>
                 
@@ -54,7 +54,7 @@
     </div>
     <div class="row mb-2">
         <div class="col-md-6 my-1">
-            <button class="btn btn-info btn-flat btn-block" data-trigger="add-accomplishment">
+            <button class="btn btn-info btn-flat btn-block" data-trigger="add-job-site">
                 <i class="fa fa-plus"></i> Add <span></span>
             </button>
         </div>

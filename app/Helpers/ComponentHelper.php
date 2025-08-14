@@ -1,0 +1,62 @@
+<?php
+
+    declare(strict_types=1);
+    namespace App\Helpers;
+
+    class ComponentHelper {
+
+        public function rightPanel(string $type, array $data): string {
+
+            switch ($type) {
+                case 'job-sites':
+                    $html ="<a href='".route('job-site-new')."' class='btn btn-success float-right btn-md btn-flat text-white'>
+                                <i class='fa fa-plus'></i> New 
+                            </a>";
+                    break;
+                case 'sub-job-sites':
+                    $html ="
+                    <div class='d-none d-sm-none d-md-block d-lg-block d-xl-block'>
+                        <div class='d-flex justify-content-end'>
+                            <a href='".route('job-sites-add', $data['id'])."' class='btn btn-success btn-md btn-flat mr-2 text-white'>
+                                <i class='fa fa-plus'></i> Add New 
+                            </a>
+                            <a href='".route('job-sites')."' class='btn btn-primary btn-md btn-flat mr-2'>
+                                <i class='fa fa-undo'></i> Back to List
+                            </a>
+                            <a href='#' class='btn btn-danger btn-md btn-flat' data-trigger='delete-job-site' data-sub-id='".$data['id']."'>
+                                <i class='fa fa-trash'></i> Delete
+                            </a>
+                        </div>
+                    </div>
+                    <div class='d-sm-block d-md-none d-lg-none d-xl-none'>
+                        <div class='d-flex justify-content-between'>
+                            <a href='".route('job-sites-add', $data['id'])."' class='btn btn-success btn-md btn-flat mr-2 text-white'>
+                                <i class='fa fa-plus'></i> New
+                            </a>
+                            <a href='".route('job-sites')."' class='btn btn-primary btn-md btn-flat mr-2'><i class='fa fa-undo'></i> Back</a>
+                            <a href='#' class='btn btn-danger btn-md btn-flat' data-trigger='delete-job-site' data-sub-id='".$data['id']."'><i class='fa fa-trash'></i> Delete</a>
+                        </div>
+                    </div>
+                    ";
+                    break;
+                case 'sub-job-site-view':
+                    $html ="
+                        <div class='d-flex justify-content-end'>
+                            <a href='".route('job-sites-areas', $data['id'])."' class='btn btn-primary btn-md btn-flat mr-2'>
+                                <i class='fa fa-undo'></i> Back to Areas
+                            </a>
+                            <a href='".route('job-site-area-edit', $data['id'])."' class='btn btn-info btn-md btn-flat mr-2'>
+                                <i class='fa fa-edit'></i> Edit Area
+                            </a>
+                            <a href='#' class='btn btn-danger btn-md btn-flat' data-trigger='delete-job-area' data-id='".$data['id']."'>
+                                <i class='fa fa-trash'></i> Delete Area
+                            </a>
+                        </div>
+                    ";
+                    break;
+            }
+
+            return $html;
+        }
+
+    }

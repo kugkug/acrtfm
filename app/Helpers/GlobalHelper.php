@@ -11,6 +11,8 @@ use App\Models\Communication;
 use App\Models\Contact;
 use App\Models\Education;
 use App\Models\Extension;
+use App\Models\JobArea;
+use App\Models\JobSite;
 use App\Models\Keyword;
 use App\Models\Message;
 use App\Models\Otp;
@@ -71,7 +73,7 @@ class GlobalHelper {
     }
 
     public function getProfile() {
-        $profile = User::where('id', auth()->user()->id)->with('profile')->first();
+        $profile = User::where('id', Auth::user()->id)->with('profile')->first();
         
         return $profile->toArray();
     }
@@ -87,108 +89,108 @@ class GlobalHelper {
         }
     }
 
-    public function getEmailDetails($type, $data=[]) {
+    // public function getEmailDetails($type, $data=[]) {
 
-        switch ($type) {
-            case 'otp':
-                $user_id = $data['id'];
-                $otp_data = $this->generateOtp($user_id);
-                $data['otp'] = $otp_data['otp'] ?? '';
-                $data['verification_url'] = config('app.url') . '/verify-otp?token=' . $otp_data['token'];
-                return [
-                    'subject' => 'OTP Verification - AxoCall',
-                    'view' => 'mail.otp',
-                    'data' => $data,
-                ];
-            case 'reset_password':
-                return [
-                    'subject' => 'Reset Password - AxoCall',
-                    'view' => 'mail.reset_password',
-                    'data' => $data,
-                ];
-            default:
-                return [
-                    'subject' => 'OTP Verification - AxoCall',
-                    'view' => 'mail.otp',
-                ];
-        }
-    }
+    //     switch ($type) {
+    //         case 'otp':
+    //             $user_id = $data['id'];
+    //             $otp_data = $this->generateOtp($user_id);
+    //             $data['otp'] = $otp_data['otp'] ?? '';
+    //             $data['verification_url'] = config('app.url') . '/verify-otp?token=' . $otp_data['token'];
+    //             return [
+    //                 'subject' => 'OTP Verification - AxoCall',
+    //                 'view' => 'mail.otp',
+    //                 'data' => $data,
+    //             ];
+    //         case 'reset_password':
+    //             return [
+    //                 'subject' => 'Reset Password - AxoCall',
+    //                 'view' => 'mail.reset_password',
+    //                 'data' => $data,
+    //             ];
+    //         default:
+    //             return [
+    //                 'subject' => 'OTP Verification - AxoCall',
+    //                 'view' => 'mail.otp',
+    //             ];
+    //     }
+    // }
 
-    public function generateOtp($user_id) {
+    // public function generateOtp($user_id) {
 
-        try {
-        $otp = rand(100000, 999999);
-        $token = md5(random_bytes(32).$otp);
-        $otp_expiration = now()->addMinutes(5);
+    //     try {
+    //     $otp = rand(100000, 999999);
+    //     $token = md5(random_bytes(32).$otp);
+    //     $otp_expiration = now()->addMinutes(5);
 
-        $otp_data = [
-            'user_id' => $user_id,
-            'otp' => $otp,
-            'expires_at' => $otp_expiration,
-            'type' => 'otp',
-            'token' => $token,
-        ];
+    //     $otp_data = [
+    //         'user_id' => $user_id,
+    //         'otp' => $otp,
+    //         'expires_at' => $otp_expiration,
+    //         'type' => 'otp',
+    //         'token' => $token,
+    //     ];
 
-        $otp = Otp::create($otp_data);
+    //     $otp = Otp::create($otp_data);
 
-        return $otp;
-        } catch (\Exception $e) {
-            logInfo($e->getMessage());
-            return [];
-        }
-    }
+    //     return $otp;
+    //     } catch (\Exception $e) {
+    //         logInfo($e->getMessage());
+    //         return [];
+    //     }
+    // }
 
-    public function sendOtp($data) {
-        try {
+    // public function sendOtp($data) {
+    //     try {
 
-            $recipient = $data['email'];
-            $profile = $this->getProfileViaEmail($recipient);
-            $emailDetails = $this->getEmailDetails('otp', $profile);
+    //         $recipient = $data['email'];
+    //         $profile = $this->getProfileViaEmail($recipient);
+    //         $emailDetails = $this->getEmailDetails('otp', $profile);
             
-            Mail::to("$recipient")->send(new AxoMailer($emailDetails));
+    //         Mail::to("$recipient")->send(new AxoMailer($emailDetails));
 
-            return [
-                'status' => true,
-                'message' => 'OTP sent successfully',
-                'js' => 'location = "'.$emailDetails['data']['verification_url'].'"',
-            ];
-        } catch (\Exception $e) {   
-            logInfo($e->getMessage());
-            return [
-                'status' => false,
-                'message' => 'Failed to send OTP',
-            ];
-        }
-    }
+    //         return [
+    //             'status' => true,
+    //             'message' => 'OTP sent successfully',
+    //             'js' => 'location = "'.$emailDetails['data']['verification_url'].'"',
+    //         ];
+    //     } catch (\Exception $e) {   
+    //         logInfo($e->getMessage());
+    //         return [
+    //             'status' => false,
+    //             'message' => 'Failed to send OTP',
+    //         ];
+    //     }
+    // }
 
 
-    public function getTimezones() {
-        try {
-            $timezones = Timezones::toArray();
-            $timezones_list = [];
-            foreach ($timezones as $timezone) {
+    // public function getTimezones() {
+    //     try {
+    //         $timezones = Timezones::toArray();
+    //         $timezones_list = [];
+    //         foreach ($timezones as $timezone) {
                 
-                foreach ($timezone as $timezone_key => $timezone_value) {
-                    $timezones_list[$timezone_key] = $timezone_key;
-                }
-            }
+    //             foreach ($timezone as $timezone_key => $timezone_value) {
+    //                 $timezones_list[$timezone_key] = $timezone_key;
+    //             }
+    //         }
             
-            return $timezones_list;
-        } catch (\Exception $e) {
-            logInfo($e->getMessage());
-            return [];
-        }
-    }
+    //         return $timezones_list;
+    //     } catch (\Exception $e) {
+    //         logInfo($e->getMessage());
+    //         return [];
+    //     }
+    // }
 
-    public function getTheme() {
-        try {
-            $theme = Theme::where('user_id', Auth::user()->id)->first();
-            return $theme->theme ?? 'light';
-        } catch (\Exception $e) {
-            logInfo($e->getMessage());
-            return 'light';
-        }
-    }
+    // public function getTheme() {
+    //     try {
+    //         $theme = Theme::where('user_id', Auth::user()->id)->first();
+    //         return $theme->theme ?? 'light';
+    //     } catch (\Exception $e) {
+    //         logInfo($e->getMessage());
+    //         return 'light';
+    //     }
+    // }
 
     public function generatePassword() {
         try {
@@ -268,11 +270,11 @@ class GlobalHelper {
         }
     }
 
-    public function getAccomplishment($id) {
+    public function getJobSites() {
         try {
-            $accomplishment = Accomplishment::where('id', $id)->first();
-            if ($accomplishment) {
-                return $accomplishment->toArray();
+            $job_sites = JobSite::where('user_id', Auth::user()->id)->get();
+            if ($job_sites) {
+                return $job_sites->toArray();
             }
 
             return [];
@@ -282,11 +284,11 @@ class GlobalHelper {
         }
     }
 
-    public function getAccomplishmentDetails($id) {
+    public function getJobSiteAreas($id) {
         try {
-            $accomplishment = Accomplishment::where('id', $id)->with('details')->first();
-            if ($accomplishment) {
-                return $accomplishment->toArray();
+            $job_site = JobSite::where('id', $id)->with('areas')->first();
+            if ($job_site) {
+                return $job_site->toArray();
             }
 
             return [];
@@ -296,14 +298,14 @@ class GlobalHelper {
         }
     }
 
-    public function getAccomplishmentDetail($id) {
+    public function getJobSiteArea($id) {
         try {
-            $accomplishment = AccomplishmentDetail::where('id', $id)
+            $job_area = JobArea::where('id', $id)
             ->with('files')
-            ->with('parent')
+            ->with('site')
             ->first();
-            if ($accomplishment) {  
-                return $accomplishment->toArray();
+            if ($job_area) {  
+                return $job_area->toArray();
             }
 
             return [];

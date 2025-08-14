@@ -5,12 +5,12 @@ $(document).ready(function () {
         $(parentCardTitle).text(title);
     });
 
-    _fetch_accomplishments();
+    _fetch_job_sites();
     _init_actions();
 });
 
-function _fetch_accomplishments() {
-    ajaxRequest("/executor/accomplishments/fetch", {}, "");
+function _fetch_job_sites() {
+    ajaxRequest("/executor/job-sites/fetch", {}, "");
 }
 
 function _init_actions() {
@@ -25,18 +25,20 @@ function _init_actions() {
         const trigger = $(this).data("trigger");
 
         switch (trigger) {
-            case "add-accomplishment":
+            case "add-job-site":
                 let parentCard =
                     $(".area-main-card").closest(".main-container");
                 let mainArea = $(".area-main-card");
                 let newArea = mainArea.clone();
+
                 newArea.removeClass("area-main-card");
                 newArea.find("span").text();
                 newArea.find("input").val("");
                 newArea.find("textarea").val("");
                 newArea.find("input[type='file']").val("");
                 newArea.find(".card-title").text("");
-                newArea.find(".card-body div:first-child()").append(
+
+                newArea.find(".card-body div.div-header").append(
                     `<button class="btn btn-danger btn-flat" data-trigger="remove-area">
                         <i class="fa fa-trash"></i> Remove
                     </button>`
@@ -144,27 +146,38 @@ function _init_actions() {
             case "save":
                 _save_job();
                 break;
-            case "delete-accomplishment":
+            case "delete-job-site":
                 let id = $(this).attr("data-id");
-                let parent = $(this).attr("data-parent");
                 _confirm(
-                    "Delete Accomplishment",
-                    "Are you sure you want to delete this accomplishment?",
+                    "Delete Job Site",
+                    "Are you sure you want to delete this job site?",
                     "warning",
                     "Delete",
                     true,
-                    () => _delete_accomplishment(id, parent)
+                    () => _delete_job_site(id)
                 );
+                break;
+            //     case "delete-job-site":
+            //         let area_id = $(this).attr("data-id");
+            //         _confirm(
+            //             "Delete this Job Site?",
+            //             "Are you sure you want to delete this job site?",
+            //             "warning",
+            //             "Delete",
+            //             true,
+            //             () => _delete_job_site_area(area_id)
+            //         );
+            //         break;
         }
     });
 }
 
-function _delete_accomplishment(id, parent) {
-    ajaxRequest(
-        "/executor/accomplishments/delete",
-        { id: id, parent: parent },
-        ""
-    );
+function _delete_job_site(id) {
+    ajaxRequest("/executor/job-sites/delete", { id: id }, "");
+}
+
+function _delete_job_site_area(id) {
+    ajaxRequest("/executor/job-sites/delete-area", { id: id }, "");
 }
 
 function _save_job() {
@@ -205,7 +218,7 @@ function _save_job() {
         file_cntr++;
     });
 
-    ajaxSubmit("/executor/accomplishments/save", formData, "");
+    ajaxSubmit("/executor/job-sites/save", formData, "");
 }
 
 function _validate_files(files) {

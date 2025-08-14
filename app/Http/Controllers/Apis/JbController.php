@@ -3,13 +3,13 @@
 namespace App\Http\Controllers\Apis;
 
 use App\Http\Controllers\Controller;
-use App\Models\Accomplishment;
-use App\Models\AccomplishmentDetail;
-use App\Models\AccomplishmentFile;
-use App\Models\AccomplishmentPhoto;
+use App\Models\JobSite;
+use App\Models\JobArea;
+use App\Models\JobAreaFile;
 use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
@@ -18,14 +18,15 @@ class JbController extends Controller
 {
     public function fetch(Request $request): JsonResponse {
         try {
-            $accomplishment = Accomplishment::where('user_id', auth()->user()->id)->get();
+            $job_sites = JobSite::where('user_id', Auth::user()->id)->get();
 
             return response()->json([
                 'status' => true,
-                'message' => 'Accomplishments fetched successfully',
-                'data' => $accomplishment
+                'message' => 'Job Sites fetched successfully',
+                'data' => $job_sites
             ]);
         } catch(Exception $e) {
+            logInfo($e->getMessage());
             return response()->json([
                 'status' => 'error',
                 'message' => $e->getMessage()
@@ -62,19 +63,19 @@ class JbController extends Controller
                     ]);
                 }
 
-                $accomplishment = Accomplishment::create([
+                $job_site = JobSite::create([
                     'title' => $title,
                     'description' => $description,
-                    'user_id' => auth()->user()->id,
+                    'user_id' => Auth::user()->id,
                 ]);
 
-                $accomplishment_id = $accomplishment->id;
+                $job_site_id = $job_site->id;
             }
 
             if (! $sub_details_names) {
                 return response()->json([
                     'status' => false,
-                    'message' => 'Atleast one (1) accomplishment is required',
+                    'message' => 'Atleast one (1) job site is required',
                 ]);
             }
 
@@ -86,42 +87,43 @@ class JbController extends Controller
                 $sub_details_accomplishment = $sub_details_accomplishments[$id];
                 $sub_details_files = $request['subDetailsFiles_'.$id];
 
-                $accomplishment_data = [
-                    'accomplishment_id' => $accomplishment_id,
+                $job_area_data = [
+                    'job_site_id' => $job_site_id,
                     'title' => $sub_details_name,
                     'description' => $sub_details_description,
-                    'accomplishment' => $sub_details_accomplishment,
+                    'accomplishments' => $sub_details_accomplishment,
                 ];
 
-                $accomplishment_detail = AccomplishmentDetail::create($accomplishment_data);
-                $accomplishment_detail_id = $accomplishment_detail->id;
+                $job_area = JobArea::create($job_area_data);
+                $job_area_id = $job_area->id;
                 
                 foreach($sub_details_files as $sub_details_file) {
                     
                     $original_name = $sub_details_file->getClientOriginalName();
                     $ext = $sub_details_file->getClientOriginalExtension();
                     $new_filename = $original_name.'.'.$ext;
+                    $size = $sub_details_file->getSize();
                     
-                    // Storage::disk('accomplishment_files')->put($new_filename, file_get_contents($sub_details_file));
                     $file = Storage::disk('s3')->put('jobs', $sub_details_file);
                     $url = Storage::disk('s3')->url($file);
                     
-                    $accomplishment_images[] = [
-                        'accomplishment_details_id' => $accomplishment_detail_id,
-                        'filename' => $original_name,
+                    $job_area_files[] = [
+                        'job_area_id' => $job_area_id,
+                        'name' => $original_name,
                         'url' => $url,
-                        'filetype' => $ext,
+                        'type' => $ext,
+                        'size' => $size,
                     ];
                 }
 
-                AccomplishmentFile::insert($accomplishment_images);
+                JobAreaFile::insert($job_area_files);
             }
             
             DB::commit();
 
             return response()->json([
                 'status' => true,
-                'message' => 'Accomplishments saved successfully',
+                'message' => 'Job Sites saved successfully',
             ]);
             
         } catch (Exception $e) {
@@ -136,15 +138,34 @@ class JbController extends Controller
 
     public function delete(Request $request): JsonResponse {
         try {
-            $accomplishment = AccomplishmentDetail::where('id', $request->id)->first(); 
-            $accomplishment->delete();
-            $accomplishment->files()->delete();
+            $job_site = JobSite::where('id', $request->id)->first(); 
+            $job_site->delete();
+            $job_site->areas()->delete();
 
             return response()->json([
                 'status' => true,
-                'message' => 'Accomplishment deleted successfully',
+                'message' => 'Job Site deleted successfully',
             ]);
         } catch (Exception $e) {
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
+
+    public function jobSiteDelete(Request $request, $sub_id): JsonResponse {
+        try {
+            $job_site = JobSite::where('id', $sub_id)->first();
+            $job_site->delete();
+            $job_site->areas()->delete();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Job Site deleted successfully',
+            ]);
+        }
+        catch(Exception $e) {
             return response()->json([
                 'status' => false,
                 'message' => $e->getMessage()

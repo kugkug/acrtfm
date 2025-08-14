@@ -43,12 +43,14 @@ Route::middleware(['auth:sanctum', 'web'])->group(function () {
         Route::get('/', [ModulesController::class, 'profile'])->name("profile");
         
         Route::prefix('job-sites')->group(function () {
-            Route::get('/', [ModulesController::class, 'jobSites'])->name("job-sites");
-            Route::get('/{id}/sub', [ModulesController::class, 'subJobSite'])->name("job-sites-sub");
-            Route::get('/{sub_id}/add', [ModulesController::class, 'addJobSite'])->name("job-sites-add");
-            Route::get('/new', [ModulesController::class, 'newJobSite'])->name("job-sites-new");
-            Route::get('/{id}/edit', [ModulesController::class, 'editJobSite'])->name("job-sites-edit");
-            Route::get('/{id}/view', [ModulesController::class, 'viewJobSite'])->name("job-sites-view");
+            Route::get('/', [ModulesController::class, 'job_sites'])->name("job-sites");
+            
+            Route::get('/{area_id}/add', [ModulesController::class, 'job_site_add'])->name("job-sites-add");
+            Route::get('/{area_id}/areas', [ModulesController::class, 'job_sites_areas'])->name("job-sites-areas");
+
+            Route::get('/{area_id}/view', [ModulesController::class, 'view_job_site'])->name("job-site-area-view");
+            Route::get('/{area_id}/edit', [ModulesController::class, 'edit_job_site'])->name("job-site-area-edit");
+            Route::get('/new', [ModulesController::class, 'new_job_site'])->name("job-site-new");
         });
     });
 
@@ -64,10 +66,16 @@ Route::middleware(['auth:sanctum', 'web'])->group(function () {
             Route::post('/paginate', [EdController::class, 'educationPaginate'])->name("exec-education-paginate");
         });
 
-        Route::prefix('accomplishments')->group(function () {
-            Route::post('/fetch', [JbController::class, 'fetch'])->name("exec-accomplishments-fetch");
-            Route::post('/save', [JbController::class, 'save'])->name("exec-accomplishments-save");
-            Route::post('/delete', [JbController::class, 'delete'])->name("exec-accomplishments-delete");
+        Route::prefix('job-sites')->group(function () {
+            Route::post('/fetch', [JbController::class, 'fetch'])->name("exec-job-sites-fetch");
+            Route::post('/save', [JbController::class, 'save'])->name("exec-job-sites-save");
+            Route::post('/delete', [JbController::class, 'delete'])->name("exec-job-sites-delete");
+
+            Route::post('/delete-area', [JbController::class, 'delete_job_site_area'])->name("exec-job-site-area-delete");
         });
+
+        // Route::prefix('job-sites')->group(function () {
+        //     Route::post('/{sub_id}/delete', [JbController::class, 'jobSiteDelete'])->name("exec-job-sites-delete");
+        // });
     });
 });

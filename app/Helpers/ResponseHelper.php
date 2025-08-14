@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace App\Helpers;
 
 class ResponseHelper {
-    const DESCRIPTION_MAX_LENGTH = 95;
+    const DESCRIPTION_MAX_LENGTH = 50;
 
     public function toastrResponse(string $message, string $type = 'error', string $title = 'System Error'): array {
         return [
@@ -60,8 +60,9 @@ class ResponseHelper {
                 $script = "location = '".route('job-sites')."';";
                 break;
             case 'job-sites-deleted':
-                $script = "location = '".route('job-sites-sub', $data['parent'])."';";
+                $script = "location = '".route('job-sites')."';";
                 break;
+            
         }
 
         return ['js' => $script];
@@ -195,28 +196,66 @@ class ResponseHelper {
 
     private function job_sites_list(array $data): string {
         $card = "";
-        foreach ($data as $accomplishment) {
-            $description = strlen($accomplishment['description']) > self::DESCRIPTION_MAX_LENGTH ? substr($accomplishment['description'], 0, self::DESCRIPTION_MAX_LENGTH).'...' : $accomplishment['description'];
+        foreach ($data as $job_area) {
+            $description = strlen($job_area['description']) > self::DESCRIPTION_MAX_LENGTH ? 
+                            substr($job_area['description'], 0, self::DESCRIPTION_MAX_LENGTH).'...' : $job_area['description'];
             $card .= "
-                <div class='col-md-6'>
+                <div class='col-md-4'>
                     <div class='card'>
                         <div class='card-body'>
-                            <h5 class='card-title'>".addslashes($accomplishment['title'])."</h5>
+                        <div class='d-flex justify-content-between'>
+                            <h5 class='card-title'>".addslashes($job_area['title'])."</h5>
+                            <div class='basic-dropdown'>
+                                    <div class='dropleft mb-1'>
+                                        <button type='button' class='btn mb-1 btn-rounded btn-outline-info' data-toggle='dropdown'>
+                                            <i class='fa fa-ellipsis-v'></i>
+                                        </button>
+                                        <div class='dropdown-menu'>
+                                            <a class='dropdown-item mb-1 text-primary' href='".route('job-sites-areas', $job_area['id'])."'>
+                                                <i class='fa fa-eye'></i> View Areas
+                                            </a>
+                                            <a class='dropdown-item mb-1 text-info' href='".route('job-site-area-edit', $job_area['id'])."'> 
+                                                <i class='fa fa-edit'></i> Edit Job Site
+                                            </a> 
+                                            <a class='dropdown-item text-danger' href='javascript:void(0);' data-trigger='delete-job-site' data-id='".$job_area['id']."'>
+                                                <i class='fa fa-trash'></i> Delete Job Site
+                                            </a>
+                                        </div>
+                                    </div>
+                                    
+                                    
+                                </div>
+                            </div>
                             <p class='card-text'>".addslashes($description)."</p>
                         </div>
-                        <div class='card-footer'>
-                            <a href='".route('job-sites-sub', $accomplishment['id'])."' class='btn btn-primary btn-sm'>View More </a>                            
-                        </div>
+                        
                     </div>
                 </div>
             ";
         }
+
+        // <div class='card-footer text-right'>
+        //     <a href='".route('job-sites-area-view', $job_area['id'])."' class='btn btn-primary btn-sm'>
+        //         <i class='fa fa-eye'></i>
+        //         View Areas
+        //     </a>
+        //     <a href='".route('job-sites-area-edit', $job_area['id'])."' class='btn btn-info btn-sm'>
+        //         <i class='fa fa-edit'></i>
+        //         Edit Job Site
+        //     </a>
+        //     <a href='javascript:void(0);' 
+        //         data-trigger='delete-job-site-area'
+        //         data-id='".$job_area['id']."'
+        //         class='btn btn-danger btn-sm'>
+        //         <i class='fa fa-trash'></i>
+        //         Delete Job Site
+        //     </a>
+        // </div>
         return $card;
     }
 
 
     public function formatManualUrls(string $urls) {
-        
         try {
             $manual_urls = [];
             $clean_urls = str_replace(["\r", "\n"], '', $urls);

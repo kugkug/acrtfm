@@ -8,11 +8,11 @@
             <div class="card">
                 <div class="card-body">
                     
-                    <h5 class="card-title">{{ $accomplishment['title'] }}</h5>
-                    <p class="card-text">{{ $accomplishment['description'] }}</p>
+                    <h5 class="card-title">{{ $job_site_area['title'] }}</h5>
+                    <p class="card-text">{{ $job_site_area['description'] }}</p>
                     
                     @php
-                        print_r($accomplishment);
+                        print_r($job_site_area);
                     @endphp
                     {{-- <div class="row">
                         @foreach($accomplishment['details'] as $detail)

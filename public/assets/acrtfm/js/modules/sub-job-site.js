@@ -108,6 +108,18 @@ function _init_actions() {
                     true,
                     () => _delete_accomplishment(id, parent)
                 );
+                break;
+            case "delete-job-site":
+                let sub_id = $(this).attr("data-sub-id");
+                _confirm(
+                    "Delete Job Site",
+                    "Are you sure you want to delete this job site?",
+                    "warning",
+                    "Delete",
+                    true,
+                    () => _delete_job_site(sub_id)
+                );
+                break;
         }
     });
 }
@@ -118,6 +130,10 @@ function _delete_accomplishment(id, parent) {
         { id: id, parent: parent },
         ""
     );
+}
+
+function _delete_job_site(sub_id) {
+    ajaxRequest("/executor/job-sites/" + sub_id + "/delete", {}, "");
 }
 
 function _save_job() {

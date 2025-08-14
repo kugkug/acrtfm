@@ -7,6 +7,7 @@ use App\Helpers\ValidatorHelper;
 use App\Helpers\GlobalHelper;
 use App\Helpers\ResponseHelper;
 use App\Helpers\RecordingHelper;
+use App\Helpers\ComponentHelper;
 
 function formatHelper() {
     return new FormatHelper();
@@ -38,4 +39,8 @@ function logInfo(string $message) {
 
 function recordingHelper() {
     return new RecordingHelper();
+}
+
+function componentHelper() {
+    return new ComponentHelper();
 }
