@@ -13,6 +13,11 @@
                                 <i class='fa fa-plus'></i> New 
                             </a>";
                     break;
+                case 'job-site-new':
+                    $html ="<a href='".route('job-sites')."' class='btn btn-primary float-right btn-md btn-flat text-white'>
+                                <i class='fa fa-undo'></i> Back
+                            </a>";
+                    break;
                 case 'sub-job-sites':
                     $html ="
                     <div class='d-none d-sm-none d-md-block d-lg-block d-xl-block'>

@@ -221,9 +221,7 @@ class ResponseHelper {
                                                 <i class='fa fa-trash'></i> Delete Job Site
                                             </a>
                                         </div>
-                                    </div>
-                                    
-                                    
+                                    </div>                                    
                                 </div>
                             </div>
                             <p class='card-text'>".addslashes($description)."</p>
@@ -233,24 +231,6 @@ class ResponseHelper {
                 </div>
             ";
         }
-
-        // <div class='card-footer text-right'>
-        //     <a href='".route('job-sites-area-view', $job_area['id'])."' class='btn btn-primary btn-sm'>
-        //         <i class='fa fa-eye'></i>
-        //         View Areas
-        //     </a>
-        //     <a href='".route('job-sites-area-edit', $job_area['id'])."' class='btn btn-info btn-sm'>
-        //         <i class='fa fa-edit'></i>
-        //         Edit Job Site
-        //     </a>
-        //     <a href='javascript:void(0);' 
-        //         data-trigger='delete-job-site-area'
-        //         data-id='".$job_area['id']."'
-        //         class='btn btn-danger btn-sm'>
-        //         <i class='fa fa-trash'></i>
-        //         Delete Job Site
-        //     </a>
-        // </div>
         return $card;
     }
 

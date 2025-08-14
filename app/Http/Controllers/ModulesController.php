@@ -143,7 +143,7 @@ class ModulesController extends Controller
         $this->data['title'] = 'Add Job Sites'; 
         $this->data['description'] = "Add new job sites for your reference";
         $this->data['header'] = "Add Job Sites";
-        $this->data['right_panel'] = "<a href='".route('job-sites')."' class='btn btn-primary btn-md btn-flat btn-block ' ><i class='fa fa-undo'></i> Back to List</a>";
+        $this->data['right_panel'] = componentHelper()->rightPanel('job-site-new', []);
         return view('pages.client.job-sites.new', $this->data);
     }
 
