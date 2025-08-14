@@ -221,13 +221,15 @@ class ResponseHelper {
                                                 <i class='fa fa-trash'></i> Delete Job Site
                                             </a>
                                         </div>
-                                    </div>
+                                    </div>                                    
                                 </div>
-                                <p class='card-text'>".addslashes($description)."</p>
                             </div>
+                            <p class='card-text'>".addslashes($description)."</p>
                         </div>
+                        
                     </div>
-                </div>";
+                </div>
+            ";
         }
         return $card;
     }

@@ -40,10 +40,10 @@
                                     <i class='fa fa-ellipsis-v'></i>
                                 </button>
                                 <div class='dropdown-menu'>
-                                    <a class='dropdown-item mb-1 text-primary' href='".route('job-sites-areas', $data['id'])."'>
+                                    <a class='dropdown-item mb-1 text-primary' href='".route('job-sites')."'>
                                         <i class='fa fa-undo'></i> Back to List
                                     </a>
-                                    <a class='dropdown-item mb-1 text-info' href='".route('job-site-area-edit', $data['id'])."'> 
+                                    <a class='dropdown-item mb-1 text-info' href='".route('job-sites-add', $data['id'])."'> 
                                         <i class='fa fa-plus'></i> Add New 
                                     </a> 
                                     <a class='dropdown-item text-danger' href='javascript:void(0);' data-trigger='delete-job-site' data-id='".$data['id']."'>
