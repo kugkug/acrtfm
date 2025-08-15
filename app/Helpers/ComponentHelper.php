@@ -101,6 +101,13 @@
                         </a>
                     ";
                     break;
+                case 'job-site-area-edit':
+                    $html ="
+                        <a href='".route('job-sites-areas', $data['id'])."' class='btn btn-primary btn-md btn-flat float-right'>
+                            <i class='fa fa-undo'></i> Back
+                        </a>
+                    ";
+                    break;
             }
 
             return $html;

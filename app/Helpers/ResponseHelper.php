@@ -76,6 +76,9 @@ class ResponseHelper {
             case 'job-site-area-deleted':
                 $script = "location = '".route('job-sites-areas', $data['id'])."';";
                 break;
+            case 'job-site-updated':
+                $script = "location.reload();";
+                break;
             
         }
 
@@ -231,9 +234,6 @@ class ResponseHelper {
                                             <a class='dropdown-item mb-1 text-primary' href='".route('job-sites-areas', $job_area['id'])."'>
                                                 <i class='fa fa-eye'></i> View Areas
                                             </a>
-                                            <a class='dropdown-item mb-1 text-info' href='".route('job-site-area-edit', $job_area['id'])."'> 
-                                                <i class='fa fa-edit'></i> Edit Job Site
-                                            </a> 
                                             <a 
                                             class='dropdown-item text-danger' 
                                             href='javascript:void(0);' data-trigger='delete-job-site' 

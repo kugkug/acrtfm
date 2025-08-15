@@ -31,7 +31,9 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('job-sites')->group(function () {
         Route::post('/fetch', [JbController::class, 'fetch'])->name("api-job-sites-fetch");
         Route::post('/save', [JbController::class, 'save'])->name("api-job-sites-save");
+        Route::post('/update', [JbController::class, 'update'])->name("api-job-site-update");
         Route::post('/delete', [JbController::class, 'delete'])->name("api-job-sites-delete");
+
         
         Route::post('/delete-area', [JbController::class, 'delete_job_site_area'])->name("api-job-site-area-delete");
     });

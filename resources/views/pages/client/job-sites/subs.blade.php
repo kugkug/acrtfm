@@ -1,6 +1,73 @@
 @include('partials.auth.header')
 
 <section class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="card" id="div-job-site-area-view">
+                <div class="card-body">
+                    <div class='d-flex justify-content-between'>
+                        <h5 class="card-title">{{ $job_site_areas['title'] }}</h5>
+
+                        <a 
+                            href="javascript:void(0);" 
+                            data-trigger="edit-job-site-area"
+                            class="text-info"
+                        >
+                            <i class="fa fa-edit"></i> Edit
+                        </a>
+
+                    </div>
+                    <p class="card-text">{{ $job_site_areas['description'] }}</p>
+                </div>
+                
+            </div>
+
+            <div class="card d-none" id="div-job-site-area-edit">
+                <div class="card-body">
+                    <div class="form-group">
+                        <input 
+                            type="text" 
+                            class="form-control override-input" 
+                            placeholder="Job Site Area Title" 
+                            data-key="Title"
+                            data-default="{{ $job_site_areas['title'] }}"
+                        >
+                    </div>
+                    <div class="form-group">
+                        <textarea 
+                            class="form-control override-textarea" 
+                            placeholder="Job Site Area Description" 
+                            data-key="Description"
+                            data-default="{{ $job_site_areas['description'] }}"
+                            rows="2"
+                        ></textarea>
+                    </div>
+
+                    <div class="d-flex justify-content-end mt-2">
+                        <a 
+                            href="javascript:void(0);" 
+                            data-trigger="cancel-edit-job-site-area"
+                            data-id="{{ $job_site_areas['id'] }}"
+                            class="btn btn-danger btn-xs mr-2"
+                        >
+                            <i class="fa fa-undo"></i> Cancel
+                        </a>
+                        <a 
+                            href="javascript:void(0);" 
+                            data-trigger="save-job-site-area"
+                            data-id="{{ $job_site_areas['id'] }}"
+                            class="btn btn-success btn-xs"
+                        >
+                            <i class="fa fa-save"></i> Save
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            
+        </div>
+    </div>
     <div class="row mb-3">
         <div class="col-12">
             <input type="search" class="form-control override-input" placeholder="Search Job Sites" data-key="JobArea">

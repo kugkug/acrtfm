@@ -116,8 +116,9 @@ class ModulesController extends Controller
             return redirect()->route('job-sites');
         }
         
-        $this->data['title'] = $job_site_areas['title']; 
-        $this->data['description'] = '';
+        
+        $this->data['title'] = "Job Site Areas"; 
+        $this->data['description'] = 'List of areas for ' . $job_site_areas['title'];
         $this->data['header'] = $job_site_areas['title'];
         $this->data['right_panel'] = componentHelper()->rightPanel('job-site-areas', ['id' => $id]);
         $this->data['job_site_areas'] = $job_site_areas;
@@ -165,7 +166,7 @@ class ModulesController extends Controller
         $this->data['title'] = 'Edit Job Site'; 
         $this->data['description'] = "Modify existing job site";
         $this->data['header'] = "Edit Job Site";
-        $this->data['right_panel'] = "<a href='".route('job-sites')."' class='btn btn-primary btn-md btn-flat btn-block ' ><i class='fa fa-undo'></i> Back to List</a>";
+        $this->data['right_panel'] = componentHelper()->rightPanel('job-site-area-edit', ['id' => $id]);
         return view('pages.client.job-sites.edit', $this->data);
     }
    

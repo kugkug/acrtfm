@@ -56,6 +56,7 @@ function ajaxRequest(sUrl = "", sData = "", sLoadParent = "") {
             }
             console.log(e);
 
+            scrollToTop();
             _show_toastr(
                 "error",
                 "Please call system administrator!",
@@ -201,4 +202,8 @@ function _confirm(
             funcCallback();
         }
     );
+}
+
+function scrollToTop() {
+    $("html, body").animate({ scrollTop: 0 }, "slow");
 }

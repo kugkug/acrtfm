@@ -69,9 +69,11 @@ Route::middleware(['auth:sanctum', 'web'])->group(function () {
         Route::prefix('job-sites')->group(function () {
             Route::post('/fetch', [JbController::class, 'fetch'])->name("exec-job-sites-fetch");
             Route::post('/save', [JbController::class, 'save'])->name("exec-job-sites-save");
+            Route::post('/update', [JbController::class, 'update'])->name("exec-job-site-update");
             Route::post('/delete', [JbController::class, 'delete'])->name("exec-job-sites-delete");
-
+            
             Route::post('/delete-area', [JbController::class, 'delete_job_site_area'])->name("exec-job-site-area-delete");
+
         });
     });
 });

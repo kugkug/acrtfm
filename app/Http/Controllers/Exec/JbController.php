@@ -64,6 +64,28 @@ class JbController extends Controller
         }
     }
 
+    public function update(Request $request): JsonResponse {
+        try {
+            $api_response = apiHelper()->post($request, route('api-job-site-update'));
+
+            if(! $api_response['status']) {
+                return globalHelper()->ajaxErrorResponse($api_response['message']);
+            }
+
+            return globalHelper()->ajaxSuccessResponse(
+                'scripts',
+                'success',
+                'job-site-updated',
+                'Job Site Area updated successfully',
+                'System Info',
+            );
+            
+        } catch(Exception $e) {
+            logInfo($e->getTraceAsString());
+            return globalHelper()->ajaxErrorResponse($e->getMessage());
+        }
+    }
+
     public function delete(Request $request): JsonResponse {
         try {
             $api_response = apiHelper()->post($request, route('api-job-sites-delete'));
@@ -100,7 +122,7 @@ class JbController extends Controller
                 'success',
                 'job-site-area-deleted',
                 'Job Site Area deleted successfully',
-                'System Info',
+            'System Info',
                 [
                     'id' => $request->site_id
                 ]

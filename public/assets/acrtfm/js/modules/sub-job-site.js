@@ -172,10 +172,44 @@ function _init_actions() {
                     () => _delete_job_site_area(area_id, site_id)
                 );
                 break;
+
+            case "edit-job-site-area":
+                $("#div-job-site-area-view").addClass("d-none");
+                $("#div-job-site-area-edit").removeClass("d-none");
+
+                $("[data-key=Title]").val(
+                    $("[data-key=Title]").attr("data-default")
+                );
+                $("[data-key=Description]").val(
+                    $("[data-key=Description]").attr("data-default")
+                );
+                break;
+            case "cancel-edit-job-site-area":
+                $("#div-job-site-area-view").removeClass("d-none");
+                $("#div-job-site-area-edit").addClass("d-none");
+                break;
+            case "save-job-site-area":
+                let area_data_id = $(this).attr("data-id");
+                let new_title = $("[data-key=Title]").val();
+                let new_description = $("[data-key=Description]").val();
+
+                _save_job_site_area(area_data_id, new_title, new_description);
+                break;
         }
     });
 }
 
+function _save_job_site_area(area_data_id, new_title, new_description) {
+    ajaxRequest(
+        "/executor/job-sites/update",
+        {
+            id: area_data_id,
+            title: new_title,
+            description: new_description,
+        },
+        ""
+    );
+}
 function _delete_job_site(id) {
     ajaxRequest("/executor/job-sites/delete", { id: id }, "");
 }

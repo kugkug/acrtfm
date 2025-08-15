@@ -155,6 +155,23 @@ class JbController extends Controller
         }
     }
 
+    public function update(Request $request): JsonResponse {
+        try {
+            JobSite::where('id', $request->id)->update([
+                'title' => $request->title,
+                'description' => $request->description,
+            ]);
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Job Site updated successfully',
+            ]);
+        } catch(Exception $e) {
+            logInfo($e->getMessage());
+            return globalHelper()->ajaxErrorResponse($e->getMessage());
+        }
+    }
+
     public function delete_job_site_area(Request $request): JsonResponse {
         try {
             $job_site_area = JobArea::where('id', $request->id)->first();
@@ -173,5 +190,7 @@ class JbController extends Controller
             ]);
         }
     }   
+
+    
 
 }
