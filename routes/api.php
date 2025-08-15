@@ -32,7 +32,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/fetch', [JbController::class, 'fetch'])->name("api-job-sites-fetch");
         Route::post('/save', [JbController::class, 'save'])->name("api-job-sites-save");
         Route::post('/delete', [JbController::class, 'delete'])->name("api-job-sites-delete");
-        // Route::post('/delete-area', [JbController::class, 'delete_job_site_area'])->name("api-job-site-area-delete");
-        // Route::post('/{sub_id}/job-site-delete', [JbController::class, 'jobSiteDelete'])->name("api-job-delete");
+        
+        Route::post('/delete-area', [JbController::class, 'delete_job_site_area'])->name("api-job-site-area-delete");
     });
 });

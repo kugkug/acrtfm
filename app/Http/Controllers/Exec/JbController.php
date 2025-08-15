@@ -35,20 +35,28 @@ class JbController extends Controller
 
     public function save(Request $request): JsonResponse{
         try {
-            $api_response = apiHelper()->post($request, route('api-job-sites-save'));
+            $response_exec = $request->has('sub_id') ? 'job-sites-added' : 'job-sites-saved';
+
+            $api_response = apiHelper()->post($request, route('api-job-sites-save'));            
 
             if(! $api_response['status']) {
                 return globalHelper()->ajaxErrorResponse($api_response['message']);
             }
+            
+            $response_exec = $request->has('sub_id') ? 'job-sites-added' : 'job-sites-saved';
 
             return globalHelper()->ajaxSuccessResponse(
                 'scripts',
                 'success',
-                'job-sites-saved',
+                $response_exec,
                 'Job Site saved successfully',
                 'System Info',
+                [
+                    'id' => $request->has('sub_id') ? $request->sub_id : null
+                ]
             );
         } catch(Exception $e) {
+            logInfo($e->getTraceAsString());
             return response()->json([
                 'status' => 'error',
                 'message' => $e->getMessage()
@@ -79,9 +87,9 @@ class JbController extends Controller
         }   
     }
 
-    public function jobSiteDelete(Request $request, $sub_id): JsonResponse {
+    public function delete_job_site_area(Request $request): JsonResponse {
         try {
-            $api_response = apiHelper()->post($request, route('api-job-delete', $sub_id));
+            $api_response = apiHelper()->post($request, route('api-job-site-area-delete'));
 
             if(! $api_response['status']) {
                 return globalHelper()->ajaxErrorResponse($api_response['message']);
@@ -90,38 +98,12 @@ class JbController extends Controller
             return globalHelper()->ajaxSuccessResponse(
                 'scripts',
                 'success',
-                'sub-job-site-deleted',
-                'Job Site deleted successfully',
-                'System Info',
-            );
-
-            return response()->json([
-                'status' => 'error',
-                'message' => $e->getMessage()
-            ]);
-        } catch(Exception $e) {
-            return response()->json([
-                'status' => 'error',
-                'message' => $e->getMessage()
-            ]);
-        }
-    }
-
-    public function delete_job_site_area(Request $request): JsonResponse {
-        try {
-            $api_response = apiHelper()->post($request, route('api-job-site-area-delete'));
-
-
-        if(! $api_response['status']) {
-            return globalHelper()->ajaxErrorResponse($api_response['message']);
-        }
-
-            return globalHelper()->ajaxSuccessResponse(
-                'scripts',
-                'success',
                 'job-site-area-deleted',
                 'Job Site Area deleted successfully',
                 'System Info',
+                [
+                    'id' => $request->site_id
+                ]
             );
         } catch(Exception $e) {
             return response()->json([

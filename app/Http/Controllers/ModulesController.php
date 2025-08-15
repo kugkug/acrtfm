@@ -146,6 +146,21 @@ class ModulesController extends Controller
         return view('pages.client.job-sites.new', $this->data);
     }
 
+    public function job_site_add($sub_id) {
+        $job_site_area = globalHelper()->getJobSiteArea($sub_id);
+        if (empty($job_site_area)) {
+            return redirect()->route('job-sites');
+        } 
+        
+        $this->data['title'] = 'Add Job Site'; 
+        $this->data['description'] = "Add another job site for your reference";
+        $this->data['header'] = "Add Job Site";
+        $this->data['right_panel'] = componentHelper()->rightPanel('job-site-area-add', ['id' => $job_site_area['site']['id']]);
+        $this->data['job_site_area'] = $job_site_area;
+        $this->data['sub_id'] = $sub_id;
+        return view('pages.client.job-sites.add', $this->data);
+    }
+
     public function edit_job_site($id) {
         $this->data['title'] = 'Edit Job Site'; 
         $this->data['description'] = "Modify existing job site";
@@ -153,23 +168,6 @@ class ModulesController extends Controller
         $this->data['right_panel'] = "<a href='".route('job-sites')."' class='btn btn-primary btn-md btn-flat btn-block ' ><i class='fa fa-undo'></i> Back to List</a>";
         return view('pages.client.job-sites.edit', $this->data);
     }
-
-    public function job_site_add($sub_id) {
-        $job_site_area = globalHelper()->getJobSiteArea($sub_id);
-        if (empty($job_site_area)) {
-            return redirect()->route('job-sites');
-        }
-        
-        $this->data['title'] = 'Add Job Site'; 
-        $this->data['description'] = "Add another job site for your reference";
-        $this->data['header'] = "Add Job Site";
-        $this->data['right_panel'] = "<a href='".route('job-sites-sub', $job_site_area['job_site']['id'])."' class='btn btn-primary btn-md btn-flat btn-block ' ><i class='fa fa-undo'></i> Back to Accomplishment</a>";
-        $this->data['job_site_area'] = $job_site_area;
-        $this->data['sub_id'] = $sub_id;
-        return view('pages.client.job-sites.add', $this->data);
-    }
-
-    
    
     public function profile() {
         $this->data['title'] = 'Profile'; 

@@ -45,7 +45,7 @@ Route::middleware(['auth:sanctum', 'web'])->group(function () {
         Route::prefix('job-sites')->group(function () {
             Route::get('/', [ModulesController::class, 'job_sites'])->name("job-sites");
             
-            Route::get('/{area_id}/add', [ModulesController::class, 'job_site_add'])->name("job-sites-add");
+            Route::get('/{area_id}/add', [ModulesController::class, 'job_site_add'])->name("job-sites-area-add");
             Route::get('/{area_id}/areas', [ModulesController::class, 'job_sites_areas'])->name("job-sites-areas");
 
             Route::get('/{area_id}/view', [ModulesController::class, 'view_job_site'])->name("job-site-area-view");
@@ -73,9 +73,5 @@ Route::middleware(['auth:sanctum', 'web'])->group(function () {
 
             Route::post('/delete-area', [JbController::class, 'delete_job_site_area'])->name("exec-job-site-area-delete");
         });
-
-        // Route::prefix('job-sites')->group(function () {
-        //     Route::post('/{sub_id}/delete', [JbController::class, 'jobSiteDelete'])->name("exec-job-sites-delete");
-        // });
     });
 });

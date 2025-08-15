@@ -15,16 +15,17 @@ body {
     height: 100% !important;
 }
 
-input,
-select,
-textarea {
+input.override-input,
+select.override-select,
+textarea.override-textarea {
+    border-radius: 0.25rem !important;
     background-color: #ffffff !important;
     color: #333333 !important;
     box-shadow: none !important;
-    border: 1px solid #e0e0e0 !important;
+    border: 1px solid #747474 !important;
 
     &:hover {
-        border: 1px solid #e0e0e0 !important;
+        border: 1px solid #5a5a5a !important;
     }
     &:focus {
         border: 1px solid #000000 !important;

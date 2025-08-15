@@ -12,7 +12,15 @@ class ResponseHelper {
         ];
     }
 
-    public function scriptResponse(string $exec, array $data, string $message='', string $toast_type = 'success', string $title = 'System Info'): array {
+    public function scriptResponse(
+        string $exec, 
+        array $data, 
+        string $message='', 
+        string $toast_type = 'success', 
+        string $title = 'System Info',
+        bool $redirect = false
+    ): array {
+
         $script = '';
         switch ($exec) {    
             case 'login':
@@ -59,8 +67,14 @@ class ResponseHelper {
             case 'job-sites-saved':
                 $script = "location = '".route('job-sites')."';";
                 break;
+            case 'job-sites-added':
+                $script = "location = '".route('job-sites-areas', $data['id'])."';";
+                break;
             case 'job-sites-deleted':
                 $script = "location = '".route('job-sites')."';";
+                break;
+            case 'job-site-area-deleted':
+                $script = "location = '".route('job-sites-areas', $data['id'])."';";
                 break;
             
         }
@@ -197,14 +211,17 @@ class ResponseHelper {
     private function job_sites_list(array $data): string {
         $card = "";
         foreach ($data as $job_area) {
-            $description = strlen($job_area['description']) > self::DESCRIPTION_MAX_LENGTH ? 
-                            substr($job_area['description'], 0, self::DESCRIPTION_MAX_LENGTH).'...' : $job_area['description'];
+            $description =  strlen($job_area['description']) > self::DESCRIPTION_MAX_LENGTH ? 
+                            substr($job_area['description'], 0, self::DESCRIPTION_MAX_LENGTH).'...' : 
+                            $job_area['description'];
             $card .= "
                 <div class='col-md-4'>
                     <div class='card'>
                         <div class='card-body'>
                             <div class='d-flex justify-content-between'>
-                                <h5 class='card-title'>".addslashes($job_area['title'])."</h5>
+                                <a href='".route('job-sites-areas', $job_area['id'])."'>
+                                    <h5 class='card-title text-info'>".addslashes($job_area['title'])."</h5>
+                                </a>
                                 <div class='basic-dropdown'>
                                     <div class='dropleft mb-1'>
                                         <button type='button' class='btn mb-1 btn-rounded btn-outline-info' data-toggle='dropdown'>
@@ -217,7 +234,10 @@ class ResponseHelper {
                                             <a class='dropdown-item mb-1 text-info' href='".route('job-site-area-edit', $job_area['id'])."'> 
                                                 <i class='fa fa-edit'></i> Edit Job Site
                                             </a> 
-                                            <a class='dropdown-item text-danger' href='javascript:void(0);' data-trigger='delete-job-site' data-id='".$job_area['id']."'>
+                                            <a 
+                                            class='dropdown-item text-danger' 
+                                            href='javascript:void(0);' data-trigger='delete-job-site' 
+                                            data-id='".$job_area['id']."'>
                                                 <i class='fa fa-trash'></i> Delete Job Site
                                             </a>
                                         </div>
@@ -226,7 +246,6 @@ class ResponseHelper {
                             </div>
                             <p class='card-text'>".addslashes($description)."</p>
                         </div>
-                        
                     </div>
                 </div>
             ";

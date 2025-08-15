@@ -5,6 +5,12 @@ $(document).ready(function () {
         $(parentCardTitle).text(title);
     });
 
+    $("[data-key=JobSites]").on("keyup", function () {
+        let jobSites = $(this).val();
+
+        _search_job_sites(jobSites);
+    });
+
     _fetch_job_sites();
     _init_actions();
 });
@@ -157,17 +163,6 @@ function _init_actions() {
                     () => _delete_job_site(id)
                 );
                 break;
-            //     case "delete-job-site":
-            //         let area_id = $(this).attr("data-id");
-            //         _confirm(
-            //             "Delete this Job Site?",
-            //             "Are you sure you want to delete this job site?",
-            //             "warning",
-            //             "Delete",
-            //             true,
-            //             () => _delete_job_site_area(area_id)
-            //         );
-            //         break;
         }
     });
 }
@@ -286,4 +281,25 @@ function _validate_files(files) {
     }
 
     return true;
+}
+
+function _search_job_sites(search) {
+    let card_titles = $(".card-title");
+
+    card_titles.each(function () {
+        let title = $(this).text().toLowerCase();
+        if (title.includes(search.toLowerCase())) {
+            $(this)
+                .closest(".card-body")
+                .closest(".card")
+                .closest("div")
+                .show();
+        } else {
+            $(this)
+                .closest(".card-body")
+                .closest(".card")
+                .closest("div")
+                .hide();
+        }
+    });
 }

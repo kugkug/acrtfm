@@ -25,10 +25,10 @@
                             <a href='".route('job-sites')."' class='btn btn-primary btn-md btn-flat mr-2'>
                                 <i class='fa fa-undo'></i> Back to List
                             </a>
-                            <a href='".route('job-sites-add', $data['id'])."' class='btn btn-success btn-md btn-flat mr-2 text-white'>
+                            <a href='".route('job-sites-area-add', $data['id'])."' class='btn btn-success btn-md btn-flat mr-2 text-white'>
                                 <i class='fa fa-plus'></i> Add New 
                             </a>
-                            <a href='#' class='btn btn-danger btn-md btn-flat' data-trigger='delete-job-site' data-sub-id='".$data['id']."'>
+                            <a href='#' class='btn btn-danger btn-md btn-flat' data-trigger='delete-job-site' data-id='".$data['id']."'>
                                 <i class='fa fa-trash'></i> Delete
                             </a>
                         </div>
@@ -43,10 +43,12 @@
                                     <a class='dropdown-item mb-1 text-primary' href='".route('job-sites')."'>
                                         <i class='fa fa-undo'></i> Back to List
                                     </a>
-                                    <a class='dropdown-item mb-1 text-success' href='".route('job-sites-add', $data['id'])."'> 
+                                    <a class='dropdown-item mb-1 text-success' href='".route('job-sites-area-add', $data['id'])."'> 
                                         <i class='fa fa-plus'></i> Add New 
                                     </a> 
-                                    <a class='dropdown-item text-danger' href='javascript:void(0);' data-trigger='delete-job-site' data-id='".$data['id']."'>
+                                    <a class='dropdown-item text-danger' href='javascript:void(0);' 
+                                        data-trigger='delete-job-site' data-id='".$data['id']."'
+                                    >
                                         <i class='fa fa-trash'></i> Delete
                                     </a>
                                 </div>
@@ -90,6 +92,13 @@
                                 </div>
                             </div>
                         </div>
+                    ";
+                    break;
+                case 'job-site-area-add':
+                    $html ="
+                        <a href='".route('job-sites-areas', $data['id'])."' class='btn btn-primary btn-md btn-flat float-right'>
+                            <i class='fa fa-undo'></i> Back
+                        </a>
                     ";
                     break;
             }

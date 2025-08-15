@@ -4,6 +4,12 @@ $(document).ready(function () {
         let parentCardTitle = $(this).closest(".card-body").find(".card-title");
         $(parentCardTitle).text(title);
     });
+
+    $("[data-key=JobArea").on("keyup", function () {
+        let job_area_title = $(this).val();
+        console.log(job_area_title);
+        _search_job_site_areas(job_area_title);
+    });
     _init_actions();
 });
 
@@ -19,18 +25,20 @@ function _init_actions() {
         const trigger = $(this).data("trigger");
 
         switch (trigger) {
-            case "add-accomplishment":
+            case "add-job-site":
                 let parentCard =
                     $(".area-main-card").closest(".main-container");
                 let mainArea = $(".area-main-card");
                 let newArea = mainArea.clone();
+
                 newArea.removeClass("area-main-card");
                 newArea.find("span").text();
                 newArea.find("input").val("");
                 newArea.find("textarea").val("");
                 newArea.find("input[type='file']").val("");
                 newArea.find(".card-title").text("");
-                newArea.find(".card-body div:first-child()").append(
+
+                newArea.find(".card-body div.div-header").append(
                     `<button class="btn btn-danger btn-flat" data-trigger="remove-area">
                         <i class="fa fa-trash"></i> Remove
                     </button>`
@@ -39,32 +47,60 @@ function _init_actions() {
 
                 _init_actions();
                 break;
-            case "add-file":
+            case "add-files":
                 $(this)
-                    .closest(".card-sub-details")
+                    .closest(".form-group")
                     .find("input[type='file']")
                     .click();
                 $(this)
-                    .closest(".card-sub-details")
+                    .closest(".form-group")
                     .find("input[type='file']")
                     .on("change", function () {
                         let fileLength = $(this).get(0).files.length;
                         let files = $(this).get(0).files;
 
+                        let validation = _validate_files(files);
+
+                        if (!validation) {
+                            $(this).val("");
+                            $(this).closest(".form-group").find("span").text(0);
+                            return;
+                        }
+
                         $(this)
-                            .closest(".card-sub-details")
+                            .closest(".form-group")
                             .find("span")
                             .text(fileLength);
                     });
                 break;
-            case "view-images":
-                let images = $(this)
+            case "view-files":
+                let files = $(this)
                     .closest(".card-sub-details")
                     .find("input[type='file']")
                     .get(0).files;
 
-                let carousel = $("#carouselExampleIndicators");
+                if (files.length === 0) {
+                    return;
+                }
+
+                let carousel = $("#image-carousel");
+                let carousel_document = $("#document-carousel");
                 carousel.find(".carousel-inner").empty();
+                carousel_document.find(".carousel-inner").empty();
+
+                let images = [];
+                let documents = [];
+
+                for (let i = 0; i < files.length; i++) {
+                    let image = files[i];
+
+                    if (image.type.includes("image")) {
+                        images.push(image);
+                    } else {
+                        documents.push(image);
+                    }
+                }
+
                 for (let i = 0; i < images.length; i++) {
                     let image = images[i];
                     let imageUrl = URL.createObjectURL(image);
@@ -78,6 +114,19 @@ function _init_actions() {
                     </div>`);
                 }
 
+                for (let i = 0; i < documents.length; i++) {
+                    let document = documents[i];
+                    let documentUrl = URL.createObjectURL(document);
+                    $("#document-list").append(
+                        `<a href="${documentUrl}" target="_blank" class="text-info list-group-item list-group-item-action">${document.name}</a>`
+                    );
+                    carousel_document.find(".carousel-inner")
+                        .append(`<div class="carousel-item ${
+                        i === 0 ? "active" : ""
+                    }">
+                     <iframe src="${documentUrl}" type="application/pdf" class="d-block w-100" style='width: 100% !important; height: 50vh !important;'></iframe> 
+                    </div>`);
+                }
                 $("#modal-images").modal("show");
 
                 break;
@@ -97,49 +146,51 @@ function _init_actions() {
             case "save":
                 _save_job();
                 break;
-            case "delete-accomplishment":
-                let id = $(this).attr("data-id");
-                let parent = $(this).attr("data-parent");
-                _confirm(
-                    "Delete Accomplishment",
-                    "Are you sure you want to delete this accomplishment?",
-                    "warning",
-                    "Delete",
-                    true,
-                    () => _delete_accomplishment(id, parent)
-                );
-                break;
+
             case "delete-job-site":
-                let sub_id = $(this).attr("data-sub-id");
+                let id = $(this).attr("data-id");
                 _confirm(
                     "Delete Job Site",
                     "Are you sure you want to delete this job site?",
                     "warning",
                     "Delete",
                     true,
-                    () => _delete_job_site(sub_id)
+                    () => _delete_job_site(id)
+                );
+                break;
+            case "delete-job-site-area":
+                let area_id = $(this).attr("data-id");
+                let title = $(this).attr("data-title");
+                let site_id = $(this).attr("data-site-id");
+
+                _confirm(
+                    "Delete Job Site Area",
+                    "Are you sure you want to delete " + title + "?",
+                    "warning",
+                    "Delete",
+                    true,
+                    () => _delete_job_site_area(area_id, site_id)
                 );
                 break;
         }
     });
 }
 
-function _delete_accomplishment(id, parent) {
+function _delete_job_site(id) {
+    ajaxRequest("/executor/job-sites/delete", { id: id }, "");
+}
+
+function _delete_job_site_area(id, site_id) {
     ajaxRequest(
-        "/executor/accomplishments/delete",
-        { id: id, parent: parent },
+        "/executor/job-sites/delete-area",
+        { id: id, site_id: site_id },
         ""
     );
 }
-
-function _delete_job_site(sub_id) {
-    ajaxRequest("/executor/job-sites/" + sub_id + "/delete", {}, "");
-}
-
 function _save_job() {
     let formData = new FormData();
     let subDetailsCard = $(".card-sub-details");
-    let image_cntr = 0;
+    let file_cntr = 0;
 
     formData.append("sub_id", $("[data-key=SubId]").val());
 
@@ -151,8 +202,8 @@ function _save_job() {
         let subDetailsAccomplishments = $(this)
             .find("[data-key=SubDetailsAccomplishments]")
             .val();
-        let subDetailsImages = $(this)
-            .find("[data-key=SubDetailsImages]")
+        let subDetailsFiles = $(this)
+            .find("[data-key=SubDetailsFiles]")
             .get(0).files;
 
         formData.append("subDetailsName[]", subDetailsName);
@@ -163,15 +214,103 @@ function _save_job() {
         );
 
         let images = [];
-        for (let i = 0; i < subDetailsImages.length; i++) {
+        for (let i = 0; i < subDetailsFiles.length; i++) {
             formData.append(
-                `subDetailsImages_${image_cntr}[]`,
-                subDetailsImages[i]
+                `subDetailsFiles_${file_cntr}[]`,
+                subDetailsFiles[i]
             );
         }
 
-        image_cntr++;
+        file_cntr++;
     });
 
-    ajaxSubmit("/executor/accomplishments/save", formData, "");
+    ajaxSubmit("/executor/job-sites/save", formData, "");
+}
+
+function _validate_files(files) {
+    let invalid_images = [];
+    let invalid_sizes = [];
+    let valid_size = 1024 * 1024 * 25; // 25MB
+    let valid_ext = [
+        "jpg",
+        "jpeg",
+        "png",
+        "gif",
+        "bmp",
+        "webp",
+        "pdf",
+        "JPG",
+        "JPEG",
+        "PNG",
+        "GIF",
+        "BMP",
+        "WEBP",
+        "PDF",
+    ];
+
+    for (const file of files) {
+        let size = file.size;
+        let type = file.type;
+        let name = file.name;
+        let ext = name.split(".").pop();
+
+        if (!valid_ext.includes(ext)) {
+            invalid_images.push(name);
+        }
+
+        if (size > valid_size) {
+            invalid_sizes.push(name);
+        }
+    }
+
+    if (invalid_images.length > 0) {
+        _confirm(
+            "Invalid Files",
+            "Only accepts image and pdf files.\n\nThe following files are invalid: " +
+                invalid_images.join(", "),
+            "warning",
+            "OK",
+            true,
+            function () {}
+        );
+
+        return false;
+    }
+
+    if (invalid_sizes.length > 0) {
+        _confirm(
+            "Invalid Sizes",
+            "Only accepts up to 25MB.\n\nThe following files are too large: " +
+                invalid_sizes.join(", "),
+            "warning",
+            "OK",
+            true,
+            function () {}
+        );
+
+        return false;
+    }
+
+    return true;
+}
+
+function _search_job_site_areas(search) {
+    let card_titles = $(".card-title");
+
+    card_titles.each(function () {
+        let title = $(this).text().toLowerCase();
+        if (title.includes(search.toLowerCase())) {
+            $(this)
+                .closest(".card-header")
+                .closest(".card")
+                .closest("div")
+                .show();
+        } else {
+            $(this)
+                .closest(".card-header")
+                .closest(".card")
+                .closest("div")
+                .hide();
+        }
+    });
 }

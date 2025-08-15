@@ -40,10 +40,10 @@ class JbController extends Controller
             $sub_details_names = $request->subDetailsName;
             $sub_details_descriptions = $request->subDetailsDescription;
             $sub_details_accomplishments = $request->subDetailsAccomplishments;
-            $accomplishment_id = null;
+            $job_site_id = null;
             
             if ($request->has('sub_id')) {
-                $accomplishment_id = $request->sub_id;
+                $job_site_id = $request->sub_id;
             } else {
                 $title = $request->title;
                 $description = $request->description;
@@ -147,6 +147,7 @@ class JbController extends Controller
                 'message' => 'Job Site deleted successfully',
             ]);
         } catch (Exception $e) {
+            logInfo($e->getMessage());
             return response()->json([
                 'status' => false,
                 'message' => $e->getMessage()
@@ -154,22 +155,23 @@ class JbController extends Controller
         }
     }
 
-    public function jobSiteDelete(Request $request, $sub_id): JsonResponse {
+    public function delete_job_site_area(Request $request): JsonResponse {
         try {
-            $job_site = JobSite::where('id', $sub_id)->first();
-            $job_site->delete();
-            $job_site->areas()->delete();
+            $job_site_area = JobArea::where('id', $request->id)->first();
+            $job_site_area->files()->delete();
+            $job_site_area->delete();
 
             return response()->json([
                 'status' => true,
-                'message' => 'Job Site deleted successfully',
+                'message' => 'Job Site Area deleted successfully',
             ]);
-        }
-        catch(Exception $e) {
+        } catch(Exception $e) {
+            logInfo($e->getMessage());
             return response()->json([
                 'status' => false,
                 'message' => $e->getMessage()
             ]);
         }
-    }
+    }   
+
 }

@@ -1,8 +1,11 @@
 @include('partials.auth.header')
 
 <section class="container-fluid">
-
-
+    <div class="row mb-3">
+        <div class="col-12">
+            <input type="search" class="form-control override-input" placeholder="Search Job Sites" data-key="JobArea">
+        </div>
+    </div>
     <div class="row">
         @foreach($job_site_areas['areas'] as $job_site_area) 
             <div class="col-md-3">
@@ -28,7 +31,14 @@
                                         <a class='dropdown-item mb-1 text-info' href='{{ route('job-site-area-edit', $job_site_area['id']) }}'> 
                                             <i class='fa fa-edit'></i> Edit Area
                                         </a> 
-                                        <a class='dropdown-item text-danger' href='javascript:void(0);' data-trigger='delete-job-area' data-id='{{ $job_site_area['id'] }}'>
+                                        <a 
+                                            class='dropdown-item text-danger' 
+                                            href='javascript:void(0);' 
+                                            data-trigger='delete-job-site-area' 
+                                            data-id='{{ $job_site_area['id'] }}'
+                                            data-title='{{ $job_site_area['title'] }}'
+                                            data-site-id='{{ $job_site_areas['id'] }}'
+                                        >
                                             <i class='fa fa-trash'></i> Delete Area
                                         </a>
                                     </div>
@@ -71,4 +81,3 @@
 @include('partials.auth.footer')
 
 <script src="{{ asset('assets/acrtfm/js/modules/sub-job-site.js') }}"></script>
-

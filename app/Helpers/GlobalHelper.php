@@ -53,7 +53,7 @@ class GlobalHelper {
         string $title='System Info',
         array $data=[]
     ): JsonResponse {
-        
+
         if ($type == 'toast') {
             $response = responseHelper()->toastrResponse($message, $toast_type, $title);
         } else if ($type == 'scripts') {
