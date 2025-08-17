@@ -98,11 +98,10 @@ function _init_actions() {
                     });
                 break;
             case "view-files":
-                let files = $(this)
-                    .closest(".card-sub-details")
+                let files = $("#div-job-area-edit")
                     .find("input[type='file']")
                     .get(0).files;
-
+                console.log(files);
                 if (files.length === 0) {
                     return;
                 }

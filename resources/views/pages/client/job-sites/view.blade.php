@@ -74,7 +74,7 @@
 
                     
                 </div>
-                <div class="card-footer">
+                {{-- <div class="card-footer">
                     <div class="d-flex justify-content-end mt-2">
                         <a 
                             href="javascript:void(0);" 
@@ -93,7 +93,7 @@
                             <i class="fa fa-save"></i> Save
                         </a>
                     </div>
-                </div>
+                </div> --}}
             </div>
             @php
                 $images = [];
@@ -260,7 +260,6 @@
     </div>
 </div>
 
-
 <div class="modal fade" id="modal-files-view" tabindex="-1" role="dialog" aria-labelledby="modal-files-label" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         <div class="modal-content">
@@ -270,17 +269,17 @@
             <div class="modal-body">
                 <ul class="nav nav-pills mb-3 d-flex justify-content-between">
                     <li class="nav-item w-50 text-center">
-                        <a href="#tab-body-images" class="nav-link active show" data-toggle="tab" aria-expanded="false">Images</a>
+                        <a href="#modal-tab-body-images" class="nav-link active show" data-toggle="tab" aria-expanded="false">Images</a>
                     </li>
                     <li class="nav-item w-50 text-center">
-                        <a href="#tab-body-documents" class="nav-link" data-toggle="tab" aria-expanded="false">Documents</a>
+                        <a href="#modal-tab-body-documents" class="nav-link" data-toggle="tab" aria-expanded="false">Documents</a>
                     </li>
                 </ul>
                 <div 
                     class="tab-content br-n pn"
                     style="min-height: 30vh !important; align-items: center; display: flex; justify-content: center;"
                 >
-                    <div id="tab-body-images" class="tab-pane active show p-0 m-0">
+                    <div id="modal-tab-body-images" class="tab-pane active show p-0 m-0">
                         <div class="bootstrap-carousel w-100">
                             <div id="image-carousel" class="carousel slide" data-ride="carousel">
                                 <div class="carousel-inner"></div>
@@ -293,7 +292,7 @@
                             </div>
                         </div>
                     </div>
-                    <div id="tab-body-documents" class="tab-pane" style="height: 50vh !important; width: 100% !important;">
+                    <div id="modal-tab-body-documents" class="tab-pane" style="height: 50vh !important; width: 100% !important;">
                         <div class="d-md-none d-lg-none d-xl-none">
                             <div class="basic-list-group">
                                 <div class="list-group" id="document-list">
