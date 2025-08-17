@@ -546,3 +546,29 @@ input[type="file"]::file-selector-button {
         padding: 15px 15px 0px 15px !important;
     }
 }
+
+/* Image List */
+.image-list {
+    display: grid !important;
+    grid-template-columns: repeat(5, 1fr) !important;
+    gap: 10px !important;
+    & img {
+        width: 100% !important;
+        height: 100% !important;
+        object-fit: cover !important;
+        border-radius: 5px !important;
+        border: 1px solid #e0e0e0 !important;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .image-list {
+        grid-template-columns: repeat(4, 1fr) !important;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .image-list {
+        grid-template-columns: repeat(2, 1fr) !important;
+    }
+}

@@ -109,22 +109,17 @@
 
             <ul class="nav nav-pills mb-3 d-flex justify-content-between">
                 <li class="nav-item w-50 text-center">
-                    <a href="#tab-body-images" class="nav-link active show" data-toggle="tab" aria-expanded="false">Images</a>
+                    <a href="#tab-body-images" class="nav-link active show btn btn-outline-primary mr-1" data-toggle="tab" aria-expanded="false">Images</a>
                 </li>
                 <li class="nav-item w-50 text-center">
-                    <a href="#tab-body-documents" class="nav-link" data-toggle="tab" aria-expanded="false">Documents</a>
+                    <a href="#tab-body-documents" class="nav-link btn btn-outline-primary" data-toggle="tab" aria-expanded="false">Documents</a>
                 </li>
             </ul>
-            <div 
-                class="tab-content br-n pn"
-                style="min-height: 30vh !important; align-items: center; display: flex; justify-content: center;"
-            >
+            <div class="tab-content br-n pn" style="min-height: 30vh !important; align-items: center;">
                 <div id="tab-body-images" class="tab-pane active show p-0 m-0">
-                    <div class="row">                        
+                    <div class="image-list">
                         @foreach($images as $image)
-                            <div class="col-md-2 mb-3">
-                                <img class="d-block w-100 img-fluid" src="{{ $image['url'] }}" alt="{{ $image['name'] }}" data-trigger="view-image" data-id="{{ $image['id'] }}">
-                            </div>
+                            <img src="{{ $image['url'] }}" alt="{{ $image['name'] }}" data-trigger="view-image" data-id="{{ $image['id'] }}">
                         @endforeach           
                     </div>
                 </div>
