@@ -76,6 +76,8 @@ class ResponseHelper {
             case 'job-site-area-deleted':
                 $script = "location = '".route('job-sites-areas', $data['id'])."';";
                 break;
+            case 'job-site-document-deleted':
+            case 'job-site-image-deleted':
             case 'job-site-updated':
                 $script = "location.reload();";
                 break;
@@ -227,7 +229,7 @@ class ResponseHelper {
                                 </a>
                                 <div class='basic-dropdown'>
                                     <div class='dropleft mb-1'>
-                                        <button type='button' class='btn mb-1 btn-rounded btn-outline-info' data-toggle='dropdown'>
+                                        <button type='button' class='btn btn-sm mb-1 btn-rounded btn-outline-info' data-toggle='dropdown'>
                                             <i class='fa fa-ellipsis-v'></i>
                                         </button>
                                         <div class='dropdown-menu'>

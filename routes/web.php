@@ -71,7 +71,8 @@ Route::middleware(['auth:sanctum', 'web'])->group(function () {
             Route::post('/save', [JbController::class, 'save'])->name("exec-job-sites-save");
             Route::post('/update', [JbController::class, 'update'])->name("exec-job-site-update");
             Route::post('/delete', [JbController::class, 'delete'])->name("exec-job-sites-delete");
-            
+            Route::post('/delete-image', [JbController::class, 'delete_image'])->name("exec-job-site-image-delete");
+            Route::post('/delete-document', [JbController::class, 'delete_document'])->name("exec-job-site-document-delete");
             Route::post('/delete-area', [JbController::class, 'delete_job_site_area'])->name("exec-job-site-area-delete");
 
         });

@@ -5,53 +5,71 @@ $(document).ready(function () {
         $(parentCardTitle).text(title);
     });
 
-    $("[data-key=JobSites]").on("keyup", function () {
-        let jobSites = $(this).val();
-
-        _search_job_sites(jobSites);
-    });
-
-    _fetch_job_sites();
     _init_actions();
 });
 
-function _fetch_job_sites() {
-    ajaxRequest("/executor/job-sites/fetch", {}, "");
-}
-
 function _init_actions() {
-    $("[data-key=SubDetailsName]").on("keyup", function () {
-        let subDetailsName = $(this).val();
-        let parentCardTitle = $(this).closest(".card-body").find(".card-title");
-        $(parentCardTitle).text(subDetailsName);
-    });
-
     $("[data-trigger]").off();
     $("[data-trigger]").on("click", function () {
         const trigger = $(this).data("trigger");
 
         switch (trigger) {
-            case "add-job-site":
-                let parentCard =
-                    $(".area-main-card").closest(".main-container");
-                let mainArea = $(".area-main-card");
-                let newArea = mainArea.clone();
+            case "edit-job-site-area":
+                $("#div-job-area-view").addClass("d-none");
+                $("#div-job-area-edit").removeClass("d-none");
 
-                newArea.removeClass("area-main-card");
-                newArea.find("span").text();
-                newArea.find("input").val("");
-                newArea.find("textarea").val("");
-                newArea.find("input[type='file']").val("");
-                newArea.find(".card-title").text("");
-
-                newArea.find(".card-body div.div-header").append(
-                    `<button class="btn btn-danger btn-flat" data-trigger="remove-area">
-                        <i class="fa fa-trash"></i> Remove
-                    </button>`
+                $("[data-key=Title]").val(
+                    $("[data-key=Title]").attr("data-default")
                 );
-                parentCard.append(newArea);
+                $("[data-key=Description]").val(
+                    $("[data-key=Description]").attr("data-default")
+                );
+                $("[data-key=Accomplishments]").val(
+                    $("[data-key=Accomplishments]").attr("data-default")
+                );
+                break;
+            case "cancel-edit-job-site-area":
+                $("#div-job-area-view").removeClass("d-none");
+                $("#div-job-area-edit").addClass("d-none");
+                break;
+            case "view-document":
+                let documentUrl = $(this).attr("data-href");
+                let documentTarget = $(this).attr("data-target");
+                let documentId = $(this).attr("data-id");
 
-                _init_actions();
+                $("#document-iframe").attr("src", documentUrl);
+                $("#document-iframe").attr("data-id", documentId);
+
+                $(documentTarget).attr("src", documentUrl);
+                break;
+            case "view-image":
+                // Show the image modal when an image is clicked
+                $("#modal-images").modal("show");
+                break;
+
+            case "delete-image":
+                let imageId = $(this).data("id");
+                let imageUrl = $(this).data("url");
+                _confirm(
+                    "Delete Image",
+                    "Are you sure you want to delete this image?",
+                    "warning",
+                    "Delete",
+                    true,
+                    () => _delete_image(imageId, imageUrl)
+                );
+                break;
+            case "delete-document":
+                let document_id = $(this).attr("data-id");
+                let document_url = $(this).attr("data-url");
+                _confirm(
+                    "Delete Document",
+                    "Are you sure you want to delete this document?",
+                    "warning",
+                    "Delete",
+                    true,
+                    () => _delete_document(document_id, document_url)
+                );
                 break;
             case "add-files":
                 $(this)
@@ -114,10 +132,10 @@ function _init_actions() {
                         .append(`<div class="carousel-item ${
                         i === 0 ? "active" : ""
                     }">
-                        <img class="d-block w-100" style=' max-height: 60vh !important;' src="${imageUrl}" alt="Image ${
+                            <img class="d-block w-100" style=' max-height: 60vh !important;' src="${imageUrl}" alt="Image ${
                         i + 1
                     }">
-                    </div>`);
+                        </div>`);
                 }
 
                 for (let i = 0; i < documents.length; i++) {
@@ -130,50 +148,30 @@ function _init_actions() {
                         .append(`<div class="carousel-item ${
                         i === 0 ? "active" : ""
                     }">
-                     <iframe src="${documentUrl}" type="application/pdf" class="d-block w-100" style='width: 100% !important; height: 50vh !important;'></iframe> 
-                    </div>`);
+                         <iframe src="${documentUrl}" type="application/pdf" class="d-block w-100" style='width: 100% !important; height: 50vh !important;'></iframe> 
+                        </div>`);
                 }
-                $("#modal-images").modal("show");
+                $("#modal-files-view").modal("show");
 
-                break;
-            case "remove-area":
-                let area = $(this).closest(".card-sub-details");
-                _confirm(
-                    "Remove Area",
-                    "Are you sure you want to remove this area?",
-                    "warning",
-                    "Remove",
-                    true,
-                    function () {
-                        area.remove();
-                    }
-                );
-                break;
-            case "save":
-                _save_job();
-                break;
-            case "delete-job-site":
-                let id = $(this).attr("data-id");
-                _confirm(
-                    "Delete Job Site",
-                    "Are you sure you want to delete this job site?",
-                    "warning",
-                    "Delete",
-                    true,
-                    () => _delete_job_site(id)
-                );
-                break;
-            case "view-document":
-                let documentUrl = $(this).data("href");
-                let documentTarget = $(this).data("target");
-                $(documentTarget).attr("src", documentUrl);
-                break;
-            case "view-image":
-                // Show the image modal when an image is clicked
-                $("#modal-images").modal("show");
                 break;
         }
     });
+}
+
+function _delete_image(imageId, imageUrl) {
+    ajaxRequest(
+        "/executor/job-sites/delete-image",
+        { id: imageId, url: imageUrl },
+        ""
+    );
+}
+
+function _delete_document(document_id, document_url) {
+    ajaxRequest(
+        "/executor/job-sites/delete-document",
+        { id: document_id, url: document_url },
+        ""
+    );
 }
 
 function _delete_job_site(id) {

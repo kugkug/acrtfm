@@ -191,6 +191,44 @@ class JbController extends Controller
         }
     }   
 
+    public function delete_image(Request $request): JsonResponse {
+        try {
+            $job_area_file = JobAreaFile::where('id', $request->id)->first();
+            Storage::disk('s3')->delete($job_area_file->url);
+            $job_area_file->delete();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Job Site Image deleted successfully',
+            ]);
+        } catch(Exception $e) {
+            logInfo($e->getMessage());
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
+
+    public function delete_document(Request $request): JsonResponse {
+        try {
+            $job_area_file = JobAreaFile::where('id', $request->id)->first();
+            Storage::disk('s3')->delete($job_area_file->url);
+            $job_area_file->delete();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Job Site Document deleted successfully',
+            ]);
+        } catch(Exception $e) {
+            logInfo($e->getMessage());
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
+
     
 
 }

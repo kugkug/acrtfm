@@ -16,11 +16,11 @@
                     <i class="fa-regular fa-video menu-icon fa-action"></i><span class="nav-text">Education</span>
                 </a>
             </li>
-            <li>
+            {{-- <li>
                 <a href="{{ route('ask-ai') }}" aria-expanded="false">
                     <i class="fa-solid fa-robot menu-icon fa-action"></i><span class="nav-text">Ask A.I.</span>
                 </a>
-            </li>
+            </li> --}}
             <li>
                 <a href="{{ route('job-sites') }}" aria-expanded="false">
                     <i class="fa-solid fa-briefcase menu-icon fa-action"></i><span class="nav-text">Job Sites</span>

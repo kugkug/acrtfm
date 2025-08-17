@@ -134,4 +134,48 @@ class JbController extends Controller
             ]);
         }
     }
+
+    public function delete_image(Request $request): JsonResponse {
+        try {
+            $api_response = apiHelper()->post($request, route('api-job-site-image-delete'));
+
+            if(! $api_response['status']) {
+                return globalHelper()->ajaxErrorResponse($api_response['message']);
+            }
+
+            return globalHelper()->ajaxSuccessResponse(
+                'scripts',
+                'success',
+                'job-site-image-deleted',
+                'Job Site Image deleted successfully',
+                'System Info',
+            );
+        } catch(Exception $e) {
+            logInfo($e->getTraceAsString());
+            return globalHelper()->ajaxErrorResponse($e->getMessage());
+        }
+    }
+
+    public function delete_document(Request $request): JsonResponse {
+        try {
+            $api_response = apiHelper()->post($request, route('api-job-site-document-delete'));
+
+            if(! $api_response['status']) {
+                return globalHelper()->ajaxErrorResponse($api_response['message']);
+            }
+
+            return globalHelper()->ajaxSuccessResponse(
+                'scripts',
+                'success',
+                'job-site-document-deleted',
+                'Job Site Document deleted successfully',
+                'System Info',
+            );
+        } catch(Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
 }

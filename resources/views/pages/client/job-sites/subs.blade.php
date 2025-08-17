@@ -75,20 +75,23 @@
     </div>
     <div class="row">
         @foreach($job_site_areas['areas'] as $job_site_area) 
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="card">
-                    <div class="card-header bg-white" style="border-radius: 0.625rem;">
+                    <div class="card-body">
+                        
                         <div class='d-flex justify-content-between'>
-                            <h5 class="card-title d-flex align-items-center">
-                                {{ 
-                                    strlen($job_site_area['title']) > 25 ? 
-                                    substr($job_site_area['title'], 0, 25) . '...' :
-                                    $job_site_area['title'] 
-                                }}
-                            </h5>
+                            <a href='{{ route('job-site-area-view', $job_site_area['id']) }}'>
+                                <h5 class="card-title d-flex align-items-center text-info">
+                                    {{ 
+                                        strlen($job_site_area['title']) > 25 ? 
+                                        substr($job_site_area['title'], 0, 25) . '...' :
+                                        $job_site_area['title'] 
+                                    }}
+                                </h5>
+                            </a>
                             <div class='basic-dropdown'>
                                 <div class='dropleft mb-1'>
-                                    <button type='button' class='btn mb-1 btn-rounded btn-outline-info' data-toggle='dropdown'>
+                                    <button type='button' class='btn btn-sm mb-1 btn-rounded btn-outline-info' data-toggle='dropdown'>
                                         <i class='fa fa-ellipsis-v'></i>
                                     </button>
                                     <div class='dropdown-menu'>
@@ -112,22 +115,7 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    @if ($job_site_area['files'][0]['type'] == 'pdf')
-                        <iframe 
-                            src="{{ $job_site_area['files'][0]['url'] }}" 
-                            class="d-block w-100" 
-                            style='width: 100%; height: 300px; object-fit: cover;'
-                            frameborder="0">
-                        </iframe> 
-                    @else
-                        <img 
-                            class="img-fluid" 
-                            src=" {{ $job_site_area['files'][0]['url'] }}" 
-                            alt="" 
-                            style="width: 100%; height: 300px; object-fit: cover;">
-                    @endif
-                    <div class="card-body">
+                        
                         <p class="card-text">
                             {{ 
                                 strlen($job_site_area['accomplishments']) > 30 ? 

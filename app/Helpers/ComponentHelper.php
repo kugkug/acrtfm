@@ -64,9 +64,6 @@
                                 <a href='".route('job-sites-areas', $data['id'])."' class='btn btn-primary btn-md btn-flat mr-2'>
                                     <i class='fa fa-undo'></i> Back to Areas
                                 </a>
-                                <a href='".route('job-site-area-edit', $data['id'])."' class='btn btn-info btn-md btn-flat mr-2'>
-                                    <i class='fa fa-edit'></i> Edit Area
-                                </a>
                                 <a href='#' class='btn btn-danger btn-md btn-flat' data-trigger='delete-job-area' data-id='".$data['id']."'>
                                     <i class='fa fa-trash'></i> Delete Area
                                 </a>
@@ -82,9 +79,6 @@
                                         <a class='dropdown-item mb-1 text-primary' href='".route('job-sites-areas', $data['id'])."'>
                                             <i class='fa fa-undo'></i> Back to Areas
                                         </a>
-                                        <a class='dropdown-item mb-1 text-info' href='".route('job-site-area-edit', $data['id'])."'> 
-                                            <i class='fa fa-edit'></i> Edit
-                                        </a> 
                                         <a class='dropdown-item text-danger' href='javascript:void(0);' data-trigger='delete-job-area' data-id='".$data['id']."'>
                                             <i class='fa fa-trash'></i> Delete
                                         </a>
