@@ -136,26 +136,28 @@
                     @else
                         <div class="row d-block d-md-none d-lg-none d-xl-none">
                             <div class="col-md-12">
-                                <div class="basic-list-group">
-                                    <div class="list-group" id="document-list">
-                                        @foreach($documents as $document)
-                                            <a 
-                                                href="{{ $document['url'] }}" 
-                                                target="_blank" 
-                                                class="text-info list-group-item list-group-item-action ">
-                                                {{ $document['name'] }}
-                                            </a> 
-                                            <button 
-                                                class="btn btn-danger "
-                                                data-trigger="delete-document"
-                                                data-id="{{ $document['id'] }}"
-                                                data-url="{{ $document['url'] }}"
-                                            >
-                                                <i class="fa fa-trash"></i>
-                                            </button>
-                                        @endforeach
-                                    </div>
+                                @foreach($documents as $document)
+                                <div class="d-flex justify-content-between mb-1">
+                                    <a 
+                                        href="{{ $document['url'] }}" 
+                                        target="_blank" 
+                                        class="text-info list-group-item list-group-item-action cursor-pointer mr-2">
+                                        {{ $document['name'] }}
+                                    </a> 
+                                
+                                    <button 
+                                        class="btn btn-danger btn-sm"
+                                        data-trigger="delete-document"
+                                        data-id="{{ $document['id'] }}"
+                                        data-url="{{ $document['url'] }}"
+                                        style="height: 35px !important; margin: auto 0px !important;"
+                                    >
+                                        <i class="fa fa-trash"></i>
+                                    </button>
+                                    
                                 </div>
+                                @endforeach
+                                    
                             </div>
                         </div>
 
