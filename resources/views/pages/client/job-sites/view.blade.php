@@ -125,84 +125,84 @@
                 </div>
 
                 <div id="tab-body-documents" class="tab-pane" style="height: 50vh !important; width: 100% !important;">
-                    <div class="row d-block d-md-none d-lg-none d-xl-none">
-                        <div class="col-md-12">
-                            <div class="basic-list-group">
-                                <div class="list-group" id="document-list">
-                                    @foreach($documents as $document)
-                                        <a 
-                                            href="{{ $document['url'] }}" 
-                                            target="_blank" 
-                                            class="text-info list-group-item list-group-item-action ">
-                                            {{ $document['name'] }}
-                                        </a> 
-                                        <button 
-                                            class="btn btn-danger "
-                                            data-trigger="delete-document"
-                                            data-id="{{ $document['id'] }}"
-                                            data-url="{{ $document['url'] }}"
-                                        >
-                                            <i class="fa fa-trash"></i>
-                                        </button>
-                                    @endforeach
+                    @if (count($documents) == 0)
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="alert alert-danger">
+                                    No documents found
                                 </div>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="d-none d-md-block d-lg-block d-xl-block">
-                        @if (count($documents) == 0)
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="alert alert-danger">
-                                        No documents found
-                                    </div>
-                                </div>
-                            </div>
-                        @else
-                        <div class="row">
-                            <div class="col-md-4">
+                    @else
+                        <div class="row d-block d-md-none d-lg-none d-xl-none">
+                            <div class="col-md-12">
                                 <div class="basic-list-group">
                                     <div class="list-group" id="document-list">
                                         @foreach($documents as $document)
                                             <a 
-                                                data-trigger="view-document"
-                                                data-href="{{ $document['url'] }}" 
-                                                data-id="{{ $document['id'] }}"
-                                                data-target="#document-iframe"
-                                                class="text-info list-group-item list-group-item-action cursor-pointer"
-                                            >
+                                                href="{{ $document['url'] }}" 
+                                                target="_blank" 
+                                                class="text-info list-group-item list-group-item-action ">
                                                 {{ $document['name'] }}
-                                            </a>
-                                            
+                                            </a> 
+                                            <button 
+                                                class="btn btn-danger "
+                                                data-trigger="delete-document"
+                                                data-id="{{ $document['id'] }}"
+                                                data-url="{{ $document['url'] }}"
+                                            >
+                                                <i class="fa fa-trash"></i>
+                                            </button>
                                         @endforeach
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-md-8">
-                                <iframe 
-                                    id="document-iframe" 
-                                    class="d-block w-100" 
-                                    style='width: 100%; height: 50vh !important;' 
-                                    frameborder="0"
-                                    controls="0"
-                                    allowFullScreen="true"
-                                    src="{{ $documents[0]['url'] }}"
-                                >
-                                </iframe> 
-                                <button 
-                                    class="btn btn-danger float-right mt-2"
-                                    data-trigger="delete-document"
-                                    data-id="{{ $documents[0]['id'] }}"
-                                    data-url="{{ $documents[0]['url'] }}"
-                                >
-                                    <i class="fa fa-trash"></i> Delete
-                                </button>
-                            </div>
                         </div>
-                        @endif
-                       
-                    </div>
+
+                        <div class="d-none d-md-block d-lg-block d-xl-block">
+                            
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="basic-list-group">
+                                        <div class="list-group" id="document-list">
+                                            @foreach($documents as $document)
+                                                <a 
+                                                    data-trigger="view-document"
+                                                    data-href="{{ $document['url'] }}" 
+                                                    data-id="{{ $document['id'] }}"
+                                                    data-target="#document-iframe"
+                                                    class="text-info list-group-item list-group-item-action cursor-pointer"
+                                                >
+                                                    {{ $document['name'] }}
+                                                </a>
+                                                
+                                            @endforeach
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-8">
+                                    <iframe 
+                                        id="document-iframe" 
+                                        class="d-block w-100" 
+                                        style='width: 100%; height: 50vh !important;' 
+                                        frameborder="0"
+                                        controls="0"
+                                        allowFullScreen="true"
+                                        src="{{ $documents[0]['url'] }}"
+                                    >
+                                    </iframe> 
+                                    <button 
+                                        class="btn btn-danger float-right mt-2"
+                                        data-trigger="delete-document"
+                                        data-id="{{ $documents[0]['id'] }}"
+                                        data-url="{{ $documents[0]['url'] }}"
+                                    >
+                                        <i class="fa fa-trash"></i> Delete
+                                    </button>
+                                </div>
+                            </div>
+                        </div>  
+                    @endif
                 </div>
             </div>
         </div>
