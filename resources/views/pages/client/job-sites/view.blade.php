@@ -119,6 +119,15 @@
             </ul>
             <div class="tab-content br-n pn" style="min-height: 30vh !important; align-items: center;">
                 <div id="tab-body-images" class="tab-pane active show p-0 m-0">
+                    @if (count($images) == 0)
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="alert alert-danger">
+                                    No images found
+                                </div>
+                            </div>
+                        </div>
+                    @else
                     <div class="image-list">
                         @foreach($images as $image)
                         <div 
@@ -129,6 +138,7 @@
                         </div>
                         @endforeach           
                     </div>
+                    @endif
                 </div>
 
                 <div id="tab-body-documents" class="tab-pane" style="height: 50vh !important; width: 100% !important;">

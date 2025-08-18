@@ -79,6 +79,7 @@ class JbController extends Controller
                 ]);
             }
 
+
             foreach($sub_details_names as $id => $sub_details_name) {
                 $accomplishment_data = [];
                 $accomplishment_images = [];
@@ -97,26 +98,28 @@ class JbController extends Controller
                 $job_area = JobArea::create($job_area_data);
                 $job_area_id = $job_area->id;
                 
-                foreach($sub_details_files as $sub_details_file) {
-                    
-                    $original_name = $sub_details_file->getClientOriginalName();
-                    $ext = $sub_details_file->getClientOriginalExtension();
-                    $new_filename = $original_name.'.'.$ext;
-                    $size = $sub_details_file->getSize();
-                    
-                    $file = Storage::disk('s3')->put('jobs', $sub_details_file);
-                    $url = Storage::disk('s3')->url($file);
-                    
-                    $job_area_files[] = [
-                        'job_area_id' => $job_area_id,
-                        'name' => $original_name,
-                        'url' => $url,
-                        'type' => $ext,
-                        'size' => $size,
-                    ];
-                }
+                if ($sub_details_files) {
+                    foreach($sub_details_files as $sub_details_file) {
+                        
+                        $original_name = $sub_details_file->getClientOriginalName();
+                        $ext = $sub_details_file->getClientOriginalExtension();
+                        $new_filename = $original_name.'.'.$ext;
+                        $size = $sub_details_file->getSize();
+                        
+                        $file = Storage::disk('s3')->put('jobs', $sub_details_file);
+                        $url = Storage::disk('s3')->url($file);
+                        
+                        $job_area_files[] = [
+                            'job_area_id' => $job_area_id,
+                            'name' => $original_name,
+                            'url' => $url,
+                            'type' => $ext,
+                            'size' => $size,
+                        ];
+                    }
 
-                JobAreaFile::insert($job_area_files);
+                    JobAreaFile::insert($job_area_files);
+                }
             }
             
             DB::commit();
