@@ -5,11 +5,11 @@
         <div class="col-md-12 main-container">
             <div class="card">
                 <div class="card-body">
-                    <input type="hidden" data-key="SubId" value="{{ $sub_id }}">
+                    <input type="hidden" data-key="SiteId" value="{{ $job_site_area['id'] }}">
                     <h5 class="card-title">
-                        {{ $job_site_area['site']['title'] }}
+                        {{ $job_site_area['title'] }}
                     </h5>
-                    <p class="card-text">{{ $job_site_area['site']['description'] }}</p>
+                    <p class="card-text">{{ $job_site_area['description'] }}</p>
                 </div>
             </div>
 

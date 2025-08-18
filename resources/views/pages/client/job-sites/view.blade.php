@@ -260,8 +260,8 @@
                     <button 
                         class="mt-3 btn btn-danger btn-block btn-flat" 
                         data-trigger="delete-image"
-                        data-id="{{ $images[0]['id'] }}"
-                        data-url="{{ $images[0]['url'] }}"
+                        data-id=""
+                        data-url=""
                     >
                         <i class="fa fa-trash"></i> Delete
                     </button>

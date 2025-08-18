@@ -284,6 +284,20 @@ class GlobalHelper {
         }
     }
 
+    public function getJobSite($site_id) {
+        try {
+            $job_site = JobSite::where('id', $site_id)->first();
+            if ($job_site) {
+                return $job_site->toArray();
+            }
+
+            return [];
+        } catch (\Exception $e) {
+            logInfo($e->getMessage());
+            return [];
+        }
+    }
+
     public function getJobSiteAreas($id) {
         try {
             $job_site = JobSite::where('id', $id)->with('areas')->first();
@@ -304,12 +318,13 @@ class GlobalHelper {
             ->with('files')
             ->with('site')
             ->first();
+            
             if ($job_area) {  
                 return $job_area->toArray();
             }
 
             return [];
-        } catch (\Exception $e) {
+        } catch (\Exception $e) {            
             logInfo($e->getMessage());
             return [];
         }

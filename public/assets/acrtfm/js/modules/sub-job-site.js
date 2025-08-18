@@ -226,7 +226,7 @@ function _save_job() {
     let subDetailsCard = $(".card-sub-details");
     let file_cntr = 0;
 
-    formData.append("sub_id", $("[data-key=SubId]").val());
+    formData.append("sub_id", $("[data-key=SiteId]").val());
 
     subDetailsCard.each(function () {
         let subDetailsName = $(this).find("[data-key=SubDetailsName]").val();

@@ -147,8 +147,8 @@ class ModulesController extends Controller
         return view('pages.client.job-sites.new', $this->data);
     }
 
-    public function job_site_add($sub_id) {
-        $job_site_area = globalHelper()->getJobSiteArea($sub_id);
+    public function job_site_add($site_id) {
+        $job_site_area = globalHelper()->getJobSite($site_id);
         if (empty($job_site_area)) {
             return redirect()->route('job-sites');
         } 
@@ -156,9 +156,9 @@ class ModulesController extends Controller
         $this->data['title'] = 'Add Job Site'; 
         $this->data['description'] = "Add another job site for your reference";
         $this->data['header'] = "Add Job Site";
-        $this->data['right_panel'] = componentHelper()->rightPanel('job-site-area-add', ['id' => $job_site_area['site']['id']]);
+        $this->data['right_panel'] = componentHelper()->rightPanel('job-site-area-add', ['id' => $job_site_area['id']]);
         $this->data['job_site_area'] = $job_site_area;
-        $this->data['sub_id'] = $sub_id;
+        $this->data['sub_id'] = $site_id;
         return view('pages.client.job-sites.add', $this->data);
     }
 

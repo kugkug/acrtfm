@@ -26,7 +26,7 @@
                                 <i class='fa fa-undo'></i> Back to List
                             </a>
                             <a href='".route('job-sites-area-add', $data['id'])."' class='btn btn-success btn-md btn-flat mr-2 text-white'>
-                                <i class='fa fa-plus'></i> Add New 
+                                <i class='fa fa-plus'></i> Add New
                             </a>
                             <a href='#' class='btn btn-danger btn-md btn-flat' data-trigger='delete-job-site' data-id='".$data['id']."'>
                                 <i class='fa fa-trash'></i> Delete
@@ -44,7 +44,7 @@
                                         <i class='fa fa-undo'></i> Back to List
                                     </a>
                                     <a class='dropdown-item mb-1 text-success' href='".route('job-sites-area-add', $data['id'])."'> 
-                                        <i class='fa fa-plus'></i> Add New 
+                                        <i class='fa fa-plus'></i> Add New
                                     </a> 
                                     <a class='dropdown-item text-danger' href='javascript:void(0);' 
                                         data-trigger='delete-job-site' data-id='".$data['id']."'
