@@ -43,20 +43,20 @@ function _init_actions() {
                 $(documentTarget).attr("src", documentUrl);
                 break;
             case "view-image":
-                // Show the image modal when an image is clicked
+                let image_id = $(this).data("id");
+
+                $("#carousel-item-" + image_id).addClass("active");
                 $("#modal-images").modal("show");
                 break;
 
             case "delete-image":
-                let imageId = $(this).data("id");
-                let imageUrl = $(this).data("url");
                 _confirm(
                     "Delete Image",
                     "Are you sure you want to delete this image?",
                     "warning",
                     "Delete",
                     true,
-                    () => _delete_image(imageId, imageUrl)
+                    () => _delete_image()
                 );
                 break;
             case "delete-document":
@@ -101,7 +101,7 @@ function _init_actions() {
                 let files = $("#div-job-area-edit")
                     .find("input[type='file']")
                     .get(0).files;
-                console.log(files);
+
                 if (files.length === 0) {
                     return;
                 }
@@ -153,16 +153,47 @@ function _init_actions() {
                 $("#modal-files-view").modal("show");
 
                 break;
+
+            case "close-image":
+                $("#modal-images").modal("hide");
+                break;
+
+            case "update-job-site-area":
+                _update_job_site_area();
+                break;
         }
     });
 }
 
-function _delete_image(imageId, imageUrl) {
-    ajaxRequest(
-        "/executor/job-sites/delete-image",
-        { id: imageId, url: imageUrl },
-        ""
-    );
+function _update_job_site_area() {
+    let formData = new FormData();
+
+    let title = $("[data-key=Title]").val();
+    let description = $("[data-key=Description]").val();
+    let accomplishments = $("[data-key=Accomplishments]").val();
+    let subDetailsFiles = $("[data-key=SubDetailsFiles]").get(0).files;
+    let images = [];
+
+    formData.append("sub_id", $("[data-key=SubId]").val());
+    formData.append("title", title);
+    formData.append("description", description);
+    formData.append("accomplishments", accomplishments);
+
+    for (let i = 0; i < subDetailsFiles.length; i++) {
+        formData.append(`subDetailsFiles[]`, subDetailsFiles[i]);
+    }
+
+    ajaxSubmit("/executor/job-sites/update-area", formData, "");
+}
+
+function _delete_image() {
+    let carousel_images = $("#carousel-images");
+
+    let image_id = carousel_images
+        .find(".carousel-item.active")
+        .attr("data-id");
+    console.log(image_id);
+    ajaxRequest("/executor/job-sites/delete-image", { id: image_id }, "");
 }
 
 function _delete_document(document_id, document_url) {

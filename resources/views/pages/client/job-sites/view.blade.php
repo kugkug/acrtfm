@@ -8,6 +8,7 @@
             <div class="card" id="div-job-area-view">
                 <div class="card-body">
                     <div class='d-flex justify-content-between'>
+                        
                         <h5 class="card-title">{{ $job_site_area['title'] }}</h5>
 
                         <a 
@@ -26,6 +27,7 @@
 
             <div class="card d-none" id="div-job-area-edit">
                 <div class="card-body">
+                    <input type="hidden" data-key="SubId" value="{{ $job_site_area['id'] }}">
                     <div class="form-group">
                         <label for="title">Title</label>
                         <input 
@@ -74,7 +76,7 @@
 
                     
                 </div>
-                {{-- <div class="card-footer">
+                <div class="card-footer">
                     <div class="d-flex justify-content-end mt-2">
                         <a 
                             href="javascript:void(0);" 
@@ -86,14 +88,14 @@
                         </a>
                         <a 
                             href="javascript:void(0);" 
-                            data-trigger="save-job-site-area"
+                            data-trigger="update-job-site-area"
                             data-id="{{ $job_site_area['id'] }}"
                             class="btn btn-success"
                         >
                             <i class="fa fa-save"></i> Save
                         </a>
                     </div>
-                </div> --}}
+                </div>
             </div>
             @php
                 $images = [];
@@ -119,7 +121,12 @@
                 <div id="tab-body-images" class="tab-pane active show p-0 m-0">
                     <div class="image-list">
                         @foreach($images as $image)
-                            <img src="{{ $image['url'] }}" alt="{{ $image['name'] }}" data-trigger="view-image" data-id="{{ $image['id'] }}">
+                        <div 
+                            style="background-image: url('{{ $image['url'] }}');"
+                            data-trigger="view-image"
+                            data-id="{{ $image['id'] }}"
+                        >
+                        </div>
                         @endforeach           
                     </div>
                 </div>
@@ -212,33 +219,25 @@
 </section>
 
 <!-- Modal for viewing images one by one with delete option -->
-<div class="modal fade" id="modal-images" tabindex="-1" role="dialog" aria-labelledby="modal-images-label" aria-hidden="true">
+<div class="modal fade modal-fullscreen" id="modal-images" tabindex="-1" role="dialog" aria-labelledby="modal-images-label" aria-hidden="true">
+    
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        
         <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">View Images</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
+            
             <div class="modal-body">
+                <div class="d-flex justify-content-end mb-3">
+                    <button class="btn btn-default btn-flat" data-trigger="close-image" data>
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
                 <div id="carousel-images" class="carousel slide" data-ride="carousel" data-interval="false">
                     <div class="carousel-inner">
                         @php $first = true; @endphp
                         @foreach($images as $image)
-                            <div class="carousel-item @if($first) active @endif">
-                                <div class="d-flex justify-content-center align-items-center" style="max-height:50vh;">
-                                    <img src="{{ $image['url'] }}" class="d-block" style="max-height:100%; max-width:100%;" alt="{{ $image['name'] }}">
-                                </div>
-                                <div class="text-center mt-3">
-                                    <button 
-                                        class="btn btn-danger "
-                                        data-trigger="delete-image"
-                                        data-id="{{ $image['id'] }}"
-                                        data-url="{{ $image['url'] }}"
-                                    >
-                                        <i class="fa fa-trash"></i> Delete
-                                    </button>
+                            <div class="carousel-item" id="carousel-item-{{ $image['id'] }}" data-id="{{ $image['id'] }}">
+                                <div class="d-flex flex-column justify-content-center align-items-center">
+                                    <img src="{{ $image['url'] }}" class="d-block" style="max-height:85vh; max-width:100%;" alt="{{ $image['name'] }}">
                                 </div>
                             </div>
                             @php $first = false; @endphp
@@ -255,6 +254,20 @@
                         </a>
                     @endif
                 </div>
+               
+                <div class="d-flex justify-content-between">
+
+                    <button 
+                        class="mt-3 btn btn-danger btn-block btn-flat" 
+                        data-trigger="delete-image"
+                        data-id="{{ $images[0]['id'] }}"
+                        data-url="{{ $images[0]['url'] }}"
+                    >
+                        <i class="fa fa-trash"></i> Delete
+                    </button>
+                </div>
+                
+
             </div>
         </div>
     </div>

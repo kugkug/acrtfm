@@ -135,6 +135,31 @@ class JbController extends Controller
         }
     }
 
+    public function update_job_site_area(Request $request): JsonResponse {
+
+        try {
+            $api_response = apiHelper()->post($request, route('api-job-site-area-update'));
+
+            if(! $api_response['status']) {
+                return globalHelper()->ajaxErrorResponse($api_response['message']);
+            }
+
+            return globalHelper()->ajaxSuccessResponse(
+                'scripts',
+                'success',
+                'job-site-area-updated',
+                'Job Site Area updated successfully',
+                'System Info',
+            );
+
+        } catch(Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
+
     public function delete_image(Request $request): JsonResponse {
         try {
             $api_response = apiHelper()->post($request, route('api-job-site-image-delete'));

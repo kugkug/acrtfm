@@ -3,7 +3,7 @@
 <section class="container-fluid">
     <div class="row">
         <div class="col-md-12">
-
+            
             <div class="card" id="div-job-site-area-view">
                 <div class="card-body">
                     <div class='d-flex justify-content-between'>
@@ -98,9 +98,7 @@
                                         <a class='dropdown-item mb-1 text-primary' href='{{ route('job-site-area-view', $job_site_area['id']) }}'>
                                             <i class='fa fa-eye'></i> View Area
                                         </a>
-                                        <a class='dropdown-item mb-1 text-info' href='{{ route('job-site-area-edit', $job_site_area['id']) }}'> 
-                                            <i class='fa fa-edit'></i> Edit Area
-                                        </a> 
+                                        
                                         <a 
                                             class='dropdown-item text-danger' 
                                             href='javascript:void(0);' 

@@ -34,6 +34,7 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/update', [JbController::class, 'update'])->name("api-job-site-update");
         Route::post('/delete', [JbController::class, 'delete'])->name("api-job-sites-delete");
         
+        Route::post('/update-area', [JbController::class, 'update_job_site_area'])->name("api-job-site-area-update");   
         Route::post('/delete-image', [JbController::class, 'delete_image'])->name("api-job-site-image-delete");
         Route::post('/delete-document', [JbController::class, 'delete_document'])->name("api-job-site-document-delete");
         Route::post('/delete-area', [JbController::class, 'delete_job_site_area'])->name("api-job-site-area-delete");

@@ -229,6 +229,71 @@ class JbController extends Controller
         }
     }
 
-    
+    public function update_job_site_area(Request $request): JsonResponse {
+        DB::beginTransaction();
+        try {
+            $sub_area_id = $request->sub_id;
+            $sub_details_files = $request->subDetailsFiles;
+            $validate = Validator::make([
+                'title' => $request->title,
+                'description' => $request->description,
+                'accomplishments' => $request->accomplishments,
+            ], [
+                'title' => 'required|string|max:255',
+                'description' => 'sometimes|string|max:255',
+                'accomplishments' => 'sometimes|string',
+            ]);
+
+            if ($validate->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => $validate->errors()->first(),
+                ]);
+            }
+
+            $job_site_area = JobArea::where('id', $sub_area_id)->first();
+            $job_site_area->update([
+                'title' => $request->title,
+                'description' => $request->description,
+                'accomplishments' => $request->accomplishments,
+            ]);
+
+            foreach($sub_details_files as $sub_details_file) {
+                    
+                $original_name = $sub_details_file->getClientOriginalName();
+                $ext = $sub_details_file->getClientOriginalExtension();
+                $new_filename = $original_name.'.'.$ext;
+                $size = $sub_details_file->getSize();
+                
+                $file = Storage::disk('s3')->put('jobs', $sub_details_file);
+                $url = Storage::disk('s3')->url($file);
+                
+                $job_area_files[] = [
+                    'job_area_id' => $sub_area_id,
+                    'name' => $original_name,
+                    'url' => $url,
+                    'type' => $ext,
+                    'size' => $size,
+                ];
+            }
+
+            JobAreaFile::insert($job_area_files);
+
+            DB::commit();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Job Site Area updated successfully',
+            ]);
+
+        } catch(Exception $e) {
+            DB::rollBack();
+            logInfo($e->getMessage());
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
 
 }
