@@ -315,8 +315,8 @@ class GlobalHelper {
     public function getJobSiteArea($id) {
         try {
             $job_area = JobArea::where('id', $id)
-            ->with('files')
             ->with('site')
+            ->with('accomplishments')
             ->first();
             
             if ($job_area) {  

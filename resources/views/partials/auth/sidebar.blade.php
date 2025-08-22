@@ -31,6 +31,11 @@
                     <i class="fa-solid fa-tools menu-icon fa-action"></i><span class="nav-text">Troubleshooter</span>
                 </a>
             </li>
+            <li>
+                <a href="{{ route('nitrogen-calculator') }}" target="_blank" aria-expanded="false">
+                    <i class="fa-solid fa-calculator menu-icon fa-action"></i><span class="nav-text">Nitrogen Calculator</span>
+                </a>
+            </li>
         </ul>
     </div>
 </div>

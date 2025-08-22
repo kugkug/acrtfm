@@ -29,6 +29,10 @@ Route::middleware(['auth:sanctum', 'web'])->group(function () {
     Route::get('/troubleshooter', function() {
         return view('pages.troubleshooter');
     })->name("troubleshooter");
+
+    Route::get('/troubleshooter-calculator', function() {
+        return view('pages.nitrogen_calculator');
+    })->name("nitrogen-calculator");
     
     Route::get('/home', [ModulesController::class, 'home'])->name("home");
     Route::get('/model-lookup', [ModulesController::class, 'modelLookup'])->name("model-lookup");

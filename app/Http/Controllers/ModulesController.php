@@ -116,7 +116,6 @@ class ModulesController extends Controller
             return redirect()->route('job-sites');
         }
         
-        
         $this->data['title'] = "Job Site Areas"; 
         $this->data['description'] = 'List of areas for ' . $job_site_areas['title'];
         $this->data['header'] = $job_site_areas['title'];

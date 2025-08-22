@@ -8,10 +8,10 @@
                 <div class="card-body">
                     <h5 class="card-title">&nbsp;</h5>
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Enter your desired name of the job site." data-key="Title">
+                        <input type="text" class="form-control override-input" placeholder="Enter your desired name of the job site." data-key="Title">
                     </div>
                     <div class="form-group">
-                        <textarea class="form-control" rows="2" placeholder="Enter a brief description of the job site." data-key="Description"></textarea>
+                        <textarea class="form-control override-textarea" rows="2" placeholder="Enter a brief description of the job site." data-key="Description"></textarea>
                     </div>
                 </div>
             </div>
@@ -23,16 +23,23 @@
                     </div>
                 
                     <div class="form-group mb-2">
-                        <input type="text" class="form-control" placeholder="Enter area/unit name." required data-key="SubDetailsName">
+                        <input type="text" class="form-control override-input" placeholder="Enter area/unit name." required data-key="SubDetailsName">
                     </div>
                     <div class="form-group mb-2">
-                        <textarea class="form-control" rows="2" placeholder="Enter a brief description of the area/unit." required data-key="SubDetailsDescription"></textarea>
+                        <textarea class="form-control override-textarea" rows="2" placeholder="Enter a brief description of the area/unit." required data-key="SubDetailsDescription"></textarea>
                     </div>
+                    <hr>
+
                     <div class="form-group mb-2">
-                        
-                        <textarea class="form-control" rows="3" placeholder="Enter a the tasks/services of the area/unit." data-key="SubDetailsAccomplishments"></textarea>
+                        <label for="accomplishment">Accomplishments</label>
+                        <textarea class="form-control override-textarea" rows="3" placeholder="Enter a the tasks/services of the area/unit." data-key="SubDetailsAccomplishments"></textarea>
                     </div>
-                    
+
+                    <div class="form-group mb-4">
+                        <label for="accomplishment">Accomplishment Date</label>
+                        <input type="date" class="form-control override-input" data-key="SubDetailsAccomplishmentDate">
+                    </div>
+
                     <div class="row">
                         <div class="col-md-12">
                             <div class="form-group d-flex justify-content-between">

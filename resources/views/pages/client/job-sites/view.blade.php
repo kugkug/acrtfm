@@ -20,7 +20,7 @@
                         </a>
 
                     </div>
-                    <p class="card-text">{{ $job_site_area['accomplishments'] }}</p>
+                    <p class="card-text">{{ $job_site_area['description'] }}</p>
                 </div>
                 
             </div>
@@ -48,18 +48,18 @@
                             rows="2"
                         ></textarea>
                     </div>
-                    <div class="form-group">
+                    {{-- <div class="form-group">
                         <label for="description">Accomplishments</label>
                         <textarea 
                             class="form-control override-textarea" 
                             placeholder="Job Site Area Accomplishments" 
                             data-key="Accomplishments"
-                            data-default="{{ $job_site_area['accomplishments'] }}"
+                            data-default="{{ $job_site_area['description'] }}"
                             rows="2"
                         ></textarea>
-                    </div>
+                    </div> --}}
 
-                    <div class="row">
+                    {{-- <div class="row">
                         <div class="col-md-12">
                             <div class="form-group d-flex justify-content-between">
                                 <input type="file" class="form-control" multiple style="display: none;" data-key="SubDetailsFiles">
@@ -72,7 +72,7 @@
                                 </button>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
 
                     
                 </div>
@@ -82,7 +82,7 @@
                             href="javascript:void(0);" 
                             data-trigger="cancel-edit-job-site-area"
                             data-id="{{ $job_site_area['id'] }}"
-                            class="btn btn-danger mr-2"
+                            class="btn btn-flat btn-danger mr-2"
                         >
                             <i class="fa fa-undo"></i> Cancel
                         </a>
@@ -90,14 +90,14 @@
                             href="javascript:void(0);" 
                             data-trigger="update-job-site-area"
                             data-id="{{ $job_site_area['id'] }}"
-                            class="btn btn-success"
+                            class="btn btn-flat btn-success"
                         >
                             <i class="fa fa-save"></i> Save
                         </a>
                     </div>
                 </div>
             </div>
-            @php
+            {{-- @php
                 $images = [];
                 $documents = [];
                 foreach($job_site_area['files'] as $file) {
@@ -223,13 +223,46 @@
                         </div>  
                     @endif
                 </div>
+            </div> --}}
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table zero-configuration dataTable">
+                                <thead>
+                                    <tr>
+                                        <th>Accomplishment</th>
+                                        <th>Accomplishment Date</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($job_site_area['accomplishments'] as $accomplishment)
+                                        <tr class="text-info">
+                                            <td>{{ 
+                                                    strlen($accomplishment['accomplishment']) > 100 ? 
+                                                    substr($accomplishment['accomplishment'], 0, 100) . '...' :
+                                                     $accomplishment['accomplishment'] }}</td>
+                                            <td>{{ date('F d, Y', strtotime($accomplishment['accomplishment_date'])) }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
 </section>
 
 <!-- Modal for viewing images one by one with delete option -->
-<div class="modal fade modal-fullscreen" id="modal-images" tabindex="-1" role="dialog" aria-labelledby="modal-images-label" aria-hidden="true">
+{{-- <div class="modal fade modal-fullscreen" id="modal-images" tabindex="-1" role="dialog" aria-labelledby="modal-images-label" aria-hidden="true">
     
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
         
@@ -281,7 +314,7 @@
             </div>
         </div>
     </div>
-</div>
+</div> --}}
 
 <div class="modal fade" id="modal-files-view" tabindex="-1" role="dialog" aria-labelledby="modal-files-label" aria-hidden="true" data-backdrop="static" data-keyboard="false">
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">

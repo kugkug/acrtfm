@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Apis;
 
 use App\Http\Controllers\Controller;
+use App\Models\JobAccomplishment;
 use App\Models\JobSite;
 use App\Models\JobArea;
 use App\Models\JobAreaFile;
@@ -40,6 +41,8 @@ class JbController extends Controller
             $sub_details_names = $request->subDetailsName;
             $sub_details_descriptions = $request->subDetailsDescription;
             $sub_details_accomplishments = $request->subDetailsAccomplishments;
+            $sub_details_accomplishment_dates = $request->subDetailsAccomplishmentDates;
+            
             $job_site_id = null;
             
             if ($request->has('sub_id')) {
@@ -86,17 +89,25 @@ class JbController extends Controller
 
                 $sub_details_description = $sub_details_descriptions[$id];
                 $sub_details_accomplishment = $sub_details_accomplishments[$id];
+                $sub_details_accomplishment_date = $sub_details_accomplishment_dates[$id];
                 $sub_details_files = $request['subDetailsFiles_'.$id];
 
                 $job_area_data = [
                     'job_site_id' => $job_site_id,
                     'title' => $sub_details_name,
                     'description' => $sub_details_description,
-                    'accomplishments' => $sub_details_accomplishment,
                 ];
 
                 $job_area = JobArea::create($job_area_data);
                 $job_area_id = $job_area->id;
+
+                $job_accomplishment = JobAccomplishment::create([
+                    'job_area_id' => $job_area_id,
+                    'accomplishment' => $sub_details_accomplishment,
+                    'accomplishment_date' => $sub_details_accomplishment_date,
+                ]);
+
+                $job_accomplishment_id = $job_accomplishment->id;
                 
                 if ($sub_details_files) {
                     foreach($sub_details_files as $sub_details_file) {
@@ -111,6 +122,7 @@ class JbController extends Controller
                         
                         $job_area_files[] = [
                             'job_area_id' => $job_area_id,
+                            'job_accomplishment_id' => $job_accomplishment_id,
                             'name' => $original_name,
                             'url' => $url,
                             'type' => $ext,

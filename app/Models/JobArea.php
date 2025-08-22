@@ -19,4 +19,9 @@ class JobArea extends Model
     {
         return $this->belongsTo(JobSite::class, 'job_site_id');
     }
+
+    public function accomplishments()
+    {
+        return $this->hasMany(JobAccomplishment::class);
+    }
 }

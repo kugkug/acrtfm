@@ -116,9 +116,9 @@
                         
                         <p class="card-text">
                             {{ 
-                                strlen($job_site_area['accomplishments']) > 30 ? 
-                                substr($job_site_area['accomplishments'], 0, 30) . '...' :
-                                $job_site_area['accomplishments'] 
+                                strlen($job_site_area['description']) > 30 ? 
+                                substr($job_site_area['description'], 0, 30) . '...' :
+                                $job_site_area['description'] 
                             }}
                         </p>
                     </div>
