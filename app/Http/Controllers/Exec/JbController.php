@@ -203,4 +203,28 @@ class JbController extends Controller
             ]);
         }
     }
+
+    public function update_accomplishment(Request $request): JsonResponse {
+        try {
+            $api_response = apiHelper()->post($request, route('api-accomplishment-update'));        
+
+            if(! $api_response['status']) {
+                return globalHelper()->ajaxErrorResponse($api_response['message']);
+            }
+
+            return globalHelper()->ajaxSuccessResponse(
+                'scripts',
+                'success',
+                'accomplishment-updated',
+                'Accomplishment updated successfully',
+                'System Info',
+            );
+
+        } catch(Exception $e) {
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
 }

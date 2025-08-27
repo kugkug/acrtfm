@@ -64,6 +64,9 @@
                                 <a href='".route('job-sites-areas', $data['id'])."' class='btn btn-primary btn-md btn-flat mr-2'>
                                     <i class='fa fa-undo'></i> Back to Areas
                                 </a>
+                                <a href='".route('job-site-area-accomplishment', $data['id'])."' class='btn btn-success btn-md btn-flat mr-2'>
+                                    <i class='fa fa-plus'></i> Add Accomplishment
+                                </a>
                                 <a href='#' class='btn btn-danger btn-md btn-flat' data-trigger='delete-job-area' data-id='".$data['id']."'>
                                     <i class='fa fa-trash'></i> Delete Area
                                 </a>
@@ -78,6 +81,9 @@
                                     <div class='dropdown-menu'>
                                         <a class='dropdown-item mb-1 text-primary' href='".route('job-sites-areas', $data['id'])."'>
                                             <i class='fa fa-undo'></i> Back to Areas
+                                        </a>
+                                        <a class='dropdown-item mb-1 text-success' href='".route('job-site-area-accomplishment', $data['id'])."'>
+                                            <i class='fa fa-plus'></i> Add Accomplishment
                                         </a>
                                         <a class='dropdown-item text-danger' href='javascript:void(0);' data-trigger='delete-job-area' data-id='".$data['id']."'>
                                             <i class='fa fa-trash'></i> Delete
@@ -98,6 +104,13 @@
                 case 'job-site-area-edit':
                     $html ="
                         <a href='".route('job-sites-areas', $data['id'])."' class='btn btn-primary btn-md btn-flat float-right'>
+                            <i class='fa fa-undo'></i> Back
+                        </a>
+                    ";
+                    break;
+                case 'job-site-area-accomplishment':
+                    $html ="
+                        <a href='".route('job-site-area-view', $data['id'])."' class='btn btn-primary btn-md btn-flat float-right'>
                             <i class='fa fa-undo'></i> Back
                         </a>
                     ";

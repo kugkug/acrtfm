@@ -39,4 +39,8 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/delete-document', [JbController::class, 'delete_document'])->name("api-job-site-document-delete");
         Route::post('/delete-area', [JbController::class, 'delete_job_site_area'])->name("api-job-site-area-delete");
     });
+
+    Route::prefix('accomplishment')->group(function () {
+        Route::post('/update', [JbController::class, 'update_accomplishment'])->name("api-accomplishment-update");
+    });
 });

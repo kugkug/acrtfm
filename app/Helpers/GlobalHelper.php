@@ -11,6 +11,7 @@ use App\Models\Communication;
 use App\Models\Contact;
 use App\Models\Education;
 use App\Models\Extension;
+use App\Models\JobAccomplishment;
 use App\Models\JobArea;
 use App\Models\JobSite;
 use App\Models\Keyword;
@@ -325,6 +326,18 @@ class GlobalHelper {
 
             return [];
         } catch (\Exception $e) {            
+            logInfo($e->getMessage());
+            return [];
+        }
+    }
+
+    public function getAccomplishment($id) {
+        try {
+            $accomplishment = JobAccomplishment::where('id', $id)
+            ->with('files')
+            ->first();
+            return $accomplishment->toArray();
+        } catch (\Exception $e) {
             logInfo($e->getMessage());
             return [];
         }

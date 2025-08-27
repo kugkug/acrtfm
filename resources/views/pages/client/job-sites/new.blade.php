@@ -136,5 +136,66 @@
     </div>
 </div>
 
+<div class="modal fade" id="modal-files-view" tabindex="-1" role="dialog" aria-labelledby="modal-files-label" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Files</h5>
+            </div>
+            <div class="modal-body">
+                <ul class="nav nav-pills mb-3 d-flex justify-content-between">
+                    <li class="nav-item w-50 text-center">
+                        <a href="#modal-tab-body-images" class="nav-link active show" data-toggle="tab" aria-expanded="false">Images</a>
+                    </li>
+                    <li class="nav-item w-50 text-center">
+                        <a href="#modal-tab-body-documents" class="nav-link" data-toggle="tab" aria-expanded="false">Documents</a>
+                    </li>
+                </ul>
+                <div 
+                    class="tab-content br-n pn"
+                    style="min-height: 30vh !important; align-items: center; display: flex; justify-content: center;"
+                >
+                    <div id="modal-tab-body-images" class="tab-pane active show p-0 m-0">
+                        <div class="bootstrap-carousel w-100">
+                            <div id="image-carousel" class="carousel slide" data-ride="carousel">
+                                <div class="carousel-inner"></div>
+                                <a class="carousel-control-prev" href="#image-carousel" data-slide="prev">
+                                    <span class="carousel-control-prev-icon"></span> <span class="sr-only">Previous</span> 
+                                </a>
+                                <a class="carousel-control-next" href="#image-carousel" data-slide="next">
+                                    <span class="carousel-control-next-icon"></span> <span class="sr-only">Next</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="modal-tab-body-documents" class="tab-pane" style="height: 50vh !important; width: 100% !important;">
+                        <div class="d-md-none d-lg-none d-xl-none">
+                            <div class="basic-list-group">
+                                <div class="list-group" id="document-list">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bootstrap-carousel d-none d-md-block d-lg-block d-xl-block">
+                            <div id="document-carousel" class="carousel slide" data-ride="carousel">
+                                <div class="carousel-inner"></div>
+                                <a class="carousel-control-prev" href="#document-carousel" data-slide="prev">
+                                    <span class="carousel-control-prev-icon"></span> <span class="sr-only">Previous</span> 
+                                </a>
+                                <a class="carousel-control-next" href="#document-carousel" data-slide="next">
+                                    <span class="carousel-control-next-icon"></span> <span class="sr-only">Next</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 @include('partials.auth.footer')
 <script src="{{ asset('assets/acrtfm/js/modules/job-sites.js') }}"></script>

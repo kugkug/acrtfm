@@ -130,7 +130,7 @@ class ModulesController extends Controller
             return redirect()->route('job-sites');
         }
         
-        $this->data['title'] = $job_site_area['title']; 
+        $this->data['title'] = "Accomplishments"; 
         $this->data['description'] = '';
         $this->data['header'] = $job_site_area['title'];
         $this->data['right_panel'] = componentHelper()->rightPanel('job-site-area-view', ['id' => $job_site_area['site']['id']]);
@@ -167,6 +167,20 @@ class ModulesController extends Controller
         $this->data['header'] = "Edit Job Site";
         $this->data['right_panel'] = componentHelper()->rightPanel('job-site-area-edit', ['id' => $id]);
         return view('pages.client.job-sites.edit', $this->data);
+    }
+
+    public function job_site_accomplishment($id) {
+        $accomplishment = globalHelper()->getAccomplishment($id);
+        if (empty($accomplishment)) {
+            return redirect()->route('job-sites');
+        } 
+        
+        $this->data['title'] = 'Accomplishment'; 
+        $this->data['description'] = "Accomplishment";
+        $this->data['header'] = "Accomplishment";
+        $this->data['accomplishment'] = $accomplishment;
+        $this->data['right_panel'] = componentHelper()->rightPanel('job-site-area-accomplishment', ['id' => $accomplishment['job_area_id']]);
+        return view('pages.client.job-sites.accomplishment', $this->data);
     }
    
     public function profile() {

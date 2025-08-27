@@ -12,4 +12,9 @@ class JobAccomplishment extends Model
     {
         return $this->belongsTo(JobArea::class);
     }
+
+    public function files()
+    {
+        return $this->hasMany(JobAreaFile::class, 'job_area_id', 'job_area_id');
+    }
 }

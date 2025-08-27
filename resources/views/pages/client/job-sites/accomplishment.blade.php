@@ -1,0 +1,315 @@
+@include('partials.auth.header')
+
+<section class="container-fluid">
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <div class="card" id="div-accomplishment-view">
+                <div class="card-body">
+                    <div class='d-flex justify-content-between'>
+                        
+                        <h5 class="card-title">{{ date('F d, Y', strtotime($accomplishment['accomplishment_date'])) }}</h5>
+
+                        <a 
+                            href="javascript:void(0);" 
+                            data-trigger="edit-accomplishment"
+                            class="text-info"
+                        >
+                            <i class="fa fa-edit"></i> Edit
+                        </a>
+
+                    </div>
+                    <p class="card-text">{{ $accomplishment['accomplishment'] }}</p>
+                </div>
+
+            </div>
+
+            <div class="card d-none" id="div-accomplishment-edit">
+                <div class="card-body">
+                    <input type="hidden" data-key="AccomplishmentId" value="{{ $accomplishment['id'] }}">
+                    <input type="hidden" data-key="JobAreaId" value="{{ $accomplishment['job_area_id'] }}">
+                    <div class="form-group">
+                        <label for="accomplishment">Accomplishment</label>
+                        <textarea rows="5" class="form-control override-textarea" data-key="Accomplishment" data-default="{{ $accomplishment['accomplishment'] }}"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="accomplishment_date">Accomplishment Date</label>
+                        <input type="date" class="form-control override-input" data-key="AccomplishmentDate" data-default="{{ $accomplishment['accomplishment_date'] }}">
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group d-flex justify-content-between">
+                                <input type="file" class="form-control" multiple style="display: none;" data-key="AccomplishmentFiles">
+                                <button class="btn btn-info btn-flat" data-trigger="add-files">
+                                    <i class="fa fa-plus"></i> Add Documents / Images
+                                </button>
+                                <button class="btn btn-success btn-flat" data-trigger="view-files">
+                                    <i class="fa fa-image"></i> 
+                                    <span class="">0</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex justify-content-between">
+                        <button class="btn btn-danger btn-flat" data-trigger="cancel-edit-accomplishment">
+                            <i class="fa fa-times"></i> Cancel
+                        </button>
+                        <button class="btn btn-success btn-flat" data-trigger="update-accomplishment">
+                            <i class="fa fa-save"></i> Save
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    @php
+        $images = [];
+        $documents = [];
+        foreach($accomplishment['files'] as $file) {
+            if(in_array($file['type'], ['pdf', 'PDF'])) {
+                $documents[] = $file;
+            } else {
+                $images[] = $file;
+            }
+        }
+    @endphp
+
+    <ul class="nav nav-pills mb-3 d-flex justify-content-between">
+        <li class="nav-item w-50 text-center">
+            <a href="#tab-body-images" class="nav-link active show btn btn-outline-primary mr-1" data-toggle="tab" aria-expanded="false">Images</a>
+        </li>
+        <li class="nav-item w-50 text-center">
+            <a href="#tab-body-documents" class="nav-link btn btn-outline-primary" data-toggle="tab" aria-expanded="false">Documents</a>
+        </li>
+    </ul>
+    <div class="tab-content br-n pn" style="min-height: 30vh !important; align-items: center;">
+        <div id="tab-body-images" class="tab-pane active show p-0 m-0">
+            @if (count($images) == 0)
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="alert alert-danger">
+                            No images found
+                        </div>
+                    </div>
+                </div>
+            @else
+            <div class="image-list">
+                @foreach($images as $image)
+                <div 
+                    style="background-image: url('{{ $image['url'] }}');"
+                    data-trigger="view-image"
+                    data-id="{{ $image['id'] }}"
+                >
+                </div>
+                @endforeach           
+            </div>
+            @endif
+        </div>
+
+        <div id="tab-body-documents" class="tab-pane" style="height: 50vh !important; width: 100% !important;">
+            @if (count($documents) == 0)
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="alert alert-danger">
+                            No documents found
+                        </div>
+                    </div>
+                </div>
+            @else
+                <div class="row d-block d-md-none d-lg-none d-xl-none">
+                    <div class="col-md-12">
+                        @foreach($documents as $document)
+                        <div class="d-flex justify-content-between mb-1">
+                            <a 
+                                href="{{ $document['url'] }}" 
+                                target="_blank" 
+                                class="text-info list-group-item list-group-item-action cursor-pointer mr-2">
+                                {{ $document['name'] }}
+                            </a> 
+                        
+                            <button 
+                                class="btn btn-danger btn-sm"
+                                data-trigger="delete-document"
+                                data-id="{{ $document['id'] }}"
+                                data-url="{{ $document['url'] }}"
+                                style="height: 35px !important; margin: auto 0px !important;"
+                            >
+                                <i class="fa fa-trash"></i>
+                            </button>
+                            
+                        </div>
+                        @endforeach
+                            
+                    </div>
+                </div>
+
+                <div class="d-none d-md-block d-lg-block d-xl-block">
+                    
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="basic-list-group">
+                                <div class="list-group" id="document-list">
+                                    @foreach($documents as $document)
+                                        <a 
+                                            data-trigger="view-document"
+                                            data-href="{{ $document['url'] }}" 
+                                            data-id="{{ $document['id'] }}"
+                                            data-target="#document-iframe"
+                                            class="text-info list-group-item list-group-item-action cursor-pointer"
+                                        >
+                                            {{ $document['name'] }}
+                                        </a>
+                                        
+                                    @endforeach
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-8">
+                            <iframe 
+                                id="document-iframe" 
+                                class="d-block w-100" 
+                                style='width: 100%; height: 50vh !important;' 
+                                frameborder="0"
+                                controls="0"
+                                allowFullScreen="true"
+                                src="{{ $documents[0]['url'] }}"
+                            >
+                            </iframe> 
+                            <button 
+                                class="btn btn-danger float-right mt-2"
+                                data-trigger="delete-document"
+                                data-id="{{ $documents[0]['id'] }}"
+                                data-url="{{ $documents[0]['url'] }}"
+                            >
+                                <i class="fa fa-trash"></i> Delete
+                            </button>
+                        </div>
+                    </div>
+                </div>  
+            @endif
+        </div>
+    </div>
+
+</section>
+
+<div class="modal fade" id="modal-files-view" tabindex="-1" role="dialog" aria-labelledby="modal-files-label" aria-hidden="true" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Files</h5>
+            </div>
+            <div class="modal-body">
+                <ul class="nav nav-pills mb-3 d-flex justify-content-between">
+                    <li class="nav-item w-50 text-center">
+                        <a href="#modal-tab-body-images" class="nav-link active show" data-toggle="tab" aria-expanded="false">Images</a>
+                    </li>
+                    <li class="nav-item w-50 text-center">
+                        <a href="#modal-tab-body-documents" class="nav-link" data-toggle="tab" aria-expanded="false">Documents</a>
+                    </li>
+                </ul>
+                <div 
+                    class="tab-content br-n pn"
+                    style="min-height: 30vh !important; align-items: center; display: flex; justify-content: center;"
+                >
+                    <div id="modal-tab-body-images" class="tab-pane active show p-0 m-0">
+                        <div class="bootstrap-carousel w-100">
+                            <div id="image-carousel" class="carousel slide" data-ride="carousel">
+                                <div class="carousel-inner"></div>
+                                <a class="carousel-control-prev" href="#image-carousel" data-slide="prev">
+                                    <span class="carousel-control-prev-icon"></span> <span class="sr-only">Previous</span> 
+                                </a>
+                                <a class="carousel-control-next" href="#image-carousel" data-slide="next">
+                                    <span class="carousel-control-next-icon"></span> <span class="sr-only">Next</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="modal-tab-body-documents" class="tab-pane" style="height: 50vh !important; width: 100% !important;">
+                        <div class="d-md-none d-lg-none d-xl-none">
+                            <div class="basic-list-group">
+                                <div class="list-group" id="document-list-view">
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <div class="bootstrap-carousel d-none d-md-block d-lg-block d-xl-block">
+                            <div id="document-carousel" class="carousel slide" data-ride="carousel">
+                                <div class="carousel-inner"></div>
+                                <a class="carousel-control-prev" href="#document-carousel" data-slide="prev">
+                                    <span class="carousel-control-prev-icon"></span> <span class="sr-only">Previous</span> 
+                                </a>
+                                <a class="carousel-control-next" href="#document-carousel" data-slide="next">
+                                    <span class="carousel-control-next-icon"></span> <span class="sr-only">Next</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal for viewing images one by one with delete option -->
+<div class="modal fade modal-fullscreen" id="modal-images" tabindex="-1" role="dialog" aria-labelledby="modal-images-label" aria-hidden="true">
+    
+    <div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+        
+        <div class="modal-content">
+            
+            <div class="modal-body">
+                <div class="d-flex justify-content-end mb-3">
+                    <button class="btn btn-default btn-flat" data-trigger="close-image" data>
+                        <i class="fa fa-times"></i>
+                    </button>
+                </div>
+                <div id="carousel-images" class="carousel slide" data-ride="carousel" data-interval="false">
+                    <div class="carousel-inner">
+                        @php $first = true; @endphp
+                        @foreach($images as $image)
+                            <div class="carousel-item" id="carousel-item-{{ $image['id'] }}" data-id="{{ $image['id'] }}">
+                                <div class="d-flex flex-column justify-content-center align-items-center">
+                                    <img src="{{ $image['url'] }}" class="d-block" style="max-height:85vh; max-width:100%;" alt="{{ $image['name'] }}">
+                                </div>
+                            </div>
+                            @php $first = false; @endphp
+                        @endforeach
+                    </div>
+                    @if(count($images) > 1)
+                        <a class="carousel-control-prev" href="#carousel-images" role="button" data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
+                        </a>
+                        <a class="carousel-control-next" href="#carousel-images" role="button" data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
+                    @endif
+                </div>
+               
+                <div class="d-flex justify-content-between">
+
+                    <button 
+                        class="mt-3 btn btn-danger btn-block btn-flat" 
+                        data-trigger="delete-image"
+                        data-id=""
+                        data-url=""
+                    >
+                        <i class="fa fa-trash"></i> Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@include('partials.auth.footer')
+
+<script src="{{ asset('assets/acrtfm/js/modules/accomplishment.js') }}"></script>

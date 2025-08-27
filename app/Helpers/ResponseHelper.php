@@ -80,6 +80,7 @@ class ResponseHelper {
             case 'job-site-image-deleted':
             case 'job-site-area-updated':
             case 'job-site-updated':
+            case 'accomplishment-updated':
                 $script = "location.reload();";
                 break;
             

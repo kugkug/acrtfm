@@ -55,6 +55,8 @@ Route::middleware(['auth:sanctum', 'web'])->group(function () {
             Route::get('/{area_id}/view', [ModulesController::class, 'view_job_site'])->name("job-site-area-view");
             Route::get('/{area_id}/edit', [ModulesController::class, 'edit_job_site'])->name("job-site-area-edit");
             Route::get('/new', [ModulesController::class, 'new_job_site'])->name("job-site-new");
+
+            Route::get('/{accomplishment_id}/accomplishment', [ModulesController::class, 'job_site_accomplishment'])->name("job-site-area-accomplishment");
         });
     });
 
@@ -82,6 +84,10 @@ Route::middleware(['auth:sanctum', 'web'])->group(function () {
             Route::post('/delete-area', [JbController::class, 'delete_job_site_area'])->name("exec-job-site-area-delete");
 
 
+        });
+
+        Route::prefix('accomplishment')->group(function () {
+            Route::post('/update', [JbController::class, 'update_accomplishment'])->name("exec-accomplishment-update");
         });
     });
 });
