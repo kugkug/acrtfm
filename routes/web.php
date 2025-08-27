@@ -58,6 +58,10 @@ Route::middleware(['auth:sanctum', 'web'])->group(function () {
 
             Route::get('/{accomplishment_id}/accomplishment', [ModulesController::class, 'job_site_accomplishment'])->name("job-site-area-accomplishment");
         });
+
+        Route::prefix('accomplishment')->group(function () {
+            Route::get('/{job_area_id}/add', [ModulesController::class, 'add_accomplishment'])->name("accomplishment-add");
+        });
     });
 
     Route::get('/explore/{model}/manuals', [ModulesController::class, 'exploreManuals'])->name("explore-manuals");

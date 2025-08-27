@@ -64,7 +64,7 @@
                                 <a href='".route('job-sites-areas', $data['id'])."' class='btn btn-primary btn-md btn-flat mr-2'>
                                     <i class='fa fa-undo'></i> Back to Areas
                                 </a>
-                                <a href='".route('job-site-area-accomplishment', $data['id'])."' class='btn btn-success btn-md btn-flat mr-2'>
+                                <a href='".route('accomplishment-add', $data['id'])."' class='btn btn-success btn-md btn-flat mr-2'>
                                     <i class='fa fa-plus'></i> Add Accomplishment
                                 </a>
                                 <a href='#' class='btn btn-danger btn-md btn-flat' data-trigger='delete-job-area' data-id='".$data['id']."'>
@@ -82,7 +82,7 @@
                                         <a class='dropdown-item mb-1 text-primary' href='".route('job-sites-areas', $data['id'])."'>
                                             <i class='fa fa-undo'></i> Back to Areas
                                         </a>
-                                        <a class='dropdown-item mb-1 text-success' href='".route('job-site-area-accomplishment', $data['id'])."'>
+                                        <a class='dropdown-item mb-1 text-success' href='".route('accomplishment-add', $data['id'])."'>
                                             <i class='fa fa-plus'></i> Add Accomplishment
                                         </a>
                                         <a class='dropdown-item text-danger' href='javascript:void(0);' data-trigger='delete-job-area' data-id='".$data['id']."'>
@@ -138,6 +138,13 @@
                             </div>
                         </div>
                         
+                    ";
+                    break;
+                case 'accomplishment-add':
+                    $html ="
+                        <a href='".route('job-site-area-view', $data['job_area_id'])."' class='btn btn-primary btn-md btn-flat float-right'>
+                            <i class='fa fa-undo'></i> Back
+                        </a>
                     ";
                     break;
             }

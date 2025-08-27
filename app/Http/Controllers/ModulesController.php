@@ -189,4 +189,18 @@ class ModulesController extends Controller
         $this->data['header'] = "Profile";
         return view('pages.client.profile', $this->data);
     }  
+
+    public function add_accomplishment($job_area_id) {
+        $job_area = globalHelper()->getJobSiteArea($job_area_id); 
+        if (empty($job_area)) {
+            return redirect()->route('job-sites');
+        } 
+
+        $this->data['title'] = 'Add Accomplishment'; 
+        $this->data['description'] = "Add new accomplishment";
+        $this->data['header'] = "Add Accomplishment";
+        $this->data['right_panel'] = componentHelper()->rightPanel('accomplishment-add', ['job_area_id' => $job_area_id]);
+        $this->data['job_area'] = $job_area;
+        return view('pages.client.job-sites.add_accomplishment', $this->data);
+    }
 }
