@@ -236,6 +236,9 @@ function _save_job() {
         let subDetailsAccomplishments = $(this)
             .find("[data-key=SubDetailsAccomplishments]")
             .val();
+        let subDetailsAccomplishmentDate = $(this)
+            .find("[data-key=SubDetailsAccomplishmentDate]")
+            .val();
         let subDetailsFiles = $(this)
             .find("[data-key=SubDetailsFiles]")
             .get(0).files;
@@ -245,6 +248,10 @@ function _save_job() {
         formData.append(
             "subDetailsAccomplishments[]",
             subDetailsAccomplishments
+        );
+        formData.append(
+            "subDetailsAccomplishmentDates[]",
+            subDetailsAccomplishmentDate
         );
 
         let images = [];
