@@ -110,9 +110,34 @@
                     break;
                 case 'job-site-area-accomplishment':
                     $html ="
-                        <a href='".route('job-site-area-view', $data['id'])."' class='btn btn-primary btn-md btn-flat float-right'>
-                            <i class='fa fa-undo'></i> Back
-                        </a>
+                    <div class='d-none d-sm-none d-md-block d-lg-block d-xl-block'>
+                            <div class='d-flex justify-content-end'>
+                                <a href='".route('job-site-area-view', $data['job_area_id'])."' class='btn btn-primary btn-md btn-flat mr-2'>
+                                    <i class='fa fa-undo'></i> Back
+                                </a>
+                                <a href='#' class='btn btn-danger btn-md btn-flat' data-trigger='delete-accomplishment' data-id='".$data['id']."'>
+                                    <i class='fa fa-trash'></i> Delete
+                                </a>
+                            </div>
+                        </div>
+                        <div class='d-sm-block d-md-none d-lg-none d-xl-none'>
+                            <div class='basic-dropdown float-right'>
+                                <div class='dropleft'>
+                                    <button type='button' class='btn mb-1 btn-rounded btn-outline-info' data-toggle='dropdown'>
+                                        <i class='fa fa-ellipsis-v'></i>
+                                    </button>
+                                    <div class='dropdown-menu'>
+                                        <a class='dropdown-item mb-1 text-primary' href='".route('job-site-area-view', $data['job_area_id'])."'>
+                                            <i class='fa fa-undo'></i> Back 
+                                        </a>
+                                        <a class='dropdown-item text-danger' href='javascript:void(0);' data-trigger='delete-accomplishment' data-id='".$data['id']."'>
+                                            <i class='fa fa-trash'></i> Delete
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
                     ";
                     break;
             }

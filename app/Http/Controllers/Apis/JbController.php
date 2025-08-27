@@ -371,4 +371,38 @@ class JbController extends Controller
         }
     }
 
+    public function delete_accomplishment(Request $request): JsonResponse {
+        try {
+            
+            $job_accomplishment = JobAccomplishment::where('id', $request->id)->first();
+            
+            if (! $job_accomplishment) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Accomplishment not found',
+                ]);
+            }
+
+            $job_area_files = JobAreaFile::where('job_accomplishment_id', $job_accomplishment->id)->get();
+            $job_accomplishment->delete();
+
+            foreach($job_area_files as $job_area_file) {
+                Storage::disk('s3')->delete($job_area_file->url);
+                $job_area_file->delete();
+            }
+            
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Accomplishment deleted successfully',
+            ]);
+        } catch(Exception $e) {
+            logInfo($e->getTraceAsString());
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
+
 }

@@ -88,6 +88,7 @@ Route::middleware(['auth:sanctum', 'web'])->group(function () {
 
         Route::prefix('accomplishment')->group(function () {
             Route::post('/update', [JbController::class, 'update_accomplishment'])->name("exec-accomplishment-update");
+            Route::post('/delete', [JbController::class, 'delete_accomplishment'])->name("exec-accomplishment-delete"); 
         });
     });
 });

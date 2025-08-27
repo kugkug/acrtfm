@@ -221,6 +221,36 @@ class JbController extends Controller
             );
 
         } catch(Exception $e) {
+            logInfo($e->getTraceAsString());
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
+
+    public function delete_accomplishment(Request $request): JsonResponse {
+        try {
+            $api_response = apiHelper()->post($request, route('api-accomplishment-delete'));
+            
+            if(! $api_response['status']) {
+                return globalHelper()->ajaxErrorResponse($api_response['message']);
+            }
+
+            return globalHelper()->ajaxSuccessResponse(
+                'scripts',
+                'success',
+                'accomplishment-deleted',
+                'Accomplishment deleted successfully',
+                'System Info',
+                [
+                    'id' => $request->id,
+                    'job_area_id' => $request->job_area_id
+                ]
+            );
+
+        } catch(Exception $e) {
+            logInfo($e->getTraceAsString());
             return response()->json([
                 'status' => 'error',
                 'message' => $e->getMessage()

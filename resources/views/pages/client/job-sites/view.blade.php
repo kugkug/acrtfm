@@ -98,23 +98,27 @@
                 </div>
             </div>
 
-            
-            @foreach($job_site_area['accomplishments'] as $accomplishment)
+            @if(isset($job_site_area['accomplishments']) && count($job_site_area['accomplishments']) > 0)
+                @foreach($job_site_area['accomplishments'] as $accomplishment)
 
-                <div class="card">
-                    <div class="card-body">
-                        <a 
-                            href="{{ route('job-site-area-accomplishment', ['accomplishment_id' => $accomplishment['id']]) }}"
-                            class="text-info"
-                        >
-                            <h3 class="card-title text-info">{{ $accomplishment['accomplishment'] }}</h3>
-                            <p class="card-text">{{ $accomplishment['accomplishment_date'] }}</p>
-                        </a>
+                    <div class="card">
+                        <div class="card-body">
+                            <a 
+                                href="{{ route('job-site-area-accomplishment', ['accomplishment_id' => $accomplishment['id']]) }}"
+                                class="text-info"
+                            >
+                                <h3 class="card-title text-info">{{ $accomplishment['accomplishment'] }}</h3>
+                                <p class="card-text">{{ $accomplishment['accomplishment_date'] }}</p>
+                            </a>
+                        </div>
                     </div>
-                </div>
 
-            @endforeach
-            
+                @endforeach
+            @else   
+                <div class="alert alert-danger">
+                    <h3 class="text-danger">No Accomplishments</h3>
+                </div>
+            @endif
         </div>
     </div>
 

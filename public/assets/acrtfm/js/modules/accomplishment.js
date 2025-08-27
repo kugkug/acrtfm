@@ -158,6 +158,17 @@ function _init_actions() {
             case "update-accomplishment":
                 _update_accomplishment();
                 break;
+            case "delete-accomplishment":
+                _confirm(
+                    "Delete Accomplishment",
+                    "Are you sure you want to delete this accomplishment?",
+                    "warning",
+                    "Delete",
+                    true,
+                    () => _delete_accomplishment($(this).attr("data-id"))
+                );
+
+                break;
         }
     });
 }
@@ -179,6 +190,16 @@ function _update_accomplishment() {
     }
 
     ajaxSubmit("/executor/accomplishment/update", formData, "");
+}
+
+function _delete_accomplishment(accomplishment_id) {
+    let job_area_id = $("[data-key=JobAreaId]").val();
+
+    ajaxRequest(
+        "/executor/accomplishment/delete",
+        { id: accomplishment_id, job_area_id: job_area_id },
+        ""
+    );
 }
 
 function _delete_image() {

@@ -179,7 +179,7 @@ class ModulesController extends Controller
         $this->data['description'] = "Accomplishment";
         $this->data['header'] = "Accomplishment";
         $this->data['accomplishment'] = $accomplishment;
-        $this->data['right_panel'] = componentHelper()->rightPanel('job-site-area-accomplishment', ['id' => $accomplishment['job_area_id']]);
+        $this->data['right_panel'] = componentHelper()->rightPanel('job-site-area-accomplishment', ['job_area_id' => $accomplishment['job_area_id'], 'id' => $id]);
         return view('pages.client.job-sites.accomplishment', $this->data);
     }
    
