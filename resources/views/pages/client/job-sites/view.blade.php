@@ -48,31 +48,6 @@
                             rows="2"
                         ></textarea>
                     </div>
-                    {{-- <div class="form-group">
-                        <label for="description">Accomplishments</label>
-                        <textarea 
-                            class="form-control override-textarea" 
-                            placeholder="Job Site Area Accomplishments" 
-                            data-key="Accomplishments"
-                            data-default="{{ $job_site_area['description'] }}"
-                            rows="2"
-                        ></textarea>
-                    </div> --}}
-
-                    {{-- <div class="row">
-                        <div class="col-md-12">
-                            <div class="form-group d-flex justify-content-between">
-                                <input type="file" class="form-control" multiple style="display: none;" data-key="SubDetailsFiles">
-                                <button class="btn btn-info btn-flat" data-trigger="add-files">
-                                    <i class="fa fa-plus"></i> Add More Files
-                                </button>
-                                <button class="btn btn-success btn-flat" data-trigger="view-files">
-                                    <i class="fa fa-image"></i> 
-                                    <span class="">0</span>
-                                </button>
-                            </div>
-                        </div>
-                    </div> --}}
 
                     
                 </div>
@@ -107,8 +82,8 @@
                                 href="{{ route('job-site-area-accomplishment', ['accomplishment_id' => $accomplishment['id']]) }}"
                                 class="text-info"
                             >
-                                <h3 class="card-title text-info">{{ $accomplishment['accomplishment'] }}</h3>
-                                <p class="card-text">{{ $accomplishment['accomplishment_date'] }}</p>
+                                <h3 class="card-title text-info">{{ $accomplishment['accomplishment_date'] }}</h3>
+                                <p class="card-text">{{ $accomplishment['accomplishment'] }}</p>
                             </a>
                         </div>
                     </div>
