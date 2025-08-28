@@ -83,7 +83,9 @@ class ResponseHelper {
             case 'accomplishment-updated':
                 $script = "location.reload();";
                 break;
+            case 'accomplishment-added':
             case 'accomplishment-deleted':
+
                 $script = "location = '".route('job-site-area-view', $data['job_area_id'])."';";
                 break;
             

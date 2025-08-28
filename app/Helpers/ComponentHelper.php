@@ -61,7 +61,7 @@
                     $html ="
                         <div class='d-none d-sm-none d-md-block d-lg-block d-xl-block'>
                             <div class='d-flex justify-content-end'>
-                                <a href='".route('job-sites-areas', $data['id'])."' class='btn btn-primary btn-md btn-flat mr-2'>
+                                <a href='".route('job-sites-areas', $data['site_id'])."' class='btn btn-primary btn-md btn-flat mr-2'>
                                     <i class='fa fa-undo'></i> Back to Areas
                                 </a>
                                 <a href='".route('accomplishment-add', $data['id'])."' class='btn btn-success btn-md btn-flat mr-2'>
@@ -79,7 +79,7 @@
                                         <i class='fa fa-ellipsis-v'></i>
                                     </button>
                                     <div class='dropdown-menu'>
-                                        <a class='dropdown-item mb-1 text-primary' href='".route('job-sites-areas', $data['id'])."'>
+                                        <a class='dropdown-item mb-1 text-primary' href='".route('job-sites-areas', $data['site_id'])."'>
                                             <i class='fa fa-undo'></i> Back to Areas
                                         </a>
                                         <a class='dropdown-item mb-1 text-success' href='".route('accomplishment-add', $data['id'])."'>

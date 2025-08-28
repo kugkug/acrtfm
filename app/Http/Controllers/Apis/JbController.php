@@ -311,6 +311,67 @@ class JbController extends Controller
         }
     }
 
+    public function add_accomplishment(Request $request): JsonResponse {
+        try {
+            $job_area_id = $request->job_area_id;
+            $accomplishment = $request->accomplishment;
+            $accomplishment_date = $request->accomplishment_date;
+            $accomplishment_files = $request->accomplishmentFiles;
+
+            $job_area = JobArea::where('id', $job_area_id)->first();
+            if (! $job_area) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Job Area not found',
+                ]);
+            }
+            
+            $job_accomplishment = JobAccomplishment::create([
+                'job_area_id' => $job_area_id,
+                'accomplishment' => $accomplishment,
+                'accomplishment_date' => $accomplishment_date,
+            ]);
+            
+            $job_accomplishment_id = $job_accomplishment->id;
+            
+            if ($accomplishment_files) {
+                foreach($accomplishment_files as $accomplishment_file) {
+                    $original_name = $accomplishment_file->getClientOriginalName();
+                    $ext = $accomplishment_file->getClientOriginalExtension();
+                    $new_filename = $original_name.'.'.$ext;
+                    $size = $accomplishment_file->getSize();
+                    
+                    $file = Storage::disk('s3')->put('jobs', $accomplishment_file);
+                    $url = Storage::disk('s3')->url($file);
+
+                    $job_area_files[] = [
+                        'job_area_id' => $job_area_id,
+                        'job_accomplishment_id' => $job_accomplishment_id,
+                        'name' => $original_name,
+                        'url' => $url,
+                        'type' => $ext,
+                        'size' => $size,
+                    ];
+                }
+
+                JobAreaFile::insert($job_area_files);
+            }
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Accomplishment added successfully',
+            ]);
+        }
+
+        catch(Exception $e) {
+            logInfo($e->getMessage());
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
+
     public function update_accomplishment(Request $request): JsonResponse {
         try {
             

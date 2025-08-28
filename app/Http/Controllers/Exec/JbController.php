@@ -204,6 +204,35 @@ class JbController extends Controller
         }
     }
 
+    public function add_accomplishment(Request $request): JsonResponse {
+        try {
+            $api_response = apiHelper()->post($request, route('api-accomplishment-add'));
+
+            if(! $api_response['status']) {
+                return globalHelper()->ajaxErrorResponse($api_response['message']);
+            }
+
+            return globalHelper()->ajaxSuccessResponse(
+                'scripts',
+                'success',
+                'accomplishment-added',
+                'Accomplishment added successfully',
+                'System Info',
+                [
+                    'job_area_id' => $request->job_area_id,
+                ]
+            );
+        }
+
+        catch(Exception $e) {
+            logInfo($e->getTraceAsString());
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
+
     public function update_accomplishment(Request $request): JsonResponse {
         try {
             $api_response = apiHelper()->post($request, route('api-accomplishment-update'));        

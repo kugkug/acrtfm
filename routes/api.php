@@ -41,6 +41,7 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     Route::prefix('accomplishment')->group(function () {
+        Route::post('/add', [JbController::class, 'add_accomplishment'])->name("api-accomplishment-add");
         Route::post('/update', [JbController::class, 'update_accomplishment'])->name("api-accomplishment-update");
         Route::post('/delete', [JbController::class, 'delete_accomplishment'])->name("api-accomplishment-delete");
     });
