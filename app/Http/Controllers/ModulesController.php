@@ -73,6 +73,41 @@ class ModulesController extends Controller
         return view('pages.client.ask_ai', $this->data);
     }
 
+    public function techDispatch() {
+        $this->data['title'] = 'Tech Dispatch'; 
+        $this->data['description'] = "Manage technical dispatch operations";
+        $this->data['header'] = "Tech Dispatch";
+        return view('pages.client.tech_dispatch', $this->data);
+    }
+
+    public function techDispatchCustomers() {
+        $this->data['title'] = 'Customers'; 
+        $this->data['description'] = "Manage customer information and relationships";
+        $this->data['header'] = "Customers";
+        return view('pages.client.tech_dispatch.customers', $this->data);
+    }
+
+    public function techDispatchWorkOrders() {
+        $this->data['title'] = 'Work Orders'; 
+        $this->data['description'] = "Create, manage and track work orders";
+        $this->data['header'] = "Work Orders";
+        return view('pages.client.tech_dispatch.work_orders', $this->data);
+    }
+
+    public function techDispatchQuotes() {
+        $this->data['title'] = 'Quotes'; 
+        $this->data['description'] = "Generate and manage customer quotes";
+        $this->data['header'] = "Quotes";
+        return view('pages.client.tech_dispatch.quotes', $this->data);
+    }
+
+    public function techDispatchCalendar() {
+        $this->data['title'] = 'Calendar'; 
+        $this->data['description'] = "Schedule and manage appointments";
+        $this->data['header'] = "Calendar";
+        return view('pages.client.tech_dispatch.calendar', $this->data);
+    }
+
     public function exploreManuals($model) {
         $this->data['ac_details'] = globalHelper()->getManuals($model);
         $this->data['title'] = 'Explore Manuals'; 

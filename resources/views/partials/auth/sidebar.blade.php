@@ -36,6 +36,38 @@
                     <i class="fa-solid fa-calculator menu-icon fa-action"></i><span class="nav-text">Nitrogen Calculator</span>
                 </a>
             </li>
+            <li>
+                <a href="#" aria-expanded="false" class="has-arrow">
+                    <i class="fa-solid fa-truck-fast menu-icon fa-action"></i><span class="nav-text">Tech Dispatch</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li>
+                        <a href="{{ route('tech-dispatch') }}">
+                            <i class="fa-solid fa-chart-line menu-icon fa-action"></i><span class="nav-text">Dashboard</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('tech-dispatch.customers') }}">
+                            <i class="fa-solid fa-users menu-icon fa-action"></i><span class="nav-text">Customers</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('tech-dispatch.work-orders') }}">
+                            <i class="fa-solid fa-clipboard-list menu-icon fa-action"></i><span class="nav-text">Work Orders</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('tech-dispatch.quotes') }}">
+                            <i class="fa-solid fa-file-invoice-dollar menu-icon fa-action"></i><span class="nav-text">Quotes</span>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="{{ route('tech-dispatch.calendar') }}">
+                            <i class="fa-solid fa-calendar-days menu-icon fa-action"></i><span class="nav-text">Calendar</span>
+                        </a>
+                    </li>
+                </ul>
+            </li>
         </ul>
     </div>
 </div>

@@ -38,6 +38,15 @@ Route::middleware(['auth:sanctum', 'web'])->group(function () {
     Route::get('/model-lookup', [ModulesController::class, 'modelLookup'])->name("model-lookup");
     Route::get('/education', [ModulesController::class, 'education'])->name("education");
     Route::get('/ask-ai', [ModulesController::class, 'askAi'])->name("ask-ai");
+    Route::get('/tech-dispatch', [ModulesController::class, 'techDispatch'])->name("tech-dispatch");
+    
+    // Tech Dispatch Routes
+    Route::prefix('tech-dispatch')->group(function () {
+        Route::get('/customers', [ModulesController::class, 'techDispatchCustomers'])->name("tech-dispatch.customers");
+        Route::get('/work-orders', [ModulesController::class, 'techDispatchWorkOrders'])->name("tech-dispatch.work-orders");
+        Route::get('/quotes', [ModulesController::class, 'techDispatchQuotes'])->name("tech-dispatch.quotes");
+        Route::get('/calendar', [ModulesController::class, 'techDispatchCalendar'])->name("tech-dispatch.calendar");
+    });
         
     Route::get('/video-playlist', [ModulesController::class, 'videoPlaylist'])->name("video-playlist");
 
