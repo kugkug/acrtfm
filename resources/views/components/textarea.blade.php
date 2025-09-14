@@ -1,6 +1,6 @@
 <div>
     <div class="form-group">
-    <label for="{{ $name }}">{{ $label }}</label> {!! $dataReq ? '<span class="text-danger">*</span>' : '' !!}
+    <label for="{{ $name }}">{{ $label }}</label> {!! isset($dataReq) && $dataReq ? '<span class="text-danger">*</span>' : '' !!}
     <textarea
         class="form-control form-control-sm override-textarea"
         name="{{ $name }}"
@@ -10,7 +10,7 @@
         data-key="{{ $dataKey }}"
         data="{{ $dataReq }}"
         >{{ $text }}</textarea>
-        @if($dataReq)
+        @if(isset($dataReq) && $dataReq)
             <div id="val-{{ $name }}-error" class="invalid-feedback animated fadeInDown">Please provide a {{ strtolower($label) }}</div>
         @endif
     </div>
