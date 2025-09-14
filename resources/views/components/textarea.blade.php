@@ -8,7 +8,7 @@
         placeholder="{{ $placeholder }}"
         rows="{{ $rows }}"
         data-key="{{ $dataKey }}"
-        data="{{ $dataReq }}"
+        data="{{ isset($dataReq) && $dataReq ? 'req' : '' }}"
         >{{ $text }}</textarea>
         @if(isset($dataReq) && $dataReq)
             <div id="val-{{ $name }}-error" class="invalid-feedback animated fadeInDown">Please provide a {{ strtolower($label) }}</div>
