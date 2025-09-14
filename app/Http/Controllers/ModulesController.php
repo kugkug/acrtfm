@@ -238,4 +238,30 @@ class ModulesController extends Controller
         $this->data['job_area'] = $job_area;
         return view('pages.client.job-sites.add_accomplishment', $this->data);
     }
+
+
+    /**
+     * Start Customers
+     */    
+
+    public function customers() {
+        $this->data['customers'] = globalHelper()->getCustomers();
+        $this->data['title'] = 'Customer Management'; 
+        $this->data['description'] = "Manage your customers and their information";
+        $this->data['header'] = "Customer Management";
+        $this->data['right_panel'] = componentHelper()->rightPanel('customers-index', []);
+        return view('pages.client.tech_dispatch.customers.index', $this->data);
+    }
+
+    public function new_customer() {
+        $this->data['title'] = 'New Customer'; 
+        $this->data['description'] = "Add a new customer";
+        $this->data['header'] = "New Customer";
+        $this->data['right_panel'] = componentHelper()->rightPanel('customers-new', []);
+        return view('pages.client.tech_dispatch.customers.new', $this->data);
+    }
+
+    /**
+     * End of Customers
+     */
 }

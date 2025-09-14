@@ -9,6 +9,7 @@ use App\Models\AccomplishmentDetail;
 use App\Models\Airconditioner;
 use App\Models\Communication;
 use App\Models\Contact;
+use App\Models\Customer;
 use App\Models\Education;
 use App\Models\Extension;
 use App\Models\JobAccomplishment;
@@ -342,4 +343,18 @@ class GlobalHelper {
             return [];
         }
     }
+
+    /**
+     * Start of Customers
+     */
+
+    public function getCustomers() {
+        try {
+            return Customer::all()->toArray();
+        } catch (\Exception $e) {
+            logInfo($e->getMessage());
+            return [];
+        }
+    }
+    
 }

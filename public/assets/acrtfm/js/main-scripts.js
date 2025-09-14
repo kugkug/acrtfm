@@ -122,10 +122,10 @@ function _checkFormFields(parentForm) {
             if (sData != "exclude") {
                 if (sData == "req") {
                     if (sValue == "") {
-                        $(sElement).addClass(" is-invalid ");
+                        $(sElement).next("div.invalid-feedback").show();
                         nEmpty++;
                     } else {
-                        $(sElement).removeClass(" is-invalid ");
+                        $(sElement).next("div.invalid-feedback").hide();
                     }
                 }
             }

@@ -88,6 +88,10 @@ class ResponseHelper {
 
                 $script = "location = '".route('job-site-area-view', $data['job_area_id'])."';";
                 break;
+
+            case 'customers-saved':
+                $script = "location = '".route('customers')."';";
+                break;
             
         }
 

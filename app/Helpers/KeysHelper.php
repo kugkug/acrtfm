@@ -13,6 +13,9 @@ class KeysHelper {
         'Company' => 'company',
         'Password' => 'password',
         
+        'Company' => 'company',
+        'BillingAddress' => 'address',
+        'Notes' => 'notes',
     ];
 
     public function getKey(string $key_index): string {

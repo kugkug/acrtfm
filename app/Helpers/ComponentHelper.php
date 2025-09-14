@@ -147,6 +147,22 @@
                         </a>
                     ";
                     break;
+
+                case 'customers-index':
+                    $html ="
+                        <a href='".route('customers.new')."' class='btn btn-primary btn-md btn-flat float-right'>
+                            <i class='fa fa-user-plus'></i> Add Customer
+                        </a>
+                    ";
+                    break;
+                case 'customers-new':
+                    $html ="
+                        <a href='".route('customers')."' class='btn btn-primary btn-md btn-flat float-right'>
+                            <i class='fa fa-undo'></i> Back
+                        </a>
+                    ";
+                    break;
+                    
             }
 
             return $html;

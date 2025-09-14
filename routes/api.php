@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Apis\AcController;
 use App\Http\Controllers\Apis\AccountController;
+use App\Http\Controllers\Apis\CustomerController;
 use App\Http\Controllers\Apis\EdController;
 use App\Http\Controllers\Apis\JbController;
 use Illuminate\Http\Request;
@@ -44,5 +45,9 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/add', [JbController::class, 'add_accomplishment'])->name("api-accomplishment-add");
         Route::post('/update', [JbController::class, 'update_accomplishment'])->name("api-accomplishment-update");
         Route::post('/delete', [JbController::class, 'delete_accomplishment'])->name("api-accomplishment-delete");
+    });
+
+    Route::prefix('customers')->group(function () {
+        Route::post('/save', [CustomerController::class, 'save'])->name("api-customers-save");
     });
 });

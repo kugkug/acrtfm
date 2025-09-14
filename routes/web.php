@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Exec\AcController;
 use App\Http\Controllers\Exec\AccountController;
+use App\Http\Controllers\Exec\CustomerController;
 use App\Http\Controllers\Exec\EdController;
 use App\Http\Controllers\Exec\JbController;
 use Illuminate\Support\Facades\Route;
@@ -47,6 +48,22 @@ Route::middleware(['auth:sanctum', 'web'])->group(function () {
         Route::get('/quotes', [ModulesController::class, 'techDispatchQuotes'])->name("tech-dispatch.quotes");
         Route::get('/calendar', [ModulesController::class, 'techDispatchCalendar'])->name("tech-dispatch.calendar");
     });
+
+    Route::prefix('customers')->group(function () {
+        Route::get('/', [ModulesController::class, 'customers'])->name("customers");
+        Route::get('/new', [ModulesController::class, 'new_customer'])->name("customers.new");
+    });
+
+    // Customer CRUD Routes
+    // Route::get('customers', [CustomerController::class, 'index'])->name("customers.index");
+    // Route::get('customers/create', [CustomerController::class, 'create'])->name("customers.create");
+    // Route::post('customers', [CustomerController::class, 'store'])->name("customers.store");
+    // Route::get('customers/{customer}', [CustomerController::class, 'show'])->name("customers.show");
+    // Route::get('customers/{customer}/edit', [CustomerController::class, 'edit'])->name("customers.edit");
+    // Route::put('customers/{customer}', [CustomerController::class, 'update'])->name("customers.update");
+    // Route::delete('customers/{customer}', [CustomerController::class, 'destroy'])->name("customers.destroy");
+    // Route::post('customers/{customer}/add-location', [\App\Http\Controllers\CustomerController::class, 'addLocation'])->name('customers.addLocation');
+    // Route::post('customers/{customer}/add-equipment', [\App\Http\Controllers\CustomerController::class, 'addEquipment'])->name('customers.addEquipment');
         
     Route::get('/video-playlist', [ModulesController::class, 'videoPlaylist'])->name("video-playlist");
 
@@ -103,7 +120,11 @@ Route::middleware(['auth:sanctum', 'web'])->group(function () {
             Route::post('/add', [JbController::class, 'add_accomplishment'])->name("exec-accomplishment-add");
             Route::post('/update', [JbController::class, 'update_accomplishment'])->name("exec-accomplishment-update");
             Route::post('/delete', [JbController::class, 'delete_accomplishment'])->name("exec-accomplishment-delete"); 
-            
+        });
+
+
+        Route::prefix('customers')->group(function () {
+            Route::post('/save', [CustomerController::class, 'save'])->name("exec-customers-save");
         });
     });
 });

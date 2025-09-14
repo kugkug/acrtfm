@@ -59,6 +59,26 @@ class ValidatorHelper {
                     'email' => 'required|email',
                     'password' => 'required|string|min:8',
                 ];
+            case 'customers-save':
+                return [
+                    'company' => 'required|string|max:255',
+                    'first_name' => 'required|string|max:255',
+                    'last_name' => 'required|string|max:255',
+                    'email' => 'required|email|unique:customers',
+                    'phone' => 'required|string|max:12',
+                    'address' => 'required|string|max:255',
+                    'notes' => 'sometimes|string|max:255',
+                ];
+            case 'customers-update':
+                return [
+                    'company' => 'required|string|max:255',
+                    'first_name' => 'required|string|max:255',
+                    'last_name' => 'required|string|max:255',
+                    'email' => 'required|email|unique:customers',
+                    'phone' => 'required|string|max:12',
+                    'address' => 'required|string|max:255',
+                    'notes' => 'sometimes|string|max:255',
+                ];
         }
     }
 }
