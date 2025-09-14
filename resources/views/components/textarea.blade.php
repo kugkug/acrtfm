@@ -5,10 +5,10 @@
         class="form-control form-control-sm override-textarea"
         name="{{ $name }}"
         id="{{ $name }}"
-        placeholder="{{ $placeholder }}"
+        {{-- placeholder="{{ $placeholder }}" --}}
         rows="{{ $rows }}"
-        data="{{ $dataReq }}"
         data-key="{{ $dataKey }}"
+        data="{{ $dataReq }}"
         >{{ $text }}</textarea>
         @if($dataReq)
             <div id="val-{{ $name }}-error" class="invalid-feedback animated fadeInDown">Please provide a {{ strtolower($label) }}</div>

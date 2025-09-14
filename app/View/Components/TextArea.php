@@ -15,6 +15,7 @@ class Textarea extends Component
     public string $rows;
     public string $dataKey;
     public string $dataReq;
+    
     public function __construct(
         string $name, 
         string $label = '', 
