@@ -64,6 +64,7 @@
                         label="Notes" 
                         dataKey="Notes"
                         rows="3"
+                        value=""
                     />
 
                 </x-card>
