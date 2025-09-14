@@ -5,7 +5,7 @@
         class="form-control form-control-sm override-textarea"
         name="{{ $name }}"
         id="{{ $name }}"
-        {{-- placeholder="{{ $placeholder }}" --}}
+        placeholder="{{ $placeholder }}"
         rows="{{ $rows }}"
         data-key="{{ $dataKey }}"
         data="{{ $dataReq }}"

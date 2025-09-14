@@ -57,6 +57,8 @@
                         dataKey="BillingAddress"
                         dataReq="req"
                         rows="3"
+                        placeholder="Enter the billing address"
+                        text=""
                     />
 
                     <x-textarea 
@@ -64,6 +66,7 @@
                         label="Notes" 
                         dataKey="Notes"
                         rows="3"
+                        placeholder="Enter the notes"
                         text=""
                     />
 
