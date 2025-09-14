@@ -10,7 +10,7 @@ class Textarea extends Component
 {
     public string $name;
     public string $label;
-    public string $value;
+    public string $text;
     public string $placeholder;
     public string $rows;
     public string $dataKey;
@@ -18,7 +18,7 @@ class Textarea extends Component
     public function __construct(
         string $name, 
         string $label = '', 
-        string $value = '', 
+        string $text = '', 
         string $placeholder = '', 
         string $rows = '3', 
         string $dataKey = '', 
@@ -27,7 +27,7 @@ class Textarea extends Component
     {
         $this->name = $name;
         $this->label = $label;
-        $this->value = $value;
+        $this->text = $text;
         $this->placeholder = $placeholder;
         $this->rows = $rows;
         $this->dataKey = $dataKey;
