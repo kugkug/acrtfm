@@ -60,19 +60,19 @@
                     >
                         <dl>
                             @if($customer['email'])
-                                <dt><i class="fa fa-envelope mr-2"></i> {{ $customer['email'] }}</dt>
+                                <dd><i class="fa fa-envelope mr-2"></i> {{ $customer['email'] }}</dd>
                             @endif
 
                             @if($customer['phone'])
-                                <dt><i class="fa fa-phone mr-2"></i> {{ $customer['phone'] }}</dt>
+                                <dd><i class="fa fa-phone mr-2"></i> {{ $customer['phone'] }}</dd>
                             @endif
                         
                             @if($customer['address'])
-                                <dt><i class="fa fa-building mr-2"></i> {{ $customer['address'] }}</dt>
+                                <dd><i class="fa fa-building mr-2"></i> {{ $customer['address'] }}</dd>
                             @endif
 
                             @if($customer['notes'])
-                                <dt><i class="fa fa-sticky-note mr-2"></i> {{ $customer['notes'] }}</dt>
+                                <dd><i class="fa fa-sticky-note mr-2"></i> {{ $customer['notes'] }}</dd>
                             @endif
                         </dl>
                     </x-card>
