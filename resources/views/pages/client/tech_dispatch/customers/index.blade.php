@@ -6,35 +6,75 @@
         <div class="col-lg-12">
 
             <x-card > 
-                {{-- The "column" attribute in a Blade component like <x-input> 
-                    is typically used to specify the database column or data field that the input is associated with. 
-                    For example:
-                    <x-input :name="'search'" :label="'Search'" :placeholder="'Search customers...'" :dataKey="'search'" column="search" />
-                    will bind the input value to the 'search' column in the database.
-                --}}
-                <x-input :name="'search'" :placeholder="'Search customers...'" :dataKey="'search'"  />
+                <x-input 
+                    :name="'search'" 
+                    :placeholder="'Search customers...'" 
+                    :dataKey="'search'" 
+                />
+
             </x-card>
 
             @if(count($customers) > 0)
                 @foreach($customers as $customer)
                     @php
-                        $tools = implode(',', [
-                            '|view-customer|btn-default btn-sm|fa fa-eye',
-                            '|edit-customer|btn-default btn-sm|fa fa-edit',
-                            '|delete-customer|btn-default btn-sm|fa fa-trash text-danger',
-                        ]);
+                        $tools = [
+                            [
+                                'type' => 'link',
+                                'text' => '',
+                                'icon' => 'fa fa-eye',
+                                'attrib' => [
+                                    'class' => 'btn btn-default btn-sm text-info',
+                                    'title' => 'View',
+                                    'href' => route('customers.view', $customer['id']),
+                                ],
+                            ],
+                            [
+                                'type' => 'button',
+                                'text' => '',
+                                'icon' => 'fa fa-edit',
+                                'attrib' => [
+                                    'class' => 'btn btn-default btn-sm text-warning',
+                                    'title' => 'Edit',
+                                ],
+                            ],
+                            [
+                                'type' => 'button',
+                                'text' => '',
+                                'icon' => 'fa fa-trash',
+                                'attrib' => [
+                                    'class' => 'btn  btn-default btn-sm text-danger',
+                                    'title' => 'Delete',
+                                ],
+                            ],
+                        ];
+                        
+                        $name = $customer['first_name'] . ' ' . $customer['last_name'];
+                        $company = $customer['company'];
                     @endphp
 
                     <x-card
-                        title="{{ ucwords($customer['first_name']) }} {{ ucwords($customer['last_name']) }}"
-                        subtitle="{{ $customer['company'] }}"
-                        hr="yes"
-                        tools="{{ $tools }}"
+                        :title="$name"
+                        :subtitle="$company"
+                        :hr="true"
+                        :tools="$tools"
                     >
-                        <p>{{ $customer['email'] }}</p>
-                        <p>{{ $customer['phone'] }}</p>
-                        <p>{{ $customer['address'] }}</p>
-                        <p>{{ $customer['notes'] }}</p>
+                        <dl>
+                            @if($customer['email'])
+                                <dt><i class="fa fa-envelope mr-2"></i> {{ $customer['email'] }}</dt>
+                            @endif
+
+                            @if($customer['phone'])
+                                <dt><i class="fa fa-phone mr-2"></i> {{ $customer['phone'] }}</dt>
+                            @endif
+                        
+                            @if($customer['address'])
+                                <dt><i class="fa fa-building mr-2"></i> {{ $customer['address'] }}</dt>
+                            @endif
+
+                            @if($customer['notes'])
+                                <dt><i class="fa fa-sticky-note mr-2"></i> {{ $customer['notes'] }}</dt>
+                            @endif
+                        </dl>
                     </x-card>
                 @endforeach
             @endif

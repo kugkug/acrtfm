@@ -51,6 +51,7 @@ Route::middleware(['auth:sanctum', 'web'])->group(function () {
 
     Route::prefix('customers')->group(function () {
         Route::get('/', [ModulesController::class, 'customers'])->name("customers");
+        Route::get('/{id}/view', [ModulesController::class, 'view_customer'])->name("customers.view");
         Route::get('/new', [ModulesController::class, 'new_customer'])->name("customers.new");
     });
 

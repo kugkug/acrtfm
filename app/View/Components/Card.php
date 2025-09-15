@@ -13,10 +13,17 @@ class Card extends Component
     public $tools;
     public $footer;
     public $hr;
-    public function __construct(string $title='', string $subtitle = '', string $footer = '', string $hr = '', string $tools = '')
+    
+    public function __construct(
+        string $title='', 
+        string $subtitle = '', 
+        bool $hr = false, 
+        array $tools = [],
+        array $footer = [], 
+    )
     {
         $this->title = $title;
-        $this->subtitle = $subtitle;
+        $this->subtitle = $subtitle;    
         $this->footer = $footer;
         $this->hr = $hr;
         $this->tools = $tools;

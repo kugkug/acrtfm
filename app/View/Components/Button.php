@@ -8,21 +8,22 @@ use Illuminate\View\Component;
 
 class Button extends Component
 {
+    public $type;
     public $text;
-    public $action;
-    public $class;
-    public $icon;
+    public $icon;    
+    public $attrib;
+    
     public function __construct(
-        string $text, 
-        string $action, 
-        string $class = 'btn-primary', 
+        string $type='button',
+        string $text ='', 
         string $icon = '',
+        array $attrib = []
     )
     {
         $this->text = $text;
-        $this->action = $action;
-        $this->class = $class;
         $this->icon = $icon;
+        $this->type = $type;
+        $this->attrib = $attrib;
     }
 
 

@@ -356,5 +356,14 @@ class GlobalHelper {
             return [];
         }
     }
+
+    public function getCustomer($id) {
+        try {
+            return Customer::where('id', $id)->first()->toArray();
+        } catch (\Exception $e) {
+            logInfo($e->getMessage());
+            return [];
+        }
+    }
     
 }
