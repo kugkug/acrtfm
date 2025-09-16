@@ -80,6 +80,7 @@
                                 :title="'Locations'"
                                 :subtitle="'Manage customer locations'"
                                 :tools="$tools"
+                                :hr="true"
                             >
                                 <x-input 
                                     :name="'search_locations'"
@@ -97,6 +98,7 @@
                                     @endphp
                                     <x-card
                                         :title="$title"
+                                        :hr="true"
                                     >
                                     <dl>
                                         <dd>{{ $location['location_name'] }}</dd>
