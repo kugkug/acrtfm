@@ -10,22 +10,8 @@ class CustomerEquipment extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'customer_id',
-        'customer_location_id',
-        'equipment_name',
-        'equipment_type',
-        'brand',
-        'model',
-        'serial_number',
-        'installation_date',
-        'last_service_date',
-        'next_service_date',
-        'warranty_expiry',
-        'specifications',
-        'notes',
-        'is_active',
-    ];
+    protected $table = 'customer_equipments';
+    protected $guarded = ['id'];
 
     protected $casts = [
         'installation_date' => 'date',

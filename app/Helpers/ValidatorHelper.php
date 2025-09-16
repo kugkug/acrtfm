@@ -71,12 +71,38 @@ class ValidatorHelper {
                 ];
             case 'customers-update':
                 return [
-                    'company' => 'required|string|max:255',
-                    'first_name' => 'required|string|max:255',
-                    'last_name' => 'required|string|max:255',
-                    'email' => 'required|email|unique:customers',
-                    'phone' => 'required|string|max:12',
+                    'company' => 'sometimes|string|max:255',
+                    'first_name' => 'sometimes|string|max:255',
+                    'last_name' => 'sometimes|string|max:255',
+                    'email' => 'sometimes|email|unique:customers',
+                    'phone' => 'sometimes|string|max:12',
+                    'address' => 'sometimes|string|max:255',
+                    'notes' => 'sometimes|string|max:255',
+                ];
+
+            case 'customers-save-location':
+                return [
+                    'customer_id' => 'required|exists:customers,id',
+                    'location_name' => 'required|string|max:255',
                     'address' => 'required|string|max:255',
+                    'city' => 'required|string|max:255',
+                    'state' => 'required|string|max:255',
+                    'zip_code' => 'required|string|max:255',
+                    'contact_name' => 'required|string|max:255',
+                    'contact_email' => 'required|email|max:255',
+                    'contact_phone' => 'required|string|max:12',
+                    'notes' => 'sometimes|string|max:255',
+                ];
+            case 'customers-update-location':
+                return [
+                    'location_name' => 'sometimes|string|max:255',
+                    'address' => 'sometimes|string|max:255',
+                    'city' => 'sometimes|string|max:255',
+                    'state' => 'sometimes|string|max:255',
+                    'zip_code' => 'sometimes|string|max:255',
+                    'contact_name' => 'sometimes|string|max:255',
+                    'contact_email' => 'sometimes|email|max:255',
+                    'contact_phone' => 'sometimes|string|max:12',
                     'notes' => 'sometimes|string|max:255',
                 ];
         }

@@ -359,7 +359,10 @@ class GlobalHelper {
 
     public function getCustomer($id) {
         try {
-            return Customer::where('id', $id)->first()->toArray();
+            return Customer::where('id', $id)
+            ->with('locations')
+            ->with('equipments')
+            ->first()->toArray();
         } catch (\Exception $e) {
             logInfo($e->getMessage());
             return [];

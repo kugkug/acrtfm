@@ -26,7 +26,31 @@ class CustomerController extends Controller
             );
         } catch (\Exception $e) {
             logInfo($e->getTraceAsString());
-            return response()->json(['error' => 'Customer save failed'], 500);
+            return globalHelper()->ajaxErrorResponse($e->getMessage());
+        }
+    }
+
+    public function save_location(Request $request)
+    {
+        try {
+            $api_response = apiHelper()->post($request, route('api-customers-save-location'));
+        
+            if(! $api_response['status']) {
+                return globalHelper()->ajaxErrorResponse($api_response['message']);
+            }
+
+            return globalHelper()->ajaxSuccessResponse(
+                'scripts',
+                'success',
+                'customer-location-saved',
+                'Location saved successfully',
+                'System Info',
+                $api_response['data']
+            );
+
+        } catch (\Exception $e) {
+            logInfo($e->getTraceAsString());
+            return globalHelper()->ajaxErrorResponse($e->getMessage());
         }
     }
 }

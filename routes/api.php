@@ -50,4 +50,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::prefix('customers')->group(function () {
         Route::post('/save', [CustomerController::class, 'save'])->name("api-customers-save");
     });
+
+    Route::prefix('location')->group(function () {
+        Route::post('/save', [CustomerController::class, 'save_location'])->name("api-customers-save-location");
+    });
 });

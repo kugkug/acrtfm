@@ -13,6 +13,17 @@ class KeysHelper {
         'Company' => 'company',
         'Password' => 'password',
         
+        'CustomerId' => 'customer_id',
+        'LocationName' => 'location_name',
+        'Address' => 'address',
+        'City' => 'city',
+        'State' => 'state',
+        'ZipCode' => 'zip_code',
+        'ContactName' => 'contact_name',
+        'ContactEmail' => 'contact_email',
+        'ContactPhone' => 'contact_phone',
+        
+        
         'Company' => 'company',
         'BillingAddress' => 'address',
         'Notes' => 'notes',

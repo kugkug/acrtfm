@@ -27,12 +27,33 @@ $(document).ready(function () {
                 break;
 
             case "add-location":
-                cust_id = $(this).attr("data-id");
                 $("#addLocationModal").modal("show");
                 break;
-            case "add-equipment":
+            case "cancel-add-location":
+                $("#addLocationModal form")[0].reset();
+                $("#addLocationModal").modal("hide");
+                break;
+            case "save-location":
                 cust_id = $(this).attr("data-id");
+                if (!_checkFormFields(form)) {
+                    _show_toastr(
+                        "error",
+                        "Please provide all required fields",
+                        "Location Error"
+                    );
+                    return;
+                }
+                formData = JSON.parse(_collectFields(form));
+                formData.CustomerId = cust_id;
+                ajaxRequest("/executor/location/save", formData, "");
+
+                break;
+            case "add-equipment":
                 $("#addEquipmentModal").modal("show");
+                break;
+            case "cancel-add-equipment":
+                $("#addEquipmentModal form")[0].reset();
+                $("#addEquipmentModal").modal("hide");
                 break;
         }
     });

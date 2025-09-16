@@ -75,11 +75,41 @@
                                     ],
                                 ];
                             @endphp
+
                             <x-card
                                 :title="'Locations'"
-                                :hr="true"
+                                :subtitle="'Manage customer locations'"
                                 :tools="$tools"
-                            />
+                            >
+                                <x-input 
+                                    :name="'search_locations'"
+                                    :type="'search'"
+                                    :placeholder="'Search Locations'"
+                                    :data-key="'SearchLocations'"
+                                />
+                            </x-card>
+
+                            @if($customer['locations'])
+
+                                @foreach($customer['locations'] as $location)
+                                    @php
+                                        $title = '<i class="fa fa-map-marker"></i> '.$location['location_name'];
+                                    @endphp
+                                    <x-card
+                                        :title="$title"
+                                    >
+                                    <dl>
+                                        <dd>{{ $location['location_name'] }}</dd>
+                                        <dd>{{ $location['address'] }}</dd>
+                                        <dd>{{ $location['city'] }}</dd>
+                                        <dd>{{ $location['state'] }}</dd>
+                                        <dd>{{ $location['zip_code'] }}</dd>
+                                    </dl>
+                                    </x-card>
+                                
+                                @endforeach
+
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -126,117 +156,217 @@
     </div>
 </section>
 
-<!-- Add Location Modal -->
-<div class="modal fade" id="addLocationModal" tabindex="-1" role="dialog" aria-labelledby="addLocationModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <form>
-            @csrf
-            <input type="hidden" name="customer_id" value="{{ $customer['id'] }}">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addLocationModalLabel">Add New Location</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="location_name">Location Name</label>
-                        <input type="text" class="form-control" id="location_name" name="location_name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="address">Address</label>
-                        <input type="text" class="form-control" id="address" name="address" required>
-                    </div>
-                    <div class="form-row">
-                        <div class="form-group col-md-6">
-                            <label for="city">City</label>
-                            <input type="text" class="form-control" id="city" name="city" required>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="state">State</label>
-                            <input type="text" class="form-control" id="state" name="state" required>
-                        </div>
-                        <div class="form-group col-md-2">
-                            <label for="zip_code">Zip Code</label>
-                            <input type="text" class="form-control" id="zip_code" name="zip_code" required>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="contact_name">Contact Name</label>
-                        <input type="text" class="form-control" id="contact_name" name="contact_name">
-                    </div>
-                    <div class="form-group">
-                        <label for="contact_phone">Contact Phone</label>
-                        <input type="text" class="form-control" id="contact_phone" name="contact_phone">
-                    </div>
-                    <div class="form-group">
-                        <label for="contact_email">Contact Email</label>
-                        <input type="email" class="form-control" id="contact_email" name="contact_email">
-                    </div>
-                    <div class="form-group">
-                        <label for="notes">Notes</label>
-                        <textarea class="form-control" id="notes" name="notes" rows="2"></textarea>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Add Location</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
+@php
+    $footer = [
+        [
+            'type' => 'button',
+            'text' => 'Save Location',
+            'icon' => 'fa fa-save',
+            'attrib' => [
+                'class' => 'btn btn-success btn-flat',
+                'title' => 'Save Location',
+                'data-trigger' => 'save-location',
+                'data-id' => $customer['id'],
+            ],
+        ],
+        [
+            'type' => 'button',
+            'text' => 'Cancel',
+            'icon' => 'fa fa-times',
+            'attrib' => [
+                'class' => 'btn btn-danger btn-flat',
+                'title' => 'Cancel',
+                'data-trigger' => 'cancel-add-location',
+            ],
+        ]
+    ];
 
+    $tools = [];
+
+    $attrib = [
+        'class' => 'modal-dialog modal-dialog-centered modal-lg',
+        'id' => 'addLocationModal',
+    ];
+@endphp
+<x-modal
+    :title="'Add Location'"
+    :footer="$footer"
+    :tools="$tools"
+    :attrib="$attrib"
+>
+        <x-input
+            :name="'location_name'"
+            :label="'Location Name'"
+            :type="'text'"
+            :value="''"
+            :placeholder="'Location Name'"
+            :data-key="'LocationName'"
+            :data-req="'req'"
+        />
+        <x-input
+            :name="'address'"
+            :label="'Address'"
+            :type="'text'"
+            :value="''"
+            :placeholder="'123 Main Street'"
+            :data-key="'Address'"
+            :data-req="'req'"
+        />
+        <x-input
+            :name="'city'"
+            :label="'City'"
+            :type="'text'"
+            :value="''"
+            :placeholder="'New York'"
+            :data-key="'City'"
+            :data-req="'req'"
+        />
+        <x-input
+            :name="'state'"
+            :label="'State'"
+            :type="'text'"
+            :value="''"
+            :placeholder="'NY'"
+            :data-key="'State'"
+            :data-req="'req'"
+        />
+        <x-input
+            :name="'zip_code'"
+            :label="'Zip Code'"
+            :type="'text'"
+            :value="''"
+            :placeholder="'10001'"
+            :data-key="'ZipCode'"
+            :data-req="'req'"
+        />
+        <x-input
+            :name="'contact_name'"
+            :label="'Contact Name'"
+            :type="'text'"
+            :value="''"
+            :placeholder="'John Doe'"
+            :data-key="'ContactName'"
+            :data-req="'req'"
+        />
+        <x-input
+            :name="'contact_email'"
+            :label="'Contact Email'"
+            :type="'email'"
+            :value="''"
+            :placeholder="'john.doe@example.com'"
+            :data-key="'ContactEmail'"
+            :data-req="'req'"
+        />
+        <x-input
+            :name="'contact_phone'"
+            :label="'Contact Phone'"
+            :type="'text'"
+            :value="''"
+            :placeholder="'1234567890'"
+            :data-key="'ContactPhone'"
+            :data-req="'req'"
+        />
+
+        <x-textarea
+            :name="'notes'"
+            :label="'Notes'"
+            :value="''"
+            :placeholder="'Notes for the location'"
+            :data-key="'Notes'"
+            :data-req="''"
+        />
+</x-modal>
+
+@php
+    $footer = [
+        [
+            'type' => 'button',
+            'text' => 'Add Equipment',
+            'icon' => 'fa fa-plus',
+            'attrib' => [
+                'class' => 'btn btn-success btn-flat',
+                'title' => 'Add Equipment',
+                'data-trigger' => 'add-equipment',
+                'data-id' => $customer['id'],
+            ],
+        ],
+    ];
+
+    $attrib = [
+        'class' => 'modal-dialog modal-dialog-centered modal-lg',
+        'id' => 'addEquipmentModal',
+    ];
+@endphp
 <!-- Add Equipment Modal -->
-<div class="modal fade" id="addEquipmentModal" tabindex="-1" role="dialog" aria-labelledby="addEquipmentModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <form id="addEquipmentForm">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addEquipmentModalLabel">Add Equipment</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="equipment_location">Location</label>
-                        <input type="text" class="form-control" id="equipment_location" name="equipment_location" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="equipment_name">Equipment Name</label>
-                        <input type="text" class="form-control" id="equipment_name" name="equipment_name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="equipment_type">Type</label>
-                        <input type="text" class="form-control" id="equipment_type" name="equipment_type" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="manufacturer">Manufacturer</label>
-                        <input type="text" class="form-control" id="manufacturer" name="manufacturer">
-                    </div>
-                    <div class="form-group">
-                        <label for="model_number">Model Number</label>
-                        <input type="text" class="form-control" id="model_number" name="model_number">
-                    </div>
-                    <div class="form-group">
-                        <label for="serial_number">Serial Number</label>
-                        <input type="text" class="form-control" id="serial_number" name="serial_number">
-                    </div>
-                    <div class="form-group">
-                        <label for="equipment_notes">Notes</label>
-                        <textarea class="form-control" id="equipment_notes" name="equipment_notes" rows="2"></textarea>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <button type="submit" class="btn btn-primary">Add Equipment</button>
-                </div>
-            </div>
-        </form>
-    </div>
-</div>
+<x-modal
+    :title="'Add Equipment'"
+    :footer="$footer"
+    :tools="$tools"
+    :attrib="$attrib"
+>
+    <x-input
+        :name="'equipment_location'"
+        :label="'Location'"
+        :type="'text'"
+        :value="''"
+        :placeholder="'Location'"
+        :data-key="'equipment_location'"
+        :data-req="'req'"
+    />
+    <x-input
+        :name="'equipment_name'"
+        :label="'Equipment Name'"
+        :type="'text'"
+        :value="''"
+        :placeholder="'Equipment Name'"
+        :data-key="'equipment_name'"
+        :data-req="'req'"
+    />
+    <x-input
+        :name="'equipment_type'"
+        :label="'Type'"
+        :type="'text'"
+        :value="''"
+        :placeholder="'Type'"
+        :data-key="'equipment_type'"
+        :data-req="'req'"
+    />
+    <x-input
+        :name="'manufacturer'"
+        :label="'Manufacturer'"
+        :type="'text'"
+        :value="''"
+        :placeholder="'Manufacturer'"
+        :data-key="'manufacturer'"
+        :data-req="'req'"
+    />
+    <x-input
+        :name="'model_number'"
+        :label="'Model Number'"
+        :type="'text'"
+        :value="''"
+        :placeholder="'Model Number'"
+        :data-key="'model_number'"
+        :data-req="'req'"
+    />  
+    <x-input
+        :name="'serial_number'"
+        :label="'Serial Number'"
+        :type="'text'"
+        :value="''"
+        :placeholder="'Serial Number'"
+        :data-key="'serial_number'"
+        :data-req="'req'"
+    />
+    <x-textarea
+        :name="'equipment_notes'"
+        :label="'Notes'"
+        :value="''"
+        :placeholder="'Notes'"
+        :data-key="'equipment_notes'"
+        :data-req="'exclude'"
+    />
+</x-modal>
 
 
 

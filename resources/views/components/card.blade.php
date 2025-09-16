@@ -3,7 +3,7 @@
         
         @if($title)  
             <div class="d-flex justify-content-between">
-                <h5 class="card-title">{{ $title }}</h5>
+                <h5 class="card-title">{!! $title !!}</h5>
                 @if($tools)
                     <div class="card-tools">
                         
