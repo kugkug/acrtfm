@@ -275,6 +275,7 @@
             :placeholder="'Notes for the location'"
             :data-key="'Notes'"
             :data-req="''"
+            :text="''"
         />
 </x-modal>
 
@@ -367,6 +368,7 @@
         :placeholder="'Notes'"
         :data-key="'equipment_notes'"
         :data-req="'exclude'"
+        :text="''"
     />
 </x-modal>
 
