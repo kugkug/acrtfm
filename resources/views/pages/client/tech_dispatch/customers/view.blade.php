@@ -268,6 +268,7 @@
         />
 
         <x-textarea
+            :rows="3"
             :name="'notes'"
             :label="'Notes'"
             :value="''"
@@ -359,6 +360,7 @@
         :data-req="'req'"
     />
     <x-textarea
+        :rows="3"
         :name="'equipment_notes'"
         :label="'Notes'"
         :value="''"
