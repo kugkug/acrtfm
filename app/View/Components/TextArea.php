@@ -8,31 +8,13 @@ use Illuminate\View\Component;
 
 class Textarea extends Component
 {
-    public string $name;
-    public string $label;
-    public string $text;
-    public string $placeholder;
-    public string $rows;
-    public string $dataKey;
-    public string $dataReq;
-    
+    public array $attrib;
+
     public function __construct(
-        string $name, 
-        string $label = '', 
-        string $text = '', 
-        string $placeholder = '', 
-        string $rows = '3', 
-        string $dataKey = '', 
-        string $dataReq = ''
+        array $attrib, 
     )
     {
-        $this->name = $name;
-        $this->label = $label;
-        $this->text = $text;
-        $this->placeholder = $placeholder;
-        $this->rows = $rows;
-        $this->dataKey = $dataKey;
-        $this->dataReq = $dataReq;
+        $this->attrib = $attrib;
     }
 
     public function render(): View|Closure|string

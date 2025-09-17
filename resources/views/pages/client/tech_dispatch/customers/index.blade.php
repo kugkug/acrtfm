@@ -6,11 +6,12 @@
         <div class="col-lg-12">
 
             <x-card > 
-                <x-input 
-                    :name="'search'" 
-                    :placeholder="'Search customers...'" 
-                    :dataKey="'search'" 
-                />
+                <x-input :attrib="[
+                    'name' => 'search',
+                    'placeholder' => 'Search customers...',
+                    'dataKey' => 'search',
+                    'class' => 'form-control form-control-sm override-input',
+                ]" />
 
             </x-card>
 

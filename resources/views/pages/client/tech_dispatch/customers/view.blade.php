@@ -15,7 +15,7 @@
                     <a href="#tab-equipments" class="nav-link text-center" data-toggle="tab" aria-expanded="false">Equipments</a>
                 </li>
                 <li class="nav-item w-25">
-                    <a href="#tab-work-orders" class="nav-link text-center" data-toggle="tab" aria-expanded="true">Word Orders</a>
+                    <a href="#tab-work-orders" class="nav-link text-center" data-toggle="tab" aria-expanded="true">Work Orders</a>
                 </li>
             </ul>
             <div class="tab-content br-n pn">
@@ -83,10 +83,13 @@
                                 :hr="true"
                             >
                                 <x-input 
-                                    :name="'search_locations'"
-                                    :type="'search'"
-                                    :placeholder="'Search Locations'"
-                                    :data-key="'SearchLocations'"
+                                    :attrib="[
+                                        'name' => 'search_locations',
+                                        'type' => 'search',
+                                        'placeholder' => 'Search Locations',
+                                        'data-key' => 'SearchLocations',
+                                        'class' => 'form-control form-control-sm override-input',
+                                    ]"
                                 />
                             </x-card>
 
@@ -197,87 +200,144 @@
     :attrib="$attrib"
 >
         <x-input
-            :name="'location_name'"
-            :label="'Location Name'"
-            :type="'text'"
-            :value="''"
-            :placeholder="'Location Name'"
-            :data-key="'LocationName'"
-            :data-req="'req'"
+            :attrib="[
+                'name' => 'location_name',
+                'label' => 'Location Name',
+                'type' => 'text',
+                'value' => '',
+                'placeholder' => 'Location Name',
+                'data-key' => 'LocationName',
+                'data-req' => 'req',
+                'class' => 'form-control form-control-sm override-input',
+            ]"
         />
         <x-input
-            :name="'address'"
-            :label="'Address'"
-            :type="'text'"
-            :value="''"
-            :placeholder="'123 Main Street'"
-            :data-key="'Address'"
-            :data-req="'req'"
+            :attrib="[
+                'name' => 'address',
+                'label' => 'Address',
+                'type' => 'text',
+                'value' => '',
+                'placeholder' => 'Address',
+                'data-key' => 'Address',
+                'data-req' => 'req',
+                'class' => 'form-control form-control-sm override-input',
+            ]"
         />
         <x-input
-            :name="'city'"
-            :label="'City'"
-            :type="'text'"
-            :value="''"
-            :placeholder="'New York'"
-            :data-key="'City'"
-            :data-req="'req'"
+            :attrib="[
+                'name' => 'city',
+                'label' => 'City',
+                'type' => 'text',
+                'value' => '',
+                'placeholder' => 'City',
+                'data-key' => 'City',
+                'data-req' => 'req',
+                'class' => 'form-control form-control-sm override-input',
+            ]"
         />
         <x-input
-            :name="'state'"
-            :label="'State'"
-            :type="'text'"
-            :value="''"
-            :placeholder="'NY'"
-            :data-key="'State'"
-            :data-req="'req'"
+            :attrib="[
+                'name' => 'city',
+                'label' => 'City',
+                'type' => 'text',
+                'value' => '',
+                'placeholder' => 'City',
+                'data-key' => 'City',
+                'data-req' => 'req',
+                'class' => 'form-control form-control-sm override-input',
+            ]"
         />
         <x-input
-            :name="'zip_code'"
-            :label="'Zip Code'"
-            :type="'text'"
-            :value="''"
-            :placeholder="'10001'"
-            :data-key="'ZipCode'"
-            :data-req="'req'"
+            :attrib="[
+                'name' => 'state',
+                'label' => 'State',
+                'type' => 'text',
+                'value' => '',
+                'placeholder' => 'State',
+                'data-key' => 'State',
+                'data-req' => 'req',
+                'class' => 'form-control form-control-sm override-input',
+            ]"
         />
         <x-input
-            :name="'contact_name'"
-            :label="'Contact Name'"
-            :type="'text'"
-            :value="''"
-            :placeholder="'John Doe'"
-            :data-key="'ContactName'"
-            :data-req="'req'"
+            :attrib="[
+                'name' => 'state',
+                'label' => 'State',
+                'type' => 'text',
+                'value' => '',
+                'placeholder' => 'State',
+                'data-key' => 'State',
+                'data-req' => 'req',
+                'class' => 'form-control form-control-sm override-input',
+            ]"
+
         />
         <x-input
-            :name="'contact_email'"
-            :label="'Contact Email'"
-            :type="'email'"
-            :value="''"
-            :placeholder="'john.doe@example.com'"
-            :data-key="'ContactEmail'"
-            :data-req="'req'"
+            :attrib="[
+                'name' => 'zip_code',
+                'label' => 'Zip Code',
+                'type' => 'text',
+                'value' => '',
+                'placeholder' => 'Zip Code',
+                'data-key' => 'ZipCode',
+                'data-req' => 'req',
+                'class' => 'form-control form-control-sm override-input',
+            ]"
         />
+        
         <x-input
-            :name="'contact_phone'"
-            :label="'Contact Phone'"
-            :type="'text'"
-            :value="''"
-            :placeholder="'1234567890'"
-            :data-key="'ContactPhone'"
-            :data-req="'req'"
+            :attrib="[
+                'name' => 'contact_name',
+                'label' => 'Contact Name',
+                'type' => 'text',
+                'value' => '',
+                'placeholder' => 'Contact Name',
+                'data-key' => 'ContactName',
+                'data-req' => 'req',
+                'class' => 'form-control form-control-sm override-input',
+            ]"
+        />
+
+        <x-input
+            :attrib="[
+                'name' => 'contact_email',
+                'label' => 'Contact Email',
+                'type' => 'email',
+                'value' => '',
+                'placeholder' => 'Contact Email',
+                'data-key' => 'ContactEmail',
+                'data-req' => 'req',
+                'class' => 'form-control form-control-sm override-input',
+            ]"
+        />
+
+        <x-input
+            :attrib="[
+                'name' => 'contact_phone',
+                'label' => 'Contact Phone',
+                'type' => 'text',
+                'value' => '',
+                'placeholder' => 'Contact Phone',
+                'data-key' => 'ContactPhone',
+                'data-req' => 'req',
+                'class' => 'form-control form-control-sm override-input',
+            ]"
+        
         />
 
         <x-textarea
-            :rows="3"
-            :name="'notes'"
-            :label="'Notes'"
-            :value="''"
-            :placeholder="'Notes for the location'"
-            :data-key="'Notes'"
-            :data-req="''"
-            :text="''"
+            :attrib="[  
+
+                'text' => '',
+                'name' => 'notes',
+                'label' => 'Notes',
+                'rows' => '3',
+                
+                'placeholder' => 'Notes for the location',
+                'data-key' => 'Notes',
+                'data-req' => 'exclude',
+                'class' => 'form-control form-control-sm override-textarea',
+            ]"
         />
 </x-modal>
 
@@ -308,69 +368,90 @@
     :tools="$tools"
     :attrib="$attrib"
 >
-    <x-input
-        :name="'equipment_location'"
-        :label="'Location'"
-        :type="'text'"
-        :value="''"
-        :placeholder="'Location'"
-        :data-key="'equipment_location'"
-        :data-req="'req'"
+    <x-input :attrib="[
+            'name' => 'equipment_location',
+            'label' => 'Location',
+            'type' => 'text',
+            'value' => '',
+            'placeholder' => 'Location',
+            'data-key' => 'equipment_location',
+            'data-req' => 'req',
+            'class' => 'form-control form-control-sm override-input',
+        ]"
     />
     <x-input
-        :name="'equipment_name'"
-        :label="'Equipment Name'"
-        :type="'text'"
-        :value="''"
-        :placeholder="'Equipment Name'"
-        :data-key="'equipment_name'"
-        :data-req="'req'"
+        :attrib="[
+            'name' => 'equipment_name',
+            'label' => 'Equipment Name',
+            'type' => 'text',
+            'value' => '',
+            'placeholder' => 'Equipment Name',
+            'data-key' => 'equipment_name',
+            'data-req' => 'req',
+            'class' => 'form-control form-control-sm override-input',
+        ]"
     />
     <x-input
-        :name="'equipment_type'"
-        :label="'Type'"
-        :type="'text'"
-        :value="''"
-        :placeholder="'Type'"
-        :data-key="'equipment_type'"
-        :data-req="'req'"
+        :attrib="[
+            'name' => 'equipment_type',
+            'label' => 'Type',
+            'type' => 'text',
+            'value' => '',
+            'placeholder' => 'Type',
+            'data-key' => 'equipment_type',
+            'data-req' => 'req',
+            'class' => 'form-control form-control-sm override-input',
+        ]"
     />
     <x-input
-        :name="'manufacturer'"
-        :label="'Manufacturer'"
-        :type="'text'"
-        :value="''"
-        :placeholder="'Manufacturer'"
-        :data-key="'manufacturer'"
-        :data-req="'req'"
+        :attrib="[
+            'name' => 'manufacturer',
+            'label' => 'Manufacturer',
+            'type' => 'text',
+            'value' => '',
+            'placeholder' => 'Manufacturer',
+            'data-key' => 'manufacturer',
+            'data-req' => 'req',
+            'class' => 'form-control form-control-sm override-input',
+        ]"
     />
     <x-input
-        :name="'model_number'"
-        :label="'Model Number'"
-        :type="'text'"
-        :value="''"
-        :placeholder="'Model Number'"
-        :data-key="'model_number'"
-        :data-req="'req'"
-    />  
+        :attrib="[
+            'name' => 'model_number',
+            'label' => 'Model Number',
+            'type' => 'text',
+            'value' => '',
+            'placeholder' => 'Model Number',
+            'data-key' => 'model_number',
+            'data-req' => 'req',
+            'class' => 'form-control form-control-sm override-input',
+        ]"
+    />
+
+
     <x-input
-        :name="'serial_number'"
-        :label="'Serial Number'"
-        :type="'text'"
-        :value="''"
-        :placeholder="'Serial Number'"
-        :data-key="'serial_number'"
-        :data-req="'req'"
+        :attrib="[
+            'name' => 'serial_number',
+            'label' => 'Serial Number',
+            'type' => 'text',
+            'value' => '',
+            'placeholder' => 'Serial Number',
+            'data-key' => 'serial_number',
+            'data-req' => 'req',
+            'class' => 'form-control form-control-sm override-input',
+        ]"
     />
     <x-textarea
-        :rows="3"
-        :name="'equipment_notes'"
-        :label="'Notes'"
-        :value="''"
-        :placeholder="'Notes'"
-        :data-key="'equipment_notes'"
-        :data-req="'exclude'"
-        :text="''"
+        :attrib="[  
+            'rows' => '3',
+            'name' => 'equipment_notes',
+            'label' => 'Notes',
+            'text' => '',
+            'placeholder' => 'Notes',
+            'data-key' => 'equipment_notes',
+            'data-req' => 'exclude',
+            'class' => 'form-control form-control-sm override-textarea',
+        ]"
     />
 </x-modal>
 
