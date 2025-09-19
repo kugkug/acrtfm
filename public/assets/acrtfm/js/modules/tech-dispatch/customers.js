@@ -49,8 +49,24 @@ $(document).ready(function () {
 
                 break;
             case "add-equipment":
+                $("#addEquipmentModal form")[0].reset();
                 $("#addEquipmentModal").modal("show");
                 break;
+            case "save-equipment":
+                cust_id = $(this).attr("data-id");
+                if (!_checkFormFields(form)) {
+                    _show_toastr(
+                        "error",
+                        "Please provide all required fields",
+                        "Equipment Error"
+                    );
+                    return;
+                }
+                formData = JSON.parse(_collectFields(form));
+                formData.CustomerId = cust_id;
+                ajaxRequest("/executor/equipment/save", formData, "");
+                break;
+
             case "cancel-add-equipment":
                 $("#addEquipmentModal form")[0].reset();
                 $("#addEquipmentModal").modal("hide");

@@ -23,10 +23,17 @@ class KeysHelper {
         'ContactEmail' => 'contact_email',
         'ContactPhone' => 'contact_phone',
         
-        
         'Company' => 'company',
         'BillingAddress' => 'address',
         'Notes' => 'notes',
+
+        'EquipmentLocation' => 'customer_location_id',
+        'EquipmentName' => 'equipment_name',
+        'EquipmentTypeId' => 'equipment_type_id',
+        'Manufacturer' => 'manufacturer',
+        'ModelNumber' => 'model_number',
+        'SerialNumber' => 'serial_number',
+        'EquipmentNotes' => 'equipment_notes',
     ];
 
     public function getKey(string $key_index): string {

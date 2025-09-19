@@ -10,7 +10,9 @@ use App\Models\Airconditioner;
 use App\Models\Communication;
 use App\Models\Contact;
 use App\Models\Customer;
+use App\Models\CustomerLocation;
 use App\Models\Education;
+use App\Models\EquipmentType;
 use App\Models\Extension;
 use App\Models\JobAccomplishment;
 use App\Models\JobArea;
@@ -338,6 +340,15 @@ class GlobalHelper {
             ->with('files')
             ->first();
             return $accomplishment->toArray();
+        } catch (\Exception $e) {
+            logInfo($e->getMessage());
+            return [];
+        }
+    }
+
+    public function getEquipmentTypes() {
+        try {
+            return EquipmentType::all()->toArray();
         } catch (\Exception $e) {
             logInfo($e->getMessage());
             return [];

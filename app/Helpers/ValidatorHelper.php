@@ -105,6 +105,18 @@ class ValidatorHelper {
                     'contact_phone' => 'sometimes|string|max:12',
                     'notes' => 'sometimes|string|max:255',
                 ];
+            
+            case 'customers-save-equipment':
+                return [
+                    'customer_id' => 'required|exists:customers,id',
+                    'customer_location_id' => 'required|exists:customer_locations,id',
+                    'equipment_name' => 'required|string|max:255',
+                    'equipment_type_id' => 'required|exists:equipment_types,id',
+                    'manufacturer' => 'required|string|max:255',
+                    'model_number' => 'required|string|max:255',
+                    'serial_number' => 'required|string|max:255',
+                    'equipment_notes' => 'sometimes|string|max:255',
+                ];
         }
     }
 }

@@ -3,7 +3,7 @@
         $attrib = $attrib ?? [];
         $name = $attrib['name'] ?? '';
         $label = $attrib['label'] ?? '';
-        $dataReq = $attrib['dataReq'] ?? '';
+        $dataReq = $attrib['data'] ?? '';
         $attrib_string = '';
         foreach($attrib as $key => $value) {
             $attrib_string .= $key . '="' . $value . '"';

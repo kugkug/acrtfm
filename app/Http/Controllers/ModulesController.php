@@ -261,8 +261,10 @@ class ModulesController extends Controller
         return view('pages.client.tech_dispatch.customers.new', $this->data);
     }
 
-    public function view_customer($id) {
+    public function view_customer($id, Request $request) {
+        $this->data['tab'] = $request->get('tab');
         $this->data['customer'] = globalHelper()->getCustomer($id);
+        $this->data['equipment_types'] = globalHelper()->getEquipmentTypes();
         $this->data['title'] = 'View Customer'; 
         $this->data['description'] = "View customer information";
         $this->data['header'] = "View Customer";

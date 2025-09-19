@@ -43,7 +43,7 @@ class Customer extends Model
      */
     public function equipments(): HasMany
     {
-        return $this->hasMany(CustomerEquipment::class);
+        return $this->hasMany(CustomerEquipment::class)->with('equipment_type');
     }
 
     /**

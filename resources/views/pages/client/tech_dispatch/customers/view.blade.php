@@ -1,25 +1,42 @@
 @include('partials.auth.header')
 
+@php
+    
+    $is_locations_active = "";
+    $is_equipments_active = "";
+    $is_work_orders_active = "";
+    $is_overview_active = "";
+
+    if (in_array($tab, ['locations', 'equipments', 'work-orders'])) {
+        $is_locations_active = $tab == 'locations' ? 'active' : '';
+        $is_equipments_active = $tab == 'equipments' ? 'active' : '';
+        $is_work_orders_active = $tab == 'work-orders' ? 'active' : '';
+    } else {
+        $is_overview_active = "active";
+    }
+     
+    
+@endphp
 <section class="container-fluid">
     <div class="row">
 
         <div class="col-lg-12">
             <ul class="nav nav-pills mb-3 d-flex justify-content-between bg-light">
                 <li class="nav-item w-25">
-                    <a href="#tab-overview" class="nav-link text-center active" data-toggle="tab" aria-expanded="false">Overview</a>
+                    <a href="#tab-overview" class="nav-link text-center {{$is_overview_active}}" data-toggle="tab" aria-expanded="false">Overview</a>
                 </li>
                 <li class="nav-item w-25">
-                    <a href="#tab-locations" class="nav-link text-center" data-toggle="tab" aria-expanded="false">Locations</a>
+                    <a href="#tab-locations" class="nav-link text-center {{$is_locations_active}}" data-toggle="tab" aria-expanded="false">Locations</a>
                 </li>
                 <li class="nav-item w-25">
-                    <a href="#tab-equipments" class="nav-link text-center" data-toggle="tab" aria-expanded="false">Equipments</a>
+                    <a href="#tab-equipments" class="nav-link text-center {{$is_equipments_active}}" data-toggle="tab" aria-expanded="false">Equipments</a>
                 </li>
                 <li class="nav-item w-25">
-                    <a href="#tab-work-orders" class="nav-link text-center" data-toggle="tab" aria-expanded="true">Work Orders</a>
+                    <a href="#tab-work-orders" class="nav-link text-center {{$is_work_orders_active}}" data-toggle="tab" aria-expanded="true">Work Orders</a>
                 </li>
             </ul>
             <div class="tab-content br-n pn">
-                <div id="tab-overview" class="tab-pane active">
+                <div id="tab-overview" class="tab-pane {{$is_overview_active}}">
                     <div class="row">
                         <div class="col-md-12">
                             @php
@@ -57,7 +74,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="tab-locations" class="tab-pane">
+                <div id="tab-locations" class="tab-pane {{$is_locations_active}}">
                     <div class="row">
                         <div class="col-md-12">
                             @php
@@ -67,7 +84,7 @@
                                         'text' => 'Add Location',
                                         'icon' => 'fa fa-plus',
                                         'attrib' => [
-                                            'class' => 'btn btn-info btn-flat btn-sm',
+                                            'class' => 'btn btn-info btn-flat',
                                             'title' => 'Add Location',
                                             'data-id' => $customer['id'],
                                             'data-trigger' => 'add-location',
@@ -118,7 +135,7 @@
                         </div>
                     </div>
                 </div>
-                <div id="tab-equipments" class="tab-pane">
+                <div id="tab-equipments" class="tab-pane {{$is_equipments_active}}">
                     <div class="row align-items-center">
                         <div class="col-md-12">
                             @php
@@ -128,7 +145,7 @@
                                         'text' => 'Add Equipment',
                                         'icon' => 'fa fa-plus',
                                         'attrib' => [
-                                            'class' => 'btn btn-info btn-flat btn-sm',
+                                            'class' => 'btn btn-info btn-flat',
                                             'title' => 'Add Equipment',
                                             'data-id' => $customer['id'],
                                             'data-trigger' => 'add-equipment',
@@ -138,13 +155,44 @@
                             @endphp
                             <x-card
                                 :title="'Equipments'"
+                                :subtitle="'Manage customer equipments'"
                                 :hr="true"
                                 :tools="$tools"
-                            />
+                            >
+                                <x-input 
+                                    :attrib="[
+                                        'name' => 'search_equipments',
+                                        'type' => 'search',
+                                        'placeholder' => 'Search Equipments',
+                                        'data-key' => 'SearchEquipments',
+                                        'class' => 'form-control form-control-sm override-input',
+                                    ]"
+                                />
+                            </x-card>
+
+                            @if($customer['equipments'])
+                                @foreach($customer['equipments'] as $equipment)
+                                    @php
+                                        $title = '<i class="fa fa-wrench"></i> '.$equipment['equipment_name'];
+                                    @endphp
+                                    <x-card
+                                        :title="$title"
+                                        :hr="true"
+                                    >
+                                        <dl>
+                                            <dd>{{ $equipment['equipment_name'] }}</dd>
+                                        </dl>
+                                    </x-card>
+                                @endforeach
+                            @else
+                                <div class="alert alert-danger">
+                                    <h3 class="text-danger">No Equipments</h3>
+                                </div>
+                            @endif
                         </div>
                     </div>
                 </div>
-                <div id="tab-work-orders" class="tab-pane">
+                <div id="tab-work-orders" class="tab-pane {{$is_work_orders_active}}">
                     <div class="row align-items-center">
                         <div class="col-md-12">
                             <x-card
@@ -207,7 +255,7 @@
                 'value' => '',
                 'placeholder' => 'Location Name',
                 'data-key' => 'LocationName',
-                'data-req' => 'req',
+                'data' => 'req',
                 'class' => 'form-control form-control-sm override-input',
             ]"
         />
@@ -219,7 +267,7 @@
                 'value' => '',
                 'placeholder' => 'Address',
                 'data-key' => 'Address',
-                'data-req' => 'req',
+                'data' => 'req',
                 'class' => 'form-control form-control-sm override-input',
             ]"
         />
@@ -231,22 +279,11 @@
                 'value' => '',
                 'placeholder' => 'City',
                 'data-key' => 'City',
-                'data-req' => 'req',
+                'data' => 'req',
                 'class' => 'form-control form-control-sm override-input',
             ]"
         />
-        <x-input
-            :attrib="[
-                'name' => 'city',
-                'label' => 'City',
-                'type' => 'text',
-                'value' => '',
-                'placeholder' => 'City',
-                'data-key' => 'City',
-                'data-req' => 'req',
-                'class' => 'form-control form-control-sm override-input',
-            ]"
-        />
+
         <x-input
             :attrib="[
                 'name' => 'state',
@@ -255,19 +292,7 @@
                 'value' => '',
                 'placeholder' => 'State',
                 'data-key' => 'State',
-                'data-req' => 'req',
-                'class' => 'form-control form-control-sm override-input',
-            ]"
-        />
-        <x-input
-            :attrib="[
-                'name' => 'state',
-                'label' => 'State',
-                'type' => 'text',
-                'value' => '',
-                'placeholder' => 'State',
-                'data-key' => 'State',
-                'data-req' => 'req',
+                'data' => 'req',
                 'class' => 'form-control form-control-sm override-input',
             ]"
 
@@ -280,7 +305,7 @@
                 'value' => '',
                 'placeholder' => 'Zip Code',
                 'data-key' => 'ZipCode',
-                'data-req' => 'req',
+                'data' => 'req',
                 'class' => 'form-control form-control-sm override-input',
             ]"
         />
@@ -293,7 +318,7 @@
                 'value' => '',
                 'placeholder' => 'Contact Name',
                 'data-key' => 'ContactName',
-                'data-req' => 'req',
+                'data' => 'req',
                 'class' => 'form-control form-control-sm override-input',
             ]"
         />
@@ -306,7 +331,7 @@
                 'value' => '',
                 'placeholder' => 'Contact Email',
                 'data-key' => 'ContactEmail',
-                'data-req' => 'req',
+                'data' => 'req',
                 'class' => 'form-control form-control-sm override-input',
             ]"
         />
@@ -319,7 +344,7 @@
                 'value' => '',
                 'placeholder' => 'Contact Phone',
                 'data-key' => 'ContactPhone',
-                'data-req' => 'req',
+                'data' => 'req',
                 'class' => 'form-control form-control-sm override-input',
             ]"
         
@@ -335,7 +360,7 @@
                 
                 'placeholder' => 'Notes for the location',
                 'data-key' => 'Notes',
-                'data-req' => 'exclude',
+                'data' => 'exclude',
                 'class' => 'form-control form-control-sm override-textarea',
             ]"
         />
@@ -349,17 +374,44 @@
             'icon' => 'fa fa-plus',
             'attrib' => [
                 'class' => 'btn btn-success btn-flat',
-                'title' => 'Add Equipment',
-                'data-trigger' => 'add-equipment',
+                'title' => 'Save Equipment',
+                'data-trigger' => 'save-equipment',
                 'data-id' => $customer['id'],
             ],
         ],
+        [
+            'type' => 'button',
+            'text' => 'Cancel',
+            'icon' => 'fa fa-times',
+            'attrib' => [
+                'class' => 'btn btn-danger btn-flat',
+                'title' => 'Cancel',
+                'data-trigger' => 'cancel-add-equipment',
+            ],
+        ]
     ];
 
     $attrib = [
         'class' => 'modal-dialog modal-dialog-centered modal-lg',
         'id' => 'addEquipmentModal',
     ];
+
+    $locations = [];
+
+    foreach ($customer['locations'] as $location) {
+        $locations[] = [
+            'id' => $location['id'],
+            'label' => $location['location_name'],
+        ];
+    }
+
+    $equip_types = [];
+    foreach ($equipment_types as $equipment_type) {
+        $equip_types[] = [
+            'id' => $equipment_type['id'],
+            'label' => $equipment_type['type'],
+        ];
+    }
 @endphp
 <!-- Add Equipment Modal -->
 <x-modal
@@ -368,17 +420,18 @@
     :tools="$tools"
     :attrib="$attrib"
 >
-    <x-input :attrib="[
+    <x-select
+        :attrib="[
+            'id' => 'equipment_location',
             'name' => 'equipment_location',
-            'label' => 'Location',
-            'type' => 'text',
-            'value' => '',
-            'placeholder' => 'Location',
-            'data-key' => 'equipment_location',
-            'data-req' => 'req',
-            'class' => 'form-control form-control-sm override-input',
+            'data-key' => 'EquipmentLocation',
+            'data' => 'req',
+            'class' => 'form-control form-control-sm override-select',
         ]"
+        :options="$locations"
+        :label="'Location'"
     />
+
     <x-input
         :attrib="[
             'name' => 'equipment_name',
@@ -386,22 +439,21 @@
             'type' => 'text',
             'value' => '',
             'placeholder' => 'Equipment Name',
-            'data-key' => 'equipment_name',
-            'data-req' => 'req',
+            'data-key' => 'EquipmentName',
+            'data' => 'req',
             'class' => 'form-control form-control-sm override-input',
         ]"
     />
-    <x-input
+    <x-select
         :attrib="[
-            'name' => 'equipment_type',
-            'label' => 'Type',
-            'type' => 'text',
-            'value' => '',
-            'placeholder' => 'Type',
-            'data-key' => 'equipment_type',
-            'data-req' => 'req',
-            'class' => 'form-control form-control-sm override-input',
+            'id' => 'equipment_type_id',
+            'name' => 'equipment_type_id',
+            'data-key' => 'EquipmentTypeId',
+            'data' => 'req',
+            'class' => 'form-control form-control-sm override-select',
         ]"
+        :options="$equip_types"
+        :label="'Type'"
     />
     <x-input
         :attrib="[
@@ -410,8 +462,8 @@
             'type' => 'text',
             'value' => '',
             'placeholder' => 'Manufacturer',
-            'data-key' => 'manufacturer',
-            'data-req' => 'req',
+            'data-key' => 'Manufacturer',
+            'data' => 'req',
             'class' => 'form-control form-control-sm override-input',
         ]"
     />
@@ -422,8 +474,8 @@
             'type' => 'text',
             'value' => '',
             'placeholder' => 'Model Number',
-            'data-key' => 'model_number',
-            'data-req' => 'req',
+            'data-key' => 'ModelNumber',
+            'data' => 'req',
             'class' => 'form-control form-control-sm override-input',
         ]"
     />
@@ -436,8 +488,8 @@
             'type' => 'text',
             'value' => '',
             'placeholder' => 'Serial Number',
-            'data-key' => 'serial_number',
-            'data-req' => 'req',
+            'data-key' => 'SerialNumber',
+            'data' => 'req',
             'class' => 'form-control form-control-sm override-input',
         ]"
     />
@@ -448,15 +500,12 @@
             'label' => 'Notes',
             'text' => '',
             'placeholder' => 'Notes',
-            'data-key' => 'equipment_notes',
-            'data-req' => 'exclude',
+            'data-key' => 'EquipmentNotes',
+            'data' => 'exclude',
             'class' => 'form-control form-control-sm override-textarea',
         ]"
     />
 </x-modal>
-
-
-
 
 @include('partials.auth.footer')
 

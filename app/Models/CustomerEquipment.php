@@ -39,18 +39,8 @@ class CustomerEquipment extends Model
     /**
      * Get the equipment type options.
      */
-    public static function getEquipmentTypes(): array
+    public function equipment_type(): BelongsTo
     {
-        return [
-            'HVAC' => 'HVAC System',
-            'Generator' => 'Generator',
-            'Chiller' => 'Chiller',
-            'Boiler' => 'Boiler',
-            'Pump' => 'Pump',
-            'Compressor' => 'Compressor',
-            'Fan' => 'Fan',
-            'Motor' => 'Motor',
-            'Other' => 'Other',
-        ];
+        return $this->belongsTo(EquipmentType::class, 'equipment_type_id');
     }
 }

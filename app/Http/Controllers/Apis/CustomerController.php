@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Apis;
 
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
+use App\Models\CustomerEquipment;
 use App\Models\CustomerLocation;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
@@ -48,6 +49,28 @@ class CustomerController extends Controller
                 'message' => 'Location save successful',
                 'data' => $location,
             ], 200);
+        } catch (\Exception $e) {
+            logInfo($e->getTraceAsString());
+            return response()->json(['status' => false, 'message' => $e->getMessage()], 500);
+        }
+    }
+
+    public function save_equipment(Request $request): JsonResponse{
+        try {
+            $validated = validatorHelper()->validate('customers-save-equipment', $request);
+            
+            if(! $validated['status']) {
+                return response()->json(['status' => false, 'message' => $validated['response']], 400);
+            }
+
+            $equipment = CustomerEquipment::create($validated['validated']);
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Equipment save successful',
+                'data' => $equipment,
+            ], 200);
+
         } catch (\Exception $e) {
             logInfo($e->getTraceAsString());
             return response()->json(['status' => false, 'message' => $e->getMessage()], 500);

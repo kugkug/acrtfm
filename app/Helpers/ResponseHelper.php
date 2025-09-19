@@ -3,6 +3,8 @@
 declare(strict_types=1);
 namespace App\Helpers;
 
+use Illuminate\Support\Facades\URL;
+
 class ResponseHelper {
     const DESCRIPTION_MAX_LENGTH = 50;
 
@@ -94,7 +96,11 @@ class ResponseHelper {
                 break;
 
             case 'customer-location-saved':
-                    $script = "location = '".route('customers.view', $data['id'])."';";
+                $script = "location = '/customers/".$data['id']."/view?tab=locations';";
+                break;
+
+            case 'customer-equipment-saved':
+                $script = "location = '/customers/".$data['id']."/view?tab=equipments';";
                 break;
             
         }
