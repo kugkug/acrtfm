@@ -40,7 +40,7 @@
             @php
                 echo config('acrtfm.app_url');
             @endphp
-            @if (config('acrtfm.app_url') != 'https://acrtfm.com/')
+            @if (config('acrtfm.app_url') != 'https://acrtfm.com')
                 
                 <li>
                     <a href="#" aria-expanded="false" class="has-arrow">
