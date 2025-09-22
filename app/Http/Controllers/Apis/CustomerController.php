@@ -34,6 +34,43 @@ class CustomerController extends Controller
         }
     }
 
+    public function update($id, Request $request): JsonResponse{
+        try {
+            $validated = validatorHelper()->validate('customers-update', $request);
+            if(! $validated['status']) {
+                return response()->json(['status' => false, 'message' => $validated['response']], 400);
+            }
+
+            $customer = Customer::where('id', $id)->update($validated['validated']);
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Customer update successful',
+                'data' => $customer,
+            ], 200);
+
+        } catch (\Exception $e) {
+            logInfo($e->getTraceAsString());
+            return response()->json(['status' => false, 'message' => $e->getMessage()], 500);
+        }
+    }
+
+    public function delete($id, Request $request): JsonResponse{
+        try {
+            $customer = Customer::where('id', $id)->first();
+            $customer->delete();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Customer delete successful',
+            ], 200);
+        }
+        catch (\Exception $e) {
+            logInfo($e->getTraceAsString());
+            return response()->json(['status' => false, 'message' => $e->getMessage()], 500);
+        }
+    }
+
     public function save_location(Request $request): JsonResponse{
         try {
             $validated = validatorHelper()->validate('customers-save-location', $request);

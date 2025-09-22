@@ -92,6 +92,7 @@ class ResponseHelper {
                 break;
 
             case 'customers-saved':
+            case 'customers-deleted':
                 $script = "location = '".route('customers')."';";
                 break;
 

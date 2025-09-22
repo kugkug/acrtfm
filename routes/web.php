@@ -53,6 +53,7 @@ Route::middleware(['auth:sanctum', 'web'])->group(function () {
         Route::get('/', [ModulesController::class, 'customers'])->name("customers");
         Route::get('/{id}/view', [ModulesController::class, 'view_customer'])->name("customers.view");
         Route::get('/new', [ModulesController::class, 'new_customer'])->name("customers.new");
+        Route::get('/{id}/edit', [ModulesController::class, 'edit_customer'])->name("customers.edit");
     });
 
     // Customer CRUD Routes
@@ -126,6 +127,8 @@ Route::middleware(['auth:sanctum', 'web'])->group(function () {
 
         Route::prefix('customers')->group(function () {
             Route::post('/save', [CustomerController::class, 'save'])->name("exec-customers-save");
+            Route::post('{id}/update', [CustomerController::class, 'update'])->name("exec-customers-update");
+            Route::post('{id}/delete', [CustomerController::class, 'delete'])->name("exec-customers-delete");
         });
 
         Route::prefix('location')->group(function () {

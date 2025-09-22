@@ -162,6 +162,13 @@
                         </a>
                     ";
                     break;
+                case 'customers-edit':
+                    $html ="
+                        <a href='".route('customers')."' class='btn btn-primary btn-md btn-flat float-right'>
+                            <i class='fa fa-undo'></i> Back
+                        </a>
+                    ";
+                    break;
                     
             }
 

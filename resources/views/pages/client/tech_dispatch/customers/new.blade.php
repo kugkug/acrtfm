@@ -1,73 +1,95 @@
 @include('partials.auth.header')
 
 @php
-    $footer = implode(',', [
-        'Save Customer|save-customer|btn-success|fa fa-save',
-        'Cancel|cancel-customer|btn-secondary|fa fa-times'
-    ]);
+    $footer = [
+        [
+            'type' => 'button',
+            'text' => 'Save Customer',
+            'icon' => 'fa fa-save',
+            'attrib' => [
+                'class' => 'btn btn-success btn-flat',
+                'title' => 'Save Customer',
+                'data-trigger' => 'save-customer',
+            ],
+        ],
+        [
+            'type' => 'button',
+            'text' => 'Cancel',
+            'icon' => 'fa fa-times',
+            'attrib' => [
+                'class' => 'btn btn-danger btn-flat',
+                'title' => 'Cancel',
+                'data-trigger' => 'cancel-customer',
+            ],
+        ]
+    ];
 @endphp
 <section class="container-fluid">
     <div class="row">
         <div class="col-lg-12">
             <form>
                 <x-card 
-                    title="Customer Information" 
-                    subtitle="Please provide customer information"
+                    :title="'Customer Information'" 
+                    :subtitle="'Please provide customer information'"
                     id="customer-information"
-                    footer="{{ $footer }}"
+                    :footer="$footer"
                     hr="yes"
                 >
                     <x-input 
-                        name="company" 
-                        label="Company" 
-                        dataKey="Company"
-                        dataReq="req"
+                        :attrib="[
+                            'name' => 'first_name',
+                            'label' => 'First Name',
+                            'data-key' => 'FirstName',
+                            'data' => 'req',
+                            'class' => 'form-control form-control-sm override-input',
+                        ]"  
                     />
                     <x-input 
-                        name="first_name" 
-                        label="First Name" 
-                        dataKey="FirstName"
-                        dataReq="req"
-                    />
-                    
-                    <x-input 
-                        name="last_name" 
-                        label="Last Name" 
-                        dataKey="LastName"
-                        dataReq="req"
+                        :attrib="[
+                            'name' => 'last_name',
+                            'label' => 'Last Name',
+                            'data-key' => 'LastName',
+                            'data' => 'req',
+                            'class' => 'form-control form-control-sm override-input',
+                        ]"                            
                     />
 
                     <x-input 
-                        name="phone" 
-                        label="Phone" 
-                        dataKey="PhoneNumber"
-                        dataReq="req"
+                        :attrib="[
+                            'name' => 'phone',
+                            'label' => 'Phone',
+                            'data-key' => 'PhoneNumber',
+                            'data' => 'req',
+                            'class' => 'form-control form-control-sm override-input',
+                        ]"
                     />
 
                     <x-input 
-                        name="email" 
-                        label="Email" 
-                        dataKey="Email"
-                        dataReq="req"
-                    />
-
-                    <x-textarea 
-                        name="billing_address" 
-                        label="Billing Address" 
-                        dataKey="BillingAddress"
-                        dataReq="req"
-                        rows="3"
-                        placeholder="Enter the billing address"
-                        text=""
+                        :attrib="[
+                            'name' => 'email',
+                            'label' => 'Email',
+                            'data-key' => 'Email',
+                            'data' => 'req',
+                            'class' => 'form-control form-control-sm override-input',
+                        ]"
                     />
 
                     <x-textarea 
-                        name="notes" 
-                        label="Notes" 
-                        dataKey="Notes"
-                        rows="3"
-                        placeholder="Enter the notes"
-                        text=""
+                        :attrib="[
+                            'name' => 'billing_address',
+                            'label' => 'Billing Address',
+                            'data-key' => 'BillingAddress',
+                            'data' => 'req',
+                            'class' => 'form-control form-control-sm override-textarea',
+                        ]"
+                    />
+                    <x-textarea 
+                        :attrib="[
+                            'name' => 'notes',
+                            'label' => 'Notes',
+                            'data-key' => 'Notes',
+                            'class' => 'form-control form-control-sm override-textarea',
+                        ]"
                     />
 
                 </x-card>

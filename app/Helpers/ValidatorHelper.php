@@ -16,7 +16,7 @@ class ValidatorHelper {
             ...self::EXCLUDED_FIELDS
         ]));
         
-        $validated = Validator::make($mapped, $this->rules($type));
+        $validated = Validator::make($mapped, $this->rules($type, $request));
         
         if ($validated->fails()) {
             return [
@@ -43,7 +43,7 @@ class ValidatorHelper {
         return $mapped;
     }
 
-    private function rules(string $type) {
+    private function rules(string $type, Request $request) {
         switch($type) {
             case 'account-registration':
                 return [
@@ -74,7 +74,7 @@ class ValidatorHelper {
                     'company' => 'sometimes|string|max:255',
                     'first_name' => 'sometimes|string|max:255',
                     'last_name' => 'sometimes|string|max:255',
-                    'email' => 'sometimes|email|unique:customers',
+                    'email' => 'sometimes|email|unique:customers,email,' . $request->id,
                     'phone' => 'sometimes|string|max:12',
                     'address' => 'sometimes|string|max:255',
                     'notes' => 'sometimes|string|max:255',

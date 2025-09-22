@@ -30,12 +30,13 @@
                                 ],
                             ],
                             [
-                                'type' => 'button',
+                                'type' => 'link',
                                 'text' => '',
                                 'icon' => 'fa fa-edit',
                                 'attrib' => [
                                     'class' => 'btn btn-default btn-sm text-warning',
                                     'title' => 'Edit',
+                                    'href' => route('customers.edit', $customer['id']),
                                 ],
                             ],
                             [
@@ -45,6 +46,8 @@
                                 'attrib' => [
                                     'class' => 'btn  btn-default btn-sm text-danger',
                                     'title' => 'Delete',
+                                    'data-trigger' => 'delete-customer',
+                                    'data-id' => $customer['id'],
                                 ],
                             ],
                         ];
@@ -84,3 +87,5 @@
 </section>
 
 @include('partials.auth.footer')
+
+<script src="{{ asset('assets/acrtfm/js/modules/tech-dispatch/customers.js') }}"></script>

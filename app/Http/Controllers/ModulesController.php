@@ -270,6 +270,15 @@ class ModulesController extends Controller
         $this->data['header'] = "View Customer";
         return view('pages.client.tech_dispatch.customers.view', $this->data);
     }
+
+    public function edit_customer($id) {
+        $this->data['customer'] = globalHelper()->getCustomer($id);
+        $this->data['title'] = 'Edit Customer'; 
+        $this->data['description'] = "Edit customer information";
+        $this->data['header'] = "Edit Customer";
+        $this->data['right_panel'] = componentHelper()->rightPanel('customers-edit', ['id' => $id]);
+        return view('pages.client.tech_dispatch.customers.edit', $this->data);
+    }
     /**
      * End of Customers
      */

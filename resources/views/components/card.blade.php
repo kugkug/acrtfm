@@ -1,3 +1,6 @@
+@php
+    $footer = $footer ?? [];
+@endphp
 <div class="card">
     <div class="card-body">
         
@@ -37,24 +40,21 @@
     </div>
     @if($footer)
         <div class="card-footer">
-            {{-- @foreach($footer as $footer_item)
+            
+            @foreach($footer as $footer_item)
                 @php
-                    $footer_item = explode('|', $footer_item);
-                    $footer_item_text = $footer_item[0];
-                    $footer_item_type = $footer_item[1];
-                    $footer_item_attributes = $footer_item[2] ?? 'btn-primary';
-                    $footer_item_icon = $footer_item[3] ?? '';
-                    $footer_item_attributes = $footer_item[4] ?? [];
-                    $footer_item_attributes = $footer_item[5] ?? '';
+                    $type = $footer_item['type'];
+                    $text = $footer_item['text'];
+                    $icon = $footer_item['icon'];
+                    $attrib = $footer_item['attrib'];
                 @endphp
-
                 <x-button
-                    :text="$footer_item_text"
-                    :type="$footer_item_type"
-                    :attributes="$footer_item_attributes"
-                    :icon="$footer_item_icon"
+                    :text="$text"
+                    :type="$type"
+                    :attrib="$attrib"
+                    :icon="$icon"
                 />
-            @endforeach --}}
+            @endforeach
         </div>
     @endif
 </div>

@@ -2,7 +2,7 @@
     $attrib = $attrib ?? [];
     $name = $attrib['name'] ?? '';
     $label = $attrib['label'] ?? '';
-    $dataReq = $attrib['dataReq'] ?? '';
+    $dataReq = $attrib['data'] ?? '';
     $text = $attrib['text'] ?? '';
     $attrib_string = '';
     foreach($attrib as $key => $value) {
