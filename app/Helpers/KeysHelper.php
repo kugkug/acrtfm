@@ -19,7 +19,7 @@ class KeysHelper {
         'City' => 'city',
         'State' => 'state',
         'ZipCode' => 'zip_code',
-        'ContactName' => 'contact_name',
+        'ContactPerson' => 'contact_person',
         'ContactEmail' => 'contact_email',
         'ContactPhone' => 'contact_phone',
         

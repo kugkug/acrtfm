@@ -83,6 +83,7 @@ class ResponseHelper {
             case 'job-site-area-updated':
             case 'job-site-updated':
             case 'accomplishment-updated':
+            case 'customer-location-deleted':
                 $script = "location.reload();";
                 break;
             case 'accomplishment-added':
@@ -102,8 +103,8 @@ class ResponseHelper {
 
             case 'customer-equipment-saved':
                 $script = "location = '/customers/".$data['id']."/view?tab=equipments';";
-                break;
-            
+            break;
+
         }
 
         return ['js' => $script];

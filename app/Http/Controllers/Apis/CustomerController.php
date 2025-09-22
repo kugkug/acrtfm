@@ -92,6 +92,47 @@ class CustomerController extends Controller
         }
     }
 
+    public function update_location(Request $request): JsonResponse{
+        try {
+            $validated = validatorHelper()->validate('customers-update-location', $request);
+
+            if(! $validated['status']) {
+                return response()->json(['status' => false, 'message' => $validated['response']], 400);
+            }
+
+            $location = CustomerLocation::where('id', $request->id)->update($validated['validated']);
+            if(! $location) {
+                return response()->json(['status' => false, 'message' => 'Location not found'], 404);
+            }
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Location update successful',
+                'data' => $location,
+            ], 200);
+        }
+        catch (\Exception $e) {
+            logInfo($e->getTraceAsString());
+            return response()->json(['status' => false, 'message' => $e->getMessage()], 500);
+        }
+    }
+
+    public function delete_location(Request $request): JsonResponse{
+        try {
+            $location = CustomerLocation::where('id', $request->id)->first();
+            $location->delete();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Location delete successful',
+            ], 200);
+        }
+        catch (\Exception $e) {
+            logInfo($e->getTraceAsString());
+            return response()->json(['status' => false, 'message' => $e->getMessage()], 500);
+        }
+    }
+
     public function save_equipment(Request $request): JsonResponse{
         try {
             $validated = validatorHelper()->validate('customers-save-equipment', $request);

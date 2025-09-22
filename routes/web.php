@@ -56,16 +56,16 @@ Route::middleware(['auth:sanctum', 'web'])->group(function () {
         Route::get('/{id}/edit', [ModulesController::class, 'edit_customer'])->name("customers.edit");
     });
 
-    // Customer CRUD Routes
-    // Route::get('customers', [CustomerController::class, 'index'])->name("customers.index");
-    // Route::get('customers/create', [CustomerController::class, 'create'])->name("customers.create");
-    // Route::post('customers', [CustomerController::class, 'store'])->name("customers.store");
-    // Route::get('customers/{customer}', [CustomerController::class, 'show'])->name("customers.show");
-    // Route::get('customers/{customer}/edit', [CustomerController::class, 'edit'])->name("customers.edit");
-    // Route::put('customers/{customer}', [CustomerController::class, 'update'])->name("customers.update");
-    // Route::delete('customers/{customer}', [CustomerController::class, 'destroy'])->name("customers.destroy");
-    // Route::post('customers/{customer}/add-location', [\App\Http\Controllers\CustomerController::class, 'addLocation'])->name('customers.addLocation');
-    // Route::post('customers/{customer}/add-equipment', [\App\Http\Controllers\CustomerController::class, 'addEquipment'])->name('customers.addEquipment');
+    Route::prefix('locations')->group(function () {
+        Route::get('/{customer_id}/create', [ModulesController::class, 'create_location'])->name("locations.create");
+        Route::get('/{id}/edit', [ModulesController::class, 'edit_location'])->name("locations.edit");
+    });
+
+    Route::prefix('equipments')->group(function () {
+        Route::get('/{customer_id}/create', [ModulesController::class, 'create_equipment'])->name("equipments.create");
+        Route::get('/{id}/edit', [ModulesController::class, 'edit_equipment'])->name("equipments.edit");
+    });
+
         
     Route::get('/video-playlist', [ModulesController::class, 'videoPlaylist'])->name("video-playlist");
 
@@ -133,6 +133,8 @@ Route::middleware(['auth:sanctum', 'web'])->group(function () {
 
         Route::prefix('location')->group(function () {
             Route::post('/save', [CustomerController::class, 'save_location'])->name("exec-customers-save-location");
+            Route::post('/{id}/update', [CustomerController::class, 'update_location'])->name("exec-customers-update-location");
+            Route::post('/{id}/delete', [CustomerController::class, 'delete_location'])->name("exec-customers-delete-location");
         });
 
         Route::prefix('equipment')->group(function () {

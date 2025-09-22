@@ -6,6 +6,7 @@ $(document).ready(function () {
         let form = $(this).closest("form");
         let formData = {};
         let cust_id = "";
+        let location_id = "";
 
         switch (trigger) {
             case "save-customer":
@@ -47,7 +48,7 @@ $(document).ready(function () {
                     "warning",
                     "Yes",
                     true,
-                    () => _delete_customer(cust_id)
+                    () => _delete("customer", cust_id)
                 );
 
                 break;
@@ -78,6 +79,38 @@ $(document).ready(function () {
                 ajaxRequest("/executor/location/save", formData, "");
 
                 break;
+
+            case "update-location":
+                location_id = $(this).attr("data-id");
+                if (!_checkFormFields(form)) {
+                    _show_toastr(
+                        "error",
+                        "Please provide all required fields",
+                        "Location Error"
+                    );
+                    return;
+                }
+                formData = JSON.parse(_collectFields(form));
+                ajaxRequest(
+                    "/executor/location/" + location_id + "/update",
+                    formData,
+                    ""
+                );
+                break;
+
+            case "delete-location":
+                location_id = $(this).attr("data-id");
+                _confirm(
+                    "Delete Location?",
+                    "Are you sure you want to delete this location?\nPlease note that this action is irreversible.",
+                    "warning",
+                    "Yes",
+                    true,
+                    () => _delete("location", location_id)
+                );
+
+                break;
+
             case "add-equipment":
                 $("#addEquipmentModal form")[0].reset();
                 $("#addEquipmentModal").modal("show");
@@ -105,6 +138,18 @@ $(document).ready(function () {
     });
 });
 
-function _delete_customer(cust_id) {
-    ajaxRequest("/executor/customers/" + cust_id + "/delete", "", "");
+function _delete(type, id) {
+    let url = "";
+    switch (type) {
+        case "customer":
+            url = "/executor/customers/" + id + "/delete";
+            break;
+        case "location":
+            url = "/executor/location/" + id + "/delete";
+            break;
+        case "equipment":
+            url = "/executor/equipment/" + id + "/delete";
+            break;
+    }
+    ajaxRequest(url, "", "");
 }

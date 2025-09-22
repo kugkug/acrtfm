@@ -264,6 +264,9 @@ class ModulesController extends Controller
     public function view_customer($id, Request $request) {
         $this->data['tab'] = $request->get('tab');
         $this->data['customer'] = globalHelper()->getCustomer($id);
+        if (empty($this->data['customer'])) {
+            return redirect()->route('customers');
+        }
         $this->data['equipment_types'] = globalHelper()->getEquipmentTypes();
         $this->data['title'] = 'View Customer'; 
         $this->data['description'] = "View customer information";
@@ -273,6 +276,9 @@ class ModulesController extends Controller
 
     public function edit_customer($id) {
         $this->data['customer'] = globalHelper()->getCustomer($id);
+        if (empty($this->data['customer'])) {
+            return redirect()->route('customers');
+        }
         $this->data['title'] = 'Edit Customer'; 
         $this->data['description'] = "Edit customer information";
         $this->data['header'] = "Edit Customer";
@@ -281,5 +287,73 @@ class ModulesController extends Controller
     }
     /**
      * End of Customers
+     */
+
+     
+
+    /**
+      * Start of Locations
+    */
+
+    public function create_location($customer_id) {
+        $this->data['customer'] = globalHelper()->getCustomer($customer_id);
+        if (empty($this->data['customer'])) {
+            return redirect()->route('customers');
+        }
+        
+        $this->data['title'] = 'Create Location'; 
+        $this->data['description'] = "Create a new location";
+        $this->data['header'] = "Create Location";
+        $this->data['right_panel'] = componentHelper()->rightPanel('locations-create', ['id' => $customer_id]);
+        return view('pages.client.tech_dispatch.locations.create', $this->data);
+    }
+
+    public function edit_location($id) {
+        $this->data['location'] = globalHelper()->getLocation($id);
+        if (empty($this->data['location'])) {
+            return redirect()->route('locations');
+        }
+        $this->data['title'] = 'Edit Location'; 
+        $this->data['description'] = "Edit location information";
+        $this->data['header'] = "Edit Location";
+        $this->data['right_panel'] = componentHelper()->rightPanel('locations-edit', ['id' => $id]);
+        return view('pages.client.tech_dispatch.locations.edit', $this->data);
+    }
+
+    /**
+     * End of Locations
+     */
+
+    /**
+     * Start of Equipments
+     */
+
+    public function create_equipment($customer_id) {
+        $this->data['customer'] = globalHelper()->getCustomer($customer_id);
+        if (empty($this->data['customer'])) {
+            return redirect()->route('customers');
+        }
+        $this->data['title'] = 'Create Equipment'; 
+        $this->data['description'] = "Create a new equipment";
+        $this->data['header'] = "Create Equipment";
+        $this->data['equipment_types'] = globalHelper()->getEquipmentTypes();
+        $this->data['right_panel'] = componentHelper()->rightPanel('equipments-create', ['id' => $customer_id]);
+        return view('pages.client.tech_dispatch.equipments.create', $this->data);
+    }
+
+    // public function edit_equipment($id) {
+    //     $this->data['equipment'] = globalHelper()->getEquipment($id);
+    //     if (empty($this->data['equipment'])) {
+    //         return redirect()->route('equipments');
+    //     }
+    //     $this->data['title'] = 'Edit Equipment'; 
+    //     $this->data['description'] = "Edit equipment information";
+    //     $this->data['header'] = "Edit Equipment";
+    //     $this->data['right_panel'] = componentHelper()->rightPanel('equipments-edit', ['id' => $id]);
+    //     return view('pages.client.tech_dispatch.equipments.edit', $this->data);
+    // }
+
+    /**
+     * End of Equipments
      */
 }

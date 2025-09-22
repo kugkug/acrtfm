@@ -100,6 +100,52 @@ class CustomerController extends Controller
         }
     }
 
+    public function update_location($id, Request $request)
+    {
+        try {
+            $api_response = apiHelper()->post($request, route('api-customers-update-location', ['id' => $id]));
+
+            if(! $api_response['status']) {
+                return globalHelper()->ajaxErrorResponse($api_response['message']);
+            }
+
+            return globalHelper()->ajaxSuccessResponse(
+                'toast',
+                'success',
+                'customer-location-updated',
+                'Location updated successfully',
+                'System Info',
+            );
+        }
+        catch (\Exception $e) {
+            logInfo($e->getTraceAsString());
+            return globalHelper()->ajaxErrorResponse($e->getMessage());
+        }
+    }
+
+    public function delete_location($id, Request $request)
+    {
+        try {
+            $api_response = apiHelper()->post($request, route('api-customers-delete-location', ['id' => $id]));
+
+            if(! $api_response['status']) {
+                return globalHelper()->ajaxErrorResponse($api_response['message']);
+            }
+
+            return globalHelper()->ajaxSuccessResponse(
+                'scripts',
+                'success',
+                'customer-location-deleted',
+                'Location deleted successfully',
+                'System Info',
+            );
+            
+        } catch (\Exception $e) {
+            logInfo($e->getTraceAsString());
+            return globalHelper()->ajaxErrorResponse($e->getMessage());
+        }
+    }
+
     public function save_equipment(Request $request)
     {
         try {

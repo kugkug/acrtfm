@@ -47,10 +47,36 @@
                                 $address = $customer['address'];
                                 $city = $customer['city'];
                                 $state = $customer['state'];
+
+                                $tools = [
+                           
+                                    [
+                                        'type' => 'link',
+                                        'text' => '',
+                                        'icon' => 'fa fa-edit',
+                                        'attrib' => [
+                                            'class' => 'btn btn-default btn-sm text-warning',
+                                            'title' => 'Edit',
+                                            'href' => route('customers.edit', $customer['id']),
+                                        ],
+                                    ],
+                                    [
+                                        'type' => 'button',
+                                        'text' => '',
+                                        'icon' => 'fa fa-trash',
+                                        'attrib' => [
+                                            'class' => 'btn  btn-default btn-sm text-danger',
+                                            'title' => 'Delete',
+                                            'data-trigger' => 'delete-customer',
+                                            'data-id' => $customer['id'],
+                                        ],
+                                    ],
+                                ];
                             @endphp
                             <x-card
                                 :title="$name"
                                 :hr="true"
+                                :tools="$tools"
                             >
                                 <dl>
                                     @if($customer['email'])
@@ -80,14 +106,15 @@
                             @php
                                 $tools = [
                                     [
-                                        'type' => 'button',
+                                        'type' => 'link',
                                         'text' => 'Add Location',
                                         'icon' => 'fa fa-plus',
                                         'attrib' => [
+                                            'href' => route('locations.create', $customer['id']),
                                             'class' => 'btn btn-info btn-flat',
-                                            'title' => 'Add Location',
-                                            'data-id' => $customer['id'],
-                                            'data-trigger' => 'add-location',
+                                            // 'title' => 'Add Location',
+                                            // 'data-id' => $customer['id'],
+                                            // 'data-trigger' => 'add-location',
                                         ],
                                     ],
                                 ];
@@ -111,26 +138,65 @@
                             </x-card>
 
                             @if($customer['locations'])
-
                                 @foreach($customer['locations'] as $location)
+
                                     @php
                                         $title = '<i class="fa fa-map-marker"></i> '.$location['location_name'];
+
+                                        $tools = [
+                                            [
+                                                'type' => 'link',
+                                                'text' => '',
+                                                'icon' => 'fa fa-edit',
+                                                'attrib' => [
+                                                    'href' => route('locations.edit', $location['id']),
+                                                    'class' => 'btn btn-default btn-flat text-warning',
+                                                ],
+                                            ],
+                                            [
+                                                'type' => 'button',
+                                                'text' => '',
+                                                'icon' => 'fa fa-trash',
+                                                'attrib' => [
+                                                    'data-trigger' => 'delete-location',
+                                                    'data-id' => $location['id'],
+                                                    'class' => 'btn btn-default btn-flat text-danger',
+                                                ],
+                                                
+                                            ],
+                                        ];
                                     @endphp
                                     <x-card
                                         :title="$title"
                                         :hr="true"
+                                        :tools="$tools"
                                     >
-                                    <dl>
-                                        <dd>{{ $location['location_name'] }}</dd>
-                                        <dd>{{ $location['address'] }}</dd>
-                                        <dd>{{ $location['city'] }}</dd>
-                                        <dd>{{ $location['state'] }}</dd>
-                                        <dd>{{ $location['zip_code'] }}</dd>
-                                    </dl>
-                                    </x-card>
-                                
-                                @endforeach
 
+                                        <dl>
+                                            <dd>
+                                                <i class="fa fa-user"></i> {{ ucwords(strtolower($location['contact_person'])) }}, 
+                                                <i class="fa fa-envelope"></i> {{ $location['contact_email'] }},
+                                                <i class="fa fa-phone"></i> {{ $location['contact_phone'] }}
+                                            </dd>
+                                            <dd>
+                                                <i class="fa fa-building"></i> {{ $location['address'] }}, 
+                                                <i class="fa fa-city"></i> {{ $location['city'] }}, 
+                                                <i class="fa fa-state"></i> {{ $location['state'] }},
+                                                <i class="fa fa-zip"></i> {{ $location['zip_code'] }}
+                                            </dd>
+                                            <dd>
+                                                <i class="fa fa-sticky-note"></i> {{ $location['notes'] }}
+                                            </dd>   
+                                            
+                                        </dl>
+
+                                    </x-card>
+
+                                @endforeach
+                            @else
+                                <div class="alert alert-danger">
+                                    No Locations
+                                </div>
                             @endif
                         </div>
                     </div>
@@ -141,14 +207,12 @@
                             @php
                                 $tools = [
                                     [
-                                        'type' => 'button',
+                                        'type' => 'link',
                                         'text' => 'Add Equipment',
                                         'icon' => 'fa fa-plus',
                                         'attrib' => [
+                                            'href' => route('equipments.create', $customer['id']),
                                             'class' => 'btn btn-info btn-flat',
-                                            'title' => 'Add Equipment',
-                                            'data-id' => $customer['id'],
-                                            'data-trigger' => 'add-equipment',
                                         ],
                                     ],
                                 ];
@@ -174,19 +238,43 @@
                                 @foreach($customer['equipments'] as $equipment)
                                     @php
                                         $title = '<i class="fa fa-wrench"></i> '.$equipment['equipment_name'];
+
+                                        $tools = [
+                                            [
+                                                'type' => 'link',
+                                                'text' => '',
+                                                'icon' => 'fa fa-edit',
+                                                'attrib' => [
+                                                    'href' => route('equipments.edit', $equipment['id']),
+                                                    'class' => 'btn btn-default btn-flat text-warning',
+                                                ],
+                                            ],
+                                            [
+                                                'type' => 'button',
+                                                'text' => '',
+                                                'icon' => 'fa fa-trash',
+                                                'attrib' => [
+                                                    'data-trigger' => 'delete-equipment',
+                                                    'data-id' => $equipment['id'],
+                                                    'class' => 'btn btn-default btn-flat text-danger',
+                                                ],
+                                            ],
+                                        ];
                                     @endphp
                                     <x-card
                                         :title="$title"
                                         :hr="true"
+                                        :tools="$tools"
                                     >
                                         <dl>
                                             <dd>{{ $equipment['equipment_name'] }}</dd>
+                                            
                                         </dl>
                                     </x-card>
                                 @endforeach
                             @else
                                 <div class="alert alert-danger">
-                                    <h3 class="text-danger">No Equipments</h3>
+                                    No Equipments
                                 </div>
                             @endif
                         </div>
@@ -258,7 +346,7 @@
                 'data' => 'req',
                 'class' => 'form-control form-control-sm override-input',
             ]"
-        />
+        /> 
         <x-input
             :attrib="[
                 'name' => 'address',

@@ -38,6 +38,17 @@
                 >
                     <x-input 
                         :attrib="[
+                            'name' => 'company',
+                            'label' => 'Company',
+                            'data-key' => 'Company',
+                            'data' => 'req',
+                            'class' => 'form-control form-control-sm override-input',
+                            'data-default' => $customer['company'],
+                            'value' => $customer['company'],
+                        ]"
+                    />
+                    <x-input 
+                        :attrib="[
                             'name' => 'first_name',
                             'label' => 'First Name',
                             'data-key' => 'FirstName',

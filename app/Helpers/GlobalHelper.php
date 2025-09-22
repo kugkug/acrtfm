@@ -380,4 +380,17 @@ class GlobalHelper {
         }
     }
     
+    public function getLocation($id) {
+        try {
+            $location = CustomerLocation::where('id', $id)->first();
+            if ($location) {
+                return $location->toArray();
+            }
+            
+            return [];
+        } catch (\Exception $e) {
+            logInfo($e->getMessage());
+            return [];
+        }
+    }
 }
