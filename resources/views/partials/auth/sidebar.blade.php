@@ -37,9 +37,7 @@
                     <span class="nav-text">Nitrogen Calculator</span>
                 </a>
             </li>
-            @php
-                echo config('acrtfm.app_url');
-            @endphp
+
             @if (config('acrtfm.app_url') != 'https://acrtfm.com')
                 
                 <li>
