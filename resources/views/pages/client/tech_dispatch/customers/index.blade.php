@@ -36,7 +36,7 @@
                                 'attrib' => [
                                     'class' => 'btn btn-default btn-sm text-warning',
                                     'title' => 'Edit',
-                                    // 'href' => route('customers.edit', $customer['id']),
+                                    'href' => route('customers.edit', $customer['id']),
                                 ],
                             ],
                             [
