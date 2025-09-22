@@ -61,5 +61,7 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::prefix('equipment')->group(function () {
         Route::post('/save', [CustomerController::class, 'save_equipment'])->name("api-customers-save-equipment");
+        Route::post('/{id}/update', [CustomerController::class, 'update_equipment'])->name("api-customers-update-equipment");
+        Route::post('/{id}/delete', [CustomerController::class, 'delete_equipment'])->name("api-customers-delete-equipment");
     });
 });

@@ -268,7 +268,11 @@
                                     >
                                         <dl>
                                             <dd>{{ $equipment['equipment_name'] }}</dd>
-                                            
+                                            <dd>{{ $equipment['equipment_type']['type'] }}</dd>
+                                            <dd>{{ $equipment['brand'] }}</dd>
+                                            <dd>{{ $equipment['model'] }}</dd>
+                                            <dd>{{ $equipment['serial_number'] }}</dd>
+                                            <dd>{{ $equipment['notes'] }}</dd>
                                         </dl>
                                     </x-card>
                                 @endforeach
@@ -296,7 +300,7 @@
         </div>
     </div>
 </section>
-
+{{-- 
 @php
     $footer = [
         [
@@ -593,7 +597,7 @@
             'class' => 'form-control form-control-sm override-textarea',
         ]"
     />
-</x-modal>
+</x-modal> --}}
 
 @include('partials.auth.footer')
 

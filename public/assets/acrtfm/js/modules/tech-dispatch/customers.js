@@ -7,7 +7,7 @@ $(document).ready(function () {
         let formData = {};
         let cust_id = "";
         let location_id = "";
-
+        let equipment_id = "";
         switch (trigger) {
             case "save-customer":
                 if (!_checkFormFields(form)) {
@@ -130,6 +130,34 @@ $(document).ready(function () {
                 ajaxRequest("/executor/equipment/save", formData, "");
                 break;
 
+            case "update-equipment":
+                equipment_id = $(this).attr("data-id");
+                if (!_checkFormFields(form)) {
+                    _show_toastr(
+                        "error",
+                        "Please provide all required fields",
+                        "Equipment Error"
+                    );
+                    return;
+                }
+                formData = JSON.parse(_collectFields(form));
+                ajaxRequest(
+                    "/executor/equipment/" + equipment_id + "/update",
+                    formData,
+                    ""
+                );
+                break;
+            case "delete-equipment":
+                equipment_id = $(this).attr("data-id");
+                _confirm(
+                    "Delete Equipment?",
+                    "Are you sure you want to delete this equipment?\nPlease note that this action is irreversible.",
+                    "warning",
+                    "Yes",
+                    true,
+                    () => _delete("equipment", equipment_id)
+                );
+                break;
             case "cancel-add-equipment":
                 $("#addEquipmentModal form")[0].reset();
                 $("#addEquipmentModal").modal("hide");

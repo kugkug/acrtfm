@@ -155,37 +155,21 @@
                         </a>
                     ";
                     break;
+                case 'customers-view':
                 case 'customers-new':
-                    $html ="
-                        <a href='".route('customers')."' class='btn btn-primary btn-md btn-flat float-right'>
-                            <i class='fa fa-undo'></i> Back
-                        </a>
-                    ";
-                    break;
                 case 'customers-edit':
-                    $html ="
-                        <a href='".route('customers')."' class='btn btn-primary btn-md btn-flat float-right'>
-                            <i class='fa fa-undo'></i> Back
-                        </a>
-                    ";
-                    break;
-
                 case 'locations-create':
-                    $html ="
-                        <a href='".route('customers.view', $data['id'])."' class='btn btn-primary btn-md btn-flat float-right'>
-                            <i class='fa fa-undo'></i> Back
-                        </a>
-                    ";
-                    break;
                 case 'locations-edit':
+                case 'equipments-edit':
                     $html ="
                         <a href='".redirect()->back()->getTargetUrl()."' class='btn btn-primary btn-md btn-flat float-right'>
                             <i class='fa fa-undo'></i> Back
                         </a>
                     ";
                     break;
+                
 
-                    default: $html = "";
+                default: $html = "";
                     
             }
 

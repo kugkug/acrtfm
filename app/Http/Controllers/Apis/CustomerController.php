@@ -154,4 +154,43 @@ class CustomerController extends Controller
             return response()->json(['status' => false, 'message' => $e->getMessage()], 500);
         }
     }
+
+    public function update_equipment(Request $request): JsonResponse{
+        try {
+            $validated = validatorHelper()->validate('customers-update-equipment', $request);
+
+            if(! $validated['status']) {
+                return response()->json(['status' => false, 'message' => $validated['response']], 400);
+            }
+
+            $equipment = CustomerEquipment::where('id', $request->id)->update($validated['validated']);
+            
+            return response()->json([
+                'status' => true,
+                'message' => 'Equipment update successful',
+                'data' => $equipment,
+            ], 200);
+
+        }
+        catch (\Exception $e) {
+            logInfo($e->getTraceAsString());
+            return response()->json(['status' => false, 'message' => $e->getMessage()], 500);
+        }
+    }
+
+    public function delete_equipment(Request $request): JsonResponse{
+        try {
+            $equipment = CustomerEquipment::where('id', $request->id)->first();
+            $equipment->delete();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Equipment delete successful',
+            ], 200);
+        }
+        catch (\Exception $e) {
+            logInfo($e->getTraceAsString());
+            return response()->json(['status' => false, 'message' => $e->getMessage()], 500);
+        }
+    }   
 }

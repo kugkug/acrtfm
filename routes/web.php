@@ -139,6 +139,8 @@ Route::middleware(['auth:sanctum', 'web'])->group(function () {
 
         Route::prefix('equipment')->group(function () {
             Route::post('/save', [CustomerController::class, 'save_equipment'])->name("exec-customers-save-equipment");
+            Route::post('/{id}/update', [CustomerController::class, 'update_equipment'])->name("exec-customers-update-equipment");
+            Route::post('/{id}/delete', [CustomerController::class, 'delete_equipment'])->name("exec-customers-delete-equipment");
         });
     });
 });

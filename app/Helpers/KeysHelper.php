@@ -30,10 +30,10 @@ class KeysHelper {
         'EquipmentLocation' => 'customer_location_id',
         'EquipmentName' => 'equipment_name',
         'EquipmentTypeId' => 'equipment_type_id',
-        'Manufacturer' => 'manufacturer',
-        'ModelNumber' => 'model_number',
+        'Manufacturer' => 'brand',
+        'ModelNumber' => 'model',
         'SerialNumber' => 'serial_number',
-        'EquipmentNotes' => 'equipment_notes',
+        'EquipmentNotes' => 'notes',
     ];
 
     public function getKey(string $key_index): string {

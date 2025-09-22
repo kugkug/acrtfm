@@ -264,6 +264,7 @@ class ModulesController extends Controller
     public function view_customer($id, Request $request) {
         $this->data['tab'] = $request->get('tab');
         $this->data['customer'] = globalHelper()->getCustomer($id);
+        
         if (empty($this->data['customer'])) {
             return redirect()->route('customers');
         }
@@ -271,6 +272,7 @@ class ModulesController extends Controller
         $this->data['title'] = 'View Customer'; 
         $this->data['description'] = "View customer information";
         $this->data['header'] = "View Customer";
+        $this->data['right_panel'] = componentHelper()->rightPanel('customers-view', ['id' => $id]);
         return view('pages.client.tech_dispatch.customers.view', $this->data);
     }
 
@@ -290,7 +292,6 @@ class ModulesController extends Controller
      */
 
      
-
     /**
       * Start of Locations
     */
@@ -341,17 +342,21 @@ class ModulesController extends Controller
         return view('pages.client.tech_dispatch.equipments.create', $this->data);
     }
 
-    // public function edit_equipment($id) {
-    //     $this->data['equipment'] = globalHelper()->getEquipment($id);
-    //     if (empty($this->data['equipment'])) {
-    //         return redirect()->route('equipments');
-    //     }
-    //     $this->data['title'] = 'Edit Equipment'; 
-    //     $this->data['description'] = "Edit equipment information";
-    //     $this->data['header'] = "Edit Equipment";
-    //     $this->data['right_panel'] = componentHelper()->rightPanel('equipments-edit', ['id' => $id]);
-    //     return view('pages.client.tech_dispatch.equipments.edit', $this->data);
-    // }
+    public function edit_equipment($id) {
+        $equipment = globalHelper()->getEquipment($id);
+
+        if (empty($equipment)) {
+            return redirect()->route('equipments');
+        }
+        $this->data['equipment'] = $equipment;
+        $this->data['locations'] = globalHelper()->getCustomerLocations($equipment['customer_id']);
+        $this->data['equipment_types'] = globalHelper()->getEquipmentTypes();
+        $this->data['title'] = 'Edit Equipment'; 
+        $this->data['description'] = "Edit equipment information";
+        $this->data['header'] = "Edit Equipment";
+        $this->data['right_panel'] = componentHelper()->rightPanel('equipments-edit', ['id' => $id]);
+        return view('pages.client.tech_dispatch.equipments.edit', $this->data);
+    }
 
     /**
      * End of Equipments

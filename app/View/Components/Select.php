@@ -12,12 +12,14 @@ class Select extends Component
     public $options;
     public $label;
     public $attrib_string;
+    public $selected;
     
-    public function __construct(array $attrib, array $options, string $label)
+    public function __construct(array $attrib, array $options, string $label, string $selected = '')
     {
         $this->attrib = $attrib;
         $this->options = $options;
         $this->label = $label;
+        $this->selected = $selected;
     }
 
     /**
@@ -36,7 +38,7 @@ class Select extends Component
                 <select {!! $attrib_string !!}>
                     <option value="">Select {{ !$label ? 'Select' : $label }}</option>
                     @foreach ($options as $option)
-                        <option value="{{ $option['id'] }}">{{ $option['label'] }}</option>
+                        <option value="{{ $option['id'] }}" {{ $selected == $option['id'] ? 'selected' : '' }}>{{ $option['label'] }}</option>
                     @endforeach
                 </select>
                 @if($attrib['data'])

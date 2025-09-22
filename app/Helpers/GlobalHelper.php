@@ -10,6 +10,7 @@ use App\Models\Airconditioner;
 use App\Models\Communication;
 use App\Models\Contact;
 use App\Models\Customer;
+use App\Models\CustomerEquipment;
 use App\Models\CustomerLocation;
 use App\Models\Education;
 use App\Models\EquipmentType;
@@ -379,6 +380,16 @@ class GlobalHelper {
             return [];
         }
     }
+
+    public function getCustomerLocations($id) {
+        try {
+            $location = CustomerLocation::where('customer_id', $id)->get();
+            return $location->toArray();
+        } catch (\Exception $e) {
+            logInfo($e->getMessage());
+            return [];
+        }
+    }
     
     public function getLocation($id) {
         try {
@@ -388,6 +399,24 @@ class GlobalHelper {
             }
             
             return [];
+        } catch (\Exception $e) {
+            logInfo($e->getMessage());
+            return [];
+        }
+    }
+
+    public function getEquipment($id) {
+        try {   
+            $equipment = CustomerEquipment::where('id', $id)
+            ->with('equipment_type')
+            ->with('location')
+            ->first();
+            if ($equipment) {
+                return $equipment->toArray();
+            }
+            
+            return [];
+
         } catch (\Exception $e) {
             logInfo($e->getMessage());
             return [];

@@ -112,10 +112,21 @@ class ValidatorHelper {
                     'customer_location_id' => 'required|exists:customer_locations,id',
                     'equipment_name' => 'required|string|max:255',
                     'equipment_type_id' => 'required|exists:equipment_types,id',
-                    'manufacturer' => 'required|string|max:255',
-                    'model_number' => 'required|string|max:255',
+                    'brand' => 'required|string|max:255',
+                    'model' => 'required|string|max:255',
                     'serial_number' => 'required|string|max:255',
-                    'equipment_notes' => 'sometimes|string|max:255',
+                    'notes' => 'sometimes|string|max:255',
+                ];
+
+            case 'customers-update-equipment':
+                return [
+                    'customer_location_id' => 'sometimes|exists:customer_locations,id',
+                    'equipment_name' => 'sometimes|string|max:255',
+                    'equipment_type_id' => 'sometimes|exists:equipment_types,id',
+                    'brand' => 'sometimes|string|max:255',
+                    'model' => 'sometimes|string|max:255',
+                    'serial_number' => 'sometimes|string|max:255',
+                    'notes' => 'sometimes|string|max:255',
                 ];
         }
     }
