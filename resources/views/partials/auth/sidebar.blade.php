@@ -31,14 +31,17 @@
                     <i class="fa-solid fa-tools menu-icon fa-action"></i><span class="nav-text">Troubleshooter</span>
                 </a>
             </li>
-            
+            <li>
+                <a href="{{ route('nitrogen-calculator') }}" target="_blank" aria-expanded="false">
+                    <i class="fa-solid fa-calculator menu-icon fa-action"></i>
+                    <span class="nav-text">Nitrogen Calculator</span>
+                </a>
+            </li>
+            @php
+                echo config('acrtfm.app_url');
+            @endphp
             @if (config('acrtfm.app_url') != 'https://acrtfm.com/')
-                <li>
-                    <a href="{{ route('nitrogen-calculator') }}" target="_blank" aria-expanded="false">
-                        <i class="fa-solid fa-calculator menu-icon fa-action"></i>
-                        <span class="nav-text">Nitrogen Calculator</span>
-                    </a>
-                </li>
+                
                 <li>
                     <a href="#" aria-expanded="false" class="has-arrow">
                         <i class="fa-solid fa-truck-fast menu-icon fa-action"></i>
