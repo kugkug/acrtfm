@@ -38,8 +38,7 @@
                 </a>
             </li>
 
-            @if (config('acrtfm.app_url') != 'https://acrtfm.com')
-                
+            @if (URL::to('/') != 'https://acrtfm.com')
                 <li>
                     <a href="#" aria-expanded="false" class="has-arrow">
                         <i class="fa-solid fa-truck-fast menu-icon fa-action"></i>

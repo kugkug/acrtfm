@@ -81,7 +81,7 @@
                 </div>
             </a>
         </div>
-        @if (config('acrtfm.app_url') != 'https://acrtfm.com')
+        @if (URL::to('/') != 'https://acrtfm.com')
         <div class="col-lg-4">
             <div class="card shadow-sm cursor-pointer" data-trigger="tech_dispatch" data-url="{{ route('tech-dispatch') }}"> 
                 <div class="card-body">
