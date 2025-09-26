@@ -128,6 +128,27 @@ class ValidatorHelper {
                     'serial_number' => 'sometimes|string|max:255',
                     'notes' => 'sometimes|string|max:255',
                 ];
+            
+            case 'work-orders-save':
+                return [
+                    'customer_id' => 'required|exists:customers,id',
+                    'title' => 'required|string|max:255',
+                    'priority' => 'required|string|max:10',
+                    'estimated_hours' => 'required|numeric',
+                    'schedule_date' => 'required',
+                    'schedule_time' => 'required',
+                    'description' => 'sometimes|string',
+                ];
+            case 'work-orders-update':
+                return [
+                    'customer_id' => 'sometimes|exists:customers,id',
+                    'title' => 'sometimes|string|max:255',
+                    'priority' => 'sometimes|string|max:10',
+                    'estimated_hours' => 'sometimes|numeric',
+                    'schedule_date' => 'sometimes',
+                    'schedule_time' => 'sometimes',
+                    'description' => 'sometimes|string',
+                ];
         }
     }
 }

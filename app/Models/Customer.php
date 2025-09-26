@@ -10,21 +10,7 @@ class Customer extends Model
 {
     use HasFactory;
 
-    protected $fillable = [
-        'customer_id',
-        'first_name',
-        'last_name',
-        'company',
-        'email',
-        'phone',
-        'address',
-        'city',
-        'state',
-        'zip_code',
-        'country',
-        'notes',
-        'is_active',
-    ];
+    protected $guarded = ['id'];
 
     protected $casts = [
         'is_active' => 'boolean',
@@ -44,6 +30,11 @@ class Customer extends Model
     public function equipments(): HasMany
     {
         return $this->hasMany(CustomerEquipment::class)->with('equipment_type');
+    }
+
+    public function work_orders(): HasMany
+    {
+        return $this->hasMany(WorkOrder::class);
     }
 
     /**

@@ -26,6 +26,7 @@ return new class extends Migration
             $table->string('country')->default('USA');
             $table->text('notes')->nullable();
             $table->boolean('is_active')->default(true);
+            $table->bigInteger('created_by')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -20,6 +20,8 @@ class CustomerController extends Controller
                 return response()->json(['status' => false, 'message' => $validated['response']], 400);
             }
 
+            $validated['validated']['created_by'] = auth()->user()->id;
+
             $customer = Customer::create($validated['validated']);
             
             return response()->json([

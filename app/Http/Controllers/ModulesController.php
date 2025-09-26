@@ -361,4 +361,44 @@ class ModulesController extends Controller
     /**
      * End of Equipments
      */
+
+    /**
+     * Start of Work Orders
+     */
+
+    public function work_orders() {
+        $this->data['title'] = 'Work Orders'; 
+        $this->data['description'] = "Manage work orders";
+        $this->data['header'] = "Work Orders";
+        $this->data['right_panel'] = componentHelper()->rightPanel('work-orders-index', []);
+        $this->data['work_orders'] = globalHelper()->getAllWorkOrders();
+        return view('pages.client.tech_dispatch.work_orders.index', $this->data);
+    }
+
+    public function new_work_order() {
+        $this->data['customers'] = globalHelper()->getCustomers();
+        
+        $this->data['title'] = 'New Work Order'; 
+        $this->data['description'] = "Create a new work order";
+        $this->data['header'] = "New Work Order";
+        $this->data['right_panel'] = componentHelper()->rightPanel('work-orders-new', []);
+        return view('pages.client.tech_dispatch.work_orders.new', $this->data);
+    }
+    
+    public function edit_work_order($id) {
+        $this->data['work_order'] = globalHelper()->getWorkOrder($id);
+        $this->data['customers'] = globalHelper()->getCustomers();
+        if (empty($this->data['work_order'])) {
+            return redirect()->route('work-orders');
+        }
+        $this->data['title'] = 'Edit Work Order'; 
+        $this->data['description'] = "Edit work order information";
+        $this->data['header'] = "Edit Work Order";
+        $this->data['right_panel'] = componentHelper()->rightPanel('work-orders-edit', ['id' => $id]);
+        return view('pages.client.tech_dispatch.work_orders.edit', $this->data);
+    }
+
+    /**
+     * End of Work Orders
+     */
 }

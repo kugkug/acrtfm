@@ -41,6 +41,7 @@ use Twilio\Rest\Client;
 use GuzzleHttp\Client as GuzzleClient;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use App\Models\WorkOrder;
 
 class GlobalHelper {
 
@@ -362,7 +363,7 @@ class GlobalHelper {
 
     public function getCustomers() {
         try {
-            return Customer::all()->toArray();
+            return Customer::where('created_by', Auth::user()->id)->get()->toArray();
         } catch (\Exception $e) {
             logInfo($e->getMessage());
             return [];
@@ -417,6 +418,36 @@ class GlobalHelper {
             
             return [];
 
+        } catch (\Exception $e) {
+            logInfo($e->getMessage());
+            return [];
+        }
+    }
+
+    public function getAllWorkOrders() {
+        try {
+            $work_orders = WorkOrder::with('customer')->get();
+
+            if ($work_orders) {
+                return $work_orders->toArray();
+            }
+
+            return [];
+
+        } catch (\Exception $e) {
+            logInfo($e->getMessage());
+            return [];
+        }
+    }
+
+    public function getWorkOrder($id) {
+        try {
+            $work_order = WorkOrder::where('id', $id)->with('customer')->first();
+            if ($work_order) {
+                return $work_order->toArray();
+            }
+
+            return [];
         } catch (\Exception $e) {
             logInfo($e->getMessage());
             return [];

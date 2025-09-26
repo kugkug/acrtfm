@@ -85,6 +85,7 @@ class ResponseHelper {
             case 'accomplishment-updated':
             case 'customer-location-deleted':
             case 'customer-equipment-deleted':
+            case 'work-orders-deleted':
                 $script = "location.reload();";
                 break;
             case 'accomplishment-added':
@@ -104,6 +105,10 @@ class ResponseHelper {
 
             case 'customer-equipment-saved':
                 $script = "location = '/customers/".$data['id']."/view?tab=equipments';";
+            break;
+
+            case 'work-orders-saved':
+                $script = "location = '". redirect()->back()->getTargetUrl()."';";
             break;
 
         }

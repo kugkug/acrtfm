@@ -34,6 +34,13 @@ class KeysHelper {
         'ModelNumber' => 'model',
         'SerialNumber' => 'serial_number',
         'EquipmentNotes' => 'notes',
+
+        'Title' => 'title',
+        'Priority' => 'priority',
+        'EstimatedHours' => 'estimated_hours',
+        'ScheduleDate' => 'schedule_date',
+        'ScheduleTime' => 'schedule_time',
+        'Description' => 'description',
     ];
 
     public function getKey(string $key_index): string {

@@ -5,6 +5,7 @@ use App\Http\Controllers\Exec\AccountController;
 use App\Http\Controllers\Exec\CustomerController;
 use App\Http\Controllers\Exec\EdController;
 use App\Http\Controllers\Exec\JbController;
+use App\Http\Controllers\Exec\WorkOrderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ModulesController;
 
@@ -64,6 +65,12 @@ Route::middleware(['auth:sanctum', 'web'])->group(function () {
     Route::prefix('equipments')->group(function () {
         Route::get('/{customer_id}/create', [ModulesController::class, 'create_equipment'])->name("equipments.create");
         Route::get('/{id}/edit', [ModulesController::class, 'edit_equipment'])->name("equipments.edit");
+    });
+
+    Route::prefix('work-orders')->group(function () {
+        Route::get('/', [ModulesController::class, 'work_orders'])->name("work-orders");
+        Route::get('/new', [ModulesController::class, 'new_work_order'])->name("work-orders.new");
+        Route::get('/{id}/edit', [ModulesController::class, 'edit_work_order'])->name("work-orders.edit");
     });
 
         
@@ -141,6 +148,13 @@ Route::middleware(['auth:sanctum', 'web'])->group(function () {
             Route::post('/save', [CustomerController::class, 'save_equipment'])->name("exec-customers-save-equipment");
             Route::post('/{id}/update', [CustomerController::class, 'update_equipment'])->name("exec-customers-update-equipment");
             Route::post('/{id}/delete', [CustomerController::class, 'delete_equipment'])->name("exec-customers-delete-equipment");
+        });
+
+
+        Route::prefix('work-orders')->group(function () {
+            Route::post('/save', [WorkOrderController::class, 'save'])->name("exec-work-orders-save");
+            Route::post('/{id}/update', [WorkOrderController::class, 'update'])->name("exec-work-orders-update");
+            Route::post('/{id}/delete', [WorkOrderController::class, 'delete'])->name("exec-work-orders-delete");
         });
     });
 });

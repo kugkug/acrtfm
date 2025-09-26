@@ -58,7 +58,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="{{ route('tech-dispatch.work-orders') }}">
+                            <a href="{{ route('work-orders') }}">
                                 <i class="fa-solid fa-clipboard-list menu-icon fa-action"></i>
                                 <span class="nav-text">Work Orders</span>
                             </a>
@@ -69,12 +69,12 @@
                                 <span class="nav-text">Quotes</span>
                             </a>
                         </li>
-                        <li>
+                        {{-- <li>
                             <a href="{{ route('tech-dispatch.calendar') }}">
                                 <i class="fa-solid fa-calendar-days menu-icon fa-action"></i>
                                 <span class="nav-text">Calendar</span>
                             </a>
-                        </li>
+                        </li> --}}
                     </ul>
                 </li>
             @endif

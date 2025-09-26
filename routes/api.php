@@ -5,6 +5,7 @@ use App\Http\Controllers\Apis\AccountController;
 use App\Http\Controllers\Apis\CustomerController;
 use App\Http\Controllers\Apis\EdController;
 use App\Http\Controllers\Apis\JbController;
+use App\Http\Controllers\Apis\WorkOrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -63,5 +64,11 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/save', [CustomerController::class, 'save_equipment'])->name("api-customers-save-equipment");
         Route::post('/{id}/update', [CustomerController::class, 'update_equipment'])->name("api-customers-update-equipment");
         Route::post('/{id}/delete', [CustomerController::class, 'delete_equipment'])->name("api-customers-delete-equipment");
+    });
+
+    Route::prefix('work-orders')->group(function () {
+        Route::post('/save', [WorkOrderController::class, 'save'])->name("api-work-orders-save");
+        Route::post('/{id}/update', [WorkOrderController::class, 'update'])->name("api-work-orders-update");
+        Route::post('/{id}/delete', [WorkOrderController::class, 'delete'])->name("api-work-orders-delete");
     });
 });

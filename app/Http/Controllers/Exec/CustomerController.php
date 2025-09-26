@@ -11,7 +11,7 @@ class CustomerController extends Controller
     {
         try {
             $api_response = apiHelper()->post($request, route('api-customers-save'));
-            
+
             if(! $api_response['status']) {
                 return globalHelper()->ajaxErrorResponse($api_response['message']);
             }
@@ -196,7 +196,7 @@ class CustomerController extends Controller
     {
         try {
             $api_response = apiHelper()->post($request, route('api-customers-delete-equipment', ['id' => $id]));
-
+            
             if(! $api_response['status']) {
                 return globalHelper()->ajaxErrorResponse($api_response['message']);
             }

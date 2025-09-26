@@ -161,14 +161,22 @@
                 case 'locations-create':
                 case 'locations-edit':
                 case 'equipments-edit':
+                case 'work-orders-edit':
                     $html ="
                         <a href='".redirect()->back()->getTargetUrl()."' class='btn btn-primary btn-md btn-flat float-right'>
                             <i class='fa fa-undo'></i> Back
                         </a>
                     ";
                     break;
-                
 
+                case 'work-orders-index':
+                    $html ="
+                        <a href='".route('work-orders.new')."' class='btn btn-primary btn-md btn-flat float-right'>
+                            <i class='fa fa-plus'></i> New Work Order
+                        </a>
+                    ";
+                    break;
+                
                 default: $html = "";
                     
             }
