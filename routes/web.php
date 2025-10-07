@@ -70,9 +70,16 @@ Route::middleware(['auth:sanctum', 'web'])->group(function () {
     Route::prefix('work-orders')->group(function () {
         Route::get('/', [ModulesController::class, 'work_orders'])->name("work-orders");
         Route::get('/new', [ModulesController::class, 'new_work_order'])->name("work-orders.new");
+        Route::get('/{id}/view', [ModulesController::class, 'view_work_order'])->name("work-orders.view");
         Route::get('/{id}/edit', [ModulesController::class, 'edit_work_order'])->name("work-orders.edit");
     });
 
+    Route::prefix('quotes')->group(function () {
+        Route::get('/', [ModulesController::class, 'quotes'])->name("quotes");
+        Route::get('/new', [ModulesController::class, 'new_quote'])->name("quotes.new");
+        Route::get('/{id}/view', [ModulesController::class, 'view_quote'])->name("quotes.view");
+        Route::get('/{id}/edit', [ModulesController::class, 'edit_quote'])->name("quotes.edit");
+    });
         
     Route::get('/video-playlist', [ModulesController::class, 'videoPlaylist'])->name("video-playlist");
 

@@ -1,4 +1,5 @@
 @php
+
     $attrib = $attrib ?? [];
     $attrib_string = '';
     if($attrib) {
@@ -15,7 +16,7 @@
         @endif
         @if($text)
         <span class="btn-text">
-            {{ $text }}
+            {!! $text !!}
         </span>
         @endif
     </button>

@@ -18,6 +18,7 @@
             @if(count($customers) > 0)
                 @foreach($customers as $customer)
                     @php
+                    
                         $tools = [
                             [
                                 'type' => 'link',
@@ -44,7 +45,7 @@
                                 'text' => '',
                                 'icon' => 'fa fa-trash',
                                 'attrib' => [
-                                    'class' => 'btn  btn-default btn-sm text-danger',
+                                    'class' => 'btn btn-default btn-sm text-danger',
                                     'title' => 'Delete',
                                     'data-trigger' => 'delete-customer',
                                     'data-id' => $customer['id'],
@@ -54,6 +55,7 @@
                         
                         $name = $customer['first_name'] . ' ' . $customer['last_name'];
                         $company = $customer['company'];
+
                     @endphp
 
                     <x-card

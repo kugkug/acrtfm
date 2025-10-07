@@ -150,22 +150,26 @@
 
                 case 'customers-index':
                     $html ="
-                        <a href='".route('customers.new')."' class='btn btn-primary btn-md btn-flat float-right'>
-                            <i class='fa fa-user-plus'></i> Add Customer
-                        </a>
+                        <div class='d-flex justify-content-end'>
+                            <a href='".route('customers.new')."' class='btn btn-info btn-md btn-flat mr-2'>
+                                <i class='fa fa-user-plus'></i> Add Customer
+                            </a>
+                        <a href='".redirect()->back()->getTargetUrl()."' class='btn btn-primary btn-md btn-flat'>
+                                <i class='fa fa-undo'></i> Back
+                            </a>
+                        </div>
                     ";
                     break;
-                case 'customers-view':
-                case 'customers-new':
-                case 'customers-edit':
-                case 'locations-create':
-                case 'locations-edit':
-                case 'equipments-edit':
-                case 'work-orders-edit':
+                case 'quotes-index':
                     $html ="
-                        <a href='".redirect()->back()->getTargetUrl()."' class='btn btn-primary btn-md btn-flat float-right'>
-                            <i class='fa fa-undo'></i> Back
-                        </a>
+                        <div class='d-flex justify-content-end'>
+                            <a href='".route('quotes.new')."' class='btn btn-info btn-md btn-flat mr-2'>
+                                <i class='fa fa-plus'></i> Create Quote
+                            </a>
+                            <a href='".redirect()->back()->getTargetUrl()."' class='btn btn-primary btn-md btn-flat'>
+                                <i class='fa fa-undo'></i> Back
+                            </a>
+                            </div>
                     ";
                     break;
 
@@ -177,11 +181,15 @@
                     ";
                     break;
                 
-                default: $html = "";
+                default:  
+                    $html ="
+                        <a href='".redirect()->back()->getTargetUrl()."' class='btn btn-primary btn-md btn-flat float-right'>
+                            <i class='fa fa-undo'></i> Back
+                        </a>
+                    ";
                     
             }
 
             return $html;
         }
-
     }

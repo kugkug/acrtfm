@@ -95,9 +95,11 @@ class ModulesController extends Controller
     }
 
     public function techDispatchQuotes() {
+
         $this->data['title'] = 'Quotes'; 
         $this->data['description'] = "Generate and manage customer quotes";
         $this->data['header'] = "Quotes";
+        $this->data['right_panel'] = componentHelper()->rightPanel('quotes-index', []);
         return view('pages.client.tech_dispatch.quotes', $this->data);
     }
 
@@ -375,6 +377,19 @@ class ModulesController extends Controller
         return view('pages.client.tech_dispatch.work_orders.index', $this->data);
     }
 
+    public function view_work_order($id) {
+        $this->data['work_order'] = globalHelper()->getWorkOrder($id);
+        if (empty($this->data['work_order'])) {
+            return redirect()->route('work-orders');
+        }
+        $this->data['title'] = 'View Work Order'; 
+        $this->data['description'] = "View work order information";
+        $this->data['work_order'] = $this->data['work_order'];
+        $this->data['header'] = "View Work Order";
+        $this->data['right_panel'] = componentHelper()->rightPanel('work-orders-view', ['id' => $id]);
+        return view('pages.client.tech_dispatch.work_orders.view', $this->data);
+    }
+
     public function new_work_order() {
         $this->data['customers'] = globalHelper()->getCustomers();
         
@@ -401,4 +416,28 @@ class ModulesController extends Controller
     /**
      * End of Work Orders
      */
+
+     /**
+      * Quotes
+      */
+    public function new_quote() {
+        $this->data['title'] = 'New Quote'; 
+        $this->data['description'] = "Create a new quote";
+        $this->data['header'] = "New Quote";
+        $this->data['right_panel'] = componentHelper()->rightPanel('quotes-new', []);
+        return view('pages.client.tech_dispatch.quotes.new', $this->data);
+    }
+    
+    public function view_quote($id) {
+        // $this->data['quote'] = globalHelper()->getQuote($id);
+        if (empty($this->data['quote'])) {
+            return redirect()->route('quotes');
+        }
+        $this->data['title'] = 'View Quote'; 
+        $this->data['description'] = "View quote information";
+        $this->data['header'] = "View Quote";
+        $this->data['right_panel'] = componentHelper()->rightPanel('quotes-view', ['id' => $id]);
+        return view('pages.client.tech_dispatch.quotes.view', $this->data);
+    }
+    
 }

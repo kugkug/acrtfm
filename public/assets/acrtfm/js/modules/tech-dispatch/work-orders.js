@@ -54,6 +54,19 @@ $(document).ready(function () {
                 break;
         }
     });
+
+    $("[data-target]").on("click", function (e) {
+        e.preventDefault();
+
+        let target = $(this).attr("data-target");
+
+        $(".div-target").removeClass("d-none").addClass("d-none");
+        $(".div-target").removeClass("d-block").addClass("d-none");
+
+        $("#" + target).addClass("d-block");
+    });
+
+    $("[data-target=card-photos]").click();
 });
 
 function _delete(type, id) {

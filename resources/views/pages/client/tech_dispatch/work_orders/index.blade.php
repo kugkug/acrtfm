@@ -26,7 +26,7 @@
                                 'attrib' => [
                                     'class' => 'btn btn-default btn-sm text-info',
                                     'title' => 'View',
-                                    // 'href' => route('work-orders.view', $work_order['id']),
+                                    'href' => route('work-orders.view', $work_order['id']),
                                 ],
                             ],
                             [
