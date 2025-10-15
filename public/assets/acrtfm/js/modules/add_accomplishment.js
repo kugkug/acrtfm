@@ -278,14 +278,12 @@ function _validate_files(files) {
         "gif",
         "bmp",
         "webp",
-        "pdf",
         "JPG",
         "JPEG",
         "PNG",
         "GIF",
         "BMP",
         "WEBP",
-        "PDF",
     ];
 
     for (const file of files) {
@@ -306,7 +304,7 @@ function _validate_files(files) {
     if (invalid_images.length > 0) {
         _confirm(
             "Invalid Files",
-            "Only accepts image and pdf files.\n\nThe following files are invalid: " +
+            "Only accepts image files.\n\nThe following files are invalid: " +
                 invalid_images.join(", "),
             "warning",
             "OK",

@@ -41,6 +41,10 @@ class KeysHelper {
         'ScheduleDate' => 'schedule_date',
         'ScheduleTime' => 'schedule_time',
         'Description' => 'description',
+
+        'WorkOrderId' => 'work_order_id',
+        'WorkOrderNote' => 'note',
+        'WorkOrderNoteType' => 'note_type',
     ];
 
     public function getKey(string $key_index): string {

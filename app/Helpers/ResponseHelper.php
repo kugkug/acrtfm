@@ -3,6 +3,7 @@
 declare(strict_types=1);
 namespace App\Helpers;
 
+use Carbon\Carbon;
 use Illuminate\Support\Facades\URL;
 
 class ResponseHelper {
@@ -110,6 +111,41 @@ class ResponseHelper {
             case 'work-orders-saved':
                 $script = "location = '". redirect()->back()->getTargetUrl()."';";
             break;
+
+            case 'work-orders-photos-added':
+                $script = "_fetch('card-photos', ".$data['id'].");";
+            break;
+
+            case 'work-orders-photos-fetched':
+            
+                $script = "
+                    $('.image-list').html('".preg_replace('/\s+/', ' ', $this->work_orders_photos_list($data))."');
+                    _init_actions();
+                ";
+            break;
+
+            case 'work-orders-image-deleted':
+                $script = "
+                    $('#modal-image-view').modal('hide');
+                    _fetch('card-photos', ".$data['id'].");
+                ";
+                
+                break;
+
+            case 'work-orders-note-added':
+                $script = "
+                    _fetch('card-notes', ".$data['id'].");
+                    $('[data-key=WorkOrderNote]').val('');
+                    $('[data-key=WorkOrderNoteType]').val('');
+                ";
+                break;
+            case 'work-orders-notes-fetched':
+                $script = "
+                    $('.note-list').html('".preg_replace('/\s+/', ' ', $this->work_orders_notes_list($data))."');
+                    _init_actions();
+                ";
+                break;
+
 
         }
 
@@ -282,6 +318,44 @@ class ResponseHelper {
             ";
         }
         return $card;
+    }
+
+    private function work_orders_photos_list(array $data): string {
+        $html = "";
+        foreach ($data as $photo) {
+            $html .= "<div 
+                        style=\"background-image: url(".$photo['url'].");\"
+                        data-trigger=\"view-image\"
+                        data-id=\"".$photo['id']."\"
+                        data-url=\"".$photo['url']."\"
+                    >
+                    </div>";
+        }
+        return $html;
+    }
+
+    private function work_orders_notes_list(array $data): string {
+        $html = "";
+
+        $note_types = config('acrtfm.note_types');
+        foreach ($data as $note) {
+            
+            $badge = $note_types[$note['note_type']];
+            $html .= "<div class=\"card\" style=\"border: 1px solid #ccc; padding: 1px; margin-top:10px; \">
+                        <div class=\"card-body\">
+                            <div class=\"d-flex justify-content-between\">
+                                <h5 class=\"card-title\">
+                                    <span class=\"badge ".$badge['badge']."\">".$note_types[$note['note_type']]['label']."</span>
+                                </h5>
+                                <div class=\"card-tools\">   
+                                    ".Carbon::parse($note['created_at'])->format('m/d/Y h:i A')."
+                                </div>
+                            </div>
+                            <p>".$note['note']."</p>
+                        </div>
+                    </div>";
+        }
+        return $html;
     }
 
 

@@ -71,11 +71,138 @@ class WorkOrderController extends Controller
                 'System Info',
             );
         } catch (\Exception $e) {
-                logInfo($e->getTraceAsString());
-                return response()->json([
-                    'status' => 'error',
-                    'message' => $e->getMessage()
-                ]);
-            }
+            logInfo($e->getTraceAsString());
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ]);
         }
     }
+
+    /** Add Photos */
+
+    public function add_photos(Request $request): JsonResponse {
+        try {
+            $api_response = apiHelper()->post($request, route('api-work-orders-add-photos'));
+
+            if(! $api_response['status']) {
+                return globalHelper()->ajaxErrorResponse($api_response['message']);
+            }
+
+            return globalHelper()->ajaxSuccessResponse(
+                'scripts',
+                'success',
+                'work-orders-photos-added',
+                'Work Order photos added successfully',
+                'System Info',
+                [
+                    'id' => $api_response['worker_id'],
+                ]
+            );
+        }
+        catch(\Exception $e) {
+            logInfo($e->getTraceAsString());
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
+
+    public function fetch_photos($id, Request $request): JsonResponse {
+        try {
+            $api_response = apiHelper()->post($request, route('api-work-orders-fetch-photos', ['id' => $id]));
+
+            return globalHelper()->ajaxSuccessResponse(
+                'scripts',
+                'success',
+                'work-orders-photos-fetched',
+                'Work Order photos fetched successfully',
+                'System Info',
+                $api_response['data']
+            );
+            
+        } catch(\Exception $e) {
+            logInfo($e->getTraceAsString());
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
+
+    public function delete_image($id, Request $request): JsonResponse {
+        try {
+            $api_response = apiHelper()->post($request, route('api-work-orders-delete-image', ['id' => $id]));
+
+            if(! $api_response['status']) {
+                return globalHelper()->ajaxErrorResponse($api_response['message']);
+            }
+
+            return globalHelper()->ajaxSuccessResponse(
+                'scripts',
+                'success',
+                'work-orders-image-deleted',
+                'Work Order image deleted successfully',
+                'System Info',
+                [
+                    'id' => $api_response['work_order_id'],
+                ]
+            );
+        } catch(\Exception $e) {
+            logInfo($e->getTraceAsString());
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
+
+    public function add_note($id, Request $request): JsonResponse {
+        try {
+            $api_response = apiHelper()->post($request, route('api-work-orders-add-note', ['id' => $id]));
+
+            if(! $api_response['status']) {
+                return globalHelper()->ajaxErrorResponse($api_response['message']);
+            }
+
+            return globalHelper()->ajaxSuccessResponse(
+                'scripts',
+                'success',
+                'work-orders-note-added',
+                'Work Order note added successfully',
+                'System Info',
+                [
+                    'id' => $api_response['work_order_id'],
+                ]
+            );
+        } catch(\Exception $e) {
+            logInfo($e->getTraceAsString());
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
+
+    public function fetch_notes($id, Request $request): JsonResponse {
+        try {
+            $api_response = apiHelper()->post($request, route('api-work-orders-fetch-notes', ['id' => $id]));
+
+            return globalHelper()->ajaxSuccessResponse(
+                'scripts',
+                'success',
+                'work-orders-notes-fetched',
+                'Work Order notes fetched successfully',
+                'System Info',
+                $api_response['data']
+            );
+        } catch(\Exception $e) {
+            logInfo($e->getTraceAsString());
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
+}

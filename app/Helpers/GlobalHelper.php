@@ -442,7 +442,11 @@ class GlobalHelper {
 
     public function getWorkOrder($id) {
         try {
-            $work_order = WorkOrder::where('id', $id)->with('customer')->first();
+            $work_order = WorkOrder::where('id', $id)
+            ->with('customer')
+            ->with('photos')
+            ->with('notes')
+            ->first();
             if ($work_order) {
                 return $work_order->toArray();
             }

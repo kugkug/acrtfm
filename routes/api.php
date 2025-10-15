@@ -70,5 +70,12 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::post('/save', [WorkOrderController::class, 'save'])->name("api-work-orders-save");
         Route::post('/{id}/update', [WorkOrderController::class, 'update'])->name("api-work-orders-update");
         Route::post('/{id}/delete', [WorkOrderController::class, 'delete'])->name("api-work-orders-delete");
+   
+        Route::post('/add-photos', [WorkOrderController::class, 'add_photos'])->name("api-work-orders-add-photos");
+        Route::post('/{id}/fetch-photos', [WorkOrderController::class, 'fetch_photos'])->name("api-work-orders-fetch-photos");
+        Route::post('/{id}/delete-image', [WorkOrderController::class, 'delete_image'])->name("api-work-orders-delete-image");
+
+        Route::post('/{id}/add-note', [WorkOrderController::class, 'add_note'])->name("api-work-orders-add-note");
+        Route::post('/{id}/fetch-notes', [WorkOrderController::class, 'fetch_notes'])->name("api-work-orders-fetch-notes");
     });
 });

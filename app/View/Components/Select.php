@@ -36,7 +36,7 @@ class Select extends Component
             <div class="form-group">
                 <label>{{ $label }} {!! $attrib['data'] ? '<span class="text-danger">*</span>' : '' !!} </label>
                 <select {!! $attrib_string !!}>
-                    <option value="">Select {{ !$label ? 'Select' : $label }}</option>
+                    <option value="">{{ !$label ? '' : 'Select ' . $label }}</option>
                     @foreach ($options as $option)
                         <option value="{{ $option['id'] }}" {{ $selected == $option['id'] ? 'selected' : '' }}>{{ $option['label'] }}</option>
                     @endforeach

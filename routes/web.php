@@ -162,6 +162,13 @@ Route::middleware(['auth:sanctum', 'web'])->group(function () {
             Route::post('/save', [WorkOrderController::class, 'save'])->name("exec-work-orders-save");
             Route::post('/{id}/update', [WorkOrderController::class, 'update'])->name("exec-work-orders-update");
             Route::post('/{id}/delete', [WorkOrderController::class, 'delete'])->name("exec-work-orders-delete");
+            
+            Route::post('/add-photos', [WorkOrderController::class, 'add_photos'])->name("exec-work-orders-add-photos");
+            Route::post('/{id}/fetch-photos', [WorkOrderController::class, 'fetch_photos'])->name("exec-work-orders-fetch-photos");
+            Route::post('/{id}/delete-image', [WorkOrderController::class, 'delete_image'])->name("exec-work-orders-delete-image");
+
+            Route::post('/{id}/add-note', [WorkOrderController::class, 'add_note'])->name("exec-work-orders-add-note");
+            Route::post('/{id}/fetch-notes', [WorkOrderController::class, 'fetch_notes'])->name("exec-work-orders-fetch-notes");
         });
     });
 });

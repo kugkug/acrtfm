@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Builder;
 
 class Customer extends Model
 {
@@ -67,5 +68,10 @@ class Customer extends Model
                 $customer->customer_id = 'CUST-' . str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
             }
         });
+
+        static::addGlobalScope('mine', function (Builder $builder) {
+            $builder->where('created_by', auth()->user()->id);
+        });
     }
+
 }

@@ -587,7 +587,7 @@ input[type="file"]::file-selector-button {
         border-radius: 0 !important;
         border: none !important;
         box-shadow: none !important;
-        background-color: #000000 !important;
+        background-color: rgba(0, 0, 0, 0.8) !important;
         .modal-content {
             background-color: transparent !important;
         }

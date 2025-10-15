@@ -20,6 +20,7 @@ return new class extends Migration
             $table->date('schedule_date')->nullable();
             $table->time('schedule_time')->nullable();
             $table->text('description')->nullable();
+            $table->bigInteger('created_by')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

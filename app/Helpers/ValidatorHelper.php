@@ -149,6 +149,12 @@ class ValidatorHelper {
                     'schedule_time' => 'sometimes',
                     'description' => 'sometimes|string',
                 ];
+
+            case 'work-orders-add-note':
+                return [
+                    'note' => 'required|string',
+                    'note_type' => 'required|string|in:' . implode(',', array_keys(config('acrtfm.note_types'))),
+                ];
         }
     }
 }

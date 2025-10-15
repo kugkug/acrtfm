@@ -384,7 +384,6 @@ class ModulesController extends Controller
         }
         $this->data['title'] = 'View Work Order'; 
         $this->data['description'] = "View work order information";
-        $this->data['work_order'] = $this->data['work_order'];
         $this->data['header'] = "View Work Order";
         $this->data['right_panel'] = componentHelper()->rightPanel('work-orders-view', ['id' => $id]);
         return view('pages.client.tech_dispatch.work_orders.view', $this->data);
