@@ -14,7 +14,7 @@
 
     <link rel="shortcut icon" href="{{ asset('assets/system/images/acrtfm_logo.png') }}" type="image/x-icon">
 
-    <link href="{{ asset('assets/system/plugins/fontawesome/css/all.min.css') }}" rel="stylesheet" type="text/css">
+    {{-- <link href="{{ asset('assets/system/plugins/fontawesome/css/all.min.css') }}" rel="stylesheet" type="text/css"> --}}
     <link href="{{ asset('assets/system/plugins/toastr/css/toastr.min.css') }}" rel="stylesheet" type="text/css">
     <link href="{{ asset('assets/system/css/style.css') }}" rel="stylesheet" type="text/css">
 

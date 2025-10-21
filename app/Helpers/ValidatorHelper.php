@@ -8,15 +8,20 @@ use Illuminate\Support\Facades\Validator;
 
 class ValidatorHelper {
     const EXCLUDED_FIELDS = [
-        'ConfirmPassword', 'PhoneNumbers', 'Tags'
+        'PhoneNumbers', 'Tags'
     ];
     public function validate(string $type, Request $request): array {
         
         $mapped = $this->key_map($request->except([
             ...self::EXCLUDED_FIELDS
         ]));
+
         
-        $validated = Validator::make($mapped, $this->rules($type, $request));
+        $validated = Validator::make($mapped, $this->rules($type, $request), [
+            'password_confirmation.confirmed' => 'The password did not match.',
+            'password.min' => 'The password must be at least 8 characters long.',
+            'password_confirmation.min' => 'The password confirmation must be at least 8 characters long.',
+        ]);
         
         if ($validated->fails()) {
             return [
@@ -45,6 +50,26 @@ class ValidatorHelper {
 
     private function rules(string $type, Request $request) {
         switch($type) {
+            case 'company-registration':
+                return [
+                    'company' => 'required|string|max:255',
+                    'address' => 'required|string',
+                    'contact' => 'required|string',
+                    'email' => 'required|email|unique:users',
+                    'contact_person' => 'required|string',
+                    'password' => 'required|string|min:8|confirmed',
+                    'password_confirmation' => 'required|string|min:8',
+                ];
+            case 'technician-registration':
+                return [
+                    'first_name' => 'required|string|max:255',
+                    'last_name' => 'required|string|max:255',
+                    'email' => 'required|email|unique:users',
+                    'phone' => 'required|string|max:12',
+                    'company_code' => 'sometimes|string|max:255',
+                    'password' => 'required|string|min:8|confirmed',
+                    'password_confirmation' => 'required|string|min:8',
+                ];
             case 'account-registration':
                 return [
                     'first_name' => 'required|string|max:255',

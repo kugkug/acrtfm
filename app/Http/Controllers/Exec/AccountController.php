@@ -25,6 +25,46 @@ class AccountController extends Controller
         }
     }
 
+    public function registrationCompany(Request $request): JsonResponse{
+        try {
+            $api_response = apiHelper()->post($request, route('api-company-registration'));
+            if(! $api_response['status']){
+                return globalHelper()->ajaxErrorResponse($api_response['message']);
+            }
+            
+            return globalHelper()->ajaxSuccessResponse(
+                'scripts',
+                'success',
+                'company-registration',
+                'Company registration successful',
+                'Company registration successful'
+            );
+        } catch (\Exception $e) {
+            logInfo($e->getTraceAsString());
+            return globalHelper()->ajaxErrorResponse('Company registration failed');
+        }
+    }
+
+    public function registrationTechnician(Request $request): JsonResponse{
+        try {
+            $api_response = apiHelper()->post($request, route('api-technician-registration')); 
+
+            if(! $api_response['status']){
+                return globalHelper()->ajaxErrorResponse($api_response['message']);
+            }
+
+            return globalHelper()->ajaxSuccessResponse(
+                'scripts',
+                'success',
+                'technician-registration',
+                'Technician registration successful',
+                'Technician registration successful'
+            );
+        } catch (\Exception $e) {
+            logInfo($e->getTraceAsString());
+            return globalHelper()->ajaxErrorResponse('Technician creation failed');
+        }
+    }   
     public function login(Request $request): JsonResponse{
         try {
             $api_response = apiHelper()->post($request, route('api-account-login'));

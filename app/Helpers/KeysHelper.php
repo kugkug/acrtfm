@@ -10,8 +10,12 @@ class KeysHelper {
         'LastName' => 'last_name',
         'Email' => 'email',
         'PhoneNumber' => 'phone',
-        'Company' => 'company',
+        'Contact' => 'contact',
+        'CompanyName' => 'company',
+        'CompanyAddress' => 'address',
         'Password' => 'password',
+        'ConfirmPassword' => 'password_confirmation',
+        'CompanyCode' => 'company_code',
         
         'CustomerId' => 'customer_id',
         'LocationName' => 'location_name',

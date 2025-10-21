@@ -110,7 +110,7 @@
                     break;
                 case 'job-site-area-accomplishment':
                     $html ="
-                    <div class='d-none d-sm-none d-md-block d-lg-block d-xl-block'>
+                        <div class='d-none d-sm-none d-md-block d-lg-block d-xl-block'>
                             <div class='d-flex justify-content-end'>
                                 <a href='".route('job-site-area-view', $data['job_area_id'])."' class='btn btn-primary btn-md btn-flat mr-2'>
                                     <i class='fa fa-undo'></i> Back
@@ -150,13 +150,33 @@
 
                 case 'customers-index':
                     $html ="
-                        <div class='d-flex justify-content-end'>
-                            <a href='".route('customers.new')."' class='btn btn-info btn-md btn-flat mr-2'>
-                                <i class='fa fa-user-plus'></i> Add Customer
-                            </a>
-                        <a href='".redirect()->back()->getTargetUrl()."' class='btn btn-primary btn-md btn-flat'>
-                                <i class='fa fa-undo'></i> Back
-                            </a>
+
+                         <div class='d-none d-sm-none d-md-block d-lg-block d-xl-block'>
+                            <div class='d-flex justify-content-end'>
+                                <a href='".route('customers.new')."' class='btn btn-info btn-md btn-flat mr-2'>
+                                    <i class='fa fa-user-plus'></i> Add Customer
+                                </a>
+                                <a href='".redirect()->back()->getTargetUrl()."' class='btn btn-primary btn-md btn-flat'>
+                                    <i class='fa fa-undo'></i> Back
+                                </a>
+                            </div>
+                        </div>
+                        <div class='d-sm-block d-md-none d-lg-none d-xl-none'>
+                            <div class='basic-dropdown float-right'>
+                                <div class='dropleft'>
+                                    <button type='button' class='btn mb-1 btn-rounded btn-outline-info' data-toggle='dropdown'>
+                                        <i class='fa fa-ellipsis-v'></i>
+                                    </button>
+                                    <div class='dropdown-menu'>
+                                        <a class='dropdown-item mb-1 text-info' href='".route('customers.new')."'>
+                                            <i class='fa fa-user-plus'></i> Add Customer
+                                        </a>
+                                        <a class='dropdown-item mb-1 text-primary' href='".redirect()->back()->getTargetUrl()."'>
+                                            <i class='fa fa-undo'></i> Back
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     ";
                     break;
@@ -175,9 +195,34 @@
 
                 case 'work-orders-index':
                     $html ="
-                        <a href='".route('work-orders.new')."' class='btn btn-primary btn-md btn-flat float-right'>
-                            <i class='fa fa-plus'></i> New Work Order
-                        </a>
+                        <div class='d-none d-sm-none d-md-block d-lg-block d-xl-block'>
+                            <div class='d-flex justify-content-end'>
+                                <a href='".route('work-orders.new')."' class='btn btn-info btn-md btn-flat mr-2'>
+                                    <i class='fa fa-plus'></i> New Work Order
+                                </a>
+                                <a href='".redirect()->back()->getTargetUrl()."' class='btn btn-primary btn-md btn-flat'>
+                                    <i class='fa fa-undo'></i> Back
+                                </a>
+                            </div>
+                        </div>
+                        <div class='d-sm-block d-md-none d-lg-none d-xl-none'>
+                            <div class='basic-dropdown float-right'>
+                                <div class='dropleft'>
+                                    <button type='button' class='btn mb-1 btn-rounded btn-outline-info' data-toggle='dropdown'>
+                                        <i class='fa fa-ellipsis-v'></i>
+                                    </button>
+                                
+                                    <div class='dropdown-menu'>
+                                        <a class='dropdown-item mb-1 text-info' href='".route('work-orders.new')."'>
+                                            <i class='fa fa-plus'></i> New Work Order
+                                        </a>
+                                        <a class='dropdown-item mb-1 text-primary' href='".redirect()->back()->getTargetUrl()."'>
+                                            <i class='fa fa-undo'></i> Back
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     ";
                     break;
                 

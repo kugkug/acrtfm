@@ -12,6 +12,8 @@ use App\Http\Controllers\ModulesController;
 Route::get('/', [ModulesController::class, 'login'])->name("login");
 Route::get('/forgot-password', [ModulesController::class, 'forgotPassword'])->name("forgot-password");
 Route::get('/register', [ModulesController::class, 'register'])->name("register");
+Route::get('/company/register', [ModulesController::class, 'registerCompany'])->name("register-company");
+Route::get('/technician/register', [ModulesController::class, 'registerTechnician'])->name("register-technician");
 
 
 
@@ -22,6 +24,8 @@ Route::get('/mobile-app', function() {
 Route::prefix('executor')->group(function () {
     Route::prefix('account')->group(function () {
         Route::post('/registration', [AccountController::class, 'registration'])->name("exec-account-registration");
+        Route::post('/company-registration', [AccountController::class, 'registrationCompany'])->name("exec-company-registration");
+        Route::post('/technician-registration', [AccountController::class, 'registrationTechnician'])->name("exec-technician-registration");
         Route::post('/login', [AccountController::class, 'login'])->name("exec-account-login");
         Route::post('/logout', [AccountController::class, 'logout'])->name("exec-account-logout");
     });

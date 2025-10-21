@@ -2,7 +2,15 @@
     return [
         'manual_url' => env('MANUAL_URL', 'http://manuals.acrtfm.com/'),
         'app_url' => env('APP_URL', 'http://localhost'),
-
+        'companycodematrix' => env('COMPANYCODEMATRIX', 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789'),
+        'user_types' => [
+            'company' => 'Company',
+            'technician' => 'Technician',
+            'client' => 'client',
+            'admin' => 'Admin',
+        ],
+        
+        
         'priority_levels' => [
             'low' => 'Low',
             'medium' => 'Medium',

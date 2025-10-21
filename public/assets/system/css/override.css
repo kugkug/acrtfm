@@ -36,6 +36,12 @@ textarea.override-textarea {
     min-height: 90vh !important;
 }
 
+.form-label {
+    opacity: 0.6;
+    color: #333333 !important;
+    margin-bottom: 0.5rem !important;
+}
+
 .brand-title h1 {
     font-weight: 900 !important;
     font-size: 1.875rem !important;

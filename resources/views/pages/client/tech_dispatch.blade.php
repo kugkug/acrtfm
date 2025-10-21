@@ -15,7 +15,7 @@
                                     <div class="d-flex justify-content-between">
                                         <div>
                                             <h4 class="text-white">Active Jobs</h4>
-                                            <h2 class="text-white">12</h2>
+                                            <h2 class="text-white">0</h2>
                                         </div>
                                         <div class="align-self-center">
                                             <i class="fa fa-truck-fast fa-2x"></i>
@@ -30,7 +30,7 @@
                                     <div class="d-flex justify-content-between">
                                         <div>
                                             <h4 class="text-white">Completed</h4>
-                                            <h2 class="text-white">45</h2>
+                                            <h2 class="text-white">0</h2>
                                         </div>
                                         <div class="align-self-center">
                                             <i class="fa fa-check-circle fa-2x"></i>
@@ -45,7 +45,7 @@
                                     <div class="d-flex justify-content-between">
                                         <div>
                                             <h4 class="text-white">Pending</h4>
-                                            <h2 class="text-white">8</h2>
+                                            <h2 class="text-white">0</h2>
                                         </div>
                                         <div class="align-self-center">
                                             <i class="fa fa-clock fa-2x"></i>
@@ -60,7 +60,7 @@
                                     <div class="d-flex justify-content-between">
                                         <div>
                                             <h4 class="text-white">Technicians</h4>
-                                            <h2 class="text-white">15</h2>
+                                            <h2 class="text-white">0</h2>
                                         </div>
                                         <div class="align-self-center">
                                             <i class="fa fa-users fa-2x"></i>
@@ -72,13 +72,13 @@
                     </div>
                     
                     <div class="row mt-4">
-                        <div class="col-lg-8">
+                        <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-header">
                                     <h5 class="card-title">Recent Dispatch Jobs</h5>
                                 </div>
                                 <div class="card-body">
-                                    <div class="table-responsive">
+                                    {{-- <div class="table-responsive">
                                         <table class="table table-striped">
                                             <thead>
                                                 <tr>
@@ -117,11 +117,11 @@
                                                 </tr>
                                             </tbody>
                                         </table>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
                         </div>
-                        <div class="col-lg-4">
+                        {{-- <div class="col-lg-4">
                             <div class="card">
                                 <div class="card-header">
                                     <h5 class="card-title">Quick Actions</h5>
@@ -143,7 +143,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> --}}
                     </div>
                 </div>
             </div>

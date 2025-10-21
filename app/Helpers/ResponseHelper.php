@@ -146,6 +146,13 @@ class ResponseHelper {
                 ";
                 break;
 
+            case 'company-registration':
+            case 'technician-registration':
+                $script = "
+                    window.location.href = '".route('login')."';
+                ";
+                break;
+
 
         }
 

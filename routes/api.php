@@ -16,6 +16,8 @@ Route::get('/user', function (Request $request) {
 
 Route::prefix('account')->group(function () {
     Route::post('/registration', [AccountController::class, 'registration'])->name("api-account-registration");
+    Route::post('/company/registration', [AccountController::class, 'registrationCompany'])->name("api-company-registration");
+    Route::post('/technician/registration', [AccountController::class, 'registrationTechnician'])->name("api-technician-registration");
     Route::post('/login', [AccountController::class, 'login'])->name("api-account-login");
     Route::post('/logout', [AccountController::class, 'logout'])->name("api-account-logout");
 });

@@ -8,6 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 
 class AccountController extends Controller
 {
@@ -23,6 +24,83 @@ class AccountController extends Controller
         } catch (\Exception $e) {
             logInfo($e->getTraceAsString());
             return response()->json(['error' => 'Account creation failed'], 500);
+        }
+    }
+
+    public function registrationCompany(Request $request): JsonResponse{
+        try {
+
+            $validated = validatorHelper()->validate('company-registration', $request);
+
+            if(! $validated['status']){
+                return response()->json([
+                    'status' => false,
+                    'message' => $validated['response']
+                ]);
+            }
+
+            unset($validated['validated']['password_confirmation']);
+            
+            $validated['validated']['company_code'] = globalHelper()->generateCompanyCode();
+            $validated['validated']['user_type'] = config('acrtfm.user_types.company');
+            $validated['validated']['name'] = $validated['validated']['company'];
+
+            $user = User::create($validated['validated']);
+
+            if(! $user){
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Failed to create user'
+                ]);
+            }
+
+            return response()->json([
+                'status' => true,
+                'message' => 'User created successfully',
+                'user' => $user
+            ], 200);    
+
+            return response()->json($validated, 200);
+        }
+        catch (\Exception $e) {
+            logInfo($e->getTraceAsString());
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage()
+            ]);
+        }
+    }
+
+    public function registrationTechnician(Request $request): JsonResponse{
+        try {
+
+            $validated = validatorHelper()->validate('technician-registration', $request);
+
+            if(! $validated['status']){
+                return response()->json([
+                    'status' => false,
+                    'message' => $validated['response']
+                ]);
+            }
+
+            unset($validated['validated']['password_confirmation']);
+            $validated['validated']['user_type'] = config('acrtfm.user_types.technician');
+            $validated['validated']['name'] = $validated['validated']['first_name'] . ' ' . $validated['validated']['last_name'];
+
+            $user = User::create($validated['validated']);
+
+            if(! $user) {
+                return response()->json(['status' => false, 'message' => 'Failed to create user'], 500);
+            }
+
+            return response()->json(['status' => true, 'message' => 'User created successfully', 'user' => $user], 200);    
+        }
+        catch (\Exception $e) {
+            logInfo($e->getTraceAsString());
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage()
+            ]);
         }
     }
 

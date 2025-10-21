@@ -35,6 +35,17 @@ class ModulesController extends Controller
         return view('pages.register', $this->data);
     }
     
+    public function registerCompany() {
+        $this->data['title'] = 'Register Company'; 
+        $this->data['header'] = "Register Company";
+        return view('pages.register-company', $this->data);
+    }
+
+    public function registerTechnician() {
+        $this->data['title'] = 'Register Technician';
+        $this->data['header'] = "Register Technician";
+        return view('pages.register-technician', $this->data);
+    }
 
     public function home() {
         $this->data['title'] = 'Home'; 

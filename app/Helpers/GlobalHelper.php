@@ -95,6 +95,20 @@ class GlobalHelper {
         }
     }
 
+    public function generateCompanyCode() {
+        try {
+            $code = '';
+            $characters = config('acrtfm.companycodematrix');
+            for ($i = 0; $i < 6; $i++) {
+                $code .= $characters[random_int(0, strlen($characters) - 1)];
+            }
+            return Carbon::now()->format('ymd') . $code;
+            
+        } catch (\Exception $e) {
+            logInfo($e->getMessage());
+            return '';
+        }
+    }
     // public function getEmailDetails($type, $data=[]) {
 
     //     switch ($type) {

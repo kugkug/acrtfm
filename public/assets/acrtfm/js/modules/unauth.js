@@ -8,7 +8,7 @@ $(document).ready(function () {
         let formData = {};
 
         switch (trigger) {
-            case "sign-up-submit":
+            case "sign-up-submit-company":
                 if (!_checkFormFields(form)) {
                     _show_toastr(
                         "error",
@@ -19,7 +19,30 @@ $(document).ready(function () {
                 }
 
                 formData = JSON.parse(_collectFields(form));
-                ajaxRequest("/executor/account/registration", formData, "");
+                ajaxRequest(
+                    "/executor/account/company-registration",
+                    formData,
+                    ""
+                );
+
+                break;
+
+            case "sign-up-submit-technician":
+                if (!_checkFormFields(form)) {
+                    _show_toastr(
+                        "error",
+                        "Please fill all fields",
+                        "User Error"
+                    );
+                    return;
+                }
+
+                formData = JSON.parse(_collectFields(form));
+                ajaxRequest(
+                    "/executor/account/technician-registration",
+                    formData,
+                    ""
+                );
 
                 break;
 
