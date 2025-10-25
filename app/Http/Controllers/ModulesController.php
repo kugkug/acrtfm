@@ -85,10 +85,11 @@ class ModulesController extends Controller
     }
 
     public function techDispatch() {
+        $this->data['dashboard_data'] = globalHelper()->getDashboardData();
         $this->data['title'] = 'Tech Dispatch'; 
         $this->data['description'] = "Manage technical dispatch operations";
         $this->data['header'] = "Tech Dispatch";
-        return view('pages.client.tech_dispatch', $this->data);
+        return view('pages.client.tech_dispatch.dashboard', $this->data);
     }
 
     public function techDispatchCustomers() {
@@ -448,6 +449,14 @@ class ModulesController extends Controller
         $this->data['header'] = "View Quote";
         $this->data['right_panel'] = componentHelper()->rightPanel('quotes-view', ['id' => $id]);
         return view('pages.client.tech_dispatch.quotes.view', $this->data);
+    }
+
+    public function technicians() {
+        $this->data['technicians'] = globalHelper()->getTechnicians();
+        $this->data['title'] = 'Technicians'; 
+        $this->data['description'] = "View all technicians in the system";
+        $this->data['header'] = "Technicians";
+        return view('pages.client.tech_dispatch.technicians', $this->data);
     }
     
 }

@@ -63,6 +63,13 @@
                                 <span class="nav-text">Work Orders</span>
                             </a>
                         </li>
+                        
+                        <li>
+                            <a href="{{ route('technicians') }}">
+                                <i class="fa-solid fa-user-gear menu-icon fa-action"></i>
+                                <span class="nav-text">Technicians</span>
+                            </a>
+                        </li>
                         <li>
                             <a href="{{ route('tech-dispatch.quotes') }}">
                                 <i class="fa-solid fa-file-invoice-dollar menu-icon fa-action"></i>

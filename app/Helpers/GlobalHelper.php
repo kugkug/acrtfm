@@ -471,4 +471,56 @@ class GlobalHelper {
             return [];
         }
     }
+
+    public function getTechnicians() {
+        try {
+            $company_code = Auth::user()->company_code;
+            $technicians = User::where('company_code', $company_code)->where('user_type', config('acrtfm.user_types.technician'))->get()->toArray();
+            if ($technicians) {
+                return $technicians;
+            }
+
+            return [];
+        } catch (\Exception $e) {   
+            logInfo($e->getMessage());
+            return [];
+        }
+    }
+
+    public function getDashboardData() {
+        try {
+            $dashboard_data = [];
+
+
+            $work_orders = WorkOrder::all();
+
+            $status_counts = [
+                'active' => 0,
+                'completed' => 0,
+                'pending' => 0
+            ];
+
+            foreach ($work_orders as $wo) {
+                $status = strtolower($wo->status ?? '');
+
+                if (in_array($status, [config('acrtfm.work_order_statuses.in_progress'), config('acrtfm.work_order_statuses.in-progress'), config('acrtfm.work_order_statuses.active')])) {
+                    $status_counts['active']++;
+                } elseif (in_array($status, [config('acrtfm.work_order_statuses.completed'), config('acrtfm.work_order_statuses.done'), config('acrtfm.work_order_statuses.closed')])) {
+                    $status_counts['completed']++;
+                } elseif (in_array($status, [config('acrtfm.work_order_statuses.pending'), config('acrtfm.work_order_statuses.on_hold'), config('acrtfm.work_order_statuses.on-hold')])) {
+                    $status_counts['pending']++;
+                }
+            }
+
+            $dashboard_data['active_jobs'] = $status_counts['active'];
+            $dashboard_data['completed'] = $status_counts['completed'];
+            $dashboard_data['pending'] = $status_counts['pending'];
+            $dashboard_data['technicians'] = count($this->getTechnicians()) ?? 0;
+            
+            return $dashboard_data;
+        } catch (\Exception $e) {
+            logInfo($e->getMessage());
+            return [];
+        }
+    }
 }

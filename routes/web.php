@@ -84,6 +84,8 @@ Route::middleware(['auth:sanctum', 'web'])->group(function () {
         Route::get('/{id}/view', [ModulesController::class, 'view_quote'])->name("quotes.view");
         Route::get('/{id}/edit', [ModulesController::class, 'edit_quote'])->name("quotes.edit");
     });
+
+    Route::get('/technicians', [ModulesController::class, 'technicians'])->name("technicians");
         
     Route::get('/video-playlist', [ModulesController::class, 'videoPlaylist'])->name("video-playlist");
 

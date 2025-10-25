@@ -40,7 +40,7 @@
                             'name' => 'company',
                             'label' => 'Company',
                             'data-key' => 'Company',
-                            'data' => 'req',
+                            'data' => '',
                             'class' => 'form-control form-control-sm override-input',
                         ]"
                     />
@@ -68,7 +68,7 @@
                             'name' => 'phone',
                             'label' => 'Phone',
                             'data-key' => 'PhoneNumber',
-                            'data' => 'req',
+                            'data' => '',
                             'class' => 'form-control form-control-sm override-input',
                         ]"
                     />
@@ -88,7 +88,7 @@
                             'name' => 'billing_address',
                             'label' => 'Billing Address',
                             'data-key' => 'BillingAddress',
-                            'data' => 'req',
+                            'data' => '',
                             'class' => 'form-control form-control-sm override-textarea',
                         ]"
                     />

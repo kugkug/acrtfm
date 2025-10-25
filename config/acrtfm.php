@@ -10,7 +10,12 @@
             'admin' => 'Admin',
         ],
         
-        
+        'work_order_statuses' => [
+            'pending' => 'Pending',
+            'in_progress' => 'In Progress',
+            'completed' => 'Completed',
+            'cancelled' => 'Cancelled',
+        ],
         'priority_levels' => [
             'low' => 'Low',
             'medium' => 'Medium',
