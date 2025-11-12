@@ -32,8 +32,16 @@
         ];
     }
 
+    $filtered_technicians = [];
+    foreach($technicians as $technician) {
+        $filtered_technicians[] = [
+            'id' => $technician['id'],
+            'label' => $technician['name'],
+        ];
+    }
+
     $filtered_priority_levels = [];
-    foreach(config('acrtfm.priority_levels') as $key => $value) {
+    foreach($priority_levels as $key => $value) {
         $filtered_priority_levels[] = [
             'id' => $key,
             'label' => $value,
@@ -132,7 +140,20 @@
 
                         </div>
                     </div>
-                    
+
+                    <x-select 
+                        :attrib="[
+                            'id' => 'technician_id',
+                            'name' => 'technician_id',
+                            'label' => 'Technician',
+                            'data-key' => 'TechnicianId',
+                            'data' => '',
+                            'class' => 'form-control form-control-sm override-select',
+                        ]"
+                        :options="$filtered_technicians"
+                        :label="'Technician'"
+                    />
+
                     <x-textarea 
                         :attrib="[
                             'name' => 'description',

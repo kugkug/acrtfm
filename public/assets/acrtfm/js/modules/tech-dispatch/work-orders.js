@@ -87,6 +87,43 @@ $(document).ready(function () {
                     ""
                 );
                 break;
+
+            case "send-signature-email":
+                work_order_id = $(this).attr("data-id");
+                const emailInput = $("#signatureRecipientEmail");
+                const emailValue = emailInput.val().trim();
+                const sendButton = $(this);
+
+                if (!emailValue) {
+                    _show_toastr(
+                        "error",
+                        "Please enter the customer's email address.",
+                        "Validation Error"
+                    );
+                    return;
+                }
+
+                if (!isValidEmail(emailValue)) {
+                    _show_toastr(
+                        "error",
+                        "Please provide a valid email address.",
+                        "Validation Error"
+                    );
+                    return;
+                }
+
+                if (!sendButton.data("default-text")) {
+                    sendButton.data("default-text", sendButton.html());
+                }
+
+                sendButton
+                    .prop("disabled", true)
+                    .html("<i class='fa fa-spinner fa-spin mr-1'></i> Sending...");
+
+                ajaxRequest(`/quotation/${work_order_id}/send-link`, {
+                    signature_email: emailValue,
+                });
+                break;
         }
     });
 
@@ -268,4 +305,10 @@ function _delete(type, data_id) {
             break;
     }
     ajaxRequest(url, "", "");
+}
+
+function isValidEmail(email) {
+    const re =
+        /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@(([^<>()[\]\\.,;:\s@"]+\.)+[^<>()[\]\\.,;:\s@"]{2,})$/i;
+    return re.test(String(email).toLowerCase());
 }

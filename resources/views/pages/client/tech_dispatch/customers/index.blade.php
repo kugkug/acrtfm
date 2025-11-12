@@ -53,8 +53,8 @@
                             ],
                         ];
                         
-                        $name = $customer['first_name'] . ' ' . $customer['last_name'];
-                        $company = $customer['company'];
+                        $name = $customer['first_name'] ?? '-' . ' ' . $customer['last_name'] ?? '-';
+                        $company = $customer['company'] ?? '';
 
                     @endphp
 

@@ -82,18 +82,20 @@
             </a>
         </div>
         @if (URL::to('/') != 'https://acrtfm.com')
-        <div class="col-lg-4">
-            <div class="card shadow-sm cursor-pointer" data-trigger="tech_dispatch" data-url="{{ route('tech-dispatch') }}"> 
-                <div class="card-body">
-                    <h3 class="card-title">Tech Dispatch</h3>
-                    <div class="d-inline-block">
-                        <h2 class=""></h2>
-                        <p class=" mb-0">Manage dispatch operations</p>
+            @if (auth()->user()->user_type == config('acrtfm.user_types.company'))
+            <div class="col-lg-4">
+                <div class="card shadow-sm cursor-pointer" data-trigger="tech_dispatch" data-url="{{ route('tech-dispatch') }}"> 
+                    <div class="card-body">
+                        <h3 class="card-title">Tech Dispatch</h3>
+                        <div class="d-inline-block">
+                            <h2 class=""></h2>
+                            <p class=" mb-0">Manage dispatch operations</p>
+                        </div>
+                        <span class="float-right display-5 opacity-5"><i class="fa fa-truck-fast icon-action"></i></span>
                     </div>
-                    <span class="float-right display-5 opacity-5"><i class="fa fa-truck-fast icon-action"></i></span>
                 </div>
             </div>
-        </div>
+            @endif
         @endif
     </div>
 </section>

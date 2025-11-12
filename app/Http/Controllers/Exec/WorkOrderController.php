@@ -205,4 +205,23 @@ class WorkOrderController extends Controller
             ]);
         }
     }
+
+    public function generate_quotation($id) {
+        try {
+            $work_order = globalHelper()->getWorkOrder($id);
+            
+            if (empty($work_order)) {
+                return redirect()->route('work-orders')->with('error', 'Work Order not found');
+            }
+
+            $pdf = \PDF::loadView('pdf.quotation', ['work_order' => $work_order]);
+            
+            $filename = 'quotation_WO-' . str_pad($work_order['id'], 6, '0', STR_PAD_LEFT) . '_' . date('Ymd') . '.pdf';
+            
+            return $pdf->download($filename);
+        } catch(\Exception $e) {
+            logInfo($e->getTraceAsString());
+            return redirect()->back()->with('error', 'Failed to generate quotation: ' . $e->getMessage());
+        }
+    }
 }

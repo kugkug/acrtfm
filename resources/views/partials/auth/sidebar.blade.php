@@ -39,6 +39,8 @@
             </li>
 
             @if (URL::to('/') != 'https://acrtfm.com')
+                
+                @if (auth()->user()->user_type == config('acrtfm.user_types.company'))
                 <li>
                     <a href="#" aria-expanded="false" class="has-arrow">
                         <i class="fa-solid fa-truck-fast menu-icon fa-action"></i>
@@ -84,6 +86,14 @@
                         </li> --}}
                     </ul>
                 </li>
+                @elseif (Auth::user()->user_type == config('acrtfm.user_types.technician'))
+                <li>
+                    <a href="{{ route('work-orders') }}">
+                        <i class="fa-solid fa-clipboard-list menu-icon fa-action"></i>
+                        <span class="nav-text">Work Orders</span>
+                    </a>
+                </li>
+                @endif
             @endif
         </ul>
     </div>

@@ -24,6 +24,12 @@
         ]
     ];
 @endphp
+
+{{-- 
+    Back settings
+    Make an option to set which fields to be required or not. 
+--}}
+
 <section class="container-fluid">
     <div class="row">
         <div class="col-lg-12">
@@ -49,7 +55,7 @@
                             'name' => 'first_name',
                             'label' => 'First Name',
                             'data-key' => 'FirstName',
-                            'data' => 'req',
+                            'data' => '',
                             'class' => 'form-control form-control-sm override-input',
                         ]"  
                     />
@@ -58,7 +64,7 @@
                             'name' => 'last_name',
                             'label' => 'Last Name',
                             'data-key' => 'LastName',
-                            'data' => 'req',
+                            'data' => '',
                             'class' => 'form-control form-control-sm override-input',
                         ]"                            
                     />
@@ -78,7 +84,7 @@
                             'name' => 'email',
                             'label' => 'Email',
                             'data-key' => 'Email',
-                            'data' => 'req',
+                            'data' => '',
                             'class' => 'form-control form-control-sm override-input',
                         ]"
                     />

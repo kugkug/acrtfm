@@ -5,6 +5,7 @@ use App\Http\Controllers\Apis\AccountController;
 use App\Http\Controllers\Apis\CustomerController;
 use App\Http\Controllers\Apis\EdController;
 use App\Http\Controllers\Apis\JbController;
+use App\Http\Controllers\Apis\TechnicianController;
 use App\Http\Controllers\Apis\WorkOrderController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -79,5 +80,9 @@ Route::middleware('auth:sanctum')->group(function () {
 
         Route::post('/{id}/add-note', [WorkOrderController::class, 'add_note'])->name("api-work-orders-add-note");
         Route::post('/{id}/fetch-notes', [WorkOrderController::class, 'fetch_notes'])->name("api-work-orders-fetch-notes");
+    });
+
+    Route::prefix('technicians')->group(function () {
+        Route::post('/{id}/company-confirmation', [TechnicianController::class, 'updateCompanyConfirmation'])->name("api-technicians-company-confirmation");
     });
 });

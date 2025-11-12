@@ -13,10 +13,23 @@
             </x-card>
 
             @if(isset($technicians) && count($technicians) > 0)
+                @if(session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                @endif
+
+                @if(session('error'))
+                    <div class="alert alert-danger">
+                        {{ session('error') }}
+                    </div>
+                @endif
+
                 @foreach($technicians as $technician)
                     @php
                         $name = $technician['name'] ?? 'N/A';
                         $email = $technician['email'] ?? 'N/A';
+                        $isCompanyConfirmed = strtolower($technician['is_company_confirmed'] ?? 'no') === 'yes';
                     @endphp
 
                     <x-card
@@ -44,13 +57,49 @@
                                 </dd>
                             @endif
 
+                            <dd>
+                                <i class="fa fa-check-circle mr-2"></i>
+                                Status:
+                                @if($isCompanyConfirmed)
+                                    <span class="badge badge-success">Company Confirmed</span>
+                                @else
+                                    <span class="badge badge-secondary">Pending Confirmation</span>
+                                @endif
+                            </dd>
+
                             @if(isset($technician['created_at']))
                                 <dd>
                                     <i class="fa fa-calendar mr-2"></i> 
-                                    Joined: {{ \Carbon\Carbon::parse($technician['created_at'])->format('M d, Y') }}
+                                    Joined: {{ \Carbon\Carbon::parse($technician['created_at'])->format('m/d/Y H:i') }}
                                 </dd>
                             @endif
+                                
+                            {{-- @if(auth()->check() && auth()->user()->user_type === config('acrtfm.user_types.company'))
+                                <dd>
+                                    <form method="POST" action="{{ route('technicians.company-confirmation', $technician['id']) }}" class="d-inline">
+                                        @csrf
+                                        <input type="hidden" name="status" value="{{ $isCompanyConfirmed ? 'no' : 'yes' }}">
+                                        <button type="submit" class="btn btn-sm {{ $isCompanyConfirmed ? 'btn-warning' : 'btn-success' }}">
+                                            <i class="fa {{ $isCompanyConfirmed ? 'fa-ban' : 'fa-check' }}"></i>
+                                            {{ $isCompanyConfirmed ? 'Revoke Access' : 'Grant Access' }}
+                                        </button>
+                                    </form>
+                                </dd>
+                            @endif --}}
                         </dl>
+
+                        <div class="card-footer p-0">
+                            @if(auth()->check() && auth()->user()->user_type === config('acrtfm.user_types.company'))
+                                <form method="POST" action="{{ route('technicians.company-confirmation', $technician['id']) }}" class="d-inline">
+                                    @csrf
+                                    <input type="hidden" name="status" value="{{ $isCompanyConfirmed ? 'no' : 'yes' }}">
+                                    <button type="submit" class="mt-2 btn btn-sm {{ $isCompanyConfirmed ? 'btn-warning' : 'btn-success' }}">
+                                        <i class="fa {{ $isCompanyConfirmed ? 'fa-ban' : 'fa-check' }}"></i>
+                                        {{ $isCompanyConfirmed ? 'Revoke Access' : 'Grant Access' }}
+                                    </button>
+                                </form>
+                            @endif
+                        </div>
                     </x-card>
                 @endforeach
             @else

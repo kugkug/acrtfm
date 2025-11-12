@@ -16,6 +16,7 @@ class KeysHelper {
         'Password' => 'password',
         'ConfirmPassword' => 'password_confirmation',
         'CompanyCode' => 'company_code',
+        'TechnicianId' => 'technician_id',
         
         'CustomerId' => 'customer_id',
         'LocationName' => 'location_name',

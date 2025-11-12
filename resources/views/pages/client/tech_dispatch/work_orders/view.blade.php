@@ -141,10 +141,70 @@
                 ]
             @endphp
             
+            @php
+                $statementData = $statement ?? [];
+                $statementExists = !empty($statementData);
+                $workOrderStatus = strtolower($work_order['status'] ?? '');
+                $completedStatuses = [
+                    strtolower(config('acrtfm.work_order_statuses.completed')),
+                    'completed',
+                ];
+                $canCreateStatement = (!$statementExists) && in_array($workOrderStatus, $completedStatuses, true);
+                $header_tools = [
+                    [
+                        'type' => 'link',
+                        'text' => 'Generate Quotation',
+                        'icon' => 'fa fa-file-pdf',
+                        'attrib' => [
+                            'class' => 'btn btn-success btn-sm',
+                            'title' => 'Generate PDF Quotation',
+                            'href' => route('exec-work-orders-generate-quotation', $work_order['id']),
+                            'target' => '_blank',
+                        ],
+                    ],
+                    [
+                        'type' => 'button',
+                        'text' => 'Sign Quotation',
+                        'icon' => 'fa fa-signature',
+                        'attrib' => [
+                            'class' => 'btn btn-info btn-sm',
+                            'title' => 'Signature Options',
+                            'data-toggle' => 'modal',
+                            'data-target' => '#signatureOptionsModal',
+                            'data-work-order-id' => $work_order['id'],
+                        ],
+                    ],
+                ];
+                if ($statementExists) {
+                    $header_tools[] = [
+                        'type' => 'link',
+                        'text' => 'View Statement',
+                        'icon' => 'fa fa-file-invoice-dollar',
+                        'attrib' => [
+                            'class' => 'btn btn-warning btn-sm text-white',
+                            'title' => 'View Statement of Account',
+                            'href' => route('work-orders.statement.show', $work_order['id']),
+                        ],
+                    ];
+                } elseif ($canCreateStatement) {
+                    $header_tools[] = [
+                        'type' => 'link',
+                        'text' => 'Create Statement',
+                        'icon' => 'fa fa-file-invoice-dollar',
+                        'attrib' => [
+                            'class' => 'btn btn-warning btn-sm text-white',
+                            'title' => 'Create Statement of Account',
+                            'href' => route('work-orders.statement.show', $work_order['id']),
+                        ],
+                    ];
+                }
+            @endphp
+
             <x-card
                 :title="$work_order['title']"
                 :subtitle="$customer_name"
                 :hr="true"
+                :tools="$header_tools"
             >
                 <dl>
                     <dd class="bg-light p-2">{{ $work_order['description'] }}</dd>
@@ -274,6 +334,69 @@
         </div>
     @endforeach
 </section>
+
+<div class="modal fade" id="signatureOptionsModal" tabindex="-1" role="dialog" aria-labelledby="signatureOptionsModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="signatureOptionsModalLabel"><i class="fa fa-signature mr-2"></i>Quotation Signature Options</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <p class="mb-4">
+                    Choose how you would like this quotation to be signed. You can email a secure link to the customer for online signing or allow the customer to sign immediately on this device.
+                </p>
+
+                <div class="card border-0 mb-4 shadow-sm">
+                    <div class="card-body">
+                        <h6 class="text-primary font-weight-bold"><i class="fa fa-envelope mr-2"></i>Email Signature Link</h6>
+                        <p class="text-muted mb-3">Send the customer a secure link to sign the quotation online.</p>
+                        <div class="form-group mb-3">
+                            <label for="signatureRecipientEmail" class="font-weight-semibold">Customer Email Address</label>
+                            <input
+                                type="email"
+                                class="form-control"
+                                id="signatureRecipientEmail"
+                                placeholder="customer@example.com"
+                                value="{{ $work_order['customer']['email'] ?? '' }}"
+                            >
+                            <small class="form-text text-muted">We'll send a time-limited secure link to this email.</small>
+                        </div>
+                        <button
+                            type="button"
+                            class="btn btn-primary btn-block"
+                            id="sendSignatureEmailButton"
+                            data-trigger="send-signature-email"
+                            data-id="{{ $work_order['id'] }}"
+                            data-default-text="Send Signature Link"
+                        >
+                            <i class="fa fa-paper-plane mr-1"></i> Send Signature Link
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card border-0 shadow-sm">
+                    <div class="card-body bg-light">
+                        <h6 class="text-success font-weight-bold"><i class="fa fa-tablet-alt mr-2"></i>Sign On This Device</h6>
+                        <p class="text-muted mb-3">Open the signature page now and have the customer sign immediately.</p>
+                        <a
+                            href="{{ route('quotation.sign', $work_order['id']) }}"
+                            class="btn btn-success btn-block"
+                        >
+                            <i class="fa fa-check-circle mr-1"></i> Open Signature Page
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <div class="modal fade modal-fullscreen" id="modal-image-view" tabindex="-1" role="dialog" aria-labelledby="modal-image-view-label" aria-hidden="true">
     
     <div class="modal-dialog modal-lg modal-dialog-centered" role="document">

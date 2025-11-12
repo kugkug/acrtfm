@@ -268,6 +268,11 @@ class ModulesController extends Controller
     }
 
     public function new_customer() {
+        $user = auth()->user();
+        if ($user && $user->user_type === config('acrtfm.user_types.technician') && ! $user->isCompanyConfirmed()) {
+            return redirect()->route('customers')->with('error', 'Company confirmation is required before you can add customers.');
+        }
+
         $this->data['title'] = 'New Customer'; 
         $this->data['description'] = "Add a new customer";
         $this->data['header'] = "New Customer";
@@ -384,9 +389,20 @@ class ModulesController extends Controller
         $this->data['title'] = 'Work Orders'; 
         $this->data['description'] = "Manage work orders";
         $this->data['header'] = "Work Orders";
-        $this->data['right_panel'] = componentHelper()->rightPanel('work-orders-index', []);
         $this->data['work_orders'] = globalHelper()->getAllWorkOrders();
-        return view('pages.client.tech_dispatch.work_orders.index', $this->data);
+        
+        $this->data['right_panel'] = (
+            auth()->user()->user_type == config('acrtfm.user_types.company')) ? 
+            componentHelper()->rightPanel('work-orders-index', []) : 
+            componentHelper()->rightPanel('work-orders-technician-index', ['id' => auth()->user()->id]
+        );
+        
+        if (auth()->user()->user_type == config('acrtfm.user_types.technician')) {
+            return view('pages.client.tech_dispatch.technicians.work_orders', $this->data);
+        } else {
+            return view('pages.client.tech_dispatch.work_orders.index', $this->data);
+        }
+        
     }
 
     public function view_work_order($id) {
@@ -394,6 +410,7 @@ class ModulesController extends Controller
         if (empty($this->data['work_order'])) {
             return redirect()->route('work-orders');
         }
+        $this->data['statement'] = globalHelper()->getWorkOrderStatement($id);
         $this->data['title'] = 'View Work Order'; 
         $this->data['description'] = "View work order information";
         $this->data['header'] = "View Work Order";
@@ -402,7 +419,15 @@ class ModulesController extends Controller
     }
 
     public function new_work_order() {
+        $user = auth()->user();
+        if ($user && $user->user_type === config('acrtfm.user_types.technician') && ! $user->isCompanyConfirmed()) {
+            return redirect()->route('work-orders')->with('error', 'Company confirmation is required before you can create work orders.');
+        }
+
         $this->data['customers'] = globalHelper()->getCustomers();
+        $this->data['priority_levels'] = config('acrtfm.priority_levels');
+        $this->data['equipment_types'] = globalHelper()->getEquipmentTypes();
+        $this->data['technicians'] = globalHelper()->getTechnicians();
         
         $this->data['title'] = 'New Work Order'; 
         $this->data['description'] = "Create a new work order";

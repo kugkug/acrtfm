@@ -13,6 +13,10 @@ class CustomerController extends Controller
 {
     public function save(Request $request): JsonResponse{
         try {
+            $user = auth()->user();
+            if ($user && $user->user_type === config('acrtfm.user_types.technician') && ! $user->isCompanyConfirmed()) {
+                return response()->json(['status' => false, 'message' => 'Company confirmation is required before you can add customers.'], 403);
+            }
 
             $validated = validatorHelper()->validate('customers-save', $request);
 
@@ -20,6 +24,9 @@ class CustomerController extends Controller
                 return response()->json(['status' => false, 'message' => $validated['response']], 400);
             }
 
+            if (! $validated['validated']) {
+                return response()->json(['status' => false, 'message' => 'Please provide at least one information to save'], 400);
+            }
             $validated['validated']['created_by'] = auth()->user()->id;
 
             $customer = Customer::create($validated['validated']);

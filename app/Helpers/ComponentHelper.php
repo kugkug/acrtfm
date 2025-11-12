@@ -3,7 +3,23 @@
     declare(strict_types=1);
     namespace App\Helpers;
 
+    use Illuminate\Support\Facades\Auth;
+
     class ComponentHelper {
+
+        private function technicianHasConfirmation(): bool {
+            $user = Auth::user();
+
+            if (! $user || $user->user_type !== config('acrtfm.user_types.technician')) {
+                return false;
+            }
+
+            if (method_exists($user, 'isCompanyConfirmed')) {
+                return $user->isCompanyConfirmed();
+            }
+
+            return strtolower((string) ($user->is_company_confirmed ?? '')) === 'yes';
+        }
 
         public function rightPanel(string $type, array $data): string {
 
@@ -149,36 +165,54 @@
                     break;
 
                 case 'customers-index':
-                    $html ="
+                    $user = Auth::user();
 
-                         <div class='d-none d-sm-none d-md-block d-lg-block d-xl-block'>
-                            <div class='d-flex justify-content-end'>
-                                <a href='".route('customers.new')."' class='btn btn-info btn-md btn-flat mr-2'>
-                                    <i class='fa fa-user-plus'></i> Add Customer
-                                </a>
-                                <a href='".redirect()->back()->getTargetUrl()."' class='btn btn-primary btn-md btn-flat'>
-                                    <i class='fa fa-undo'></i> Back
-                                </a>
+                    if ($user && $user->user_type === config('acrtfm.user_types.company')) {
+                        $html ="
+
+                             <div class='d-none d-sm-none d-md-block d-lg-block d-xl-block'>
+                                <div class='d-flex justify-content-end'>
+                                    <a href='".route('customers.new')."' class='btn btn-info btn-md btn-flat mr-2'>
+                                        <i class='fa fa-user-plus'></i> Add Customer
+                                    </a>
+                                    <a href='".redirect()->back()->getTargetUrl()."' class='btn btn-primary btn-md btn-flat'>
+                                        <i class='fa fa-undo'></i> Back
+                                    </a>
+                                </div>
                             </div>
-                        </div>
-                        <div class='d-sm-block d-md-none d-lg-none d-xl-none'>
-                            <div class='basic-dropdown float-right'>
-                                <div class='dropleft'>
-                                    <button type='button' class='btn mb-1 btn-rounded btn-outline-info' data-toggle='dropdown'>
-                                        <i class='fa fa-ellipsis-v'></i>
-                                    </button>
-                                    <div class='dropdown-menu'>
-                                        <a class='dropdown-item mb-1 text-info' href='".route('customers.new')."'>
-                                            <i class='fa fa-user-plus'></i> Add Customer
-                                        </a>
-                                        <a class='dropdown-item mb-1 text-primary' href='".redirect()->back()->getTargetUrl()."'>
-                                            <i class='fa fa-undo'></i> Back
-                                        </a>
+                            <div class='d-sm-block d-md-none d-lg-none d-xl-none'>
+                                <div class='basic-dropdown float-right'>
+                                    <div class='dropleft'>
+                                        <button type='button' class='btn mb-1 btn-rounded btn-outline-info' data-toggle='dropdown'>
+                                            <i class='fa fa-ellipsis-v'></i>
+                                        </button>
+                                        <div class='dropdown-menu'>
+                                            <a class='dropdown-item mb-1 text-info' href='".route('customers.new')."'>
+                                                <i class='fa fa-user-plus'></i> Add Customer
+                                            </a>
+                                            <a class='dropdown-item mb-1 text-primary' href='".redirect()->back()->getTargetUrl()."'>
+                                                <i class='fa fa-undo'></i> Back
+                                            </a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    ";
+                        ";
+                    } elseif ($this->technicianHasConfirmation()) {
+                        $html ="
+                             <div class='text-right'>
+                                <a href='".route('customers.new')."' class='btn btn-info btn-md btn-flat'>
+                                    <i class='fa fa-user-plus'></i> Add Customer
+                                </a>
+                            </div>
+                        ";
+                    } else {
+                        $html ="
+                             <div class='alert alert-warning mb-0 text-center'>
+                                Company confirmation is required to add customers.
+                             </div>
+                        ";
+                    }
                     break;
                 case 'quotes-index':
                     $html ="
@@ -225,6 +259,25 @@
                         </div>
                     ";
                     break;
+                case 'work-orders-technician-index':
+                    if ($this->technicianHasConfirmation()) {
+                        $html ="
+                            <div class='text-right'>
+                                <a href='".route('work-orders.new')."' class='btn btn-info btn-md btn-flat'>
+                                    <i class='fa fa-plus'></i> New Work Order
+                                </a>
+                            </div>
+                        ";
+                    } else {
+                        $html ="
+                            <div class='alert alert-warning mb-0 text-center'>
+                                Company confirmation is required to create work orders.
+                            </div>
+                        ";
+                    }
+                    break;
+
+                 
                 
                 default:  
                     $html ="

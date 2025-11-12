@@ -40,6 +40,17 @@
                                 ],
                             ],
                             [
+                                'type' => 'link',
+                                'text' => '',
+                                'icon' => 'fa fa-file-pdf',
+                                'attrib' => [
+                                    'class' => 'btn btn-default btn-sm text-success',
+                                    'title' => 'Generate Quotation',
+                                    'href' => route('exec-work-orders-generate-quotation', $work_order['id']),
+                                    'target' => '_blank',
+                                ],
+                            ],
+                            [
                                 'type' => 'button',
                                 'text' => '',
                                 'icon' => 'fa fa-trash',

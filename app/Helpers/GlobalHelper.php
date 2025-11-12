@@ -42,6 +42,7 @@ use GuzzleHttp\Client as GuzzleClient;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use App\Models\WorkOrder;
+use App\Models\WorkOrderStatement;
 
 class GlobalHelper {
 
@@ -377,7 +378,11 @@ class GlobalHelper {
 
     public function getCustomers() {
         try {
-            return Customer::where('created_by', Auth::user()->id)->get()->toArray();
+            if (auth()->user()->user_type == config('acrtfm.user_types.company')) {
+                return Customer::where('created_by', Auth::user()->id)->get()->toArray();
+            } else {
+                return Customer::where('technician_id', Auth::user()->id)->get()->toArray();
+            }
         } catch (\Exception $e) {
             logInfo($e->getMessage());
             return [];
@@ -439,9 +444,13 @@ class GlobalHelper {
     }
 
     public function getAllWorkOrders() {
-        try {
-            $work_orders = WorkOrder::with('customer')->get();
-
+        try {            
+            if (auth()->user()->user_type == config('acrtfm.user_types.company')) {
+                $work_orders = WorkOrder::with('customer')->get();
+            } else {
+                $work_orders = WorkOrder::where('technician_id', auth()->user()->id)->with('customer')->get();
+            }
+            
             if ($work_orders) {
                 return $work_orders->toArray();
             }
@@ -449,7 +458,7 @@ class GlobalHelper {
             return [];
 
         } catch (\Exception $e) {
-            logInfo($e->getMessage());
+            logInfo($e->getTraceAsString());
             return [];
         }
     }
@@ -460,9 +469,25 @@ class GlobalHelper {
             ->with('customer')
             ->with('photos')
             ->with('notes')
+            ->with('statement')
             ->first();
             if ($work_order) {
                 return $work_order->toArray();
+            }
+
+            return [];
+        } catch (\Exception $e) {
+            logInfo($e->getMessage());
+            return [];
+        }
+    }
+
+    public function getWorkOrderStatement(int $work_order_id): array
+    {
+        try {
+            $statement = WorkOrderStatement::where('work_order_id', $work_order_id)->with('customer')->first();
+            if ($statement) {
+                return $statement->toArray();
             }
 
             return [];

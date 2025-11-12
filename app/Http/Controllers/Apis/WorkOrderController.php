@@ -14,6 +14,14 @@ class WorkOrderController extends Controller
 {
     public function save(Request $request): JsonResponse {
         try {
+            $user = auth()->user();
+            if ($user && $user->user_type === config('acrtfm.user_types.technician') && ! $user->isCompanyConfirmed()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Company confirmation is required before you can create work orders.',
+                ], 403);
+            }
+
             $validated = validatorHelper()->validate('work-orders-save', $request);
 
             if(! $validated['status']) {

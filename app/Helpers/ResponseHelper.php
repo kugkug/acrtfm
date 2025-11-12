@@ -153,6 +153,25 @@ class ResponseHelper {
                 ";
                 break;
 
+            case 'quotation-signature-link-sent':
+                $modalSelector = $data['modal_selector'] ?? '#signatureOptionsModal';
+                $buttonSelector = $data['button_selector'] ?? '#sendSignatureEmailButton';
+                $defaultButtonText = addslashes($data['default_button_text'] ?? 'Send Signature Link');
+                $emailValue = $data['email'] ?? '';
+                $script = "
+                    var button = $('{$buttonSelector}');
+                    if(button.length){
+                        var defaultText = button.data('default-text') || '{$defaultButtonText}';
+                        button.prop('disabled', false).html(defaultText);
+                    }
+                    $('{$modalSelector}').modal('hide');
+                    _show_toastr('success', '".addslashes($message)."', '".addslashes($title)."');
+                ";
+                if (!empty($emailValue)) {
+                    $script .= "$('#signatureRecipientEmail').val('".addslashes($emailValue)."');";
+                }
+                break;
+
 
         }
 

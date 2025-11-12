@@ -52,4 +52,9 @@ class User extends Authenticatable
     {
         return $this->user_type ?? null;
     }
+
+    public function isCompanyConfirmed(): bool
+    {
+        return strtolower((string) ($this->is_company_confirmed ?? '')) === 'yes';
+    }
 }

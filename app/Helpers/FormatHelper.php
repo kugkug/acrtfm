@@ -55,6 +55,6 @@ class FormatHelper {
     }
 
     public static function formatDate(string $date): string {
-        return date('m/d/y h:i A', strtotime($date));
+        return date('m/d/Y H:i', strtotime($date));
     }
 }

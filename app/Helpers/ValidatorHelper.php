@@ -86,12 +86,12 @@ class ValidatorHelper {
                 ];
             case 'customers-save':
                 return [
-                    'company' => 'required|string|max:255',
-                    'first_name' => 'required|string|max:255',
-                    'last_name' => 'required|string|max:255',
-                    'email' => 'required|email|unique:customers',
-                    'phone' => 'required|string|max:12',
-                    'address' => 'required|string|max:255',
+                    'company' => 'sometimes|string|max:255',
+                    'first_name' => 'sometimes|string|max:255',
+                    'last_name' => 'sometimes|string|max:255',
+                    'email' => 'sometimes|email|unique:customers',
+                    'phone' => 'sometimes|string|max:12',
+                    'address' => 'sometimes|string|max:255',
                     'notes' => 'sometimes|string|max:255',
                 ];
             case 'customers-update':
@@ -162,6 +162,7 @@ class ValidatorHelper {
                     'estimated_hours' => 'required|numeric',
                     'schedule_date' => 'required',
                     'schedule_time' => 'required',
+                    'technician_id' => 'required|exists:users,id',
                     'description' => 'sometimes|string',
                 ];
             case 'work-orders-update':
@@ -172,6 +173,7 @@ class ValidatorHelper {
                     'estimated_hours' => 'sometimes|numeric',
                     'schedule_date' => 'sometimes',
                     'schedule_time' => 'sometimes',
+                    'technician_id' => 'sometimes|exists:users,id',
                     'description' => 'sometimes|string',
                 ];
 

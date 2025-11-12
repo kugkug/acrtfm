@@ -57,21 +57,23 @@ class Customer extends Model
     /**
      * Boot method to generate customer_id
      */
-    protected static function boot()
-    {
-        parent::boot();
+    // protected static function boot()
+    // {
+    //     parent::boot();
 
-        static::creating(function ($customer) {
-            if (empty($customer->customer_id)) {
-                $lastCustomer = static::orderBy('id', 'desc')->first();
-                $nextNumber = $lastCustomer ? (int) substr($lastCustomer->customer_id, 6) + 1 : 1;
-                $customer->customer_id = 'CUST-' . str_pad($nextNumber, 3, '0', STR_PAD_LEFT);
-            }
-        });
+    //     static::creating(function ($customer) {
+    //         if (empty($customer->customer_id)) {
+    //           $customer->customer_id = date('my') . str_pad(mt_rand(0, 999999), 6, '0', STR_PAD_LEFT);
+    //         }
+    //     });
 
-        static::addGlobalScope('mine', function (Builder $builder) {
-            $builder->where('created_by', auth()->user()->id);
-        });
-    }
+    //     static::addGlobalScope('mine', function (Builder $builder) {
+    //         if (auth()->user()->user_type == config('acrtfm.user_types.company')) {
+    //             $builder->where('created_by', auth()->user()->id);
+    //         } else {
+    //             $builder->where('technician_id', auth()->user()->id);
+    //         }
+    //     });
+    // }
 
 }

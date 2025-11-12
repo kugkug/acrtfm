@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Builder;
 
 class WorkOrder extends Model {
@@ -26,13 +27,21 @@ class WorkOrder extends Model {
         return $this->hasMany(WorkOrderNote::class);
     }
 
-    protected static function boot()
+    public function statement(): HasOne
     {
-        parent::boot();
-
-        static::addGlobalScope('mine', function (Builder $builder) {
-            $builder->where('created_by', auth()->user()->id);
-        });
-
+        return $this->hasOne(WorkOrderStatement::class);
     }
+
+    // protected static function boot()
+    // {
+    //     parent::boot();
+
+    //     static::addGlobalScope('mine', function (Builder $builder) {
+    //         // if (auth()->user()->user_type == config('acrtfm.user_types.company')) {
+    //             $builder->where('created_by', auth()->user()->id);
+    //     //     } else {
+    //     //         $builder->where('technician_id', auth()->user()->id);
+    //     //     }
+    //     });
+    // }
 }

@@ -5,7 +5,10 @@ use App\Http\Controllers\Exec\AccountController;
 use App\Http\Controllers\Exec\CustomerController;
 use App\Http\Controllers\Exec\EdController;
 use App\Http\Controllers\Exec\JbController;
+use App\Http\Controllers\Exec\QuoteController;
+use App\Http\Controllers\Exec\TechnicianController;
 use App\Http\Controllers\Exec\WorkOrderController;
+use App\Http\Controllers\Exec\WorkOrderStatementController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ModulesController;
 
@@ -76,6 +79,9 @@ Route::middleware(['auth:sanctum', 'web'])->group(function () {
         Route::get('/new', [ModulesController::class, 'new_work_order'])->name("work-orders.new");
         Route::get('/{id}/view', [ModulesController::class, 'view_work_order'])->name("work-orders.view");
         Route::get('/{id}/edit', [ModulesController::class, 'edit_work_order'])->name("work-orders.edit");
+        Route::get('/{id}/statement', [WorkOrderStatementController::class, 'show'])->name('work-orders.statement.show');
+        Route::post('/{id}/statement', [WorkOrderStatementController::class, 'store'])->name('work-orders.statement.store');
+        Route::get('/{id}/statement/download', [WorkOrderStatementController::class, 'download'])->name('work-orders.statement.download');
     });
 
     Route::prefix('quotes')->group(function () {
@@ -85,7 +91,17 @@ Route::middleware(['auth:sanctum', 'web'])->group(function () {
         Route::get('/{id}/edit', [ModulesController::class, 'edit_quote'])->name("quotes.edit");
     });
 
+    // Quotation E-Signature Routes
+    Route::prefix('quotation')->group(function () {
+        Route::get('/{id}/sign', [QuoteController::class, 'showQuotationForSignature'])->name("quotation.sign");
+        Route::post('/{id}/signature', [QuoteController::class, 'saveSignature'])->name("quotation.save-signature");
+        Route::post('/{id}/send-link', [QuoteController::class, 'sendSignatureLink'])->name("quotation.send-link");
+        Route::get('/{id}/signed', [QuoteController::class, 'showSignedQuotation'])->name("quotation.signed");
+        Route::get('/{id}/download', [QuoteController::class, 'downloadSignedQuotation'])->name("quotation.download");
+    });
+
     Route::get('/technicians', [ModulesController::class, 'technicians'])->name("technicians");
+    Route::post('/technicians/{id}/company-confirmation', [TechnicianController::class, 'updateCompanyConfirmation'])->name("technicians.company-confirmation");
         
     Route::get('/video-playlist', [ModulesController::class, 'videoPlaylist'])->name("video-playlist");
 
@@ -168,13 +184,22 @@ Route::middleware(['auth:sanctum', 'web'])->group(function () {
             Route::post('/save', [WorkOrderController::class, 'save'])->name("exec-work-orders-save");
             Route::post('/{id}/update', [WorkOrderController::class, 'update'])->name("exec-work-orders-update");
             Route::post('/{id}/delete', [WorkOrderController::class, 'delete'])->name("exec-work-orders-delete");
-            
+
             Route::post('/add-photos', [WorkOrderController::class, 'add_photos'])->name("exec-work-orders-add-photos");
             Route::post('/{id}/fetch-photos', [WorkOrderController::class, 'fetch_photos'])->name("exec-work-orders-fetch-photos");
             Route::post('/{id}/delete-image', [WorkOrderController::class, 'delete_image'])->name("exec-work-orders-delete-image");
 
             Route::post('/{id}/add-note', [WorkOrderController::class, 'add_note'])->name("exec-work-orders-add-note");
             Route::post('/{id}/fetch-notes', [WorkOrderController::class, 'fetch_notes'])->name("exec-work-orders-fetch-notes");
+
+            Route::get('/{id}/generate-quotation', [WorkOrderController::class, 'generate_quotation'])->name("exec-work-orders-generate-quotation");
         });
     });
+});
+
+Route::prefix('public/quotation')->middleware('signed')->group(function () {
+    Route::get('/{id}/sign', [QuoteController::class, 'showQuotationForSignaturePublic'])->name('quotation.public-sign');
+    Route::post('/{id}/signature', [QuoteController::class, 'saveSignature'])->name('quotation.public-save-signature');
+    Route::get('/{id}/signed', [QuoteController::class, 'showSignedQuotationPublic'])->name('quotation.public-signed');
+    Route::get('/{id}/download', [QuoteController::class, 'downloadSignedQuotationPublic'])->name('quotation.public-download');
 });

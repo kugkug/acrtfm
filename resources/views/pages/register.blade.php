@@ -41,7 +41,15 @@
                     </div>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-md-12">
+                    <a href="{{route('login')}}" class="btn btn-outline-primary btn-block btn-flat mb-3">Back to Login</a>
+                </div>
+            </div>
         </div>
+
+       
 
     </div>
 </div>

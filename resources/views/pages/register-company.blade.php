@@ -27,8 +27,8 @@
                                         <div class="row">
                                             <div class="col-lg-12">
                                                 <div class="form-group">
-                                                    <label for="CompanyAddress">Company Address <span class="text-danger">*</span></label>
-                                                    <input type="text" class="form-control form-control-md override-input"  placeholder="Company Address" data="req" data-key="CompanyAddress">
+                                                    <label for="CompanyAddress">Company Address </label>
+                                                    <input type="text" class="form-control form-control-md override-input"  placeholder="Company Address" data-key="CompanyAddress">
                                                     <div id="val-CompanyAddress-error" class="invalid-feedback animated fadeInDown">Please provide a Company Address</div>
                                                 </div>
                                             </div>
