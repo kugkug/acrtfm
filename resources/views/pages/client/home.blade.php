@@ -81,7 +81,7 @@
                 </div>
             </a>
         </div>
-        @if (URL::to('/') != 'https://acrtfm.com')
+        {{-- @if (URL::to('/') != 'https://acrtfm.com') --}}
             @if (auth()->user()->user_type == config('acrtfm.user_types.company'))
             <div class="col-lg-4">
                 <div class="card shadow-sm cursor-pointer" data-trigger="tech_dispatch" data-url="{{ route('tech-dispatch') }}"> 
@@ -96,7 +96,7 @@
                 </div>
             </div>
             @endif
-        @endif
+        {{-- @endif --}}
     </div>
 </section>
 @include('partials.auth.footer')
