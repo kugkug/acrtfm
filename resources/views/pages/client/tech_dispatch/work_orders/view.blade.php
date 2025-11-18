@@ -383,6 +383,7 @@
                         <p class="text-muted mb-3">Open the signature page now and have the customer sign immediately.</p>
                         <a
                             href="{{ route('quotation.sign', $work_order['id']) }}"
+                            target="_blank"
                             class="btn btn-success btn-block"
                         >
                             <i class="fa fa-check-circle mr-1"></i> Open Signature Page
