@@ -61,7 +61,7 @@ class TechnicianController extends Controller
                 ],
             ], 200);
         } catch (\Exception $e) {
-            logInfo($e->getTraceAsString());
+            logInfo($e->getMessage());
 
             return response()->json([
                 'status' => false,
@@ -70,4 +70,3 @@ class TechnicianController extends Controller
         }
     }
 }
-
