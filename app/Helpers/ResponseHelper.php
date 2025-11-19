@@ -87,6 +87,7 @@ class ResponseHelper {
             case 'customer-location-deleted':
             case 'customer-equipment-deleted':
             case 'work-orders-deleted':
+            case 'profile-updated':
                 $script = "location.reload();";
                 break;
             case 'accomplishment-added':

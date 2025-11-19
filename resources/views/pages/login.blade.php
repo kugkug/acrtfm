@@ -19,7 +19,12 @@
                                     <input type="email" class="form-control" placeholder="Email" data="req" data-key="Email">
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control" placeholder="Password" data="req" data-key="Password">
+                                    <div class="password-input-wrapper" style="position: relative;">
+                                        <input type="password" class="form-control" placeholder="Password" data="req" data-key="Password" style="padding-right: 40px;">
+                                        <button type="button" class="password-toggle-btn" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; padding: 5px; color: #6c757d;">
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
                                 </div>
                                 <button class="btn btn-outline-info btn-block btn-flat" data-trigger="login-submit">Sign In</button>
                             </form>

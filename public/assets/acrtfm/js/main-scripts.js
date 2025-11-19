@@ -1,4 +1,21 @@
 $(document).ready(function () {
+    // Password toggle functionality (global)
+    $(document).on("click", ".password-toggle-btn", function (e) {
+        e.preventDefault();
+        var passwordInput = $(this)
+            .closest(".password-input-wrapper")
+            .find("input");
+        var icon = $(this).find("i");
+
+        if (passwordInput.attr("type") === "password") {
+            passwordInput.attr("type", "text");
+            icon.removeClass("fa-eye").addClass("fa-eye-slash");
+        } else {
+            passwordInput.attr("type", "password");
+            icon.removeClass("fa-eye-slash").addClass("fa-eye");
+        }
+    });
+
     $('[data-action="toggle-theme"]').on("click", function () {
         let icon = $(this).find("i");
         let theme = "";

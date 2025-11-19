@@ -677,11 +677,17 @@
 
                                 <div class="form-group">
                                     <label class="form-label">Password</label>
-                                    <input
-                                        type="password"
-                                        class="form-input"
-                                        placeholder="Enter your password"
-                                    />
+                                    <div style="position: relative;">
+                                        <input
+                                            type="password"
+                                            class="form-input"
+                                            placeholder="Enter your password"
+                                            style="padding-right: 40px;"
+                                        />
+                                        <button type="button" class="password-toggle-btn" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; padding: 5px; color: #6c757d;">
+                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                        </button>
+                                    </div>
                                 </div>
 
                                 <button class="button">Sign In</button>
@@ -1306,5 +1312,28 @@
                 </div>
             </div>
         </div>
+        <script>
+            // Password toggle functionality
+            document.addEventListener('DOMContentLoaded', function() {
+                document.querySelectorAll('.password-toggle-btn').forEach(function(btn) {
+                    btn.addEventListener('click', function(e) {
+                        e.preventDefault();
+                        var wrapper = this.closest('div[style*="position: relative"]');
+                        var passwordInput = wrapper.querySelector('input[type="password"], input[type="text"]');
+                        var icon = this.querySelector('i');
+                        
+                        if (passwordInput.type === 'password') {
+                            passwordInput.type = 'text';
+                            icon.classList.remove('fa-eye');
+                            icon.classList.add('fa-eye-slash');
+                        } else {
+                            passwordInput.type = 'password';
+                            icon.classList.remove('fa-eye-slash');
+                            icon.classList.add('fa-eye');
+                        }
+                    });
+                });
+            });
+        </script>
     </body>
 </html>

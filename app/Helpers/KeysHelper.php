@@ -6,6 +6,7 @@ namespace App\Helpers;
 class KeysHelper {
     const KEYS = [
         'ID' => 'id',
+        'Name' => 'name',
         'FirstName' => 'first_name',
         'LastName' => 'last_name',
         'Email' => 'email',

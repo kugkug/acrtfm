@@ -2,7 +2,9 @@
 </div>
 <div class="footer">
     <div class="copyright">
-        <p>Copyright &copy; <a href="#">ACRTFM</a> 2025</p>
+        <p>Copyright &copy; <a href="#">
+            {{ config('app.name') }}    
+        </a> 2025</p>
     </div>
 </div>
 

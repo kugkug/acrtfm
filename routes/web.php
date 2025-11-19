@@ -131,6 +131,10 @@ Route::middleware(['auth:sanctum', 'web'])->group(function () {
     Route::get('/explore/{model}/manuals', [ModulesController::class, 'exploreManuals'])->name("explore-manuals");
 
     Route::prefix('executor')->group(function () {
+        Route::prefix('profile')->group(function () {
+            Route::post('/update', [AccountController::class, 'updateProfile'])->name("exec-profile-update");
+        });
+
         Route::prefix('model-lookup')->group(function () {
             Route::post('/search', [AcController::class, 'search'])->name("exec-model-lookup-search");
         });

@@ -84,9 +84,11 @@ class AccountController extends Controller
             }
 
             unset($validated['validated']['password_confirmation']);
+            $validated['validated']['contact'] = $validated['validated']['phone'];
             $validated['validated']['user_type'] = config('acrtfm.user_types.technician');
             $validated['validated']['name'] = $validated['validated']['first_name'] . ' ' . $validated['validated']['last_name'];
 
+            unset($validated['validated']['phone']);
             $user = User::create($validated['validated']);
 
             if(! $user) {
@@ -135,6 +137,49 @@ class AccountController extends Controller
         } catch (\Exception $e) {
             logInfo($e->getTraceAsString());
             return response()->json(['status' => false, 'message' => 'Logout failed'], 500);
+        }
+    }
+
+    public function updateProfile(Request $request): JsonResponse{
+        try {
+            $validated = validatorHelper()->validate('profile-update', $request);
+            
+            if(! $validated['status']) {
+                return response()->json([
+                    'status' => false,
+                    'message' => $validated['response']
+                ], 400);
+            }
+
+            $user = auth()->user();
+            
+            // For company users: update name when company name changes
+            if ($user->user_type === config('acrtfm.user_types.company')) {
+                if (isset($validated['validated']['company'])) {
+                    $validated['validated']['name'] = $validated['validated']['company'];
+                }
+            }
+            
+            // Update name if first_name or last_name changed (for other user types)
+            if (isset($validated['validated']['first_name']) || isset($validated['validated']['last_name'])) {
+                $first_name = $validated['validated']['first_name'] ?? $user->first_name ?? '';
+                $last_name = $validated['validated']['last_name'] ?? $user->last_name ?? '';
+                $validated['validated']['name'] = trim($first_name . ' ' . $last_name);
+            }
+
+            $user->update($validated['validated']);
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Profile updated successfully',
+                'data' => $user->fresh()
+            ], 200);
+        } catch (\Exception $e) {
+            logInfo($e->getTraceAsString());
+            return response()->json([
+                'status' => false,
+                'message' => $e->getMessage()
+            ], 500);
         }
     }
 }

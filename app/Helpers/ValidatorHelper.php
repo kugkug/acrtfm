@@ -65,7 +65,7 @@ class ValidatorHelper {
                     'first_name' => 'required|string|max:255',
                     'last_name' => 'required|string|max:255',
                     'email' => 'required|email|unique:users',
-                    'phone' => 'required|string|max:12',
+                    'phone' => 'required|string',
                     'company_code' => 'sometimes|string|max:255',
                     'password' => 'required|string|min:8|confirmed',
                     'password_confirmation' => 'required|string|min:8',
@@ -75,7 +75,7 @@ class ValidatorHelper {
                     'first_name' => 'required|string|max:255',
                     'last_name' => 'required|string|max:255',
                     'email' => 'required|email|unique:users',
-                    'phone' => 'required|string|max:12',
+                    'phone' => 'required|string',
                     'company' => 'required|string|max:255',
                     'password' => 'required|string|min:8',
                 ];
@@ -90,7 +90,7 @@ class ValidatorHelper {
                     'first_name' => 'sometimes|string|max:255',
                     'last_name' => 'sometimes|string|max:255',
                     'email' => 'sometimes|email|unique:customers',
-                    'phone' => 'sometimes|string|max:12',
+                    'phone' => 'sometimes|string',
                     'address' => 'sometimes|string|max:255',
                     'notes' => 'sometimes|string|max:255',
                 ];
@@ -100,7 +100,7 @@ class ValidatorHelper {
                     'first_name' => 'sometimes|string|max:255',
                     'last_name' => 'sometimes|string|max:255',
                     'email' => 'sometimes|email|unique:customers,email,' . $request->id,
-                    'phone' => 'sometimes|string|max:12',
+                    'phone' => 'sometimes|string',
                     'address' => 'sometimes|string|max:255',
                     'notes' => 'sometimes|string|max:255',
                 ];
@@ -115,7 +115,7 @@ class ValidatorHelper {
                     'zip_code' => 'required|string|max:255',
                     'contact_person' => 'required|string|max:255',
                     'contact_email' => 'required|email|max:255',
-                    'contact_phone' => 'required|string|max:12',
+                    'contact_phone' => 'required|string',
                     'notes' => 'sometimes|string|max:255',
                 ];
             case 'customers-update-location':
@@ -127,7 +127,7 @@ class ValidatorHelper {
                     'zip_code' => 'sometimes|string|max:255',
                     'contact_person' => 'sometimes|string|max:255',
                     'contact_email' => 'sometimes|email|max:255',
-                    'contact_phone' => 'sometimes|string|max:12',
+                    'contact_phone' => 'sometimes|string',
                     'notes' => 'sometimes|string|max:255',
                 ];
             
@@ -181,6 +181,19 @@ class ValidatorHelper {
                 return [
                     'note' => 'required|string',
                     'note_type' => 'required|string|in:' . implode(',', array_keys(config('acrtfm.note_types'))),
+                ];
+            case 'profile-update':
+                return [
+                    'name' => 'sometimes|string|max:255',
+                    'first_name' => 'sometimes|string|max:255',
+                    'last_name' => 'sometimes|string|max:255',
+                    'email' => 'sometimes|email|unique:users,email,' . auth()->id(),
+                    'phone' => 'sometimes|string',
+                    'contact' => 'sometimes|string',
+                    'company' => 'sometimes|string|max:255',
+                    'address' => 'sometimes|string',
+                    'contact_person' => 'sometimes|string|max:255',
+                    'company_code' => 'sometimes|string',
                 ];
         }
     }

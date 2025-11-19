@@ -64,14 +64,24 @@
                                             <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <label for="Password">Password <span class="text-danger">*</span></label>
-                                                    <input type="password" class="form-control form-control-md override-input" placeholder="******" data="req" data-key="Password">
+                                                    <div class="password-input-wrapper" style="position: relative;">
+                                                        <input type="password" class="form-control form-control-md override-input" placeholder="******" data="req" data-key="Password" style="padding-right: 40px;">
+                                                        <button type="button" class="password-toggle-btn" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; padding: 5px; color: #6c757d;">
+                                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                                        </button>
+                                                    </div>
                                                     <div id="val-Password-error" class="invalid-feedback animated fadeInDown">Please provide a Password</div>
                                                 </div>
                                             </div>
                                             <div class="col-lg-6">
                                                 <div class="form-group">
                                                     <label for="ConfirmPassword">Confirm Password <span class="text-danger">*</span></label>
-                                                    <input type="password" class="form-control form-control-md override-input" placeholder="******" data="req" data-key="ConfirmPassword">
+                                                    <div class="password-input-wrapper" style="position: relative;">
+                                                        <input type="password" class="form-control form-control-md override-input" placeholder="******" data="req" data-key="ConfirmPassword" style="padding-right: 40px;">
+                                                        <button type="button" class="password-toggle-btn" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); background: none; border: none; cursor: pointer; padding: 5px; color: #6c757d;">
+                                                            <i class="fa fa-eye" aria-hidden="true"></i>
+                                                        </button>
+                                                    </div>
                                                     <div id="val-ConfirmPassword-error" class="invalid-feedback animated fadeInDown">Please provide a Confirm Password</div>
                                                 </div>
                                             </div>

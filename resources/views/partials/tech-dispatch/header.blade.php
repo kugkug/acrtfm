@@ -87,8 +87,8 @@
                         <span class="d-none d-sm-inline">Admin</span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">
-                        <li><a class="dropdown-item" href="#"><i class="fa-solid fa-user me-2"></i>Profile</a></li>
-                        <li><a class="dropdown-item" href="#"><i class="fa-solid fa-cog me-2"></i>Settings</a></li>
+                        <li><a class="dropdown-item" href="{{ route('profile') }}"><i class="fa-solid fa-user me-2"></i>Profile</a></li>
+                        {{-- <li><a class="dropdown-item" href="#"><i class="fa-solid fa-cog me-2"></i>Settings</a></li> --}}
                         <li><hr class="dropdown-divider"></li>
                         <li><a class="dropdown-item" href="#"><i class="fa-solid fa-sign-out-alt me-2"></i>Logout</a></li>
                     </ul>

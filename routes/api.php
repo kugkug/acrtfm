@@ -24,6 +24,10 @@ Route::prefix('account')->group(function () {
 });
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::prefix('profile')->group(function () {
+        Route::post('/update', [AccountController::class, 'updateProfile'])->name("api-profile-update");
+    });
+
     Route::prefix('model-lookup')->group(function () {
         Route::post('/search', [AcController::class, 'search'])->name("api-model-lookup-search");
     });

@@ -1,4 +1,21 @@
 $(document).ready(function () {
+    // Password toggle functionality
+    // $(".password-toggle-btn").on("click", function (e) {
+    //     e.preventDefault();
+    //     var passwordInput = $(this)
+    //         .closest(".password-input-wrapper")
+    //         .find("input");
+    //     var icon = $(this).find("i");
+
+    //     if ($(passwordInput).attr("type") === "password") {
+    //         // passwordInput.attr("type", "text");
+    //         icon.removeClass("fa-eye").addClass("fa-eye-slash");
+    //     } else {
+    //         // passwordInput.attr("type", "password");
+    //         icon.removeClass("fa-eye-slash").addClass("fa-eye");
+    //     }
+    // });
+
     $("[data-trigger]").off();
 
     $("[data-trigger]").on("click", function (e) {
