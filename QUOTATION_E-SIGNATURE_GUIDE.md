@@ -1,4 +1,4 @@
-# Quotation E-Signature Feature Guide
+# Quote E-Signature Feature Guide
 
 This guide explains how to use the new quotation e-signature feature implemented using the `creagia/laravel-sign-pad` package.
 
@@ -8,13 +8,13 @@ The quotation e-signature feature allows customers to electronically sign work o
 
 ## Features
 
-- ✅ Electronic signature capture using HTML5 Canvas
-- ✅ Secure signature storage with IP address and timestamp
-- ✅ Beautiful, responsive UI for signature collection
-- ✅ Prevents duplicate signatures
-- ✅ Generates signed PDF documents
-- ✅ Tracks signer information (name, email, IP, timestamp)
-- ✅ Mobile-friendly signature pad
+-   ✅ Electronic signature capture using HTML5 Canvas
+-   ✅ Secure signature storage with IP address and timestamp
+-   ✅ Beautiful, responsive UI for signature collection
+-   ✅ Prevents duplicate signatures
+-   ✅ Generates signed PDF documents
+-   ✅ Tracks signer information (name, email, IP, timestamp)
+-   ✅ Mobile-friendly signature pad
 
 ## Installation
 
@@ -29,12 +29,12 @@ The package has been installed and configured:
 
 The following routes have been added:
 
-| Route | Method | Description |
-|-------|--------|-------------|
-| `/quotation/{id}/sign` | GET | Display quotation for signature |
-| `/quotation/{id}/signature` | POST | Save the signature |
-| `/quotation/{id}/signed` | GET | Display signed quotation |
-| `/quotation/{id}/download` | GET | Download signed PDF |
+| Route                       | Method | Description                     |
+| --------------------------- | ------ | ------------------------------- |
+| `/quotation/{id}/sign`      | GET    | Display quotation for signature |
+| `/quotation/{id}/signature` | POST   | Save the signature              |
+| `/quotation/{id}/signed`    | GET    | Display signed quotation        |
+| `/quotation/{id}/download`  | GET    | Download signed PDF             |
 
 ## Usage
 
@@ -44,7 +44,7 @@ To add a link to the signature page in your work order views, use:
 
 ```blade
 <a href="{{ route('quotation.sign', ['id' => $work_order_id]) }}" class="btn btn-primary">
-    <i class="fas fa-signature"></i> Sign Quotation
+    <i class="fas fa-signature"></i> Sign Quote
 </a>
 ```
 
@@ -55,16 +55,16 @@ In `resources/views/pages/client/tech_dispatch/work_orders/view.blade.php`:
 ```blade
 <div class="action-buttons">
     <!-- Existing buttons -->
-    
+
     <!-- Add signature button -->
-    <a href="{{ route('quotation.sign', ['id' => $work_order['id']]) }}" 
+    <a href="{{ route('quotation.sign', ['id' => $work_order['id']]) }}"
        class="btn btn-info">
-        <i class="fas fa-signature"></i> E-Sign Quotation
+        <i class="fas fa-signature"></i> E-Sign Quote
     </a>
 </div>
 ```
 
-### 3. Checking if Quotation is Signed
+### 3. Checking if Quote is Signed
 
 To check if a quotation has been signed:
 
@@ -75,7 +75,7 @@ $signature = \DB::table('signatures')
     ->first();
 
 if ($signature) {
-    // Quotation is signed
+    // Quote is signed
     // Display signed badge or redirect to signed page
 }
 ```
@@ -105,44 +105,47 @@ if ($signature) {
 
 ### QuoteController Methods
 
-1. **showQuotationForSignature($id)**: Displays the quotation with signature pad
+1. **showQuotationForSignature($id)**: Displays the quote with signature pad
 2. **saveSignature(Request $request, $id)**: Saves the signature to database
-3. **showSignedQuotation($id)**: Displays the signed quotation confirmation
+3. **showSignedQuotation($id)**: Displays the signed quote confirmation
 4. **downloadSignedQuotation($id)**: Generates and downloads signed PDF
 
 ## Database Schema
 
 The signatures table stores:
 
-- `id`: Primary key
-- `signatureable_type`: Polymorphic relation type (e.g., 'App\Models\WorkOrder')
-- `signatureable_id`: Related model ID
-- `signature_data`: Base64 encoded signature image
-- `signer_name`: Name of the person who signed
-- `signer_email`: Email of the signer (optional)
-- `ip_address`: IP address from which signature was created
-- `user_agent`: Browser user agent
-- `signed_at`: Timestamp of signature
-- `created_at` / `updated_at`: Laravel timestamps
+-   `id`: Primary key
+-   `signatureable_type`: Polymorphic relation type (e.g., 'App\Models\WorkOrder')
+-   `signatureable_id`: Related model ID
+-   `signature_data`: Base64 encoded signature image
+-   `signer_name`: Name of the person who signed
+-   `signer_email`: Email of the signer (optional)
+-   `ip_address`: IP address from which signature was created
+-   `user_agent`: Browser user agent
+-   `signed_at`: Timestamp of signature
+-   `created_at` / `updated_at`: Laravel timestamps
 
 ## Views
 
 ### 1. Sign View (`resources/views/pages/client/quotation/sign.blade.php`)
-- Displays quotation details
-- Shows signature pad
-- Captures signer information
-- Validates signature before submission
+
+-   Displays quotation details
+-   Shows signature pad
+-   Captures signer information
+-   Validates signature before submission
 
 ### 2. Signed View (`resources/views/pages/client/quotation/signed.blade.php`)
-- Confirmation page after signing
-- Shows signature details
-- Provides download option
-- Displays complete quotation
+
+-   Confirmation page after signing
+-   Shows signature details
+-   Provides download option
+-   Displays complete quotation
 
 ### 3. Signed PDF (`resources/views/pdf/quotation-signed.blade.php`)
-- PDF template with signature
-- Includes verification information
-- Shows complete work order details
+
+-   PDF template with signature
+-   Includes verification information
+-   Shows complete work order details
 
 ## Security Features
 
@@ -160,8 +163,8 @@ In `resources/views/pages/client/quotation/sign.blade.php`, modify:
 
 ```javascript
 const signaturePad = new SignaturePad(canvas, {
-    backgroundColor: 'rgb(255, 255, 255)', // White background
-    penColor: 'rgb(0, 0, 0)' // Black pen
+    backgroundColor: "rgb(255, 255, 255)", // White background
+    penColor: "rgb(0, 0, 0)", // Black pen
 });
 ```
 
@@ -172,7 +175,7 @@ You can add email notifications when a quotation is signed by adding to `QuoteCo
 ```php
 // Send notification email
 Mail::to($work_order['customer']['email'])
-    ->send(new QuotationSignedMail($work_order, $signature));
+    ->send(new QuoteSignedMail($work_order, $signature));
 ```
 
 ## Testing
@@ -189,41 +192,46 @@ To test the e-signature feature:
 ## Example URL
 
 For work order with ID 1:
-- Sign: `https://yourdomain.com/quotation/1/sign`
-- Signed: `https://yourdomain.com/quotation/1/signed`
-- Download: `https://yourdomain.com/quotation/1/download`
+
+-   Sign: `https://yourdomain.com/quotation/1/sign`
+-   Signed: `https://yourdomain.com/quotation/1/signed`
+-   Download: `https://yourdomain.com/quotation/1/download`
 
 ## Common Issues
 
 ### Issue: Canvas not displaying
+
 **Solution**: Ensure Font Awesome icons are loaded in the layout
 
 ### Issue: Signature not saving
+
 **Solution**: Check that signatures table migration has been run
 
 ### Issue: PDF generation fails
+
 **Solution**: Ensure `barryvdh/laravel-dompdf` package is installed
 
 ## Future Enhancements
 
 Potential improvements:
-- Email notification upon signature
-- Multiple signers support
-- SMS verification before signing
-- Signature verification API
-- Signature expiration dates
-- Custom signature templates
+
+-   Email notification upon signature
+-   Multiple signers support
+-   SMS verification before signing
+-   Signature verification API
+-   Signature expiration dates
+-   Custom signature templates
 
 ## Support
 
 For issues or questions, refer to:
-- [creagia/laravel-sign-pad Documentation](https://github.com/creagia/laravel-sign-pad)
-- Laravel Documentation
-- Your internal development team
+
+-   [creagia/laravel-sign-pad Documentation](https://github.com/creagia/laravel-sign-pad)
+-   Laravel Documentation
+-   Your internal development team
 
 ---
 
 **Created**: November 2, 2025
 **Version**: 1.0
 **Package**: creagia/laravel-sign-pad v2.1.3
-

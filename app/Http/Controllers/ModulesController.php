@@ -85,7 +85,9 @@ class ModulesController extends Controller
     }
 
     public function techDispatch() {
-        $this->data['dashboard_data'] = globalHelper()->getDashboardData();
+        $dashboard_data = globalHelper()->getDashboardData();
+        
+        $this->data['dashboard_data'] = $dashboard_data;
         $this->data['title'] = 'Tech Dispatch'; 
         $this->data['description'] = "Manage technical dispatch operations";
         $this->data['header'] = "Tech Dispatch";
@@ -389,7 +391,11 @@ class ModulesController extends Controller
         $this->data['title'] = 'Work Orders'; 
         $this->data['description'] = "Manage work orders";
         $this->data['header'] = "Work Orders";
-        $this->data['work_orders'] = globalHelper()->getAllWorkOrders();
+        
+        // Get status filter from request
+        $statusFilter = request()->get('status', '');
+        $this->data['status_filter'] = $statusFilter;
+        $this->data['work_orders'] = globalHelper()->getAllWorkOrders($statusFilter);
         
         $this->data['right_panel'] = (
             auth()->user()->user_type == config('acrtfm.user_types.company')) ? 

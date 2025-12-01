@@ -157,12 +157,12 @@ class ValidatorHelper {
             case 'work-orders-save':
                 return [
                     'customer_id' => 'required|exists:customers,id',
-                    'title' => 'required|string|max:255',
-                    'priority' => 'required|string|max:10',
-                    'estimated_hours' => 'required|numeric',
-                    'schedule_date' => 'required',
-                    'schedule_time' => 'required',
-                    'technician_id' => 'required|exists:users,id',
+                    'title' => 'sometimes|string|max:255',
+                    'priority' => 'sometimes|string|max:10',
+                    'estimated_hours' => 'sometimes|numeric',
+                    'schedule_date' => 'sometimes',
+                    'schedule_time' => 'sometimes',
+                    'technician_id' => 'sometimes|exists:users,id',
                     'description' => 'sometimes|string',
                 ];
             case 'work-orders-update':

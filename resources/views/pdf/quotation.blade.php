@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Work Order Quotation</title>
+    <title>Work Order Quote</title>
     <style>
         body {
             font-family: 'DejaVu Sans', sans-serif;
@@ -122,10 +122,10 @@
 </head>
 <body>
     <div class="header">
-        <h1>WORK ORDER QUOTATION</h1>
+        <h1>WORK ORDER QUOTE</h1>
         <div class="subtitle">Quote No: WO-{{ str_pad($work_order['id'], 6, '0', STR_PAD_LEFT) }}</div>
         <div class="company-info">
-            Generated on: {{ date('m/d/Y H:i') }}
+            Generated on: {{ formatNow('m/d/Y H:i') }}
         </div>
     </div>
     
@@ -226,7 +226,7 @@
                 @endif
                 {{ $note['note'] }}
                 @if(!empty($note['created_at']))
-                <br/><small style="color: #999;">Added: {{ date('m/d/Y H:i', strtotime($note['created_at'])) }}</small>
+                <br/><small style="color: #999;">Added: {{ formatDateWithTimezone($note['created_at']) }}</small>
                 @endif
             </li>
             @endforeach

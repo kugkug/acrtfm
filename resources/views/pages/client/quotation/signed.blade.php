@@ -232,7 +232,7 @@
                     @if($signature->signer_email)
                     <p><strong>Email:</strong> {{ $signature->signer_email }}</p>
                     @endif
-                    <p><strong>Date & Time:</strong> {{ date('m/d/Y H:i', strtotime($signature->signed_at)) }}</p>
+                    <p><strong>Date & Time:</strong> {{ formatDateWithTimezone($signature->signed_at) }}</p>
                     <p><strong>IP Address:</strong> {{ $signature->ip_address }}</p>
                 </div>
             </div>
@@ -335,7 +335,7 @@
                     @endif
                     {{ $note['note'] }}
                     @if(!empty($note['created_at']))
-                    <br/><small style="color: #999;">Added: {{ date('m/d/Y H:i', strtotime($note['created_at'])) }}</small>
+                    <br/><small style="color: #999;">Added: {{ formatDateWithTimezone($note['created_at']) }}</small>
                     @endif
                 </li>
                 @endforeach

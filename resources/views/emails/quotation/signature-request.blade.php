@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Quotation Signature Request</title>
+    <title>Quote Signature Request</title>
     <style>
         body {
             font-family: Arial, Helvetica, sans-serif;
@@ -90,7 +90,7 @@
     <div class="wrapper">
         <div class="container">
             <div class="header">
-                <h1>Quotation Signature Request</h1>
+                <h1>Quote Signature Request</h1>
             </div>
             <div class="content">
                 <h2>Hello {{ trim(($workOrder['customer']['first_name'] ?? '') . ' ' . ($workOrder['customer']['last_name'] ?? '')) ?: 'there' }},</h2>
@@ -102,12 +102,12 @@
                 </p>
 
                 <div class="cta">
-                    <a href="{{ $signUrl }}" target="_blank" rel="noopener">Review & Sign Quotation</a>
+                    <a href="{{ $signUrl }}" target="_blank" rel="noopener">Review & Sign Quote</a>
                 </div>
 
                 <div class="details">
                     <p><strong>Work Order:</strong> WO-{{ str_pad($workOrder['id'], 6, '0', STR_PAD_LEFT) }}</p>
-                    <p><strong>Title:</strong> {{ $workOrder['title'] ?? 'Quotation' }}</p>
+                    <p><strong>Title:</strong> {{ $workOrder['title'] ?? 'Quote' }}</p>
                     <p><strong>Requestor:</strong> {{ $sender?->name ?? 'Our Team' }}</p>
                     <p><strong>Expires:</strong> {{ $expiresAt->setTimezone(config('app.timezone'))->format('F j, Y g:i A') }} ({{ config('app.timezone') }})</p>
                 </div>

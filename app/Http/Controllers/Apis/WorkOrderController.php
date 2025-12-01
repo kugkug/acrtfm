@@ -32,6 +32,12 @@ class WorkOrderController extends Controller
             }
 
             $validated['validated']['created_by'] = auth()->user()->id;
+            
+            // Set default status to 'pending' if not provided
+            if (empty($validated['validated']['status'])) {
+                $validated['validated']['status'] = 'pending';
+            }
+            
             $work_order = WorkOrder::create($validated['validated']);
 
             return response()->json([

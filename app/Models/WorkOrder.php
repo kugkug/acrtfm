@@ -12,6 +12,15 @@ class WorkOrder extends Model {
 
     protected $guarded = ['id'];
     
+    /**
+     * The model's default attributes.
+     *
+     * @var array
+     */
+    protected $attributes = [
+        'status' => 'pending',
+    ];
+    
     public function customer(): BelongsTo
     {
         return $this->belongsTo(Customer::class);

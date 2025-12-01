@@ -3,6 +3,8 @@
 declare(strict_types=1);
 namespace App\Helpers;
 
+use Carbon\Carbon;
+
 class FormatHelper {
     public static function unFormatPhoneNumber(string $phone_number): string {
         return preg_replace('/[^0-9]/', '', $phone_number);
@@ -56,5 +58,61 @@ class FormatHelper {
 
     public static function formatDate(string $date): string {
         return date('m/d/Y H:i', strtotime($date));
+    }
+
+    /**
+     * Format date with timezone support
+     * 
+     * @param string|Carbon|null $date The date to format
+     * @param string $format The date format (default: 'm/d/Y H:i')
+     * @param string|null $timezone The timezone to use (default: app timezone)
+     * @return string Formatted date string
+     */
+    public static function formatDateWithTimezone($date, string $format = 'm/d/Y H:i', ?string $timezone = null): string {
+        if (empty($date)) {
+            return '';
+        }
+
+        $timezone = $timezone ?? config('app.timezone', 'UTC');
+        
+        try {
+            if ($date instanceof Carbon) {
+                return $date->setTimezone($timezone)->format($format);
+            }
+            
+            if (is_string($date)) {
+                $carbon = Carbon::parse($date);
+                return $carbon->setTimezone($timezone)->format($format);
+            }
+            
+            return '';
+        } catch (\Exception $e) {
+            return '';
+        }
+    }
+
+    /**
+     * Format current date/time with timezone
+     * 
+     * @param string $format The date format (default: 'm/d/Y H:i')
+     * @param string|null $timezone The timezone to use (default: app timezone)
+     * @return string Formatted date string
+     */
+    public static function formatNow(string $format = 'm/d/Y H:i', ?string $timezone = null): string {
+        $timezone = $timezone ?? config('app.timezone', 'UTC');
+        return Carbon::now($timezone)->format($format);
+    }
+
+    /**
+     * Get user's timezone or default to app timezone
+     * 
+     * @return string Timezone string
+     */
+    public static function getUserTimezone(): string {
+        if (auth()->check() && auth()->user()->timezone) {
+            return auth()->user()->timezone;
+        }
+        
+        return config('app.timezone', 'UTC');
     }
 }

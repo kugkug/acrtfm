@@ -94,9 +94,9 @@
             <div>
                 <div class="title">Statement of Account</div>
                 <div>Statement #: {{ $statement->statement_number }}</div>
-                <div>Date Issued: {{ \Carbon\Carbon::parse($statement->issued_at)->format('F d, Y') }}</div>
+                <div>Date Issued: {{ formatDateWithTimezone($statement->issued_at, 'F d, Y') }}</div>
                 @if($statement->due_at)
-                    <div>Due Date: {{ \Carbon\Carbon::parse($statement->due_at)->format('F d, Y') }}</div>
+                    <div>Due Date: {{ formatDateWithTimezone($statement->due_at, 'F d, Y') }}</div>
                 @endif
             </div>
             <div style="text-align: right;">

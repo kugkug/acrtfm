@@ -28,8 +28,8 @@ class QuoteController extends Controller
     public function showQuotationForSignature($id)
     {
         try {
-            $this->data['title'] = 'Quotation - E-Signature'; 
-            $this->data['header'] = "Quotation - E-Signature";
+            $this->data['title'] = 'Quote - E-Signature'; 
+            $this->data['header'] = "Quote - E-Signature";
             $this->data['description'] = "Sign the quotation";
             
             $work_order = globalHelper()->getWorkOrder($id);
@@ -64,8 +64,8 @@ class QuoteController extends Controller
     public function showQuotationForSignaturePublic(Request $request, $id)
     {
         try {
-            $this->data['title'] = 'Quotation - E-Signature'; 
-            $this->data['header'] = "Quotation - E-Signature";
+            $this->data['title'] = 'Quote - E-Signature'; 
+            $this->data['header'] = "Quote - E-Signature";
             $this->data['description'] = "Sign the quotation";
             
             $work_order = globalHelper()->getWorkOrder($id);
@@ -129,7 +129,7 @@ class QuoteController extends Controller
                 ->first();
 
             if ($existingSignature) {
-                return response()->json(['error' => 'This quotation has already been signed'], 400);
+                return response()->json(['error' => 'This quote has already been signed'], 400);
             }
 
             DB::table('signatures')->insert([
@@ -152,7 +152,7 @@ class QuoteController extends Controller
 
             return response()->json([
                 'success' => true,
-                'message' => 'Quotation signed successfully',
+                'message' => 'Quote signed successfully',
                 'redirect' => $redirectUrl
             ]);
 
@@ -218,7 +218,7 @@ class QuoteController extends Controller
                 new QuotationSignatureRequest($work_order, $signUrl, $expiresAt, $sender)
             );
 
-            $message = 'Quotation signature link sent successfully.';
+            $message = 'Quote signature link sent successfully.';
             return globalHelper()->ajaxSuccessResponse(
                 'scripts',
                 'success',
@@ -265,10 +265,10 @@ class QuoteController extends Controller
 
             if (!$signature) {
                 return redirect()->route('quotation.sign', ['id' => $id])
-                    ->with('error', 'This quotation has not been signed yet');
+                    ->with('error', 'This quote has not been signed yet');
             }
 
-            $this->data['title'] = 'Signed Quotation';
+            $this->data['title'] = 'Signed Quote';
             $this->data['work_order'] = $work_order;
             $this->data['signature'] = $signature;
             $this->data['description'] = "Signed quotation";
@@ -303,7 +303,7 @@ class QuoteController extends Controller
                 abort(404);
             }
 
-            $this->data['title'] = 'Signed Quotation';
+            $this->data['title'] = 'Signed Quote';
             $this->data['work_order'] = $work_order;
             $this->data['signature'] = $signature;
             $this->data['description'] = "Signed quotation";
@@ -339,7 +339,7 @@ class QuoteController extends Controller
                 ->first();
 
             if (!$signature) {
-                return redirect()->back()->with('error', 'This quotation has not been signed yet');
+                return redirect()->back()->with('error', 'This quote has not been signed yet');
             }
 
             return $this->downloadSignedQuotationPdf($work_order, $signature);

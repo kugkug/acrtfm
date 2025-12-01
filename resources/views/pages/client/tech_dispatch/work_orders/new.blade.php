@@ -28,7 +28,12 @@
     foreach($customers as $customer) {
         $filtered_customers[] = [
             'id' => $customer['id'],
-            'label' => $customer['company'],
+            // if company is empty show first name or email
+            'label' => !empty($customer['company'])
+                ? $customer['company']
+                : (!empty($customer['first_name'])
+                    ? $customer['first_name']
+                    : $customer['email']),
         ];
     }
 
@@ -64,7 +69,7 @@
                             'name' => 'title',
                             'label' => 'Title',
                             'data-key' => 'Title',
-                            'data' => 'req',
+                            'data' => '',
                             'class' => 'form-control form-control-sm override-input',
                         ]"
                     />

@@ -1,4 +1,35 @@
+// Initialize Google Places Autocomplete
+let autocomplete;
+function initAutocomplete() {
+    const billingAddressInput = document.getElementById('billing_address');
+    if (billingAddressInput && typeof google !== 'undefined' && google.maps && google.maps.places) {
+        autocomplete = new google.maps.places.Autocomplete(billingAddressInput, {
+            types: ['address'],
+            componentRestrictions: { country: ['us'] }, // Restrict to US addresses, remove if you want international
+            fields: ['formatted_address', 'address_components', 'geometry']
+        });
+
+        autocomplete.addListener('place_changed', function() {
+            const place = autocomplete.getPlace();
+            if (!place.geometry) {
+                console.warn("No details available for input: '" + place.name + "'");
+                return;
+            }
+            // The place is already set in the input field by Google Places
+            // You can access place details here if needed:
+            // place.formatted_address - full formatted address
+            // place.address_components - array of address components
+        });
+    }
+}
+
+// Fallback initialization if Google Maps API loads after document ready
 $(document).ready(function () {
+    // Check if Google Maps API is already loaded
+    if (typeof google !== 'undefined' && google.maps && google.maps.places) {
+        initAutocomplete();
+    }
+    
     $("[data-trigger]").off();
     $("[data-trigger]").on("click", function (e) {
         e.preventDefault();

@@ -223,10 +223,10 @@
 
 <div class="quotation-container">
     <div class="quotation-header">
-        <h1>WORK ORDER QUOTATION</h1>
+        <h1>WORK ORDER QUOTE</h1>
         <div class="subtitle">Quote No: WO-{{ str_pad($work_order['id'], 6, '0', STR_PAD_LEFT) }}</div>
         <div style="margin-top: 10px; font-size: 14px; opacity: 0.8;">
-            Generated on: {{ date('m/d/Y H:i') }}
+            Generated on: {{ formatNow('m/d/Y H:i') }}
         </div>
     </div>
     
@@ -240,8 +240,8 @@
         @if($existing_signature)
         <div class="already-signed">
             <i class="fas fa-check-circle"></i>
-            <h2>This Quotation Has Been Signed</h2>
-            <p>This quotation was signed on {{ date('m/d/Y H:i', strtotime($existing_signature->signed_at)) }}</p>
+            <h2>This Quote Has Been Signed</h2>
+            <p>This quote was signed on {{ formatDateWithTimezone($existing_signature->signed_at) }}</p>
             <p><strong>Signed by:</strong> {{ $existing_signature->signer_name }}</p>
             <a href="{{ route('quotation.signed', ['id' => $work_order['id']]) }}" class="btn btn-primary">
                 <i class="fas fa-file-alt"></i> View Signed Document
@@ -345,7 +345,7 @@
                     @endif
                     {{ $note['note'] }}
                     @if(!empty($note['created_at']))
-                    <br/><small style="color: #999;">Added: {{ date('m/d/Y H:i', strtotime($note['created_at'])) }}</small>
+                    <br/><small style="color: #999;">Added: {{ formatDateWithTimezone($note['created_at']) }}</small>
                     @endif
                 </li>
                 @endforeach

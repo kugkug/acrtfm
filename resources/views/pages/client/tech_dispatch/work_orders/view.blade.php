@@ -64,20 +64,20 @@
                     //         'hr' => true,
                     //     ],
                     // ],
-                    [
-                        'type' => 'button',
-                        'icon' => '',
-                        'text' => (isset($work_order['open_todos']) ? count($work_order['open_todos']) : 0) . '<br />Open Todos',
-                        'class' => 'btn-outline-danger py-4',
-                        'data-target' => 'card-open-todos',
-                        'data-id' => $work_order['id'],
-                        'card-details' => [
-                            'title' => 'Open Todos',
-                            'subtitle' => 'Add and manage open todos for this work order',
-                            'hr' => true,
+                    // [
+                    //     'type' => 'button',
+                    //     'icon' => '',
+                    //     'text' => (isset($work_order['open_todos']) ? count($work_order['open_todos']) : 0) . '<br />Open Todos',
+                    //     'class' => 'btn-outline-danger py-4',
+                    //     'data-target' => 'card-open-todos',
+                    //     'data-id' => $work_order['id'],
+                    //     'card-details' => [
+                    //         'title' => 'Open Todos',
+                    //         'subtitle' => 'Add and manage open todos for this work order',
+                    //         'hr' => true,
 
-                        ],
-                    ],
+                    //     ],
+                    // ],
                     // [
                     //     'type' => 'button',
                     //     'icon' => '',
@@ -90,30 +90,30 @@
                     //         'hr' => true,
                     //     ],
                     // ],
-                    [
-                        'type' => 'button',
-                        'icon' => '',
-                        'text' => (isset($work_order['quotes']) ? count($work_order['quotes']) : 0) . '<br />Quotes',
-                        'class' => 'btn-outline-info py-4',
-                        'data-target' => 'card-quotes',
-                        'data-id' => $work_order['id'],
-                        'card-details' => [
-                            'title' => 'Quotes',
-                            'subtitle' => 'Add and manage quotes for this work order',
-                            'hr' => true,
-                            'tools' => [
-                                [
-                                    'type' => 'link',
-                                    'text' => 'Add Quotes',
-                                    'icon' => 'fa fa-plus',
-                                    'attrib' => [
-                                        // 'href' => route('quotes.create', $work_order['id']),
-                                        'class' => 'btn btn-info btn-flat text-white',
-                                    ],
-                                ],
-                            ],
-                        ],
-                    ],
+                    // [
+                    //     'type' => 'button',
+                    //     'icon' => '',
+                    //     'text' => (isset($work_order['quotes']) ? count($work_order['quotes']) : 0) . '<br />Quotes',
+                    //     'class' => 'btn-outline-info py-4',
+                    //     'data-target' => 'card-quotes',
+                    //     'data-id' => $work_order['id'],
+                    //     'card-details' => [
+                    //         'title' => 'Quotes',
+                    //         'subtitle' => 'Add and manage quotes for this work order',
+                    //         'hr' => true,
+                    //         'tools' => [
+                    //             [
+                    //                 'type' => 'link',
+                    //                 'text' => 'Add Quotes',
+                    //                 'icon' => 'fa fa-plus',
+                    //                 'attrib' => [
+                    //                     // 'href' => route('quotes.create', $work_order['id']),
+                    //                     'class' => 'btn btn-info btn-flat text-white',
+                    //                 ],
+                    //             ],
+                    //         ],
+                    //     ],
+                    // ],
                     // [
                     //     'type' => 'button',
                     //     'icon' => '',
@@ -153,18 +153,18 @@
                 $header_tools = [
                     [
                         'type' => 'link',
-                        'text' => 'Generate Quotation',
+                        'text' => 'Generate Quote',
                         'icon' => 'fa fa-file-pdf',
                         'attrib' => [
                             'class' => 'btn btn-success btn-sm',
-                            'title' => 'Generate PDF Quotation',
+                            'title' => 'Generate PDF Quote',
                             'href' => route('exec-work-orders-generate-quotation', $work_order['id']),
                             'target' => '_blank',
                         ],
                     ],
                     [
                         'type' => 'button',
-                        'text' => 'Sign Quotation',
+                        'text' => 'Sign Quote',
                         'icon' => 'fa fa-signature',
                         'attrib' => [
                             'class' => 'btn btn-info btn-sm',
@@ -233,7 +233,7 @@
 
                         @endphp
 
-                        <div class="col-xs-3 col-sm-3 mb-3">
+                        <div class="col-xs-4 col-sm-4 mb-4">
                             <x-button 
                                 :type="$button['type']"
                                 :icon="$button['icon']"
@@ -339,20 +339,20 @@
     <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="signatureOptionsModalLabel"><i class="fa fa-signature mr-2"></i>Quotation Signature Options</h5>
+                <h5 class="modal-title" id="signatureOptionsModalLabel"><i class="fa fa-signature mr-2"></i>Quote Signature Options</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
                 <p class="mb-4">
-                    Choose how you would like this quotation to be signed. You can email a secure link to the customer for online signing or allow the customer to sign immediately on this device.
+                    Choose how you would like this quote to be signed. You can email a secure link to the customer for online signing or allow the customer to sign immediately on this device.
                 </p>
 
                 <div class="card border-0 mb-4 shadow-sm">
                     <div class="card-body">
                         <h6 class="text-primary font-weight-bold"><i class="fa fa-envelope mr-2"></i>Email Signature Link</h6>
-                        <p class="text-muted mb-3">Send the customer a secure link to sign the quotation online.</p>
+                        <p class="text-muted mb-3">Send the customer a secure link to sign the quote online.</p>
                         <div class="form-group mb-3">
                             <label for="signatureRecipientEmail" class="font-weight-semibold">Customer Email Address</label>
                             <input

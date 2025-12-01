@@ -70,7 +70,7 @@
                             @if(isset($technician['created_at']))
                                 <dd>
                                     <i class="fa fa-calendar mr-2"></i> 
-                                    Joined: {{ \Carbon\Carbon::parse($technician['created_at'])->format('m/d/Y H:i') }}
+                                    Joined: {{ formatDateWithTimezone($technician['created_at']) }}
                                 </dd>
                             @endif
                                 

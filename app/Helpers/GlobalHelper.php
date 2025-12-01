@@ -443,13 +443,32 @@ class GlobalHelper {
         }
     }
 
-    public function getAllWorkOrders() {
+    public function getAllWorkOrders($status = null) {
         try {            
+            $query = WorkOrder::with('customer');
+            
+            // Filter by user type
             if (auth()->user()->user_type == config('acrtfm.user_types.company')) {
-                $work_orders = WorkOrder::with('customer')->get();
+                // Company users see all work orders
             } else {
-                $work_orders = WorkOrder::where('technician_id', auth()->user()->id)->with('customer')->get();
+                $query->where('technician_id', auth()->user()->id);
             }
+            
+            // Filter by status if provided
+            if ($status !== null && $status !== '') {
+                // Map filter values to actual status values
+                $statusMap = [
+                    'active' => 'in_progress',
+                    'completed' => 'completed',
+                    'pending' => 'pending',
+                ];
+                
+                if (isset($statusMap[$status])) {
+                    $query->where('status', $statusMap[$status]);
+                }
+            }
+            
+            $work_orders = $query->get();
             
             if ($work_orders) {
                 return $work_orders->toArray();
@@ -527,14 +546,8 @@ class GlobalHelper {
 
             foreach ($work_orders as $wo) {
                 $status = strtolower($wo->status ?? '');
-
-                if (in_array($status, [config('acrtfm.work_order_statuses.in_progress'), config('acrtfm.work_order_statuses.in-progress'), config('acrtfm.work_order_statuses.active')])) {
-                    $status_counts['active']++;
-                } elseif (in_array($status, [config('acrtfm.work_order_statuses.completed'), config('acrtfm.work_order_statuses.done'), config('acrtfm.work_order_statuses.closed')])) {
-                    $status_counts['completed']++;
-                } elseif (in_array($status, [config('acrtfm.work_order_statuses.pending'), config('acrtfm.work_order_statuses.on_hold'), config('acrtfm.work_order_statuses.on-hold')])) {
-                    $status_counts['pending']++;
-                }
+                
+                $status_counts[$status] = isset($status_counts[$status]) ? $status_counts[$status] + 1 : 1;
             }
 
             $dashboard_data['active_jobs'] = $status_counts['active'];

@@ -9,7 +9,7 @@
                 <div class="card-body">
                     <div class='d-flex justify-content-between'>
                         
-                        <h5 class="card-title">{{ date('m/d/Y H:i', strtotime($accomplishment['accomplishment_date'])) }}</h5>
+                        <h5 class="card-title">{{ formatDateWithTimezone($accomplishment['accomplishment_date']) }}</h5>
 
                         <a 
                             href="javascript:void(0);" 

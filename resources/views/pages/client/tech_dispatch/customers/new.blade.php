@@ -89,13 +89,15 @@
                         ]"
                     />
 
-                    <x-textarea 
+                    <x-input 
                         :attrib="[
                             'name' => 'billing_address',
                             'label' => 'Billing Address',
                             'data-key' => 'BillingAddress',
                             'data' => '',
-                            'class' => 'form-control form-control-sm override-textarea',
+                            'class' => 'form-control form-control-sm override-input',
+                            'id' => 'billing_address',
+                            'placeholder' => 'Start typing an address...',
                         ]"
                     />
                     <x-textarea 
@@ -114,4 +116,11 @@
 </section>
 
 @include('partials.auth.footer')
+@if(config('services.google.places_api_key'))
+<script src="https://maps.googleapis.com/maps/api/js?key={{ config('services.google.places_api_key') }}&libraries=places&callback=initAutocomplete" async defer></script>
+@else
+<script>
+    console.warn('Google Places API key is not configured. Please add GOOGLE_PLACES_API_KEY to your .env file.');
+</script>
+@endif
 <script src="{{ asset('assets/acrtfm/js/modules/tech-dispatch/customers.js') }}"></script>

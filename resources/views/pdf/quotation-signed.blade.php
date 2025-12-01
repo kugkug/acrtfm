@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-    <title>Signed Work Order Quotation</title>
+    <title>Signed Work Order Quote</title>
     <style>
         body {
             font-family: 'DejaVu Sans', sans-serif;
@@ -160,11 +160,11 @@
 </head>
 <body>
     <div class="header">
-        <h1>SIGNED WORK ORDER QUOTATION</h1>
+        <h1>SIGNED WORK ORDER QUOTE</h1>
         <div class="subtitle">Quote No: WO-{{ str_pad($work_order['id'], 6, '0', STR_PAD_LEFT) }}</div>
         <div class="signed-badge">✓ ELECTRONICALLY SIGNED</div>
         <div class="company-info">
-            Generated on: {{ date('m/d/Y H:i') }}
+            Generated on: {{ formatNow('m/d/Y H:i') }}
         </div>
     </div>
     
@@ -180,7 +180,7 @@
                             @if($signature->signer_email)
                             <p style="margin: 5px 0;"><strong>Email:</strong> {{ $signature->signer_email }}</p>
                             @endif
-                            <p style="margin: 5px 0;"><strong>Date & Time:</strong> {{ date('m/d/Y H:i', strtotime($signature->signed_at)) }}</p>
+                            <p style="margin: 5px 0;"><strong>Date & Time:</strong> {{ formatDateWithTimezone($signature->signed_at) }}</p>
                             <p style="margin: 5px 0;"><strong>IP Address:</strong> {{ $signature->ip_address }}</p>
                         </div>
                     </td>
@@ -192,7 +192,7 @@
         </div>
         <div class="verification-info">
             <strong>Verification:</strong> This document was electronically signed using a secure digital signature system. 
-            The signature above is legally binding and was captured on {{ date('m/d/Y H:i', strtotime($signature->signed_at)) }} 
+            The signature above is legally binding and was captured on {{ formatDateWithTimezone($signature->signed_at) }} 
             from IP address {{ $signature->ip_address }}.
         </div>
     </div>
@@ -294,7 +294,7 @@
                 @endif
                 {{ $note['note'] }}
                 @if(!empty($note['created_at']))
-                <br/><small style="color: #999;">Added: {{ date('m/d/Y H:i', strtotime($note['created_at'])) }}</small>
+                <br/><small style="color: #999;">Added: {{ formatDateWithTimezone($note['created_at']) }}</small>
                 @endif
             </li>
             @endforeach

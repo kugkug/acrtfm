@@ -91,7 +91,7 @@ Route::middleware(['auth:sanctum', 'web'])->group(function () {
         Route::get('/{id}/edit', [ModulesController::class, 'edit_quote'])->name("quotes.edit");
     });
 
-    // Quotation E-Signature Routes
+    // Quote E-Signature Routes
     Route::prefix('quotation')->group(function () {
         Route::get('/{id}/sign', [QuoteController::class, 'showQuotationForSignature'])->name("quotation.sign");
         Route::post('/{id}/signature', [QuoteController::class, 'saveSignature'])->name("quotation.save-signature");

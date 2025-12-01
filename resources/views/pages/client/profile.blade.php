@@ -169,26 +169,26 @@
 
                                 <dt class="col-sm-4">Account Created:</dt>
                                 <dd class="col-sm-8">
-                                    {{ $user->created_at ? $user->created_at->format('F d, Y') : 'N/A' }}
+                                    {{ $user->created_at ? formatDateWithTimezone($user->created_at, 'F d, Y') : 'N/A' }}
                                     <small class="text-muted d-block">
-                                        {{ $user->created_at ? $user->created_at->format('h:i A') : '' }}
+                                        {{ $user->created_at ? formatDateWithTimezone($user->created_at, 'h:i A') : '' }}
                                     </small>
                                 </dd>
 
                                 <dt class="col-sm-4">Last Updated:</dt>
                                 <dd class="col-sm-8">
-                                    {{ $user->updated_at ? $user->updated_at->format('F d, Y') : 'N/A' }}
+                                    {{ $user->updated_at ? formatDateWithTimezone($user->updated_at, 'F d, Y') : 'N/A' }}
                                     <small class="text-muted d-block">
-                                        {{ $user->updated_at ? $user->updated_at->format('h:i A') : '' }}
+                                        {{ $user->updated_at ? formatDateWithTimezone($user->updated_at, 'h:i A') : '' }}
                                     </small>
                                 </dd>
 
                                 @if($user->email_verified_at)
                                     <dt class="col-sm-4">Email Verified:</dt>
                                     <dd class="col-sm-8">
-                                        {{ $user->email_verified_at->format('F d, Y') }}
+                                        {{ formatDateWithTimezone($user->email_verified_at, 'F d, Y') }}
                                         <small class="text-muted d-block">
-                                            {{ $user->email_verified_at->format('h:i A') }}
+                                            {{ formatDateWithTimezone($user->email_verified_at, 'h:i A') }}
                                         </small>
                                     </dd>
                                 @endif

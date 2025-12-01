@@ -6,13 +6,29 @@
         <div class="col-lg-12">
 
             <x-card > 
-                <x-input :attrib="[
-                    'name' => 'search',
-                    'placeholder' => 'Search work orders...',
-                    'dataKey' => 'search',
-                    'class' => 'form-control form-control-sm override-input',
-                ]" />
-
+                <div class="row">
+                    <div class="col-md-6">
+                        <x-input :attrib="[
+                            'name' => 'search',
+                            'placeholder' => 'Search work orders...',
+                            'dataKey' => 'search',
+                            'class' => 'form-control form-control-sm override-input',
+                        ]" />
+                    </div>
+                    <div class="col-md-6">
+                        <select 
+                            id="statusFilter" 
+                            name="status" 
+                            class="form-control form-control-sm"
+                            onchange="filterByStatus(this.value)"
+                        >
+                            <option value="">All Work Orders</option>
+                            <option value="active" {{ $status_filter === 'active' ? 'selected' : '' }}>Active</option>
+                            <option value="completed" {{ $status_filter === 'completed' ? 'selected' : '' }}>Completed</option>
+                            <option value="pending" {{ $status_filter === 'pending' ? 'selected' : '' }}>Pending</option>
+                        </select>
+                    </div>
+                </div>
             </x-card>
 
             @if(count($work_orders) > 0)
@@ -45,7 +61,7 @@
                                 'icon' => 'fa fa-file-pdf',
                                 'attrib' => [
                                     'class' => 'btn btn-default btn-sm text-success',
-                                    'title' => 'Generate Quotation',
+                                    'title' => 'Generate Quote',
                                     'href' => route('exec-work-orders-generate-quotation', $work_order['id']),
                                     'target' => '_blank',
                                 ],
@@ -97,3 +113,14 @@
 @include('partials.auth.footer')
 
 <script src="{{ asset('assets/acrtfm/js/modules/tech-dispatch/work-orders.js') }}"></script>
+<script>
+    function filterByStatus(status) {
+        const url = new URL(window.location.href);
+        if (status) {
+            url.searchParams.set('status', status);
+        } else {
+            url.searchParams.delete('status');
+        }
+        window.location.href = url.toString();
+    }
+</script>

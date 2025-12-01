@@ -28,9 +28,9 @@
                             <i class="fa fa-file-invoice-dollar mr-2"></i> Statement of Account
                         </h4>
                         <p class="text-muted mb-0">
-                            Issued on {{ \Carbon\Carbon::parse($statement->issued_at)->format('F d, Y') }}
+                            Issued on {{ formatDateWithTimezone($statement->issued_at, 'F d, Y') }}
                             @if($statement->due_at)
-                                &middot; Due {{ \Carbon\Carbon::parse($statement->due_at)->format('F d, Y') }}
+                                &middot; Due {{ formatDateWithTimezone($statement->due_at, 'F d, Y') }}
                             @endif
                         </p>
                     </div>
