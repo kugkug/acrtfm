@@ -41,6 +41,18 @@
                     :footer="$footer"
                     hr="yes"
                 >
+                    
+                    <x-input 
+                        :attrib="[
+                            'name' => 'name',
+                            'label' => 'Name',
+                            'data-key' => 'Name',
+                            'data' => '',
+                            'class' => 'form-control form-control-sm override-input',
+                            'data-validate' => 'name-or-company',
+                        ]"  
+                    />
+
                     <x-input 
                         :attrib="[
                             'name' => 'company',
@@ -48,25 +60,8 @@
                             'data-key' => 'Company',
                             'data' => '',
                             'class' => 'form-control form-control-sm override-input',
+                            'data-validate' => 'name-or-company',
                         ]"
-                    />
-                    <x-input 
-                        :attrib="[
-                            'name' => 'first_name',
-                            'label' => 'First Name',
-                            'data-key' => 'FirstName',
-                            'data' => '',
-                            'class' => 'form-control form-control-sm override-input',
-                        ]"  
-                    />
-                    <x-input 
-                        :attrib="[
-                            'name' => 'last_name',
-                            'label' => 'Last Name',
-                            'data-key' => 'LastName',
-                            'data' => '',
-                            'class' => 'form-control form-control-sm override-input',
-                        ]"                            
                     />
 
                     <x-input 

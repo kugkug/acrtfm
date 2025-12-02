@@ -39,11 +39,11 @@ class Customer extends Model
     }
 
     /**
-     * Get the customer's full name.
+     * Get the customer's display name (name or company).
      */
-    public function getFullNameAttribute(): string
+    public function getDisplayNameAttribute(): string
     {
-        return $this->first_name . ' ' . $this->last_name;
+        return $this->name ?: $this->company;
     }
 
     /**

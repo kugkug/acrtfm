@@ -86,9 +86,8 @@ class ValidatorHelper {
                 ];
             case 'customers-save':
                 return [
-                    'company' => 'sometimes|string|max:255',
-                    'first_name' => 'sometimes|string|max:255',
-                    'last_name' => 'sometimes|string|max:255',
+                    'name' => 'required_without:company|string|max:255',
+                    'company' => 'required_without:name|string|max:255',
                     'email' => 'sometimes|email|unique:customers',
                     'phone' => 'sometimes|string',
                     'address' => 'sometimes|string|max:255',
@@ -96,9 +95,8 @@ class ValidatorHelper {
                 ];
             case 'customers-update':
                 return [
+                    'name' => 'sometimes|string|max:255',
                     'company' => 'sometimes|string|max:255',
-                    'first_name' => 'sometimes|string|max:255',
-                    'last_name' => 'sometimes|string|max:255',
                     'email' => 'sometimes|email|unique:customers,email,' . $request->id,
                     'phone' => 'sometimes|string',
                     'address' => 'sometimes|string|max:255',

@@ -40,7 +40,7 @@
                             <div class="card shadow-sm border-0 mb-4">
                                 <div class="card-body">
                                     <h5 class="card-title text-secondary">Customer Information</h5>
-                                    <p class="mb-1"><strong>Customer:</strong> {{ $work_order['customer']['first_name'] ?? '' }} {{ $work_order['customer']['last_name'] ?? '' }}</p>
+                                    <p class="mb-1"><strong>Customer:</strong> {{ $work_order['customer']['name'] ?: $work_order['customer']['company'] }}</p>
                                     @if(!empty($work_order['customer']['email']))
                                         <p class="mb-1"><strong>Email:</strong> {{ $work_order['customer']['email'] }}</p>
                                     @endif

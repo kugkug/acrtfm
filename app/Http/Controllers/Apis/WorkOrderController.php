@@ -12,6 +12,25 @@ use Illuminate\Support\Facades\Storage;
 
 class WorkOrderController extends Controller
 {
+    /**
+     * Get work order with access control based on user type
+     */
+    private function getAuthorizedWorkOrder($id)
+    {
+        $query = WorkOrder::where('id', $id);
+        
+        // Filter by user type for access control
+        if (auth()->user()->user_type == config('acrtfm.user_types.company')) {
+            // Company users can only access work orders they created
+            $query->where('created_by', auth()->user()->id);
+        } else {
+            // Technician users can only access work orders assigned to them
+            $query->where('technician_id', auth()->user()->id);
+        }
+        
+        return $query->first();
+    }
+
     public function save(Request $request): JsonResponse {
         try {
             $user = auth()->user();
@@ -65,7 +84,15 @@ class WorkOrderController extends Controller
                 ]);
             }
             
-            $work_order = WorkOrder::where('id', $request->id)->first();
+            $work_order = $this->getAuthorizedWorkOrder($request->id);
+            
+            if (! $work_order) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Work Order not found or access denied',
+                ]);
+            }
+            
             $work_order->update($validated['validated']);
 
             return response()->json([
@@ -84,7 +111,15 @@ class WorkOrderController extends Controller
 
     public function delete($id, Request $request): JsonResponse {
         try {
-            $work_order = WorkOrder::where('id', $id)->first();
+            $work_order = $this->getAuthorizedWorkOrder($id);
+            
+            if (! $work_order) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Work Order not found or access denied',
+                ]);
+            }
+            
             $work_order->delete();
 
             return response()->json([
@@ -102,12 +137,12 @@ class WorkOrderController extends Controller
 
     public function add_photos(Request $request): JsonResponse {
         try {
-            $work_order = WorkOrder::where('id', $request->work_order_id)->first();
+            $work_order = $this->getAuthorizedWorkOrder($request->work_order_id);
 
             if (! $work_order) {
                 return response()->json([
                     'status' => false,
-                    'message' => 'Work Order not found',
+                    'message' => 'Work Order not found or access denied',
                 ]);
             }
 
@@ -155,12 +190,12 @@ class WorkOrderController extends Controller
 
     public function fetch_photos($id, Request $request): JsonResponse {
         try {
-            $work_order = WorkOrder::where('id', $id)->first();
+            $work_order = $this->getAuthorizedWorkOrder($id);
 
             if (! $work_order) {
                 return response()->json([
                     'status' => false,
-                    'message' => 'Work Order not found',
+                    'message' => 'Work Order not found or access denied',
         
                 ]);
             }
@@ -219,12 +254,12 @@ class WorkOrderController extends Controller
                 ]);
             }
             
-            $work_order = WorkOrder::where('id', $id)->first();
+            $work_order = $this->getAuthorizedWorkOrder($id);
             
             if (! $work_order) {
                 return response()->json([
                     'status' => false,
-                    'message' => 'Work Order not found',
+                    'message' => 'Work Order not found or access denied',
                 ]);
             }
 
@@ -252,12 +287,12 @@ class WorkOrderController extends Controller
 
     public function fetch_notes($id, Request $request): JsonResponse {
         try {
-            $work_order = WorkOrder::where('id', $id)->first();
+            $work_order = $this->getAuthorizedWorkOrder($id);
 
             if (! $work_order) {
                 return response()->json([
                     'status' => false,
-                    'message' => 'Work Order not found',
+                    'message' => 'Work Order not found or access denied',
                 ]);
             }
 

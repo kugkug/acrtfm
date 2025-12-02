@@ -203,7 +203,7 @@
         <table class="info-table">
             <tr>
                 <td class="label">Customer Name</td>
-                <td>{{ $work_order['customer']['first_name'] }} {{ $work_order['customer']['last_name'] }}</td>
+                <td>{{ $work_order['customer']['name'] ?: $work_order['customer']['company'] }}</td>
             </tr>
             @if(!empty($work_order['customer']['email']))
             <tr>

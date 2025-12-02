@@ -93,7 +93,7 @@
                 <h1>Quote Signature Request</h1>
             </div>
             <div class="content">
-                <h2>Hello {{ trim(($workOrder['customer']['first_name'] ?? '') . ' ' . ($workOrder['customer']['last_name'] ?? '')) ?: 'there' }},</h2>
+                <h2>Hello {{ $workOrder['customer']['name'] ?: $workOrder['customer']['company'] ?: 'there' }},</h2>
                 <p>
                     {{ ($sender?->name ?? config('app.name')) }} has prepared a quotation for you to review and sign online.
                 </p>

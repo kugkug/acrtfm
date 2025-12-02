@@ -449,8 +449,10 @@ class GlobalHelper {
             
             // Filter by user type
             if (auth()->user()->user_type == config('acrtfm.user_types.company')) {
-                // Company users see all work orders
+                // Company users see only work orders they created
+                $query->where('created_by', auth()->user()->id);
             } else {
+                // Technician users see only work orders assigned to them
                 $query->where('technician_id', auth()->user()->id);
             }
             
@@ -484,12 +486,25 @@ class GlobalHelper {
 
     public function getWorkOrder($id) {
         try {
-            $work_order = WorkOrder::where('id', $id)
-            ->with('customer')
-            ->with('photos')
-            ->with('notes')
-            ->with('statement')
-            ->first();
+            $query = WorkOrder::where('id', $id);
+            
+            // Filter by user type for access control (only if authenticated)
+            if (auth()->check()) {
+                if (auth()->user()->user_type == config('acrtfm.user_types.company')) {
+                    // Company users can only view work orders they created
+                    $query->where('created_by', auth()->user()->id);
+                } else {
+                    // Technician users can only view work orders assigned to them
+                    $query->where('technician_id', auth()->user()->id);
+                }
+            }
+            
+            $work_order = $query->with('customer')
+                ->with('photos')
+                ->with('notes')
+                ->with('statement')
+                ->first();
+                
             if ($work_order) {
                 return $work_order->toArray();
             }
@@ -504,7 +519,22 @@ class GlobalHelper {
     public function getWorkOrderStatement(int $work_order_id): array
     {
         try {
-            $statement = WorkOrderStatement::where('work_order_id', $work_order_id)->with('customer')->first();
+            $query = WorkOrderStatement::where('work_order_id', $work_order_id);
+            
+            // Filter by user access to the work order (only if authenticated)
+            if (auth()->check()) {
+                $query->whereHas('workOrder', function($q) {
+                    if (auth()->user()->user_type == config('acrtfm.user_types.company')) {
+                        // Company users can only view statements for work orders they created
+                        $q->where('created_by', auth()->user()->id);
+                    } else {
+                        // Technician users can only view statements for work orders assigned to them
+                        $q->where('technician_id', auth()->user()->id);
+                    }
+                });
+            }
+            
+            $statement = $query->with('customer')->first();
             if ($statement) {
                 return $statement->toArray();
             }

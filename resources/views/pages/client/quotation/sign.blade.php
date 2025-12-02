@@ -254,7 +254,7 @@
             <table class="info-table">
                 <tr>
                     <td class="label">Customer Name</td>
-                    <td>{{ $work_order['customer']['first_name'] }} {{ $work_order['customer']['last_name'] }}</td>
+                    <td>{{ $work_order['customer']['name'] ?: $work_order['customer']['company'] }}</td>
                 </tr>
                 @if(!empty($work_order['customer']['email']))
                 <tr>
@@ -381,7 +381,7 @@
                 <div class="form-group">
                     <label for="signer_name">Full Name <span style="color: red;">*</span></label>
                     <input type="text" id="signer_name" name="signer_name" class="form-control" required
-                           value="{{ $work_order['customer']['first_name'] ?? '' }} {{ $work_order['customer']['last_name'] ?? '' }}">
+                           value="{{ $work_order['customer']['name'] ?: $work_order['customer']['company'] }}">
                 </div>
                 
                 <div class="form-group">

@@ -31,7 +31,7 @@ class QuotationSignatureRequest extends Mailable
      */
     public function build(): self
     {
-        $customerName = trim(($this->workOrder['customer']['first_name'] ?? '') . ' ' . ($this->workOrder['customer']['last_name'] ?? ''));
+        $customerName = $this->workOrder['customer']['name'] ?? $this->workOrder['customer']['company'] ?? '';
         $subject = 'Quote Signature Request';
 
         if (!empty($customerName)) {

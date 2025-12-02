@@ -1,18 +1,28 @@
 // Initialize Google Places Autocomplete
 let autocomplete;
 function initAutocomplete() {
-    const billingAddressInput = document.getElementById('billing_address');
-    if (billingAddressInput && typeof google !== 'undefined' && google.maps && google.maps.places) {
-        autocomplete = new google.maps.places.Autocomplete(billingAddressInput, {
-            types: ['address'],
-            componentRestrictions: { country: ['us'] }, // Restrict to US addresses, remove if you want international
-            fields: ['formatted_address', 'address_components', 'geometry']
-        });
+    const billingAddressInput = document.getElementById("billing_address");
+    if (
+        billingAddressInput &&
+        typeof google !== "undefined" &&
+        google.maps &&
+        google.maps.places
+    ) {
+        autocomplete = new google.maps.places.Autocomplete(
+            billingAddressInput,
+            {
+                types: ["address"],
+                componentRestrictions: { country: ["us"] }, // Restrict to US addresses, remove if you want international
+                fields: ["formatted_address", "address_components", "geometry"],
+            }
+        );
 
-        autocomplete.addListener('place_changed', function() {
+        autocomplete.addListener("place_changed", function () {
             const place = autocomplete.getPlace();
             if (!place.geometry) {
-                console.warn("No details available for input: '" + place.name + "'");
+                console.warn(
+                    "No details available for input: '" + place.name + "'"
+                );
                 return;
             }
             // The place is already set in the input field by Google Places
@@ -26,10 +36,10 @@ function initAutocomplete() {
 // Fallback initialization if Google Maps API loads after document ready
 $(document).ready(function () {
     // Check if Google Maps API is already loaded
-    if (typeof google !== 'undefined' && google.maps && google.maps.places) {
+    if (typeof google !== "undefined" && google.maps && google.maps.places) {
         initAutocomplete();
     }
-    
+
     $("[data-trigger]").off();
     $("[data-trigger]").on("click", function (e) {
         e.preventDefault();
@@ -50,6 +60,32 @@ $(document).ready(function () {
                     return;
                 }
 
+                // Validate that at least name or company is provided
+                let nameInput = form.find('input[name="name"]');
+                let companyInput = form.find('input[name="company"]');
+                let nameValue = nameInput.val().trim();
+                let companyValue = companyInput.val().trim();
+
+                if (!nameValue && !companyValue) {
+                    nameInput
+                        .next("div.invalid-feedback")
+                        .text("Please provide either a Name or Company")
+                        .show();
+                    companyInput
+                        .next("div.invalid-feedback")
+                        .text("Please provide either a Name or Company")
+                        .show();
+                    _show_toastr(
+                        "error",
+                        "Please provide either a Name or Company",
+                        "Customer Error"
+                    );
+                    return;
+                } else {
+                    nameInput.next("div.invalid-feedback").hide();
+                    companyInput.next("div.invalid-feedback").hide();
+                }
+
                 formData = JSON.parse(_collectFields(form));
 
                 ajaxRequest("/executor/customers/save", formData, "");
@@ -64,6 +100,33 @@ $(document).ready(function () {
                     );
                     return;
                 }
+
+                // Validate that at least name or company is provided
+                let nameInputUpdate = form.find('input[name="name"]');
+                let companyInputUpdate = form.find('input[name="company"]');
+                let nameValueUpdate = nameInputUpdate.val().trim();
+                let companyValueUpdate = companyInputUpdate.val().trim();
+
+                if (!nameValueUpdate && !companyValueUpdate) {
+                    nameInputUpdate
+                        .next("div.invalid-feedback")
+                        .text("Please provide either a Name or Company")
+                        .show();
+                    companyInputUpdate
+                        .next("div.invalid-feedback")
+                        .text("Please provide either a Name or Company")
+                        .show();
+                    _show_toastr(
+                        "error",
+                        "Please provide either a Name or Company",
+                        "Customer Error"
+                    );
+                    return;
+                } else {
+                    nameInputUpdate.next("div.invalid-feedback").hide();
+                    companyInputUpdate.next("div.invalid-feedback").hide();
+                }
+
                 formData = JSON.parse(_collectFields(form));
                 ajaxRequest(
                     "/executor/customers/" + cust_id + "/update",

@@ -25,7 +25,7 @@ class WorkOrderStatementController extends Controller
         $workOrder = globalHelper()->getWorkOrder($id);
 
         if (empty($workOrder)) {
-            return redirect()->route('work-orders')->with('error', 'Work Order not found');
+            return redirect()->route('work-orders')->with('error', 'Work Order not found or access denied');
         }
 
         $statement = WorkOrderStatement::where('work_order_id', $id)->first();
@@ -46,7 +46,7 @@ class WorkOrderStatementController extends Controller
         $workOrder = globalHelper()->getWorkOrder($id);
 
         if (empty($workOrder)) {
-            return redirect()->route('work-orders')->with('error', 'Work Order not found');
+            return redirect()->route('work-orders')->with('error', 'Work Order not found or access denied');
         }
 
         if (WorkOrderStatement::where('work_order_id', $id)->exists()) {
@@ -139,7 +139,7 @@ class WorkOrderStatementController extends Controller
         $workOrder = globalHelper()->getWorkOrder($id);
 
         if (empty($workOrder)) {
-            return redirect()->route('work-orders')->with('error', 'Work Order not found');
+            return redirect()->route('work-orders')->with('error', 'Work Order not found or access denied');
         }
 
         $statement = WorkOrderStatement::where('work_order_id', $id)->first();

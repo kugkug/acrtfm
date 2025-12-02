@@ -112,7 +112,7 @@
                 <tbody>
                     <tr>
                         <td width="50%">
-                            <strong>{{ $work_order['customer']['first_name'] ?? '' }} {{ $work_order['customer']['last_name'] ?? '' }}</strong><br>
+                            <strong>{{ $work_order['customer']['name'] ?: $work_order['customer']['company'] }}</strong><br>
                             @if(!empty($work_order['customer']['email']))
                                 Email: {{ $work_order['customer']['email'] }}<br>
                             @endif

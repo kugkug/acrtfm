@@ -40,7 +40,7 @@
                     <div class="row">
                         <div class="col-md-12">
                             @php
-                                $name = ucwords(strtolower($customer['first_name'] . ' ' . $customer['last_name']));
+                                $name = $customer['name'] ? ucwords(strtolower($customer['name'])) : ucwords(strtolower($customer['company']));
                                 $company = $customer['company'];
                                 $email = $customer['email'];
                                 $phone = $customer['phone'];

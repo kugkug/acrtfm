@@ -80,7 +80,7 @@
                         ];
                         
                         $title = $work_order['title'];                        
-                        $customer_name = $work_order['customer']['first_name'] . ' ' . $work_order['customer']['last_name'];
+                        $customer_name = $work_order['customer']['name'] ?: $work_order['customer']['company'];
                     @endphp
 
                     <x-card

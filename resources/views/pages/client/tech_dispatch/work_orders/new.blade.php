@@ -28,11 +28,11 @@
     foreach($customers as $customer) {
         $filtered_customers[] = [
             'id' => $customer['id'],
-            // if company is empty show first name or email
+            // if company is empty show name or email
             'label' => !empty($customer['company'])
                 ? $customer['company']
-                : (!empty($customer['first_name'])
-                    ? $customer['first_name']
+                : (!empty($customer['name'])
+                    ? $customer['name']
                     : $customer['email']),
         ];
     }

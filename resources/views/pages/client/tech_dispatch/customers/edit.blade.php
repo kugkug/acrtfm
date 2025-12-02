@@ -38,36 +38,28 @@
                 >
                     <x-input 
                         :attrib="[
+                            'name' => 'name',
+                            'label' => 'Name',
+                            'data-key' => 'Name',
+                            'data' => '',
+                            'class' => 'form-control form-control-sm override-input',
+                            'data-validate' => 'name-or-company',
+                            'data-default' => $customer['name'],
+                            'value' => $customer['name'],
+                        ]"  
+                    />
+
+                    <x-input 
+                        :attrib="[
                             'name' => 'company',
                             'label' => 'Company',
                             'data-key' => 'Company',
-                            'data' => 'req',
+                            'data' => '',
                             'class' => 'form-control form-control-sm override-input',
+                            'data-validate' => 'name-or-company',
                             'data-default' => $customer['company'],
                             'value' => $customer['company'],
                         ]"
-                    />
-                    <x-input 
-                        :attrib="[
-                            'name' => 'first_name',
-                            'label' => 'First Name',
-                            'data-key' => 'FirstName',
-                            'data' => 'req',
-                            'class' => 'form-control form-control-sm override-input',
-                            'data-default' => $customer['first_name'],
-                            'value' => $customer['first_name'],
-                        ]"  
-                    />
-                    <x-input 
-                        :attrib="[
-                            'name' => 'last_name',
-                            'label' => 'Last Name',
-                            'data-key' => 'LastName',
-                            'data' => 'req',
-                            'class' => 'form-control form-control-sm override-input',
-                            'data-default' => $customer['last_name'],
-                            'value' => $customer['last_name'],
-                        ]"                            
                     />
 
                     <x-input 
