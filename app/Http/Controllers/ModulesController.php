@@ -10,8 +10,13 @@ class ModulesController extends Controller
     private $data = [];
 
     public function __construct() {
+        $theme = 'light';
+        if (auth()->check()) {
+            $theme = auth()->user()->theme ?? 'light';
+        }
+        
         $this->data = [
-            'theme' => 'light',
+            'theme' => $theme,
             'root_url' => URL::current(),
         ];
     }

@@ -90,6 +90,10 @@ class ResponseHelper {
             case 'profile-updated':
                 $script = "location.reload();";
                 break;
+            case 'theme-toggled':
+                $theme = $data['theme'] ?? 'light';
+                $script = "_applyTheme('".$theme."');";
+                break;
             case 'accomplishment-added':
             case 'accomplishment-deleted':
 

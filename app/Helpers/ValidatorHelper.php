@@ -192,6 +192,7 @@ class ValidatorHelper {
                     'address' => 'sometimes|string',
                     'contact_person' => 'sometimes|string|max:255',
                     'company_code' => 'sometimes|string',
+                    'theme' => 'sometimes|string|in:light,dark',
                 ];
         }
     }

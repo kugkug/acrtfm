@@ -197,6 +197,34 @@
                     </div>
                 </div>
 
+                <!-- Preferences -->
+                <div class="col-md-6 mb-4">
+                    <div class="card shadow-sm border-0">
+                        <div class="card-header bg-light">
+                            <h5 class="mb-0">
+                                <i class="fa fa-palette mr-2"></i>Preferences
+                            </h5>
+                        </div>
+                        <div class="card-body">
+                            <dl class="row mb-0">
+                                <dt class="col-sm-4">Theme:</dt>
+                                <dd class="col-sm-8">
+                                    @php
+                                        $currentTheme = $user->theme ?? 'light';
+                                    @endphp
+                                    <span class="badge {{ $currentTheme == 'dark' ? 'badge-dark' : 'badge-light' }}">
+                                        <i class="fa {{ $currentTheme == 'dark' ? 'fa-moon' : 'fa-sun' }} mr-1"></i>
+                                        {{ ucfirst($currentTheme) }}
+                                    </span>
+                                    <small class="text-muted d-block mt-1">
+                                        You can change this in the edit profile modal
+                                    </small>
+                                </dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+
                 <!-- Additional Information -->
                 <div class="col-md-6 mb-4">
                     <div class="card shadow-sm border-0">
@@ -422,6 +450,27 @@
                 </div>
             </div>
         @endif
+
+        {{-- Theme Selection (for all user types) --}}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="form-group">
+                    <label class="form-label">Theme</label>
+                    <select 
+                        name="theme" 
+                        class="form-control form-control-sm override-input override-select"
+                        data-key="Theme"
+                    >
+                        <option value="light" {{ ($user->theme ?? 'light') == 'light' ? 'selected' : '' }}>
+                            Light
+                        </option>
+                        <option value="dark" {{ ($user->theme ?? 'light') == 'dark' ? 'selected' : '' }}>
+                            Dark
+                        </option>
+                    </select>
+                </div>
+            </div>
+        </div>
         
 </x-modal>
 
@@ -440,6 +489,7 @@
         address: @json($user->address ?? ''),
         first_name: @json($user->first_name ?? ''),
         last_name: @json($user->last_name ?? ''),
+        theme: @json($user->theme ?? 'light'),
     };
 </script>
 <script src="{{ asset('assets/acrtfm/js/modules/profile.js') }}"></script>

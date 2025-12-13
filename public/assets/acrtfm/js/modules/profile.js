@@ -49,6 +49,9 @@ function populateEditProfileModal(userData) {
             addressField.val(userData.address || "");
         }
     }
+    if (userData.theme !== undefined) {
+        $("#editProfileModal select[name='theme']").val(userData.theme || "light");
+    }
 }
 
 /**

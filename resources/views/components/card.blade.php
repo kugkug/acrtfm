@@ -9,22 +9,51 @@
                 <h5 class="card-title">{!! $title !!}</h5>
 
                 @if($tools && !empty($tools))
-                    <div class="card-tools">   
-                        
-                        @foreach($tools as $tool)
-                            @php
-                                $type = $tool['type'];
-                                $text = $tool['text'];
-                                $icon = $tool['icon'];
-                                $attrib = $tool['attrib'];
-                            @endphp
-                            <x-button
-                                :text="$text"
-                                :icon="$icon"
-                                :type="$type"
-                                :attrib="$attrib"
-                            />
-                        @endforeach
+                    <div class="card-tools">
+
+                        <div class='d-sm-block d-md-none d-lg-none d-xl-none'>
+                            <div class='basic-dropdown float-right'>
+                                <div class='dropleft'>
+                                    <button type='button' class='btn mb-1 btn-rounded btn-outline-info' data-toggle='dropdown'>
+                                        <i class='fa fa-ellipsis-v'></i>
+                                    </button>
+                                    <div class='dropdown-menu'>
+                                        @foreach($tools as $tool)
+                                            @php
+                                                $type = $tool['type'];
+                                                $text = $tool['text'];
+                                                $icon = $tool['icon'];
+                                                $attrib = $tool['attrib'];
+                                            @endphp
+                                            <x-button
+                                                :text="$text"
+                                                :icon="$icon"
+                                                :type="$type"
+                                                :attrib="$attrib"
+                                            />
+                                        @endforeach
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class='d-none d-sm-none d-md-block d-lg-block d-xl-block'>
+
+                            @foreach($tools as $tool)
+                                @php
+                                    $type = $tool['type'];
+                                    $text = $tool['text'];
+                                    $icon = $tool['icon'];
+                                    $attrib = $tool['attrib'];
+                                @endphp
+                                <x-button
+                                    :text="$text"
+                                    :icon="$icon"
+                                    :type="$type"
+                                    :attrib="$attrib"
+                                />
+                            @endforeach
+                        </div>
                     </div>
                 @endif
             </div>
