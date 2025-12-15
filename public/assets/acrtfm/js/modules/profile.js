@@ -87,6 +87,15 @@ $(document).ready(function () {
                 formData = JSON.parse(_collectFields(form));
                 ajaxRequest("/executor/profile/update", formData, "");
                 break;
+            case "change-password":
+                formData = JSON.parse(_collectFields(form));
+                ajaxRequest("/executor/profile/change-password", formData, "");
+                break;
         }
+    });
+
+    // Clear change password form when modal is hidden
+    $("#changePasswordModal").on("hidden.bs.modal", function () {
+        $("#changePasswordModal form")[0].reset();
     });
 });

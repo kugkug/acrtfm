@@ -6,9 +6,13 @@ namespace App\Http\Controllers\Apis;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Mail\EmailVerification;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\URL;
 
 class AccountController extends Controller
 {
@@ -54,9 +58,22 @@ class AccountController extends Controller
                 ]);
             }
 
+            // Send email verification
+            $verificationUrl = URL::temporarySignedRoute(
+                'verification.verify',
+                now()->addHours(24),
+                ['id' => $user->id, 'hash' => sha1($user->email)]
+            );
+
+            try {
+                Mail::to($user->email)->send(new EmailVerification($user, $verificationUrl));
+            } catch (\Exception $e) {
+                logInfo('Failed to send verification email: ' . $e->getMessage());
+            }
+
             return response()->json([
                 'status' => true,
-                'message' => 'User created successfully',
+                'message' => 'User created successfully. Please check your email to verify your account.',
                 'user' => $user
             ], 200);    
 
@@ -95,7 +112,20 @@ class AccountController extends Controller
                 return response()->json(['status' => false, 'message' => 'Failed to create user'], 500);
             }
 
-            return response()->json(['status' => true, 'message' => 'User created successfully', 'user' => $user], 200);    
+            // Send email verification
+            $verificationUrl = URL::temporarySignedRoute(
+                'verification.verify',
+                now()->addHours(24),
+                ['id' => $user->id, 'hash' => sha1($user->email)]
+            );
+
+            try {
+                Mail::to($user->email)->send(new EmailVerification($user, $verificationUrl));
+            } catch (\Exception $e) {
+                logInfo('Failed to send verification email: ' . $e->getMessage());
+            }
+
+            return response()->json(['status' => true, 'message' => 'User created successfully. Please check your email to verify your account.', 'user' => $user], 200);    
         }
         catch (\Exception $e) {
             logInfo($e->getTraceAsString());
@@ -179,6 +209,151 @@ class AccountController extends Controller
             return response()->json([
                 'status' => false,
                 'message' => $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function verifyEmail(Request $request, $id, $hash): JsonResponse|RedirectResponse
+    {
+        try {
+            $user = User::findOrFail($id);
+
+            // Check if already verified
+            if ($user->hasVerifiedEmail()) {
+                if ($request->expectsJson()) {
+                    return response()->json([
+                        'status' => true,
+                        'message' => 'Email already verified'
+                    ], 200);
+                }
+                return redirect()->route('login')->with('message', 'Email already verified');
+            }
+
+            // Verify the hash matches
+            if (!hash_equals((string) $hash, sha1($user->email))) {
+                if ($request->expectsJson()) {
+                    return response()->json([
+                        'status' => false,
+                        'message' => 'Invalid verification link'
+                    ], 400);
+                }
+                return redirect()->route('login')->with('error', 'Invalid verification link');
+            }
+
+            // Mark email as verified
+            if ($user->markEmailAsVerified()) {
+                if ($request->expectsJson()) {
+                    return response()->json([
+                        'status' => true,
+                        'message' => 'Email verified successfully'
+                    ], 200);
+                }
+                return redirect()->route('login')->with('message', 'Email verified successfully. You can now login.');
+            }
+
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Failed to verify email'
+                ], 500);
+            }
+            return redirect()->route('login')->with('error', 'Failed to verify email');
+        } catch (\Exception $e) {
+            logInfo($e->getTraceAsString());
+            if ($request->expectsJson()) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Verification failed: ' . $e->getMessage()
+                ], 500);
+            }
+            return redirect()->route('login')->with('error', 'Verification failed. Please try again.');
+        }
+    }
+
+    public function resendVerificationEmail(Request $request): JsonResponse
+    {
+        try {
+            $user = auth()->user();
+
+            if (!$user) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'User not authenticated'
+                ], 401);
+            }
+
+            if ($user->hasVerifiedEmail()) {
+                return response()->json([
+                    'status' => true,
+                    'message' => 'Email already verified'
+                ], 200);
+            }
+
+            // Generate verification URL
+            $verificationUrl = URL::temporarySignedRoute(
+                'verification.verify',
+                now()->addHours(24),
+                ['id' => $user->id, 'hash' => sha1($user->email)]
+            );
+
+            // Send verification email
+            Mail::to($user->email)->send(new EmailVerification($user, $verificationUrl));
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Verification email sent successfully'
+            ], 200);
+        } catch (\Exception $e) {
+            logInfo($e->getTraceAsString());
+            return response()->json([
+                'status' => false,
+                'message' => 'Failed to send verification email: ' . $e->getMessage()
+            ], 500);
+        }
+    }
+
+    public function changePassword(Request $request): JsonResponse
+    {
+        try {
+            $validated = validatorHelper()->validate('change-password', $request);
+            
+            if(! $validated['status']) {
+                return response()->json([
+                    'status' => false,
+                    'message' => $validated['response']
+                ], 400);
+            }
+
+            $user = auth()->user();
+
+            if (!$user) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'User not authenticated'
+                ], 401);
+            }
+
+            // Verify current password
+            if (!Hash::check($validated['validated']['current_password'], $user->password)) {
+                return response()->json([
+                    'status' => false,
+                    'message' => 'Current password is incorrect'
+                ], 400);
+            }
+
+            // Update password
+            $user->password = Hash::make($validated['validated']['password']);
+            $user->save();
+
+            return response()->json([
+                'status' => true,
+                'message' => 'Password changed successfully'
+            ], 200);
+        } catch (\Exception $e) {
+            logInfo($e->getTraceAsString());
+            return response()->json([
+                'status' => false,
+                'message' => 'Failed to change password: ' . $e->getMessage()
             ], 500);
         }
     }

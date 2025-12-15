@@ -24,6 +24,11 @@ Route::prefix('account')->group(function () {
 });
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::prefix('account')->group(function () {
+        Route::post('/email/resend-verification', [AccountController::class, 'resendVerificationEmail'])->name("api-email-resend-verification");
+        Route::post('/change-password', [AccountController::class, 'changePassword'])->name("api-change-password");
+    });
+
     Route::prefix('profile')->group(function () {
         Route::post('/update', [AccountController::class, 'updateProfile'])->name("api-profile-update");
     });

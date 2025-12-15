@@ -194,6 +194,12 @@ class ValidatorHelper {
                     'company_code' => 'sometimes|string',
                     'theme' => 'sometimes|string|in:light,dark',
                 ];
+            case 'change-password':
+                return [
+                    'current_password' => 'required|string',
+                    'password' => 'required|string|min:8|confirmed',
+                    'password_confirmation' => 'required|string|min:8',
+                ];
         }
     }
 }

@@ -133,4 +133,28 @@ class AccountController extends Controller
             return globalHelper()->ajaxErrorResponse($e->getMessage());
         }
     }
+
+    public function changePassword(Request $request): JsonResponse{
+        try {
+            $api_response = apiHelper()->post($request, route('api-change-password'));
+            
+            if(! $api_response['status']) {
+                return globalHelper()->ajaxErrorResponse($api_response['message']);
+            }
+
+            return globalHelper()->ajaxSuccessResponse(
+                'scripts',
+                'success',
+                'password-changed',
+                'Password changed successfully',
+                'System Info',
+                [
+                    'modal_selector' => '#changePasswordModal',
+                ]
+            );
+        } catch (\Exception $e) {
+            logInfo($e->getTraceAsString());
+            return globalHelper()->ajaxErrorResponse($e->getMessage());
+        }
+    }
 }

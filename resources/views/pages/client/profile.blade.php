@@ -46,11 +46,20 @@
                                 <div class="col-md-2 text-right">
                                     <button 
                                         type="button" 
-                                        class="btn btn-primary btn-sm" 
+                                        class="btn btn-primary btn-sm mb-2" 
                                         data-toggle="modal" 
                                         data-target="#editProfileModal"
                                     >
                                         <i class="fa fa-edit mr-1"></i>Edit Profile
+                                    </button>
+                                    <br>
+                                    <button 
+                                        type="button" 
+                                        class="btn btn-warning btn-sm" 
+                                        data-toggle="modal" 
+                                        data-target="#changePasswordModal"
+                                    >
+                                        <i class="fa fa-key mr-1"></i>Change Password
                                     </button>
                                 </div>
                             </div>
@@ -471,6 +480,93 @@
                 </div>
             </div>
         </div>
+        
+</x-modal>
+
+<!-- Change Password Modal -->
+@php
+    $changePasswordFooter = [
+        [
+            'type' => 'button',
+            'text' => 'Change Password',
+            'icon' => 'fa fa-key',
+            'attrib' => [
+                'class' => 'btn btn-success btn-flat',
+                'title' => 'Change Password',
+                'data-trigger' => 'change-password',
+            ],
+        ],
+        [
+            'type' => 'button',
+            'text' => 'Cancel',
+            'icon' => 'fa fa-times',
+            'attrib' => [
+                'class' => 'btn btn-danger btn-flat',
+                'title' => 'Cancel',
+                'data-dismiss' => 'modal',
+            ],
+        ]
+    ];
+@endphp
+
+<x-modal 
+    title="Change Password"
+    :footer="$changePasswordFooter"
+    :attrib="
+    [
+        'class' => 'modal-dialog modal-dialog-centered', 
+        'id' => 'changePasswordModal'
+    ]"
+>    
+    <div class="row">
+        <div class="col-md-12">
+            <x-input 
+                :attrib="[
+                    'name' => 'current_password',
+                    'label' => 'Current Password',
+                    'type' => 'password',
+                    'data-key' => 'CurrentPassword',
+                    'class' => 'form-control form-control-sm override-input',
+                    'required' => true,
+                ]"
+            />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <x-input 
+                :attrib="[
+                    'name' => 'password',
+                    'label' => 'New Password',
+                    'type' => 'password',
+                    'data-key' => 'Password',
+                    'class' => 'form-control form-control-sm override-input',
+                    'required' => true,
+                ]"
+            />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-12">
+            <x-input 
+                :attrib="[
+                    'name' => 'password_confirmation',
+                    'label' => 'Confirm New Password',
+                    'type' => 'password',
+                    'data-key' => 'PasswordConfirmation',
+                    'class' => 'form-control form-control-sm override-input',
+                    'required' => true,
+                ]"
+            />
+        </div>
+    </div>
+
+    <div class="alert alert-info mt-3">
+        <i class="fa fa-info-circle mr-2"></i>
+        <small>Password must be at least 8 characters long.</small>
+    </div>
         
 </x-modal>
 

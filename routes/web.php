@@ -18,6 +18,9 @@ Route::get('/register', [ModulesController::class, 'register'])->name("register"
 Route::get('/company/register', [ModulesController::class, 'registerCompany'])->name("register-company");
 Route::get('/technician/register', [ModulesController::class, 'registerTechnician'])->name("register-technician");
 
+// Email verification route
+Route::get('/email/verify/{id}/{hash}', [\App\Http\Controllers\Apis\AccountController::class, 'verifyEmail'])->name("verification.verify");
+
 
 
 Route::get('/mobile-app', function() {
@@ -137,6 +140,7 @@ Route::middleware(['auth:sanctum', 'web'])->group(function () {
 
         Route::prefix('profile')->group(function () {
             Route::post('/update', [AccountController::class, 'updateProfile'])->name("exec-profile-update");
+            Route::post('/change-password', [AccountController::class, 'changePassword'])->name("exec-change-password");
         });
 
         Route::prefix('model-lookup')->group(function () {
