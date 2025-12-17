@@ -513,6 +513,157 @@ input[type="file"]::file-selector-button {
     transition: transform 0.1s !important;
 }
 
+/* Sidebar menu icon color */
+:root {
+    --acrtfm-menu-icon-color: #7571f9;
+    --acrtfm-menu-icon-color-hover: #5f5af6;
+
+    /* Page titles text */
+    --acrtfm-page-title-color: #111827;
+    --acrtfm-page-subtitle-color: #6b7280;
+}
+
+[data-theme-version="dark"] {
+    --acrtfm-menu-icon-color: #aeb7ff;
+    --acrtfm-menu-icon-color-hover: #ffffff;
+
+    --acrtfm-page-title-color: #ffffff;
+    --acrtfm-page-subtitle-color: #cbd5e1;
+}
+
+.page-titles {
+    color: var(--acrtfm-page-title-color) !important;
+}
+.page-titles h1,
+.page-titles h2,
+.page-titles h3 {
+    color: var(--acrtfm-page-title-color) !important;
+}
+.page-titles .module-description {
+    color: var(--acrtfm-page-subtitle-color) !important;
+}
+
+.nk-sidebar .metismenu i.menu-icon {
+    color: var(--acrtfm-menu-icon-color) !important;
+}
+
+.nk-sidebar .metismenu > li:hover i.menu-icon,
+.nk-sidebar .metismenu > li:focus i.menu-icon,
+.nk-sidebar .metismenu > li.active i.menu-icon,
+.nk-sidebar .metismenu a:hover i.menu-icon,
+.nk-sidebar .metismenu a:active i.menu-icon,
+.nk-sidebar .metismenu a.active i.menu-icon {
+    color: var(--acrtfm-menu-icon-color-hover) !important;
+}
+
+/* "Menu cards" icons (e.g., Home page shortcuts) */
+i.icon-action {
+    color: var(--acrtfm-menu-icon-color) !important;
+}
+
+/* Per-menu-icon colors (add these classes on the <i>) */
+.menu-icon--home {
+    --acrtfm-menu-icon-color: #0d6efd;
+    --acrtfm-menu-icon-color-hover: #0b5ed7;
+}
+.menu-icon--model-lookup {
+    --acrtfm-menu-icon-color: #6f42c1;
+    --acrtfm-menu-icon-color-hover: #5a32a3;
+}
+.menu-icon--education {
+    --acrtfm-menu-icon-color: #20c997;
+    --acrtfm-menu-icon-color-hover: #199d76;
+}
+.menu-icon--job-sites {
+    --acrtfm-menu-icon-color: #fd7e14;
+    --acrtfm-menu-icon-color-hover: #dc6400;
+}
+.menu-icon--troubleshooter {
+    --acrtfm-menu-icon-color: #dc3545;
+    --acrtfm-menu-icon-color-hover: #b02a37;
+}
+.menu-icon--nitrogen-calculator {
+    --acrtfm-menu-icon-color: #0dcaf0;
+    --acrtfm-menu-icon-color-hover: #0aa2c0;
+}
+.menu-icon--tech-dispatch {
+    --acrtfm-menu-icon-color: #198754;
+    --acrtfm-menu-icon-color-hover: #146c43;
+}
+.menu-icon--tech-dispatch-dashboard {
+    --acrtfm-menu-icon-color: #17a2b8;
+    --acrtfm-menu-icon-color-hover: #117a8b;
+}
+.menu-icon--tech-dispatch-customers {
+    --acrtfm-menu-icon-color: #ffc107;
+    --acrtfm-menu-icon-color-hover: #d39e00;
+}
+.menu-icon--tech-dispatch-work-orders,
+.menu-icon--work-orders {
+    --acrtfm-menu-icon-color: #6610f2;
+    --acrtfm-menu-icon-color-hover: #520dc2;
+}
+.menu-icon--tech-dispatch-technicians {
+    --acrtfm-menu-icon-color: #6c757d;
+    --acrtfm-menu-icon-color-hover: #545b62;
+}
+.menu-icon--tech-dispatch-quotes {
+    --acrtfm-menu-icon-color: #e83e8c;
+    --acrtfm-menu-icon-color-hover: #c1266b;
+}
+
+[data-theme-version="dark"] {
+    .menu-icon--home {
+        --acrtfm-menu-icon-color: #8bb9ff;
+        --acrtfm-menu-icon-color-hover: #ffffff;
+    }
+    .menu-icon--model-lookup {
+        --acrtfm-menu-icon-color: #c3a6ff;
+        --acrtfm-menu-icon-color-hover: #ffffff;
+    }
+    .menu-icon--education {
+        --acrtfm-menu-icon-color: #7cf1cf;
+        --acrtfm-menu-icon-color-hover: #ffffff;
+    }
+    .menu-icon--job-sites {
+        --acrtfm-menu-icon-color: #ffb070;
+        --acrtfm-menu-icon-color-hover: #ffffff;
+    }
+    .menu-icon--troubleshooter {
+        --acrtfm-menu-icon-color: #ff8b97;
+        --acrtfm-menu-icon-color-hover: #ffffff;
+    }
+    .menu-icon--nitrogen-calculator {
+        --acrtfm-menu-icon-color: #76e3ff;
+        --acrtfm-menu-icon-color-hover: #ffffff;
+    }
+    .menu-icon--tech-dispatch {
+        --acrtfm-menu-icon-color: #7ee2b8;
+        --acrtfm-menu-icon-color-hover: #ffffff;
+    }
+    .menu-icon--tech-dispatch-dashboard {
+        --acrtfm-menu-icon-color: #7bd5e3;
+        --acrtfm-menu-icon-color-hover: #ffffff;
+    }
+    .menu-icon--tech-dispatch-customers {
+        --acrtfm-menu-icon-color: #ffe08a;
+        --acrtfm-menu-icon-color-hover: #ffffff;
+    }
+    .menu-icon--tech-dispatch-work-orders,
+    .menu-icon--work-orders {
+        --acrtfm-menu-icon-color: #c4a4ff;
+        --acrtfm-menu-icon-color-hover: #ffffff;
+    }
+    .menu-icon--tech-dispatch-technicians {
+        --acrtfm-menu-icon-color: #c9d1d9;
+        --acrtfm-menu-icon-color-hover: #ffffff;
+    }
+    .menu-icon--tech-dispatch-quotes {
+        --acrtfm-menu-icon-color: #ff9fcb;
+        --acrtfm-menu-icon-color-hover: #ffffff;
+    }
+}
+
 #system-loader {
     width: 100vw;
     height: 100vh;

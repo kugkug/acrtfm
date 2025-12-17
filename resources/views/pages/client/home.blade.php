@@ -10,7 +10,7 @@
                         <h2 class=""></h2>
                         <p class=" mb-0">Find a model</p>
                     </div>
-                    <span class="float-right display-5 opacity-5"><i class="fa fa-magnifying-glass icon-action"></i></span>
+                    <span class="float-right display-5 opacity-5"><i class="fa fa-magnifying-glass icon-action menu-icon--model-lookup"></i></span>
                 </div>
             </div>
         </div>
@@ -22,7 +22,7 @@
                         <h2 class=""></h2>
                         <p class=" mb-0">Watch educational videos</p>
                     </div>
-                    <span class="float-right display-5 opacity-5"><i class="fa fa-video icon-action"></i></span>
+                    <span class="float-right display-5 opacity-5"><i class="fa fa-video icon-action menu-icon--education"></i></span>
                 </div>
             </div>
         </div>
@@ -34,7 +34,7 @@
                         <h2 class=""></h2>
                         <p class=" mb-0">Job Sites</p>
                     </div>
-                    <span class="float-right display-5 opacity-5"><i class="fa fa-building icon-action"></i></span>
+                    <span class="float-right display-5 opacity-5"><i class="fa fa-building icon-action menu-icon--job-sites"></i></span>
                 </div>
             </div>
         </div>
@@ -62,7 +62,7 @@
                             <h2 class=""></h2>
                             <p class=" mb-0">AC Basic Troubleshooter</p>
                         </div>
-                        <span class="float-right display-5 opacity-5"><i class="fa fa-tools icon-action"></i></span>
+                        <span class="float-right display-5 opacity-5"><i class="fa fa-tools icon-action menu-icon--troubleshooter"></i></span>
                     </div>
                 </div>
             </a>
@@ -76,7 +76,7 @@
                             <h2 class=""></h2>
                             <p class=" mb-0">Nitrogen Calculator</p>
                         </div>
-                        <span class="float-right display-5 opacity-5"><i class="fa fa-calculator icon-action"></i></span>
+                        <span class="float-right display-5 opacity-5"><i class="fa fa-calculator icon-action menu-icon--nitrogen-calculator"></i></span>
                     </div>
                 </div>
             </a>
@@ -91,7 +91,7 @@
                             <h2 class=""></h2>
                             <p class=" mb-0">Manage dispatch operations</p>
                         </div>
-                        <span class="float-right display-5 opacity-5"><i class="fa fa-truck-fast icon-action"></i></span>
+                        <span class="float-right display-5 opacity-5"><i class="fa fa-truck-fast icon-action menu-icon--tech-dispatch"></i></span>
                     </div>
                 </div>
             </div>

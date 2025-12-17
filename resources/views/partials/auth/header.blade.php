@@ -108,7 +108,7 @@
         <div class="content-body">  
             <div class="row page-titles mx-0">
                 <div class="col-8">
-                    <h3 class="">{{ $title }}</h3>
+                    <h3 class="page-title">{{ $title }}</h3>
                     <p class="module-description">{{ $description }}</p>
                 </div>
                 <div class="col-4 p-md-0">
